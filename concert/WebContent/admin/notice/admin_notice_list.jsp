@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
 <style>
 section {
 	text-align: center;
@@ -24,6 +25,9 @@ td:last-child {
 </style>
 </head>
 <body>
+	<!-- header -->
+	<jsp:include page="../../header.jsp"></jsp:include>
+
 	<section>
 		<div>
 			<table>

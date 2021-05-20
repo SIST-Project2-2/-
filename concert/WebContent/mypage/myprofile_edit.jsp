@@ -38,57 +38,80 @@ tr:last-child>td {
 </style>
 </head>
 <body>
+	<!-- header -->
+	<jsp:include page="../header.jsp"></jsp:include>
+
 	<section>
 		<div>
 			<table>
 				<tr>
-					<th><label>아이디</label></th>
+					<th>
+						<label>아이디</label>
+					</th>
 					<td>
 						<input type="text">
 				</tr>
 				<tr>
-					<th><label>비밀번호</label></th>
+					<th>
+						<label>비밀번호</label>
+					</th>
 					<td>
 						<input type="password">
 				</tr>
 				<tr>
-					<th><label>비밀번호 확인</label></th>
+					<th>
+						<label>비밀번호 확인</label>
+					</th>
 					<td>
 						<input type="password">
 				</tr>
 				<tr>
-					<th><label>닉네임</label></th>
+					<th>
+						<label>닉네임</label>
+					</th>
 					<td>
 						<input type="text">
 				</tr>
 				<tr>
-					<th><label>이름</label></th>
+					<th>
+						<label>이름</label>
+					</th>
 					<td>
 						<input type="text">
 				</tr>
 				<tr>
-					<th><label>성별</label></th>
+					<th>
+						<label>성별</label>
+					</th>
 					<td>
 						<input type="text">
 				</tr>
 				<tr>
-					<th><label>생년월일</label></th>
+					<th>
+						<label>생년월일</label>
+					</th>
 					<td>
 						<input type="text">
 				</tr>
 				<tr>
-					<th><label>핸드폰</label></th>
+					<th>
+						<label>핸드폰</label>
+					</th>
 					<td class="phone">
 						<input type="text">-<input type="text">-<input type="text">
 				</tr>
 				<tr>
-					<th><label>주소</label></th>
+					<th>
+						<label>주소</label>
+					</th>
 					<td>
 						<input type="text">
 					</td>
 				</tr>
 				<tr>
-					<th><label> </label></th>
+					<th>
+						<label> </label>
+					</th>
 					<td>
 						<input type="text">
 					</td>
