@@ -6,34 +6,13 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
 <style>
-section {
-	text-align: center;
+* {
+	border: 1px solid black;
+	margin: 1px;
 }
 
-section>div {
-	display: inline-block;
-	width: 600px;
-}
-
-input {
-	width: 100%;
-}
-
-th>label {
-	display: inline-block;
-	width: 110px;
-}
-
-td {
-	width: 380px;
-}
-
-td.phone>input {
-	width: 30%;
-}
-
-tr:last-child>td {
-	text-align: right;
+table {
+	border-collapse: collapse;
 }
 </style>
 </head>
@@ -43,88 +22,100 @@ tr:last-child>td {
 
 	<section>
 		<div>
-			<table>
-				<tr>
-					<th>
-						<label>아이디</label>
-					</th>
-					<td>
-						<input type="text">
-				</tr>
-				<tr>
-					<th>
-						<label>비밀번호</label>
-					</th>
-					<td>
-						<input type="password">
-				</tr>
-				<tr>
-					<th>
-						<label>비밀번호 확인</label>
-					</th>
-					<td>
-						<input type="password">
-				</tr>
-				<tr>
-					<th>
-						<label>닉네임</label>
-					</th>
-					<td>
-						<input type="text">
-				</tr>
-				<tr>
-					<th>
-						<label>이름</label>
-					</th>
-					<td>
-						<input type="text">
-				</tr>
-				<tr>
-					<th>
-						<label>성별</label>
-					</th>
-					<td>
-						<input type="text">
-				</tr>
-				<tr>
-					<th>
-						<label>생년월일</label>
-					</th>
-					<td>
-						<input type="text">
-				</tr>
-				<tr>
-					<th>
-						<label>핸드폰</label>
-					</th>
-					<td class="phone">
-						<input type="text">-<input type="text">-<input type="text">
-				</tr>
-				<tr>
-					<th>
-						<label>주소</label>
-					</th>
-					<td>
-						<input type="text">
-					</td>
-				</tr>
-				<tr>
-					<th>
-						<label> </label>
-					</th>
-					<td>
-						<input type="text">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<button>회원가입</button>
-						<button>취소</button>
-					</td>
-				</tr>
-
-			</table>
+			<h1>마이페이지</h1>
 		</div>
+		<form>
+			<div>
+				<table>
+					<tr>
+						<p>대 한 민 국 REPUBLIC OF KOREA</p>
+					</tr>
+					<tr>
+						<table>
+							<tr>
+								<td>
+									<h1>여권 PASSPORT</h1>
+								</td>
+								<td>
+									<h3>여권번호/Passport number</h3>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img alt="" src="../images/장범준.jpg" width="150px">
+								</td>
+								<td>
+									<table>
+										<tr>
+											<td></td>
+											<td rowspan="7">
+												<div>
+													<p>주소/Address</p>
+													<input type="text" value="대구 북구 서변동 4933-24번지">
+												</div>
+												<div>
+													<p>예매날짜/Date of issue</p>
+													<input type="date">
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>ID</p>
+												<p>rkdwlstmf1</p>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>닉네임</p>
+												<input type="text" value="무아무아루">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>성/Surname</p>
+												<input type="text" value="KANG">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>이름/Given name</p>
+												<input type="text" value="JINSEUL">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>생년월일/Date of birth</p>
+												<input type="date">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<p>휴대폰 번호</p>
+												<select name="phone">
+													<option value="">선택</option>
+													<option value="010">010</option>
+													<option value="011">011</option>
+												</select>-<input type="text" value="5258">-<input type="text" value="7376">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<button>예매내역 확인</button>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</tr>
+					<tr></tr>
+				</table>
+			</div>
+			<div>
+				<button type="button" onclick="location.href='myprofile_info.jsp'">확인</button>
+			</div>
+		</form>
 	</section>
 </body>
 </html>

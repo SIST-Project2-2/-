@@ -24,7 +24,7 @@ table {
 		<div>
 			<h1>마이페이지</h1>
 		</div>
-		<div>
+		<form>
 			<div>
 				<table>
 					<tr>
@@ -97,7 +97,7 @@ table {
 										</tr>
 										<tr>
 											<td>
-												<button>예매내역 확인</button>
+												<button type="button" onclick="location.href='myticketlist.jsp'">예매내역 확인</button>
 											</td>
 										</tr>
 									</table>
@@ -109,10 +109,10 @@ table {
 				</table>
 			</div>
 			<div>
-				<button>수정하기</button>
-				<button>탈퇴하기</button>
+				<button type="button" onclick="location.href='myprofile_edit.jsp'">수정하기</button>
+				<button type="button" onclick="location.href='accountdelete.jsp'">탈퇴하기</button>
 			</div>
-		</div>
+		</form>
 	</section>
 </body>
 </html>

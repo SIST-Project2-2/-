@@ -6,21 +6,13 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
 <style>
-section {
-	text-align: center;
+* {
+	border: 1px solid black;
+	margin: 1px;
 }
 
-div {
-	display: inline-block;
-}
-
-td>* {
-	display: inline-block;
-	text-align: center;
-}
-
-td:last-child {
-	text-align: right;
+table {
+	border-collapse: collapse;
 }
 </style>
 </head>

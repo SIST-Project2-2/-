@@ -6,18 +6,13 @@
 <title>로그인 페이지</title>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
 <style>
-section {
-	text-align: center;
+* {
+	border: 1px solid black;
+	margin: 1px;
 }
 
-div {
-	display: inline-block;
-}
-
-td>* {
-	width: 300px;
-	display: inline-block;
-	text-align: center;
+table {
+	border-collapse: collapse;
 }
 </style>
 </head>
@@ -26,7 +21,7 @@ td>* {
 	<jsp:include page="../header.jsp"></jsp:include>
 
 	<section>
-		<div>
+		<form>
 			<table>
 				<tr>
 					<td>
@@ -50,11 +45,11 @@ td>* {
 				</tr>
 				<tr>
 					<td>
-						<button>계정이 없으신가요? 간편하게 가입하기</button>
+						<button type="button" onclick="location.href='../join/join.jsp'">계정이 없으신가요? 간편하게 가입하기</button>
 					</td>
 				</tr>
 			</table>
-		</div>
+		</form>
 	</section>
 </body>
 </html>
