@@ -4,115 +4,115 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
-<style>
-* {
-	border: 1px solid black;
-	margin: 1px;
-}
-
-table {
-	border-collapse: collapse;
-}
-</style>
 </head>
 <body>
 	<!-- header -->
 	<jsp:include page="../header.jsp"></jsp:include>
 
-	<section>
-		<div>
-			<h1>마이페이지</h1>
+	<div class="row">
+		<div class="col-10 container">
+			<p class="font-weight-bold text-left" style="font-size: 40px;">마이페이지</p>
 		</div>
-		<form>
-			<div>
-				<table>
-					<tr>
-						<p>대 한 민 국 REPUBLIC OF KOREA</p>
-					</tr>
-					<tr>
-						<table>
-							<tr>
-								<td>
-									<h1>여권 PASSPORT</h1>
-								</td>
-								<td>
-									<h3>여권번호/Passport number</h3>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img alt="" src="../images/장범준.jpg" width="150px">
-								</td>
-								<td>
-									<table>
-										<tr>
-											<td></td>
-											<td rowspan="7">
-												<div>
-													<p>주소/Address</p>
-													<p>대구 북구 서변동 4933-24번지</p>
-												</div>
-												<div>
-													<p>예매날짜/Date of issue</p>
-													<p>04 MAY 2022</p>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<p>ID</p>
-												<p>rkdwlstmf1</p>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<p>닉네임</p>
-												<p>무아무아루</p>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<p>성/Surname</p>
-												<p>KANG</p>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<p>이름/Given name</p>
-												<p>JINSEUL</p>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<p>생년월일/Date of birth</p>
-												<p>11 AUG 1997</p>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<p>휴대폰 번호</p>
-												<p>010-5258-7376</p>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<button type="button" onclick="location.href='myticketlist.jsp'">예매내역 확인</button>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-					</tr>
-					<tr></tr>
-				</table>
+	</div>
+	<div class="container border" style="border-radius: 15px;">
+		<div class="row">
+			<div class="col-12 bg-info text-center" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">대 한 민 국 REPUBLIC OF KOREA</div>
+		</div>
+		<div class="row">
+			<div class="col-4">
+				<div class="row">
+					<div class="col text-center font-weight-bold" style="padding: 10px;">여권 PASSPORT</div>
+				</div>
+				<div class="row">
+					<div class="col container align-middle">
+						<img class="w-100" alt="" src="../images/장범준.jpg">
+					</div>
+				</div>
 			</div>
-			<div>
-				<button type="button" onclick="location.href='myprofile_edit.jsp'">수정하기</button>
-				<button type="button" onclick="location.href='accountdelete.jsp'">탈퇴하기</button>
+			<div class="col-8">
+				<div class="row">
+					<div class="col-6"></div>
+					<div class="col-6">
+						<p>여권번호/Passport number</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<p>ID</p>
+						<p class="font-weight-bold">rkdwlstmf1</p>
+					</div>
+					<div class="col-6"></div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<p>닉네임</p>
+						<p class="font-weight-bold">무아무아루</p>
+					</div>
+					<div class="col-6"></div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<p>성/Surname</p>
+						<p class="font-weight-bold">KANG</p>
+					</div>
+					<div class="col-6">
+						<p>주소/Address</p>
+						<p class="font-weight-bold">대구 북구 서변동 4933-24번지</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<p>이름/Given name</p>
+						<p class="font-weight-bold">JINSEUL</p>
+					</div>
+					<div class="col-6"></div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<p>생년월일/Date of birth</p>
+						<p class="font-weight-bold">11 AUG 1997</p>
+					</div>
+					<div class="col-6">
+						<p>예매날짜/Date of issue</p>
+						<p class="font-weight-bold">04 MAY 2022</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<p>휴대폰 번호</p>
+						<p class="font-weight-bold">010-5258-7376</p>
+					</div>
+					<div class="col-6"></div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<a href="myticketlist.jsp" class="btn btn-primary">예매내역 확인</a>
+
+					</div>
+					<div class="col-6"></div>
+				</div>
 			</div>
-		</form>
-	</section>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>WEKVOSXOEMWO&lt;&lt;DJFIWMD:PS&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>M238905890239849085973297501M379823948902734974932V48052385324</p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-11 text-right">
+			<a href="myprofile_edit.jsp" class="btn btn-light">수정하기</a> <a href="accountdelete.jsp" class="btn btn-light">탈퇴하기</a>
+		</div>
+	</div>
 </body>
 </html>
