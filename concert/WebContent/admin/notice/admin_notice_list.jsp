@@ -14,11 +14,11 @@
 	<jsp:include page="../../header.jsp"></jsp:include>
 
 	<section class="container text-center">
-		<table class="table table-hover">
+		<table class="table table-hover table-sm">
 			<thead>
 				<tr>
-					<th scope="col">글 번호</th>
-					<th scope="col">제목</th>
+					<th scope="col">번호</th>
+					<th scope="col" class="text-left">제목</th>
 					<th scope="col">조회수</th>
 					<th scope="col">작성자</th>
 					<th scope="col">작성일자</th>
@@ -33,9 +33,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -44,9 +44,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="2">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="2">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -55,9 +55,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="3">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="3">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -66,9 +66,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="4">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="4">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -77,9 +77,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="5">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="5">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -88,9 +88,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="6">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="6">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -99,9 +99,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="7">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="7">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -110,9 +110,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="8">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="8">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -121,9 +121,9 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="9">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="9">삭제</a>
 					</td>
 				</tr>
 				<tr>
@@ -132,22 +132,22 @@
 					<td>10</td>
 					<td>이창민</td>
 					<td>2021-05-20 19:16</td>
-					<td><a class="btn btn-light" href="admin_notice_edit.jsp">수정</a></td>
+					<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a></td>
 					<td>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="10">삭제</button>
+						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="10">삭제</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="text-right">
-			<a href="admin_notice_add.jsp" class="btn btn-primary">글쓰기</a>
+			<a href="admin_notice_add.jsp" class="btn-sm btn-primary">글쓰기</a>
 		</div>
 		<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
 			<li class="page-item"><a class="page-link" href="#">1</a></li>
 			<li class="page-item"><a class="page-link" href="#">2</a></li>
 			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
 		</ul>
 	</section>
 
@@ -156,13 +156,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">New message</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<a type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
-					</button>
+					</a>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-danger">삭제</button>
+					<a type="button" class="btn-sm btn-secondary" data-dismiss="modal">취소</a>
+					<a type="button" class="btn-sm btn-danger">삭제</a>
 				</div>
 			</div>
 		</div>
