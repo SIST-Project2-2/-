@@ -5,10 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css"> <!-- css 파일 경로 넣기! -->
-<link rel="stylesheet" href="http://localhost:9000/concert/bootstrap-5.0.1/css/bootstrap.css">
-<script src="http://localhost:9000/concert/bootstrap-5.0.1/js/bootstrap.js"></script>
+<link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
+<script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
 <script src=""></script> <!-- js 파일 경로 넣기! -->
+<style>
+	.card {
+		width: 250px; height: 420px;
+	}
+</style>
 </head>
 <body>
 	<!-- header -->
@@ -17,51 +23,93 @@
 	<section class="container text-center" id="content_notice_list">
 		<!-- 공지사항 목록 검색 -->
 		<form class="row justify-content-end" name="notice_list_search_form" id="notice_list_search_form">
-			<div class="col-4">
+			<div class="col-6 d-block">
 				<div class="input-group input-group-sm">
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
-					<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+					<div class="input-group-append">
+						<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+					</div>
+				</div>
+			</div>
+			<div class="row text-right">
+				<div class="col-4">
+					<small class="text-left text-dark">가수</small>
+					<select class="form-control-sm">
+						<option>장범준</option>
+						<option>잔나비</option>
+						<option>10cm</option>
+						<option>현아</option>
+						<option>아이유</option>
+					</select>
+				</div>
+				<div class="col-4">
+					<small class="text-left text-dark">날짜</small>
+					<select class="form-control-sm">
+						<option>21년05월24일</option>
+						<option>21년05월25일</option>
+						<option>21년05월26일</option>
+					</select>
 				</div>
 			</div>
 		</form>
 		<!-- 공지사항 목록 -->
-		<table class="table table-hover" id="notice_list_table">
-			<!-- 공지사항 제목 조회수 등등 목록으로 나타내기 -->
-			<thead>
-				<tr>
-					<th class="col-1" scope="col">번호</th>
-					<th class="col-7" scope="col">제목</th>
-					<th class="col-2" scope="col">조회수</th>
-					<th class="col-2" scope="col">날짜</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td scope="row">1</td>
-					<td><a class="text-reset text-decoration-none" href="#">공지입니다</a></td>
-					<td>123</td>
-					<td>2021-05-21</td>
-				</tr>
-				<tr>
-					<td scope="row">2</td>
-					<td><a class="text-reset text-decoration-none" href="#">공지입니다</a></td>
-					<td>123</td>
-					<td>2021-05-21</td>
-				</tr>
-				<tr>
-					<td scope="row">3</td>
-					<td><a class="text-reset text-decoration-none" href="#">공지입니다</a></td>
-					<td>123</td>
-					<td>2021-05-21</td>
-				</tr>
-				<tr>
-					<td scope="row">4</td>
-					<td><a class="text-reset text-decoration-none" href="#">공지입니다</a></td>
-					<td>123</td>
-					<td>2021-05-21</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="container text-left">
+			<div class="card d-inline-block">
+				<img class="card-img-top" src="../images/장범준.jpg">
+				<div class="card-body font-weight-bold">
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<h4 class="card-title text-left">공지사항입니다</h4>
+					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
+					<p class="card-text text-left text-dark">2021-05-24</p>
+				</div>
+			</div>
+			<div class="card d-inline-block">
+				<img class="card-img-top" src="../images/장범준.jpg">
+				<div class="card-body font-weight-bold">
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<h4 class="card-title text-left">공지사항입니다</h4>
+					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
+					<p class="card-text text-left text-dark">2021-05-24</p>
+				</div>
+			</div>
+			<div class="card d-inline-block">
+				<img class="card-img-top" src="../images/장범준.jpg">
+				<div class="card-body font-weight-bold">
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<h4 class="card-title text-left">공지사항입니다</h4>
+					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
+					<p class="card-text text-left text-dark">2021-05-24</p>
+				</div>
+			</div>
+			<div class="card d-inline-block">
+				<img class="card-img-top" src="../images/장범준.jpg">
+				<div class="card-body font-weight-bold">
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
+					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<h4 class="card-title text-left">공지사항입니다</h4>
+					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
+					<p class="card-text text-left text-dark">2021-05-24</p>
+				</div>
+			</div>
+			<div class="card d-inline-block">
+				<img class="card-img-top" src="../images/장범준.jpg">
+				<div class="card-body font-weight-bold">
+					<a href="#" class="card-link bg-dark text-white small p-1">#일정1</a>
+					<a href="#" class="card-link bg-dark text-white small p-1">#일정2</a>
+					<a href="#" class="card-link bg-dark text-white small p-1">#일정3</a>
+					<h4 class="card-title text-left">공지사항입니다</h4>
+					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
+					<p class="card-text text-left text-dark">2021-05-24</p>
+				</div>
+			</div>
+		</div>
 		<!-- 페이지 이동 버튼 목록 -->
 		<nav class="">
 		  <ul class="pagination justify-content-center">
