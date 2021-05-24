@@ -4,6 +4,39 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 - 프로필 수정</title>
+<script type="text/javascript">
+	window.onload = function() {
+
+		var personal_code = document.getElementById("personal_code");
+		var serial_code = document.getElementById("serial_code");
+
+		generate_personal_code();
+		generate_serial_code();
+
+		function generate_serial_code() {
+			var text = "";
+			// 임의로 만든 시리얼 코드. 무작위 코드로 변환이 필요함
+			text += "M238905890239849085973297501M379823948902734974932V48052385324";
+			for (var i = 0; i < 100; i++) {
+				text += "&lt;";
+			}
+			serial_code.innerHTML = text;
+		}
+
+		function generate_personal_code() {
+			var text = "";
+			text += document.getElementById("id").value;
+			text += document.getElementById("nickname").value;
+			text += document.getElementById("surname").value;
+			text += "&lt;&lt;";
+			text += document.getElementById("given_name").value;
+			for (var i = 0; i < 100; i++) {
+				text += "&lt;";
+			}
+			personal_code.innerHTML = text;
+		}
+	}
+</script>
 </head>
 <body>
 	<!-- header -->
@@ -30,7 +63,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<p>ID</p>
-									<input type="text" class="form-control" value="rkdwlstmf1" placeholder="성/Surname" disabled>
+									<input type="text" class="form-control" value="rkdwlstmf1" placeholder="아이디" id="id" disabled>
 								</div>
 							</div>
 							<div class="row">
@@ -87,8 +120,8 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<p>WEKVOSXOEMWO&lt;&lt;DJFIWMD:PS&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
-							<p>M238905890239849085973297501M379823948902734974932V48052385324</p>
+							<p id="personal_code" class="text-nowrap overflow-hidden text-uppercase">Personal code</p>
+							<p id="serial_code" class="text-nowrap overflow-hidden text-uppercase">Serial code</p>
 						</div>
 					</div>
 				</div>
