@@ -4,11 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
 </head>
 <body>
 	<!-- header -->
@@ -34,7 +33,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -45,7 +46,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -56,7 +59,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -67,7 +72,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -78,7 +85,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -89,7 +98,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -100,7 +111,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -111,7 +124,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -122,7 +137,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -133,7 +150,9 @@
 					<td>장범준</td>
 					<td>2021-05-20</td>
 					<td>대구</td>
-					<td><a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a></td>
+					<td>
+						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
+					</td>
 					<td>
 						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
 					</td>
@@ -144,11 +163,21 @@
 			<a href="admin_concert_add.jsp" class="btn-sm btn-primary">콘서트 등록</a>
 		</div>
 		<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+			<li class="page-item">
+				<a class="page-link" href="#">&lt;</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">1</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">2</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">3</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="#">&gt;</a>
+			</li>
 		</ul>
 	</div>
 

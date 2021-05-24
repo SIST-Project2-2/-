@@ -4,10 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
 			<form class="text-center">
 				<div class="form-group">
 					<label class="font-weight-bold" style="font-size: 40px;">로그인</label>
-					<p class="border border-dark bg-dark text-dark" style="padding:3px;"></p>
+					<p class="border border-dark bg-dark text-dark" style="padding: 3px;"></p>
 					<input type="text" class="form-control" placeholder="아이디" id="id">
 				</div>
 				<div class="form-group">
