@@ -3,18 +3,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
+<title>관리자 - 콘서트 목록</title>
 </head>
 <body>
 	<!-- header -->
 	<jsp:include page="../../header.jsp"></jsp:include>
 
-	<div class="container text-center">
-		<table class="table table-hover table-sm">
+	<div class="container">
+		<h1 class="font-weight-bold text-left">콘서트 목록</h1>
+		<table class="table table-hover table-sm text-center">
 			<thead>
 				<tr>
 					<th scope="col">번호</th>

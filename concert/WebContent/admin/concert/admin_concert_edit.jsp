@@ -3,11 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
+<title>관리자 - 콘서트 수정</title>
 <script type="text/javascript">
 	window.onload = function() {
 		var artist = document.getElementById("artist");
@@ -18,14 +14,14 @@
 			artist.options[i].selected = false;
 		}
 		artist.options[1].selected = true;
-		
+
 		date.value = "2021-05-30";
-		
+
 		for (var i = 1; i < count.length; i++) {
 			count.options[i].selected = false;
 		}
 		count.options[1].selected = true;
-		
+
 	}
 </script>
 </head>

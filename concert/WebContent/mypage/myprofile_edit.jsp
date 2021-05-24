@@ -3,8 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<title>마이페이지 - 프로필 수정</title>
 </head>
 <body>
 	<!-- header -->
@@ -12,7 +11,7 @@
 
 	<form action="#">
 		<div class="container">
-			<p class="font-weight-bold text-left" style="font-size: 40px;">마이페이지</p>
+			<h1 class="font-weight-bold text-left">프로필 수정</h1>
 			<div class="row">
 				<div class="col-md-12 container border overflow-hidden" style="border-radius: 15px;">
 					<div class="row">
