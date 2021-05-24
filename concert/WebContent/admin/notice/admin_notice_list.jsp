@@ -25,7 +25,7 @@
 					+ '	<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>'
 					+ '</td>'
 					+ '<td>'
-					+ '	<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>'
+					+ '	<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="'+i+'">삭제</a>'
 					+ '</td>' + '</tr>';
 		}
 	}
@@ -40,7 +40,7 @@
 		<form action="#">
 			<div class="row">
 				<div class="col-md-6 input-group mb-3 container">
-					<input type="text" class="form-control" placeholder="Search" name="search" id="search">
+					<input type="text" class="form-control" placeholder="Search" name="search" id="search" required="required">
 					<div class="input-group-append">
 						<button class="btn btn-outline-dark" type="submit">검색</button>
 					</div>
