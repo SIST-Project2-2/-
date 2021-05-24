@@ -5,10 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css"> <!-- css 파일 경로 넣기! -->
-<link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
-<script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
 <script src=""></script> <!-- js 파일 경로 넣기! -->
 <style>
 	.card {
@@ -57,9 +53,9 @@
 			<div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<kbd>#일정1</kbd>
+					<kbd>#일정2</kbd>
+					<kbd>#일정3</kbd>
 					<h4 class="card-title text-left">공지사항입니다</h4>
 					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
 					<p class="card-text text-left text-dark">2021-05-24</p>
@@ -68,9 +64,9 @@
 			<div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<kbd>#일정1</kbd>
+					<kbd>#일정2</kbd>
+					<kbd>#일정3</kbd>
 					<h4 class="card-title text-left">공지사항입니다</h4>
 					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
 					<p class="card-text text-left text-dark">2021-05-24</p>
@@ -79,9 +75,9 @@
 			<div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<kbd>#일정1</kbd>
+					<kbd>#일정2</kbd>
+					<kbd>#일정3</kbd>
 					<h4 class="card-title text-left">공지사항입니다</h4>
 					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
 					<p class="card-text text-left text-dark">2021-05-24</p>
@@ -90,9 +86,9 @@
 			<div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정1</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정2</p>
-					<p class="card-text d-inline-block bg-dark text-white small p-1">#일정3</p>
+					<kbd>#일정1</kbd>
+					<kbd>#일정2</kbd>
+					<kbd>#일정3</kbd>
 					<h4 class="card-title text-left">공지사항입니다</h4>
 					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
 					<p class="card-text text-left text-dark">2021-05-24</p>
@@ -101,9 +97,9 @@
 			<div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
-					<a href="#" class="card-link bg-dark text-white small p-1">#일정1</a>
-					<a href="#" class="card-link bg-dark text-white small p-1">#일정2</a>
-					<a href="#" class="card-link bg-dark text-white small p-1">#일정3</a>
+					<kbd>#일정1</kbd>
+					<kbd>#일정2</kbd>
+					<kbd>#일정3</kbd>
 					<h4 class="card-title text-left">공지사항입니다</h4>
 					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
 					<p class="card-text text-left text-dark">2021-05-24</p>

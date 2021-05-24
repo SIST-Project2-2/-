@@ -5,9 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css"> <!-- css 파일 경로 넣기! -->
-<link rel="stylesheet" href="http://localhost:9000/concert/bootstrap-5.0.1/css/bootstrap.css">
-<script src="http://localhost:9000/concert/bootstrap-5.0.1/js/bootstrap.js"></script>
 <script src=""></script> <!-- js 파일 경로 넣기! -->
 </head>
 <body>
@@ -20,16 +17,22 @@
 			<!-- 제목 -->
 			<thead>
 				<tr>
-					<th class="col-1">1</th>
-					<th class="col-7">공지입니다</th>
-					<th class="col-2">123</th>
-					<th class="col-2">2021-05-21</th>
+					<th class="text-left">
+						<div>
+							<kbd>일정1</kbd>
+							<kbd>일정2</kbd>
+							<kbd>일정3</kbd>
+						</div>
+						<h2 class="text-weight-bold">공지입니다</h2>
+						<small>2021.05.21</small>
+					</th>
 				</tr>
 			</thead>
 			<!-- 내용 -->
 			<tbody>
 				<tr>
 					<td colspan="4" style="text-align:left;">
+						<img class="img-fluid" src="../images/장범준.jpg"><br>
 						공지입니다~~~<br>
 						공지입니다~~~<br>
 						공지입니다~~~<br>
@@ -39,11 +42,13 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="row" style="border: 1px solid red;">
-			<div class="justify-content-end">
+		<!-- 
+		<div class="row">
+			<div class="text-right">
 				<button type="button" class="btn btn-primary" id="notice_info_back">목록으로</button>
 			</div>
 		</div>
+		-->
 	</section>
 </body>
 </html>
