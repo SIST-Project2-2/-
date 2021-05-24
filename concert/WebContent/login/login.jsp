@@ -15,17 +15,17 @@
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="row">
 		<div class="container col-sm-6">
-			<form class="text-center">
+			<form class="text-center" action="#" method="get">
 				<div class="form-group">
 					<label class="font-weight-bold" style="font-size: 40px;">로그인</label>
 					<p class="border border-dark bg-dark text-dark" style="padding: 3px;"></p>
-					<input type="text" class="form-control" placeholder="아이디" id="id">
+					<input type="text" class="form-control" placeholder="아이디" id="id" name="id" required="required">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="비밀번호" id="pw">
+					<input type="password" class="form-control" placeholder="비밀번호" id="pw" name="pw" required="required">
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-primary btn-block text-white bg-dark border-dark">로그인하기</button>
+					<button type="submit" class="btn btn-primary btn-block text-white bg-dark border-dark">로그인하기</button>
 				</div>
 				<div class="form-group">
 					<a href="../join/join.jsp" class="btn btn-primary btn-block rounded-pill text-dark bg-white border-dark">계정이 없으신가요? 간편하게 가입하기</a>
