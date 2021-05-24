@@ -8,6 +8,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
+<script type="text/javascript">
+	window.onload = function() {
+		var table_body = document.getElementById("table_body");
+
+		for (var i = 1; i <= 10; i++) {
+			table_body.innerHTML += '<tr>'
+					+ '<th scope="row">'
+					+ i
+					+ '</th>'
+					+ '<td class="text-left">공지사항입니다123</td>'
+					+ '<td>10</td>'
+					+ '<td>이창민</td>'
+					+ '<td>2021-05-20 19:16</td>'
+					+ '<td>'
+					+ '	<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>'
+					+ '</td>'
+					+ '<td>'
+					+ '	<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>'
+					+ '</td>' + '</tr>';
+		}
+	}
+</script>
 </head>
 <body>
 	<!-- header -->
@@ -37,137 +59,7 @@
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td class="text-left">공지사항입니다123</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="2">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="3">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">4</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="4">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">5</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="5">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">6</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="6">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">7</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="7">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">8</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="8">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">9</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="9">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">10</th>
-					<td class="text-left">공지사항입니다</td>
-					<td>10</td>
-					<td>이창민</td>
-					<td>2021-05-20 19:16</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_notice_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="10">삭제</a>
-					</td>
-				</tr>
+			<tbody id="table_body">
 			</tbody>
 		</table>
 		<div class="text-right">
