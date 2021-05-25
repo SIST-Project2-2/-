@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="join.css">
 </head>
 <body>
-    <form name="joinForm" action="#" method="GET">
-    <div class="joinID">
+    <form name="joinForm" action="http://localhost:9000/concert/join/join_pass.html" method="GET">
+    <div class="joinID form-group">
         <h1>가입하기</h1>
         <label for="file"></label>
         <progress id="file" value="20" max="100"> 15% </progress>
         <div>로그인에 사용할 아이디를 입력해주세요</div>
-        <input type="text" name="id" id="id" required placeholder="아이디 입력">
-        <button type="submit" onclick="passPage()">다음</button>
+        <input type="text" name="id" id="id" class="form-control" placeholder="아이디 입력" required="required">
+        <button type="submit">다음</button>
     </div>
 </form>
 
