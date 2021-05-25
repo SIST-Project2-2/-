@@ -1,0 +1,49 @@
+/*회원가입 */
+<!--  -->
+div.joinID{
+    width:30%;
+    margin: auto;
+    margin-top: 10%;
+}
+div.joinID>h1{
+    text-align: center;
+}
+div.joinID>progress{
+    width: 80%;
+    height: 20px;
+    margin-left:30px;
+}
+
+div.joinID>div{
+    font-size:14px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+div.joinID input{
+    width:94%;
+    height: 30px;
+}
+div.joinID button{
+    display: inline-block;
+    text-align: center;
+    background-color: black;
+    border:1px solid black;
+    color: white;
+    text-align: bold;
+    width: 97%;
+    height: 40px;
+    margin-top: 30px;
+}
+div.joinID input[type="password"]{
+    margin-top:20px;
+}
+div.joinID div input[type="text"]{
+    margin-top: 20px;;
+}
+div.joinID div.hp input{
+    display:inline;
+    width:20%;
+}
+div.joinID div{
+    text-align: center;
+}

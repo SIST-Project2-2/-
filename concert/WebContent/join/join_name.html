@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>name</title>
+    <script defer src="join.js"></script>
+    <link rel="stylesheet" href="join.css">
+</head>
+<body>
+    <form name="joinForm" action="#" method="GET"> 
+        <div class="joinID">    
+            <h1>가입하기</h1>
+            <label for="file"></label>
+            <progress id="file" value="60" max="100"> 60% </progress>
+            <div>
+                <div>이름과 주소를 입력해주세요</div>
+            <input type="text" name="name" id="name" required placeholder="이름 입력">
+            <input type="text" name="addr" id="addr" required placeholder="주소입력" readonly>
+            <input type="text" name="daddr" id="daddr" required placeholder="상세주소입력"> <!--daddr == detail address-->
+            </div>
+            <button type="submit" onclick="hpPage()">다음</button>
+        </div>
+    </form>
+</body>
+</html>
