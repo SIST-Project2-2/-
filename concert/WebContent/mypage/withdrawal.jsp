@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- header -->
+<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,9 +8,6 @@
 <title>마이페이지 - 회원탈퇴</title>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../header.jsp"></jsp:include>
-
 	<div class="container">
 		<h1 class="font-weight-bold text-left">회원탈퇴</h1>
 		<div class="row  text-center">

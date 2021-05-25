@@ -1,47 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- header -->
+<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 - 프로필 수정</title>
 <script type="text/javascript">
-	window.onload = function() {
+	$(document)
+			.ready(
+					function() {
 
-		var personal_code = document.getElementById("personal_code");
-		var serial_code = document.getElementById("serial_code");
+						var personal_code = document
+								.getElementById("personal_code");
+						var serial_code = document
+								.getElementById("serial_code");
 
-		generate_personal_code();
-		generate_serial_code();
+						generate_personal_code();
+						generate_serial_code();
 
-		function generate_serial_code() {
-			var text = "";
-			// 임의로 만든 시리얼 코드. 무작위 코드로 변환이 필요함
-			text += "M238905890239849085973297501M379823948902734974932V48052385324";
-			for (var i = 0; i < 100; i++) {
-				text += "&lt;";
-			}
-			serial_code.innerHTML = text;
-		}
+						function generate_serial_code() {
+							var text = "";
+							// 임의로 만든 시리얼 코드. 무작위 코드로 변환이 필요함
+							text += "M238905890239849085973297501M379823948902734974932V48052385324";
+							for (var i = 0; i < 100; i++) {
+								text += "&lt;";
+							}
+							serial_code.innerHTML = text;
+						}
 
-		function generate_personal_code() {
-			var text = "";
-			text += document.getElementById("id").value;
-			text += document.getElementById("nickname").value;
-			text += document.getElementById("surname").value;
-			text += "&lt;&lt;";
-			text += document.getElementById("given_name").value;
-			for (var i = 0; i < 100; i++) {
-				text += "&lt;";
-			}
-			personal_code.innerHTML = text;
-		}
-	}
+						function generate_personal_code() {
+							var text = "";
+							text += document.getElementById("id").value;
+							text += document.getElementById("nickname").value;
+							text += document.getElementById("surname").value;
+							text += "&lt;&lt;";
+							text += document.getElementById("given_name").value;
+							for (var i = 0; i < 100; i++) {
+								text += "&lt;";
+							}
+							personal_code.innerHTML = text;
+						}
+					})
 </script>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../header.jsp"></jsp:include>
-
 	<form action="#">
 		<div class="container">
 			<h1 class="font-weight-bold text-left">프로필 수정</h1>

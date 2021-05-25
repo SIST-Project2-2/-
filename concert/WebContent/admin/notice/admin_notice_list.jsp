@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- header -->
+<jsp:include page="../../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +30,6 @@
 </script>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../../header.jsp"></jsp:include>
-
 	<section class="container text-center">
 		<h1 class="font-weight-bold text-left">공지사항 목록</h1>
 		<form action="#">

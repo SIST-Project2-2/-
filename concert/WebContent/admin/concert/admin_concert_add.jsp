@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- header -->
+<jsp:include page="../../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,10 +8,6 @@
 <title>관리자 - 콘서트 등록</title>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../../header.jsp"></jsp:include>
-
-
 	<div class="container border border-dark rounded">
 		<div class="row m-1">
 			<div class="col-md">
