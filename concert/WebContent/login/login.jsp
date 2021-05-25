@@ -10,7 +10,7 @@
 <body>
 	<div class="row">
 		<div class="container col-sm-6">
-			<form class="text-center" action="#" method="get">
+			<form class="text-center" action="login_action.jsp" method="get">
 				<div class="form-group">
 					<label class="font-weight-bold" style="font-size: 40px;">로그인</label>
 					<p class="border border-dark bg-dark text-dark" style="padding: 3px;"></p>
