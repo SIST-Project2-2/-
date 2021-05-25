@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- header -->
+<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +15,11 @@
 </style>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../header.jsp"></jsp:include>
 	<h3>공지사항</h3>
-	<section class="container text-center" id="content_notice_list">
+	<section class="container-md text-center" id="content_notice_list">
 		<!-- 공지사항 목록 검색 -->
 		<form class="row justify-content-end" name="notice_list_search_form" id="notice_list_search_form">
-			<div class="col-6 d-block">
+			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 					<div class="input-group-append">
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div class="row text-right">
-				<div class="col-4">
+				<div class="col-md-4">
 					<small class="text-left text-dark">가수</small>
 					<select class="form-control-sm">
 						<option>장범준</option>
@@ -38,7 +38,7 @@
 						<option>아이유</option>
 					</select>
 				</div>
-				<div class="col-4">
+				<div class="col-md-4">
 					<small class="text-left text-dark">날짜</small>
 					<select class="form-control-sm">
 						<option>21년05월24일</option>
@@ -49,7 +49,7 @@
 			</div>
 		</form>
 		<!-- 공지사항 목록 -->
-		<div class="container text-left">
+		<div class="container-md text-left">
 			<div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
