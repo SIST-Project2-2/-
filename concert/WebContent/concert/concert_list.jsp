@@ -1,20 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- header -->
+<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
-<style>
-* {
-	border: 1px solid black;
-	margin: 1px;
-}
-
-table {
-	border-collapse: collapse;
-}
-</style>
 <script type="text/javascript">
 	// 참고자료: https://velog.io/@eesiwoo/D23과제-달력-만들기
 
@@ -45,20 +36,40 @@ table {
 				if (first_day < 7) { // first_day의 범위는 0~6. 일주일은 한줄에 7개이므로 7개 이상은 찍지 않는다
 					var cell = row.insertCell(); // 칸 추가
 					cell.setAttribute("id", [ i ]); // 해당 칸에 id 설정
-					cell.innerHTML = [ i ]; // 해당 칸에 값 입력
+					cell.innerHTML = "<span class='badge badge-light rounded-circle p-3'  style='width:50px; height:50px;'"
+							+ "data-trigger='hover' data-toggle='popover' data-placement='top' data-delay='0'"
+							+ "title='장범준 콘서트' data-img='http://localhost:9000/concert/images/장범준.jpg'>"
+							+ i + "</span>"; // 해당 칸에 값 입력
 					first_day += 1; // 다음 날짜를 추가하기 위해 1을 더함
 				} else { // first_day가 7이상이 되면 실행. 즉, 일주일을 다 찍으면 실행
 					row = calendar.insertRow(); // 달력에 행 추가
 
 					var cell = row.insertCell();
 					cell.setAttribute("id", [ i ]);
-					cell.innerHTML = [ i ]; // 여기까지의 3줄은 위와 동일
+					cell.innerHTML = "<span class='badge badge-light rounded-circle p-3'  style='width:50px; height:50px;'"
+							+ "data-trigger='hover' data-toggle='popover' data-placement='top' data-delay='0'"
+							+ "title='장범준 콘서트' data-img='http://localhost:9000/concert/images/장범준.jpg'>"
+							+ i + "</span>"; // 해당 칸에 값 입력
 
 					first_day -= 6; // 새로 만든 행의 일요일은 이미 추가했으므로 6을 빼줌
 				}
 			}
 			search_today();
+
+			// 팝오버 이미지 설정
+			$('[data-toggle="popover"]').popover(
+					{
+						//trigger: 'focus',
+						trigger : 'hover',
+						html : true,
+						content : function() {
+							return '<img class="img-fluid" src="'
+									+ $(this).data('img') + '" />';
+						},
+						title : 'Toolbox'
+					});
 		}
+
 		function before_month() {
 			while (calendar.rows.length > 2) {
 				// 달력의 월, 요일 표시 빼고 삭제
@@ -107,6 +118,7 @@ table {
 			search_today();
 		}
 
+		// 오늘에 해당하는 날짜를 찾아서 배경 색 설정
 		function search_today() {
 			var today_date = today.getDate();
 			var this_month = today.getMonth();
@@ -116,9 +128,7 @@ table {
 				var set_id = document.getElementById([ i ]);
 
 				if (today_date == set_id.getAttribute("id") && this_YM == YM) {
-					// alert("today_date: " + today_date + ", set_id: "	+ set_id.getAttribute("id"));
-					// alert("this_YM: " + this_YM + ", " + "YM: " + YM);
-					document.getElementById([ i ]).style.backgroundColor = "red";
+					$("#" + i).children().css("background", "tomato");
 				}
 			}
 		}
@@ -126,36 +136,37 @@ table {
 </script>
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="../header.jsp"></jsp:include>
 
 	<section>
-		<table id="calendar">
-			<thead>
-				<tr>
-					<td>
-						<input type="button" id="btn_before_month" value="<">
-					</td>
-					<td colspan="5">
-						<h3 id="YM">5월</h3>
-					</td>
-					<td>
-						<input type="button" id="btn_next_month" value=">">
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>일</td>
-					<td>월</td>
-					<td>화</td>
-					<td>수</td>
-					<td>목</td>
-					<td>금</td>
-					<td>토</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="container text-center">
+			<div class="row bg-dark text-white">
+				<div class="col-md-2">
+					<input type="button" id="btn_before_month" class="btn text-white font-weight-bold" value="&laquo;">
+				</div>
+				<div class="col-md">
+					<h3 id="YM">2021년 5월</h3>
+				</div>
+				<div class="col-md-2">
+					<input type="button" id="btn_next_month" class="btn text-white font-weight-bold" value="&raquo;">
+				</div>
+			</div>
+			<div class="row"></div>
+
+
+			<table id="calendar" class="table table-borderless">
+				<tbody>
+					<tr>
+						<td>일</td>
+						<td>월</td>
+						<td>화</td>
+						<td>수</td>
+						<td>목</td>
+						<td>금</td>
+						<td>토</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</section>
 </body>
 </html>
