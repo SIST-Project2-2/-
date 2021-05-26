@@ -84,4 +84,34 @@ CREATE TABLE ORDERS(
 -- 테스트용 계정 생성
 INSERT INTO MEMBERS VALUES(0, 'test', '1234', '테스트', '홍길동', SYSDATE, 'M', '서울시', '010-1234-5678', 'tester', 0);
 COMMIT;
-SELECT PW FROM MEMBERS WHERE id='test';
+SELECT PW FROM MEMBERS WHERE ID='test';
+
+-- 공지사항 테스트용 데이터 생성
+DESC notices;
+SELECT * FROM notices;
+INSERT INTO notices VALUES(
+	1, '안녕하세요', 'ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ', sysdate, 'test', 55
+);
+INSERT INTO notices VALUES(
+	2, '공지사항1', '공지사항입니다~', SYSDATE, 'test', 59
+);
+
+-- 공지사항 상세정보 불러오기 테스트
+SELECT NO, TITLE, CONTENT, WDATE, VIEWS
+FROM NOTICES WHERE NO = 1;
+SELECT NO, TITLE, CONTENT, WDATE, VIEWS
+FROM NOTICES WHERE NO = 2;
+
+-- 공지사항 리스트 페이징 테스트
+select no, title, wdate, views
+FROM (SELECT ROWNUM AS rno, NO, title, wdate, views
+	FROM notices
+	WHERE ROWNUM <= 10 * 1
+	order by no desc)
+where rno > 10 * (1 - 1);
+
+-- 공지사항 리스트 검색 테스트
+SELECT NO, title, wdate, writer, views FROM notices
+where regexp_like(title, 'ㅎㅇ') or regexp_like(content, 'ㅎㅇ');
+SELECT NO, title, wdate, writer, views FROM notices
+where regexp_like(title, '공지') or regexp_like(content, '공지');
