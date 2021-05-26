@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IU Profile</title>
+
+    <style>
+        /*구글 폰트*/
+        @import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
+        .artist {
+            height: 40rem;
+            background-color: rgb(161, 162, 156);
+            color: white;
+        }
+
+        div.container p {
+            font-family: hanna;
+            margin-top: 30px;
+        }
+
+        div.container h2 {
+            font-family: hanna;
+            margin-top: 100px;
+        }
+
+        div.container img {
+            width: 1000px;
+            height: 600px;
+            position: relative;
+            float: right;
+            bottom: 180px;
+        }
+
+        div.container label {
+            position: relative;
+            top: 100px;
+            left: 200px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--아티스트 소개 부분-->
+    <div class="artist">
+        <div class="container">
+            <label>
+                <h2>아이유</h2>
+                <p>이름:이지은</p>
+                <p>생년월일:1994년09월09일</p>
+                <p>데뷔년도:2000년01월01일</p>
+            </label>
+            <img src="../images/아이유프로필.jpg">
+        </div>
+    </div>
+    <!--댓글 부분-->
+    <div class="comment">
+        <div id="disqus_thread"></div>
+        <script>
+            (function () {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://cocert.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+</body>
+
+</html>
