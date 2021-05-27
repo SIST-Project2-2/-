@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- header -->
+<jsp:include page="../../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,25 +8,23 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	window.onload = function() {
-		
+
 	}
 </script>
 <style type="text/css">
-	form div{
-		text-align:center;
-		border : 1px solid blue;
-	}
-	form div.table, td{
-		border: 1px solid black;
-		border-collapse:collapse;
-		text-align:center;
-	}
+form div {
+	text-align: center;
+	border: 1px solid blue;
+}
+
+form div.table, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
+}
 </style>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
 </head>
 <body>
-	<!-- header -->
-	<jsp:include page="http://localhost:9000/flower-garden-in-brain/header.jsp"></jsp:include>
 
 	<form action="#" method="get" name="form_admin_member_list">
 		<h3>회원 관리 게시판</h3>
