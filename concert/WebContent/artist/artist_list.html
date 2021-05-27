@@ -15,6 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js "
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx "
         crossorigin="anonymous "></script>
+    <!--자바스크립트 -->
+        <script defer src="artist_list.js"></script>
 
     <title>아티스트 목록</title>
 </head>
@@ -30,30 +32,54 @@
             <li data-target="#carouselSlider" data-slide-to="4"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="../images/아이유.jpg" class="h-100">
+            <!--아이유 캐러셀-->
+            <div class="carousel-item active"> 
                 <div class="carousel-caption">
-                    <h5>아이유</h5>
+                    <div class="article">
+                        <img src="../images/아이유.jpg" class="h-100">
+                        <div class="firstSong">
+                
+                            <img src="../images/아이유음원1.jpg"  class="song1" onmouseenter="play1()" onmouseleave="pause1()">
+                            <audio id="audio1" src="../song/아이유노래1.mp3"></audio>
+                
+                            <img src="../images/아이유음원2.png"  class="song2" onmouseenter="play2()" onmouseleave="pause2()">
+                            <audio id="audio2" src="../song/아이유노래2.mp3"></audio>
+                
+                            <img src="../images/아이유음원3.jpg"  class="song3" onmouseenter="play3()" onmouseleave="pause3()">
+                            <audio id="audio3" src="../song/아이유노래3.mp3"></audio>
+                        </div>
+                
+                        <div class="SecondSong">
+                            <img src="../images/아이유음원4.jpg"  class="song4" onmouseenter="play4()" onmouseleave="pause4()">
+                            <audio id="audio4" src="../song/아이유노래4.mp3"></audio>
+                            <img src="../images/아이유음원5.jpg"  class="song5" onmouseenter="play5()" onmouseleave="pause5()">
+                            <audio id="audio5" src="../song/아이유노래5.mp3"></audio>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!--장범준 캐러셀-->
             <div class="carousel-item">
                 <img src="../images/장범준.jpg " class="h-100">
                 <div class="carousel-caption">
                     <h5>장범준</h5>
                 </div>
             </div>
+            <!--잔나비 캐러셀-->
             <div class="carousel-item">
                 <img src="../images/잔나비.jpg" class="h-100">
                 <div class="carousel-caption">
                     <h5>잔나비</h5>
                 </div>
             </div>
+            <!--현아 캐러셀-->
             <div class="carousel-item">
                 <img src="../images/현아.jpg" class="h-100">
                 <div class="carousel-caption">
                     <h5>현아</h5>
                 </div>
             </div>
+            <!--십센치 캐러셀-->
             <div class="carousel-item">
                 <img src="../images/십센치.png" class="h-100">
                 <div class="carousel-caption">
@@ -61,6 +87,7 @@
                 </div>
             </div>
         </div>
+        <!--캐러셀 prev/ next 버튼 -->
         <a class="carousel-control-prev" href="#carouselSlider" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
             <span>Previous</span>
@@ -70,8 +97,21 @@
             <span>Next</span>
         </a>
     </div>
-
-
+    
+    <!--댓글-->
+    <div class="comment">
+        <div id="disqus_thread"></div>
+        <script>
+            (function () {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://cocert.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
 
 </body>
 
