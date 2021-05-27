@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="dao.NoticeDAO" %>
+<%@ page import="vo.NoticeVO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.io.PrintWriter" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:useBean id="notice" class="vo.NoticeVO" scope="page" />
+<jsp:setProperty name="notice" property="no" />
+<jsp:setProperty name="notice" property="title" />
+<jsp:setProperty name="notice" property="content" />
+<jsp:setProperty name="notice" property="date" />
+<jsp:setProperty name="notice" property="views" />
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -7,7 +18,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src=""></script> <!-- js 파일 경로 넣기! -->
 <style>
 	.card {
 		width: 250px; height: 420px;
@@ -15,6 +25,12 @@
 </style>
 </head>
 <body>
+	<%
+		int pageNumber = 1;
+		NoticeDAO dao = new NoticeDAO();
+		PrintWriter script = response.getWriter();
+	%>
+
 	<h3>공지사항</h3>
 	<section class="container-md text-center" id="content_notice_list">
 		<!-- 공지사항 목록 검색 -->
@@ -50,69 +66,45 @@
 		</form>
 		<!-- 공지사항 목록 -->
 		<div class="container-md text-left">
-			<div class="card d-inline-block">
+			<!-- jsp 코드 -->
+			<%
+				ArrayList<NoticeVO> list = dao.getNoticeListForUser(pageNumber);
+				
+				if(list.size() == 0) { // 불러온 목록이 비어있을 때
+			%>
+			<p class="text-center text-dark">데이터가 없습니다.</p>
+			<% 
+				}
+				
+				for(int i=0;i<list.size();i++) {
+			%>
+			<a href="asd"><div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
 					<kbd>#일정1</kbd>
 					<kbd>#일정2</kbd>
 					<kbd>#일정3</kbd>
-					<h4 class="card-title text-left">공지사항입니다</h4>
-					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
-					<p class="card-text text-left text-dark">2021-05-24</p>
+					<h4 class="card-title text-left text-black"><%= list.get(i).getTitle() %></h4>
+					<p class="card-text text-left text-dark"><%= list.get(i).getContent() %></p>
+					<p class="card-text text-left text-dark"><%= list.get(i).getDate() %></p>
 				</div>
-			</div>
-			<div class="card d-inline-block">
-				<img class="card-img-top" src="../images/장범준.jpg">
-				<div class="card-body font-weight-bold">
-					<kbd>#일정1</kbd>
-					<kbd>#일정2</kbd>
-					<kbd>#일정3</kbd>
-					<h4 class="card-title text-left">공지사항입니다</h4>
-					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
-					<p class="card-text text-left text-dark">2021-05-24</p>
-				</div>
-			</div>
-			<div class="card d-inline-block">
-				<img class="card-img-top" src="../images/장범준.jpg">
-				<div class="card-body font-weight-bold">
-					<kbd>#일정1</kbd>
-					<kbd>#일정2</kbd>
-					<kbd>#일정3</kbd>
-					<h4 class="card-title text-left">공지사항입니다</h4>
-					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
-					<p class="card-text text-left text-dark">2021-05-24</p>
-				</div>
-			</div>
-			<div class="card d-inline-block">
-				<img class="card-img-top" src="../images/장범준.jpg">
-				<div class="card-body font-weight-bold">
-					<kbd>#일정1</kbd>
-					<kbd>#일정2</kbd>
-					<kbd>#일정3</kbd>
-					<h4 class="card-title text-left">공지사항입니다</h4>
-					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
-					<p class="card-text text-left text-dark">2021-05-24</p>
-				</div>
-			</div>
-			<div class="card d-inline-block">
-				<img class="card-img-top" src="../images/장범준.jpg">
-				<div class="card-body font-weight-bold">
-					<kbd>#일정1</kbd>
-					<kbd>#일정2</kbd>
-					<kbd>#일정3</kbd>
-					<h4 class="card-title text-left">공지사항입니다</h4>
-					<p class="card-text text-left text-dark">공지사항 내용~~~</p>
-					<p class="card-text text-left text-dark">2021-05-24</p>
-				</div>
-			</div>
+			</div></a>
+			<%
+				}
+			%>
 		</div>
 		<!-- 페이지 이동 버튼 목록 -->
-		<nav class="">
+		<nav>
 		  <ul class="pagination justify-content-center">
 		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
 		    <li class="page-item"><a class="page-link" href="#">1</a></li>
 		    <li class="page-item"><a class="page-link" href="#">2</a></li>
 		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		    <%
+		    	if(dao.hasNextPage(pageNumber)) {
+		    		
+		    	}
+		    %>
 		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
 		  </ul>
 		</nav>
