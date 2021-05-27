@@ -136,9 +136,23 @@
 </script>
 </head>
 <body>
-
 	<section>
 		<div class="container text-center">
+			<h1 class="font-weight-bold text-left">스케줄</h1>
+			<div class="d-flex justify-content-between mb-3">
+				<div class="p-2"></div>
+				<div class="p-2">
+					<div class="dropdown">
+						<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">보기 형태</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="concert_list_calendar.jsp">달 력</a>
+							<a class="dropdown-item" href="concert_list_date.jsp">날 짜</a>
+							<a class="dropdown-item" href="concert_list_rank.jsp">순 위</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="row bg-dark text-white">
 				<div class="col-md-2">
 					<input type="button" id="btn_before_month" class="btn text-white font-weight-bold" value="&laquo;">
@@ -150,22 +164,21 @@
 					<input type="button" id="btn_next_month" class="btn text-white font-weight-bold" value="&raquo;">
 				</div>
 			</div>
-			<div class="row"></div>
-
-
-			<table id="calendar" class="table table-borderless">
-				<tbody>
-					<tr>
-						<td>일</td>
-						<td>월</td>
-						<td>화</td>
-						<td>수</td>
-						<td>목</td>
-						<td>금</td>
-						<td>토</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="bg-white">
+				<table id="calendar" class="table table-borderless">
+					<tbody>
+						<tr>
+							<td>일</td>
+							<td>월</td>
+							<td>화</td>
+							<td>수</td>
+							<td>목</td>
+							<td>금</td>
+							<td>토</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</section>
 </body>
