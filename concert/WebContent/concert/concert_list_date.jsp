@@ -8,21 +8,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>콘서트 목록 - 날짜별</h3>
 	<section class="container-md text-center" id="content_concert_list_date">
-		<!-- 드롭다운 -->
-		<div class="row justify-content-end">
-			<div class="dropdown">
-				<button class="btn dropdown-toggle border border-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					드롭다운
-				</button>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">드롭다운1</a>
-					<a class="dropdown-item" href="#">드롭다운2</a>
-					<a class="dropdown-item" href="#">드롭다운3</a>
+
+		<!-- 타이틀 부분 -->
+		<h1 class="font-weight-bold text-left">날짜별</h1>
+
+		<!-- 월, 콤보 박스 있는 부분 -->
+		<div class="d-flex justify-content-between mb-3">
+			<div class="p-2"></div>
+			<div class="p-2">
+				<div class="dropdown">
+					<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">보기 형태</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="concert_list_calendar.jsp">달 력</a>
+						<a class="dropdown-item" href="concert_list_date.jsp">날 짜</a>
+						<a class="dropdown-item" href="concert_list_rank.jsp">순 위</a>
+					</div>
 				</div>
 			</div>
 		</div>
+
 		<!-- 날짜별 일정 -->
 		<div class="row justify-content-center">
 			<div class="col-md mx-3 border border-primary rounded">
