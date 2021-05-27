@@ -42,26 +42,29 @@ public class NoticeDAO extends DAO {
 	// 페이지 번호를 입력받아 해당 페이지의 공지사항 목록 불러오기
 	public ArrayList<NoticeVO> getNoticeListForUser(int page) {
 		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
+		NoticeVO notice = null;
 		
 		try {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
-			String sql = "select no, title, wdate, views "
-					+ " from (select rownum as rno, no, title, wdate, views "
+			String sql = "select no, title, content, wdate, views "
+					+ " from (select rownum as rno, no, title, content, wdate, views "
 					+ "	from notices "
-					+ "	where rownum =< 10 * ? "
+					+ "	where rownum <= 10 * ? "
 					+ "	order by no desc) "
 					+ " where rno > 10 * (? - 1) ";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, page);
+			pstmt.setInt(2, page);
 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				NoticeVO notice = new NoticeVO();
+				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setDate(rs.getString(3));
-				notice.setViews(rs.getInt(4));
+				notice.setContent(rs.getString(3));
+				notice.setDate(rs.getString(4));
+				notice.setViews(rs.getInt(5));
 				list.add(notice);
 			}
 		} catch (Exception e) {
@@ -74,9 +77,10 @@ public class NoticeDAO extends DAO {
 	// 공지사항 목록에서 검색한 결과 출력
 	public ArrayList<NoticeVO> searchNoticeListForUser(String text) {
 		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
+		NoticeVO notice = null;
 		
 		try {
-			String sql = " select no, title, wdate, writer, views from notices "
+			String sql = " select no, title, content, wdate, writer, views from notices "
 					+ " where regexp_like(title, '?') or regexp_like(content, '?') ";
 			getPreparedStatement(sql);
 
@@ -85,11 +89,12 @@ public class NoticeDAO extends DAO {
 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				NoticeVO notice = new NoticeVO();
+				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setDate(rs.getString(3));
-				notice.setViews(rs.getInt(4));
+				notice.setContent(rs.getString(3));
+				notice.setDate(rs.getString(4));
+				notice.setViews(rs.getInt(5));
 				list.add(notice);
 			}
 		} catch (Exception e) {
