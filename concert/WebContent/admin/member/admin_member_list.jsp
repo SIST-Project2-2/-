@@ -11,17 +11,20 @@
 
 	}
 </script>
-<style type="text/css">
-form div {
-	text-align: center;
-	border: 1px solid blue;
-}
+<style>
+	form div {
+		text-align: center;
+	}
+	
+	form div.table, td {
+		border-collapse: collapse;
+		text-align: center;
+	}
+	div#member_delete{
+		margin:auto;
+		width:50%;
+	}
 
-form div.table, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	text-align: center;
-}
 </style>
 </head>
 <body>
@@ -32,67 +35,82 @@ form div.table, td {
 			<input type="text" name="search_member">
 			<button type="submit">돋보기</button>
 		</div>
-		<div>
-			<table>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
-				<tr>
-					<td>회원1</td>
-					<td><button type="button">삭제</button></td>
-				</tr>
+		<div id="member_delete">
+			<table class="table">
+			  <tbody>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			    <tr>
+			      <td>ID 닉네임 이름 주소(미필수) 핸펀호 비밀번호 이메일</td>
+			      <td><button type="button">삭제</button></td>
+			    </tr>
+			  </tbody>
 			</table>
 		</div>
+		<!-- 
 		<ul class="pagination">
-			<li><a href="#">&laquo;</a></li>
+			<li><a href="#">&lt;</a></li>
 			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
 			<li><a href="#">3</a></li>
 			<li><a href="#">4</a></li>
 			<li><a href="#">5</a></li>
-			<li><a href="#">&raquo;</a></li>
+			<li><a href="#">&gt;</a></li>
 		</ul>
+		 -->
+		 <div>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li class="page-item"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item"><a class="page-link" href="#">2</a></li>
+			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		 </div>
 	</form>
 </body>
 </html>
