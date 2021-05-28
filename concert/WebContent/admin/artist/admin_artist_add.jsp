@@ -19,7 +19,7 @@
 			</span>
 		</div>
 		<div>
-			<label>가수명s</label>
+			<label>가수명</label>
 		</div>
 		<div>
 			<input type="text" id="artist_name" placeholder="가수명을 입력하세요">

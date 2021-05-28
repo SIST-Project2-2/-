@@ -38,11 +38,26 @@
 			<div class="row">
 				<div class="col-8 container mb-3">
 					<div class="input-group input-group-sm">
-						<select class="custom-select col-2" id="category">
+						<!-- <select class="custom-select col-2" id="category">
 							<option value="title" selected>제목</option>
 							<option value="content">내용</option>
 							<option value="writer">작성자</option>
-						</select> <input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
+						</select> -->
+						<div class="input-group-prepend">
+							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								카테고리</button>
+							<div class="dropdown-menu">
+								<div class="form-check dropdown-item">
+									<input class="form-check-input" type="checkbox" value="title" name="category" id="title">
+									<label class="form-check-label" for="title"> 제목 </label>
+								</div>
+								<div class="form-check dropdown-item">
+									<input class="form-check-input" type="checkbox" value="content" name="category" id="content">
+									<label class="form-check-label" for="content"> 내용 </label>
+								</div>
+							</div>
+						</div>
+						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 						<div class="input-group-append">
 							<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
 						</div>
@@ -50,6 +65,7 @@
 				</div>
 			</div>
 		</form>
+
 		<table class="table table-hover table-sm">
 			<thead>
 				<tr>
