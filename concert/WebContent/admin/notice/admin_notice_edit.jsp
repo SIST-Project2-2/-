@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header -->
 <jsp:include page="../../header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -7,16 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="http://localhost:9000/concert/css/commons.css">
 </head>
 <body>
-	<body>
-	<div class="border container ">
-		<form>		
-			<%--top 영역--%>
-			<div class="clearfix">
-				<h3 class="d-inline-block float-lfet ">공지사항 수</h3>
+	<div class="border container pt-3">
+		<form>
+			<div class="clearfix mb-3">
+				<h3 class="d-inline-block float-left ">공지사항 수정</h3>
 				<button class="btn btn-light float-right">임시저장</button>
 				<button class="btn btn-light float-right">등록하기</button>
 			</div>
@@ -30,8 +25,7 @@
 						<button class="btn btn-secondary btn btn-light float-righ">이미지 삽입</button>
 					</div>
 					<hr>
-					<textarea class="w-100" placeholder="내용을 입력하세요"
-						style="height: 500px;"></textarea>
+					<textarea class="w-100" placeholder="내용을 입력하세요" style="height: 500px;"></textarea>
 				</div>
 			</div>
 
