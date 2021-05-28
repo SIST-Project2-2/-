@@ -19,15 +19,15 @@
 			</span>
 		</div>
 		<div>
-			<label>가수명</label>
+			<label>가수명s</label>
 		</div>
 		<div>
-			<input type="text" id="artist_name" value="가수명을 입력하세요">
+			<input type="text" id="artist_name" placeholder="가수명을 입력하세요">
 		</div>
 		<div id="content">
 			<div>
 				<div id="pofile_picture">프로필사진 등록</div>
-				<input type="text" id="content_text" value="내용을 입력하세요">
+				<textarea id="content_text" placeholder="내용을 입력하세요"></textarea>
 			</div>
 			<button type="button" class="btn btn-secondary">사진 선택</button>
 		</div>

@@ -12,8 +12,7 @@
 	<!-- header -->
 	<div class="body">
 		<div class="top">
-			<label id="add">아티스트 수정</label>
-			<span id="button">
+			<label id="add">아티스트 수정</label> <span id="button">
 				<button type="button" class="btn btn-secondary">임시저장</button>
 				<button type="button" class="btn btn-secondary">등록하기</button>
 			</span>
@@ -25,7 +24,7 @@
 		<div id="content">
 			<div>
 				<div id="pofile_picture">프로필사진 등록</div>
-				<input type="text" id="content_text" value="내용을 입력하세요">
+				<textarea id="content_text" placeholder="내용을 입력하세요"></textarea>
 			</div>
 			<button type="button" class="btn btn-secondary">사진 선택</button>
 		</div>
