@@ -97,8 +97,8 @@ SELECT PW FROM MEMBERS WHERE ID='test' AND NAME='홍길동' AND TO_CHAR(BIRTHDAT
 
 
 -- 공지사항 데이터 생성
-INSERT INTO NOTICES VALUES(1, '안녕하세요', 'ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ', SYSDATE, 'TEST', 55);
-INSERT INTO NOTICES VALUES(2, '공지사항1', '공지사항입니다~', SYSDATE, 'TEST', 59);
+INSERT INTO NOTICES VALUES(1, '안녕하세요', 'ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ', SYSDATE, 'test', 55);
+INSERT INTO NOTICES VALUES(2, '공지사항1', '공지사항입니다~', SYSDATE, 'test', 59);
 
 -- 공지사항 상세정보 불러오기
 SELECT NO, TITLE, CONTENT, WDATE, VIEWS FROM NOTICES WHERE NO = 1;
