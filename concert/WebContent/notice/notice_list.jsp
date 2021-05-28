@@ -119,7 +119,7 @@
 		  			PageVO pageInfo = dao.getPageInfo(pageNumber);
 		  		%>
 			    <% if(pageInfo.isPrev()) { %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
-				<li class="page-item"><a class="page-link" href="#?pageNumber=<%= pageNumber - 1 %>">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="?pageNumber=<%= pageNumber - 1 %>">Previous</a></li>
 				<% }else { %>
 				<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 				<% 
@@ -127,18 +127,19 @@
 				
 			    int start = pageInfo.getStart();
 			    int end = pageInfo.getEnd();
+			    System.out.println(start + " " + end);
 			    
 			    for(int i=start;i<=end;i++) {
 			    	
 			    	if(i == pageNumber) {
 				%>
-				<li class="page-item active"><a class="page-link" href="#?pageNumber=<%= i %>"><%= i %></a></li>
+				<li class="page-item active"><a class="page-link" href="?pageNumber=<%= i %>"><%= i %></a></li>
 				<%	}else {%>
-			    <li class="page-item"><a class="page-link" href="#?pageNumber=<%= i %>"><%= i %></a></li>
+			    <li class="page-item"><a class="page-link" href="?pageNumber=<%= i %>"><%= i %></a></li>
 				<%	} 
 				} %>
 			    <% if (pageInfo.isNext()) { %> <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
-				<li class="page-item"><a class="page-link" href="#?pageNumber=<%= pageNumber + 1 %>">Next</a></li>
+				<li class="page-item"><a class="page-link" href="?pageNumber=<%= pageNumber + 1 %>">Next</a></li>
 				<% }else { %>
 				<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
 				<% } %>
@@ -147,16 +148,3 @@
 	</section>
 </body>
 </html>
-
-<!-- 
-공지사항 검색 sql문
-select no, title, wdate, writer, views from notices
-where regexp_like(title, '?') or regexp_like(content, '?');
-
-리스트 페이징 sql문
-select * from (select rownum as rno, no, title, wdate, views
-	from notices
-	where rownum =< 10 * ?
-	order by no desc)
-where rno > 10 * (? - 1);
--->

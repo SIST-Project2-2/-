@@ -117,7 +117,11 @@ public class NoticeDAO extends DAO {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				int total_page = rs.getInt(1) / notice_per_page + 1; // 전체 페이지 수
+				int total_page = rs.getInt(1) / notice_per_page; // 전체 페이지 수
+				if(rs.getInt(1) % notice_per_page != 0) {
+					total_page ++;
+				} 
+				
 				vo.setTotal(total_page);
 				
 				if(now == 1) { // 현 페이지가 1인 경우 이전 버튼 비활성화
