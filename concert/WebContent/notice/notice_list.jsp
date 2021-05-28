@@ -38,16 +38,27 @@
 		PrintWriter script = response.getWriter();
 	%>
 
-	<h3>공지사항</h3>
 	<section class="container-md text-center" id="content_notice_list">
+		<h1 class="font-weight-bold text-left">공지사항</h1>
 		<!-- 공지사항 목록 검색 -->
 		<form class="row justify-content-end" name="notice_list_search_form" id="notice_list_search_form">
 			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
-					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
-					<div class="input-group-append">
-						<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+					<div class="input-group-prepend">
+						<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							카테고리</button>
+						<div class="dropdown-menu">
+							<div class="form-check dropdown-item">
+								<input class="form-check-input" type="checkbox" value="title" name="category" id="title" checked>
+								<label class="form-check-label" for="title"> 제목 </label>
+							</div>
+							<div class="form-check dropdown-item">
+								<input class="form-check-input" type="checkbox" value="content" name="category" id="content" checked>
+								<label class="form-check-label" for="content"> 내용 </label>
+							</div>
+						</div>
 					</div>
+					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 				</div>
 			</div>
 			<div class="row text-right">
