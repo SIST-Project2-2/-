@@ -13,6 +13,15 @@ public class MemberVO {
 	private String phone; // 전화번호
 	private String authority; // 권한
 	private String withdrawal; // 탈퇴 요청 여부
+	private String email; // 이메일 주소
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getNo() {
 		return no;

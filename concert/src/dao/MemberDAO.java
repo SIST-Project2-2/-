@@ -34,6 +34,31 @@ public class MemberDAO extends DAO {
 		return result; // 오류
 	}
 
+	// 아이디 찾기
+	public String find_id(String name, String nickname,String email) {
+		String result = null;
+
+		try {
+			String sql = "SELECT ID FROM MEMBERS WHERE NAME=? AND EMAIL=LOWER(?)";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+
+			System.out.println(email);
+			rs = pstmt.executeQuery();
+			if (rs.next()) { // 입력 정보 맞음
+				result = rs.getString(1);
+			} else { // 입력 정보 틀림
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	// 비밀번호 찾기
 	public String find_password(String id, String name, String date, String phone) {
 		String result = null;
