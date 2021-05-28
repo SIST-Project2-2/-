@@ -29,6 +29,12 @@
 <body>
 	<%
 		int pageNumber = 1;
+	
+	// 페이지 번호를 넘겨받았을 경우 그 페이지를 불러오고, 페이지 번호가 없을 경우 1페이지를 불러온다.
+	if(request.getParameter("pageNumber") != null) {
+		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+	}
+	
 	NoticeDAO dao = new NoticeDAO();
 	PrintWriter script = response.getWriter();
 	%>
@@ -81,7 +87,7 @@
 
 			for (int i = 0; i < list.size(); i++) {
 			%>
-			<a href="asd">
+			<a href="notice_info.jsp?no=<%= list.get(i).getNo() %>">
 				<div class="card d-inline-block">
 					<img class="card-img-top" src="../images/장범준.jpg">
 					<div class="card-body font-weight-bold">
@@ -101,16 +107,19 @@
 		<!-- 페이지 이동 버튼 목록 -->
 		<nav>
 			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<% if(pageNumber == 1) { %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
+				<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+				<% }else { %>
+				<li class="page-item"><a class="page-link" href="#?pageNumber=<%= pageNumber - 1 %>">Previous</a></li>
+				<% } %>
+				<li class="page-item active"><a class="page-link" href="#">1</a></li>
 				<li class="page-item"><a class="page-link" href="#">2</a></li>
 				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<%
-					if (dao.hasNextPage(pageNumber)) {
-
-				}
-				%>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				<% if (dao.hasNextPage(pageNumber)) { %> <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
+				<li class="page-item"><a class="page-link" href="#?pageNumber=<%= pageNumber + 1 %>">Next</a></li>
+				<% }else { %>
+				<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+				<% } %>
 			</ul>
 		</nav>
 	</section>

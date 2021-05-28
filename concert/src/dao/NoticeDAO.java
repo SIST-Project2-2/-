@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import vo.NoticeVO;
 
 public class NoticeDAO extends DAO {
-	
+	int notice_per_page = 10; // 한 페이지 당 보이는 공지 개수
 	
 	public NoticeDAO() {
 		super();
@@ -49,13 +49,15 @@ public class NoticeDAO extends DAO {
 			String sql = "select no, title, content, wdate, views "
 					+ " from (select rownum as rno, no, title, content, wdate, views "
 					+ "	from notices "
-					+ "	where rownum <= 10 * ? "
+					+ "	where rownum <= ? * ? "
 					+ "	order by no desc) "
-					+ " where rno > 10 * (? - 1) ";
+					+ " where rno > ? * (? - 1) ";
 			getPreparedStatement(sql);
 
-			pstmt.setInt(1, page);
+			pstmt.setInt(1, notice_per_page);
 			pstmt.setInt(2, page);
+			pstmt.setInt(3, notice_per_page);
+			pstmt.setInt(4, page);
 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -102,5 +104,29 @@ public class NoticeDAO extends DAO {
 		}
 		
 		return list;
+	}
+	
+	// 공지사항 목록에서 다음 페이지가 존재하는지 확인하는 함수(없을 경우 다음 페이지 버튼 비활성화)
+	public boolean hasNextPage(int page) {
+		boolean result = false;
+		
+		try {
+			String sql = " select count(*) from notices "; // 전체 공지 수를 가져옴
+			getPreparedStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			
+			// 전체 글 수가 현제 페이지 * 페이지당 글 갯수보다 크면 다음 페이지 존재
+			if(count > page * notice_per_page) { 
+				result = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
