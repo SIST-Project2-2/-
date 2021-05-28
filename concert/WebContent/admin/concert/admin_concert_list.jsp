@@ -185,7 +185,7 @@
 			</tbody>
 		</table>
 		<div class="text-right">
-			<a href="admin_concert_add.jsp" class="btn-sm btn-primary">콘서트 등록</a>
+			<a href="admin_concert_add.jsp" class="btn-sm btn-primary">등록</a>
 		</div>
 		<ul class="pagination justify-content-center">
 			<li class="page-item">
