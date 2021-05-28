@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="dao.NoticeDAO" %>
-<%@ page import="vo.NoticeVO" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.io.PrintWriter" %>
-<% request.setCharacterEncoding("utf-8"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.NoticeDAO"%>
+<%@ page import="vo.NoticeVO"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.io.PrintWriter"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <jsp:useBean id="notice" class="vo.NoticeVO" scope="page" />
 <jsp:setProperty name="notice" property="no" />
 <jsp:setProperty name="notice" property="title" />
@@ -19,16 +20,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.card {
-		width: 250px; height: 420px;
-	}
+.card {
+	width: 250px;
+	height: 420px;
+}
 </style>
 </head>
 <body>
 	<%
 		int pageNumber = 1;
-		NoticeDAO dao = new NoticeDAO();
-		PrintWriter script = response.getWriter();
+	NoticeDAO dao = new NoticeDAO();
+	PrintWriter script = response.getWriter();
 	%>
 
 	<h3>공지사항</h3>
@@ -37,7 +39,10 @@
 		<form class="row justify-content-end" name="notice_list_search_form" id="notice_list_search_form">
 			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
-					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
+					<select class="custom-select col-md-2" id="category">
+						<option value="title" selected>제목</option>
+						<option value="artist">내용</option>
+					</select> <input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 					<div class="input-group-append">
 						<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
 					</div>
@@ -45,8 +50,7 @@
 			</div>
 			<div class="row text-right">
 				<div class="col-md-4">
-					<small class="text-left text-dark">가수</small>
-					<select class="form-control-sm">
+					<small class="text-left text-dark">가수</small> <select class="form-control-sm">
 						<option>장범준</option>
 						<option>잔나비</option>
 						<option>10cm</option>
@@ -55,8 +59,7 @@
 					</select>
 				</div>
 				<div class="col-md-4">
-					<small class="text-left text-dark">날짜</small>
-					<select class="form-control-sm">
+					<small class="text-left text-dark">날짜</small> <select class="form-control-sm">
 						<option>21년05월24일</option>
 						<option>21년05월25일</option>
 						<option>21년05월26일</option>
@@ -69,44 +72,46 @@
 			<!-- jsp 코드 -->
 			<%
 				ArrayList<NoticeVO> list = dao.getNoticeListForUser(pageNumber);
-				
-				if(list.size() == 0) { // 불러온 목록이 비어있을 때
+
+			if (list.size() == 0) { // 불러온 목록이 비어있을 때
 			%>
 			<p class="text-center text-dark">데이터가 없습니다.</p>
-			<% 
+			<%
 				}
-				
-				for(int i=0;i<list.size();i++) {
+
+			for (int i = 0; i < list.size(); i++) {
 			%>
-			<a href="asd"><div class="card d-inline-block">
-				<img class="card-img-top" src="../images/장범준.jpg">
-				<div class="card-body font-weight-bold">
-					<kbd>#일정1</kbd>
-					<kbd>#일정2</kbd>
-					<kbd>#일정3</kbd>
-					<h4 class="card-title text-left text-black"><%= list.get(i).getTitle() %></h4>
-					<p class="card-text text-left text-dark"><%= list.get(i).getContent() %></p>
-					<p class="card-text text-left text-dark"><%= list.get(i).getDate() %></p>
+			<a href="asd">
+				<div class="card d-inline-block">
+					<img class="card-img-top" src="../images/장범준.jpg">
+					<div class="card-body font-weight-bold">
+						<kbd>#일정1</kbd>
+						<kbd>#일정2</kbd>
+						<kbd>#일정3</kbd>
+						<h4 class="card-title text-left text-black"><%=list.get(i).getTitle()%></h4>
+						<p class="card-text text-left text-dark"><%=list.get(i).getContent()%></p>
+						<p class="card-text text-left text-dark"><%=list.get(i).getDate()%></p>
+					</div>
 				</div>
-			</div></a>
+			</a>
 			<%
 				}
 			%>
 		</div>
 		<!-- 페이지 이동 버튼 목록 -->
 		<nav>
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <%
-		    	if(dao.hasNextPage(pageNumber)) {
-		    		
-		    	}
-		    %>
-		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-		  </ul>
+			<ul class="pagination justify-content-center">
+				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<%
+					if (dao.hasNextPage(pageNumber)) {
+
+				}
+				%>
+				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			</ul>
 		</nav>
 	</section>
 </body>
