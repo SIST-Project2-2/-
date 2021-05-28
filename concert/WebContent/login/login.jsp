@@ -8,8 +8,8 @@
 <title>로그인</title>
 </head>
 <body>
-	<div class="row">
-		<div class="container col-sm-6">
+	<div class="container">
+		<div class="container" style="width: 500px;">
 			<form class="text-center" action="login_action.jsp" method="get">
 				<div class="form-group">
 					<label class="font-weight-bold" style="font-size: 40px;">로그인</label>
