@@ -26,6 +26,9 @@
 					<a href="../join/join.jsp" class="btn btn-primary btn-block rounded-pill text-dark bg-white border-dark">계정이 없으신가요? 간편하게 가입하기</a>
 				</div>
 			</form>
+			<div class="text-right">
+				<small class="text-muted"><a href="#" class="text-decoration-none text-muted">아이디 찾기</a> | <a href="#" class="text-decoration-none text-muted">비밀번호 찾기</a></small>
+			</div>
 		</div>
 	</div>
 </body>

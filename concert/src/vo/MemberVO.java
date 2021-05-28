@@ -7,7 +7,7 @@ public class MemberVO {
 	private String pw; // 비밀번호
 	private String nickname; // 닉네임
 	private String name; // 이름
-	private String birthdate; // 생일
+	private String birth_date; // 생일
 	private String sex; // 성별
 	private String address; // 주소
 	private String phone; // 전화번호
@@ -54,12 +54,12 @@ public class MemberVO {
 		this.name = name;
 	}
 
-	public String getBirthdate() {
-		return birthdate;
+	public String getBirth_date() {
+		return birth_date;
 	}
 
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
+	public void setBirth_date(String birth_date) {
+		this.birth_date = birth_date;
 	}
 
 	public String getSex() {
