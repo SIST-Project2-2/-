@@ -18,7 +18,7 @@
 					<h6 class="mb-3">정말로 탈퇴하실껀가요</h6>
 					<div class="row">
 						<div class="col-md-6">
-							<a href="../index.jsp" class="btn btn-dark btn-block">네</a>
+							<a href="withdrawal_action.jsp" class="btn btn-dark btn-block">네</a>
 						</div>
 						<div class="col-md-6">
 							<a href="myprofile_info.jsp" class="btn btn-dark btn-block">아니오</a>
