@@ -10,6 +10,35 @@
 <body>
 	<div class="container">
 		<h1 class="font-weight-bold text-left">콘서트 목록</h1>
+		
+		<!-- 검색 창 -->
+		<form action="#">
+			<div class="row">
+				<div class="col-8 container mb-3">
+					<div class="input-group input-group-sm">
+						<div class="input-group-prepend">
+							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								카테고리</button>
+							<div class="dropdown-menu">
+								<div class="form-check dropdown-item">
+									<input class="form-check-input" type="checkbox" value="title" name="category" id="title">
+									<label class="form-check-label" for="title"> 콘서트 명 </label>
+								</div>
+								<div class="form-check dropdown-item">
+									<input class="form-check-input" type="checkbox" value="artist" name="category" id="artist">
+									<label class="form-check-label" for="artist"> 아티스트 </label>
+								</div>
+							</div>
+						</div>
+						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		
 		<table class="table table-hover table-sm text-center">
 			<thead>
 				<tr>
@@ -156,7 +185,7 @@
 			</tbody>
 		</table>
 		<div class="text-right">
-			<a href="admin_concert_add.jsp" class="btn-sm btn-primary">콘서트 등록</a>
+			<a href="admin_concert_add.jsp" class="btn-sm btn-primary">등록</a>
 		</div>
 		<ul class="pagination justify-content-center">
 			<li class="page-item">

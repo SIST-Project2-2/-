@@ -8,7 +8,7 @@
 <title>관리자 - 콘서트 등록</title>
 </head>
 <body>
-	<div class="container border border-dark rounded">
+	<div class="container border border-dark rounded pt-2">
 		<div class="row m-1">
 			<div class="col-md">
 				<h3>콘서트 등록</h3>

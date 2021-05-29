@@ -32,16 +32,40 @@
 <body>
 	<section class="container text-center">
 		<h1 class="font-weight-bold text-left">공지사항 목록</h1>
+
+		<!-- 검색 창 -->
 		<form action="#">
 			<div class="row">
-				<div class="col-md-6 input-group mb-3 container">
-					<input type="text" class="form-control" placeholder="Search" name="search" id="search" required="required">
-					<div class="input-group-append">
-						<button class="btn btn-outline-dark" type="submit">검색</button>
+				<div class="col-8 container mb-3">
+					<div class="input-group input-group-sm">
+						<!-- <select class="custom-select col-2" id="category">
+							<option value="title" selected>제목</option>
+							<option value="content">내용</option>
+							<option value="writer">작성자</option>
+						</select> -->
+						<div class="input-group-prepend">
+							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								카테고리</button>
+							<div class="dropdown-menu">
+								<div class="form-check dropdown-item">
+									<input class="form-check-input" type="checkbox" value="title" name="category" id="title">
+									<label class="form-check-label" for="title"> 제목 </label>
+								</div>
+								<div class="form-check dropdown-item">
+									<input class="form-check-input" type="checkbox" value="content" name="category" id="content">
+									<label class="form-check-label" for="content"> 내용 </label>
+								</div>
+							</div>
+						</div>
+						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</form>
+
 		<table class="table table-hover table-sm">
 			<thead>
 				<tr>
@@ -84,11 +108,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">New message</h5>
-					<a type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+					<a type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
 					</a>
 				</div>
 				<div class="modal-footer">
-					<a type="button" class="btn-sm btn-secondary" data-dismiss="modal">취소</a> <a type="button" class="btn-sm btn-danger">삭제</a>
+					<a type="button" class="btn-sm btn-secondary" data-dismiss="modal">취소</a>
+					<a type="button" class="btn-sm btn-danger">삭제</a>
 				</div>
 			</div>
 		</div>
