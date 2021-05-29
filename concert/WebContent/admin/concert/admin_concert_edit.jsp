@@ -29,7 +29,7 @@
 </head>
 <body>
 	<div class="container border border-dark rounded">
-		<div class="row my-3">
+		<div class="row m-1">
 			<div class="col-md">
 				<h3>콘서트 수정</h3>
 			</div>

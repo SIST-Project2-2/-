@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import vo.NoticeVO;
+import vo.PageVO;
 
 public class NoticeDAO extends DAO {
 	int notice_per_page = 10; // 한 페이지 당 보이는 공지 개수
@@ -106,27 +107,50 @@ public class NoticeDAO extends DAO {
 		return list;
 	}
 	
-	// 공지사항 목록에서 다음 페이지가 존재하는지 확인하는 함수(없을 경우 다음 페이지 버튼 비활성화)
-	public boolean hasNextPage(int page) {
-		boolean result = false;
+	// 페이징을 위한 정보를 가져오는 함수 
+	public PageVO getPageInfo(int now) {
+		PageVO vo = new PageVO();
 		
 		try {
 			String sql = " select count(*) from notices "; // 전체 공지 수를 가져옴
 			getPreparedStatement(sql);
 			
 			rs = pstmt.executeQuery();
-			rs.next();
-			int count = rs.getInt(1);
-			
-			// 전체 글 수가 현제 페이지 * 페이지당 글 갯수보다 크면 다음 페이지 존재
-			if(count > page * notice_per_page) { 
-				result = true;
+			if(rs.next()) {
+				int total_page = rs.getInt(1) / notice_per_page; // 전체 페이지 수
+				if(rs.getInt(1) % notice_per_page != 0) {
+					total_page ++;
+				} 
+				
+				vo.setTotal(total_page);
+				
+				if(now == 1) { // 현 페이지가 1인 경우 이전 버튼 비활성화
+					vo.setPrev(false);
+				}else {
+					vo.setPrev(true);
+				}
+				
+				if(now == total_page) { // 현 페이지가 마지막 페이지인 경우 다음 버튼 비활성화
+					vo.setNext(false);
+				}else {
+					vo.setNext(true);
+				}
+				
+				if(now <= 5) { // 현 페이지가 5페이지 이내일 경우
+					vo.setStart(1);
+					vo.setEnd(total_page);
+				}else if(total_page - now <= 2) { // 현 페이지가 뒤에서 2번째 이내일 경우
+					vo.setStart(total_page - 4);
+					vo.setEnd(total_page);;
+				}else { // 그 외의 경우
+					vo.setStart(now - 2);
+					vo.setEnd(now + 2);
+				}
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return result;
+		return vo;
 	}
 }

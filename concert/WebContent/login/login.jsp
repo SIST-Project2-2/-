@@ -8,8 +8,8 @@
 <title>로그인</title>
 </head>
 <body>
-	<div class="container">
-		<div class="container" style="width: 500px;">
+	<div class="row">
+		<div class="container col-sm-6">
 			<form class="text-center" action="login_action.jsp" method="get">
 				<div class="form-group">
 					<label class="font-weight-bold" style="font-size: 40px;">로그인</label>
@@ -26,6 +26,9 @@
 					<a href="../join/join.jsp" class="btn btn-primary btn-block rounded-pill text-dark bg-white border-dark">계정이 없으신가요? 간편하게 가입하기</a>
 				</div>
 			</form>
+			<div class="text-right">
+				<small class="text-muted"><a href="#" class="text-decoration-none text-muted">아이디 찾기</a> | <a href="#" class="text-decoration-none text-muted">비밀번호 찾기</a></small>
+			</div>
 		</div>
 	</div>
 </body>
