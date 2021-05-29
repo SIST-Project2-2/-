@@ -118,4 +118,29 @@ public class MemberDAO extends DAO {
 		return member;
 	}
 
+	// 프로필 수정하기
+	public int edit_profile(MemberVO member) {
+		int result = -2;
+		try {
+			String sql = "UPDATE MEMBERS SET NICKNAME=?, ADDRESS=?, BIRTHDATE=TO_DATE(?, 'YYYY-MM-DD'), PHONE=? WHERE ID=?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, member.getNickname());
+			pstmt.setString(2, member.getAddress());
+			pstmt.setString(3, member.getBirth_date());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getId());
+
+			int val = pstmt.executeUpdate();
+			if (val == 1) { // 입력 정보 맞음
+				result = 1;
+			} else { // 입력 정보 틀림
+				result = 0;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

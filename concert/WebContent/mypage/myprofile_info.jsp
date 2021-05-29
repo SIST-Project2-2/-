@@ -158,7 +158,13 @@ member = memberDAO.get_profile(member.getId());
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-right mt-4">
-				<a href="myprofile_edit.jsp" class="btn btn-primary">수정하기</a> <a href="accountdelete.jsp" class="btn btn-danger">탈퇴하기</a>
+				<form action="myprofile_edit.jsp" method="get">
+					<div class="form-group">
+						<input type="text" class="form-control" value="test" id="id" name="id" style="display:none">
+						<button type="submit" class="btn btn-primary">수정하기</button>
+						<a href="accountdelete.jsp" class="btn btn-danger">탈퇴하기</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
