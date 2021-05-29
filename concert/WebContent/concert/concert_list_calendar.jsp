@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>콘서트 목록</title>
 <script type="text/javascript">
 	// 참고자료: https://velog.io/@eesiwoo/D23과제-달력-만들기
 
