@@ -7,6 +7,8 @@ public class NoticeVO {
 	private String date; // 작성일자
 	private String writer; // 작성자
 	private int views; // 조회수
+	private String tag; // 태그
+	private int count; // 검색된 게시글 수
 	
 	public int getNo() {
 		return no;
@@ -43,5 +45,17 @@ public class NoticeVO {
 	}
 	public void setViews(int views) {
 		this.views = views;
+	}
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

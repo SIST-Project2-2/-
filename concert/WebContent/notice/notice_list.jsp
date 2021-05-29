@@ -3,6 +3,7 @@
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="vo.NoticeVO" %>
 <%@ page import="vo.PageVO" %>
+<%@ page import="concert.Commons" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -36,6 +37,21 @@
 	
 		NoticeDAO dao = new NoticeDAO();
 		PrintWriter script = response.getWriter();
+		
+		ArrayList<NoticeVO> list = null;
+		
+		// 목록 불러오기
+		if(request.getParameter("artist") != null && request.getParameter("search") != null) {
+			if(request.getParameter("search") != null) {
+				list = dao.getNoticeListForUser(pageNumber, request.getParameter("category"), request.getParameter("artist"), request.getParameter("search"));
+			}else {
+				list = dao.getNoticeListForUser(pageNumber, request.getParameter("artist"));
+			}
+		}else if(request.getParameter("search") != null) {
+			list = dao.getNoticeListForUser(pageNumber, request.getParameter("category"), request.getParameter("search"));
+		}else {
+			list = dao.getNoticeListForUser(pageNumber);
+		}
 	%>
 
 	<section class="container-md text-center" id="content_notice_list">
@@ -64,12 +80,13 @@
 			<div class="row text-right">
 				<div class="col-md-4">
 					<small class="text-left text-dark">가수</small>
-					<select class="form-control-sm">
-						<option>장범준</option>
-						<option>잔나비</option>
-						<option>10cm</option>
-						<option>현아</option>
-						<option>아이유</option>
+					<select class="form-control-sm" id="artist">
+						<option value="all">전체</option>
+						<option value="장범준">장범준</option>
+						<option value="잔나비">잔나비</option>
+						<option value="10cm">10cm</option>
+						<option value="현아">현아</option>
+						<option value="아이유">아이유</option>
 					</select>
 				</div>
 				<div class="col-md-4">
@@ -85,16 +102,12 @@
 		<!-- 공지사항 목록 -->
 		<div class="container-md text-left">
 			<!-- jsp 코드 -->
-			<%
-				ArrayList<NoticeVO> list = dao.getNoticeListForUser(pageNumber);
-				
-				if(list.size() == 0) { // 불러온 목록이 비어있을 때
-			%>
+			<% if(list.size() == 0) { // 불러온 목록이 비어있을 때 %>
 			<p class="text-center text-dark">데이터가 없습니다.</p>
 			<% 
-				}
+				}else {
 				
-				for(int i=0;i<list.size();i++) {
+					for(int i=0;i<list.size();i++) {
 			%>
 			<a href="notice_info.jsp?no=<%= list.get(i).getNo() %>"><div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
@@ -108,6 +121,7 @@
 				</div>
 			</div></a>
 			<%
+					}
 				}
 			%>
 		</div>
@@ -116,7 +130,7 @@
 			
 		  	<ul class="pagination justify-content-center">
 		  		<% 
-		  			PageVO pageInfo = dao.getPageInfo(pageNumber);
+		  			PageVO pageInfo = Commons.getPageInfo(list[0].getCount(), pageNumber);
 		  		%>
 			    <% if(pageInfo.isPrev()) { %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
 				<li class="page-item"><a class="page-link" href="?pageNumber=<%= pageNumber - 1 %>">Previous</a></li>
