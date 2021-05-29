@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="border container ">
+	<div class="container ">
 		<form>		
 			<%--top 영역--%>
-			<div class="clearfix">
+			<div class="clearfix pt-3">
 				<h3 class="d-inline-block float-lfet ">공지사항 등록</h3>
 				<button class="btn btn-light float-right">임시저장</button>
 				<button class="btn btn-light float-right">등록하기</button>

@@ -19,7 +19,7 @@ ul {list-style: none;}
 .logo{float:left;}
 a:link, a:visited{color:white; text-decoration: none;}
 a:hover{color:black;}
-#top_nav{text-align: center; height:56px; background-color:tomato;}
+#top_nav{text-align: center; height:56px; background-color:tomato;margin-bottom:100px }
 #top_nav>ul{display: inline-block; padding:16px; }
 #top_nav>ul>li{float:left; align-conten:center; margin-left:50px; color:white;}
 .sIcon{float: right; margin:4px 10px 0 0;}
