@@ -1,24 +1,56 @@
+<%@page import="java.io.PrintWriter"%>
+<%@page import="dao.MemberDAO"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+<jsp:useBean id="member" class="vo.MemberVO" scope="page" />
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 - 프로필 보기</title>
+<%
+	MemberDAO memberDAO = new MemberDAO();
+member.setId("test");
+member = memberDAO.get_profile(member.getId());
+%>
 <script type="text/javascript">
 	$(document)
 			.ready(
 					function() {
-						var personal_code = document
-								.getElementById("personal_code");
-						var serial_code = document
-								.getElementById("serial_code");
-
+						generate_profile();
 						generate_personal_code();
 						generate_serial_code();
 
+						function generate_profile() {
+							var id = $("p#id");
+							var nickname = $("#nickname");
+							var surname = $("#surname");
+							var given_name = $("#given_name");
+							var address = $("#address");
+							var birth_date = $("#birth_date");
+							var issue_date = $("#issue_date");
+							var phone = $("#phone");
+
+							id.text("<%=member.getId()%>");
+							$("input#id").val("<%=member.getId()%>");
+							nickname.text("<%=member.getNickname()%>");
+							surname.text("<%=member.getName()%>");
+							given_name.text("<%=member.getName()%>");
+							address.text("<%=member.getAddress()%>");
+							birth_date.text("<%=member.getBirth_date()%>");
+							issue_date.text("<%=member.getBirth_date()%>");
+							phone.text("<%=member.getPhone()%>");
+
+						}
+
 						function generate_serial_code() {
+							var serial_code = document
+									.getElementById("serial_code");
 							var text = "";
 							// 임의로 만든 시리얼 코드. 무작위 코드로 변환이 필요함
 							text += "M238905890239849085973297501M379823948902734974932V48052385324";
@@ -27,8 +59,10 @@
 							}
 							serial_code.innerHTML = text;
 						}
-						function generate_personal_code() {
 
+						function generate_personal_code() {
+							var personal_code = document
+									.getElementById("personal_code");
 							var text = "";
 							text += document.getElementById("id").innerHTML;
 							text += document.getElementById("nickname").innerHTML;
@@ -42,7 +76,7 @@
 							personal_code.innerHTML = text;
 						}
 
-					})
+					});
 </script>
 </head>
 <body>
@@ -65,45 +99,45 @@
 					<div class="col-md-8">
 						<div class="row">
 							<div class="col-md-6">
-								<p>ID</p>
+								<small>ID</small>
 								<p class="font-weight-bold" id="id">rkdwlstmf1</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<p>닉네임</p>
+								<small>닉네임</small>
 								<p class="font-weight-bold" id="nickname">무아무아루</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<p>성/Surname</p>
+								<small>성/Surname</small>
 								<p class="font-weight-bold" id="surname">KANG</p>
 							</div>
 							<div class="col-md-6">
-								<p>주소/Address</p>
+								<small>주소/Address</small>
 								<p class="font-weight-bold" id="address">대구 북구 서변동 4933-24번지</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<p>이름/Given name</p>
+								<small>이름/Given name</small>
 								<p class="font-weight-bold" id="given_name">JINSEUL</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<p>생년월일/Date of birth</p>
+								<small>생년월일/Date of birth</small>
 								<p class="font-weight-bold" id="birth_date">11 AUG 1997</p>
 							</div>
 							<div class="col-md-6">
-								<p>예매날짜/Date of issue</p>
+								<small>예매날짜/Date of issue</small>
 								<p class="font-weight-bold" id="issue_date">04 MAY 2022</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<p>휴대폰 번호/Phone number</p>
+								<small>휴대폰 번호/Phone number</small>
 								<p class="font-weight-bold" id="phone">010-5258-7376</p>
 							</div>
 						</div>

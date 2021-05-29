@@ -2,7 +2,7 @@ package vo;
 
 public class MemberVO {
 
-	private String no; // 회원번호
+	private int no; // 회원번호
 	private String id; // 아이디
 	private String pw; // 비밀번호
 	private String nickname; // 닉네임
@@ -21,14 +21,6 @@ public class MemberVO {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getNo() {
-		return no;
-	}
-
-	public void setNo(String no) {
-		this.no = no;
 	}
 
 	public String getId() {
@@ -109,6 +101,14 @@ public class MemberVO {
 
 	public void setWithdrawal(String withdrawal) {
 		this.withdrawal = withdrawal;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 }
