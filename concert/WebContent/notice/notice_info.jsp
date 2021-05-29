@@ -10,8 +10,8 @@
 <script src=""></script> <!-- js 파일 경로 넣기! -->
 </head>
 <body>
-	<h3>공지사항 상세</h3>
 	<section class="container-md text-center" id="content_notice_info">
+		<h1 class="font-weight-bold text-left">공지사항 상세</h1>
 		<!-- 공지사항 상세내용 -->
 		<table class="table" id="notice_info_table">
 			<!-- 제목 -->
