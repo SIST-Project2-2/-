@@ -2,3 +2,4 @@
 concert/.tern-project
 concert/.settings/org.eclipse.wst.jsdt.ui.prefs
 .project
+.DS_Store
