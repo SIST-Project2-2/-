@@ -20,7 +20,7 @@
 	PrintWriter script = response.getWriter();
 	if (result == 1) {
 		// 한줄로 주려면 세미콜론을 줘야함.
-		script.println("<script>alert('로그인 성공');location.href='main.jsp';</script>");
+		script.println("<script>alert('로그인 성공');location.href='../index.jsp';</script>");
 	} else if (result == 0) {
 		script.println("<script>");
 		script.println("alert('비밀번호가 틀립니다')");
