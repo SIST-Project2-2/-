@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- header -->
+<jsp:include page="/import.jsp"></jsp:include>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="http://localhost:9000/concert/js/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="http://localhost:9000/concert/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
-<link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
-
 <style type="text/css">
 ul {list-style: none;}
 .lT{width:100%; height: 66px; margin:10px 0; margin-left:10px;} 
