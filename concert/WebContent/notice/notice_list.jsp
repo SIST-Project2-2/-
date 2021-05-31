@@ -15,6 +15,50 @@
 <jsp:setProperty name="notice" property="views" />
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
+<%
+	int pageNumber = 1;
+	int category = 0;
+	String artist = "";
+	String search = "";
+
+	// 요청을 넘겨받아 변수에 저장한다.
+	if(request.getParameter("pageNumber") != null) {
+		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+	}
+	
+	if(request.getParameter("category") != null) {
+		category = Integer.parseInt(request.getParameter("category"));
+	}
+	
+	if(request.getParameter("artist") != null) {
+		artist = request.getParameter("artist");
+	}
+	
+	if(request.getParameter("search") != null) {
+		search = request.getParameter("search");
+	}
+
+	NoticeDAO dao = new NoticeDAO();
+	PrintWriter script = response.getWriter();
+	PageVO pageInfo = null;
+	
+	ArrayList<NoticeVO> list = null;
+	
+	// 목록 불러오기
+	if(artist != null && search != null) {
+		list = dao.getNoticeListForUser(pageNumber, category, artist, search);
+		pageInfo = dao.getPageInfo(pageNumber, category, artist, search);
+	}else if(artist != null) { // 아티스트별
+		list = dao.getNoticeListForUser(pageNumber, artist);
+		pageInfo = dao.getPageInfo(pageNumber, artist);
+	}else if(search != null) { // 검색
+		list = dao.getNoticeListForUser(pageNumber, category, search);
+		pageInfo = dao.getPageInfo(pageNumber, category, search);
+	}else { // 기본
+		list = dao.getNoticeListForUser(pageNumber);
+		pageInfo = dao.getPageInfo(pageNumber);
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,33 +71,6 @@
 </style>
 </head>
 <body>
-	<%
-		int pageNumber = 1;
-	
-		// 페이지 번호를 넘겨받았을 경우 그 페이지를 불러오고, 페이지 번호가 없을 경우 1페이지를 불러온다.
-		if(request.getParameter("pageNumber") != null) {
-			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		}
-	
-		NoticeDAO dao = new NoticeDAO();
-		PrintWriter script = response.getWriter();
-		
-		ArrayList<NoticeVO> list = null;
-		
-		// 목록 불러오기
-		if(request.getParameter("artist") != null && request.getParameter("search") != null) {
-			if(request.getParameter("search") != null) {
-				list = dao.getNoticeListForUser(pageNumber, request.getParameter("category"), request.getParameter("artist"), request.getParameter("search"));
-			}else {
-				list = dao.getNoticeListForUser(pageNumber, request.getParameter("artist"));
-			}
-		}else if(request.getParameter("search") != null) {
-			list = dao.getNoticeListForUser(pageNumber, request.getParameter("category"), request.getParameter("search"));
-		}else {
-			list = dao.getNoticeListForUser(pageNumber);
-		}
-	%>
-
 	<section class="container-md text-center" id="content_notice_list">
 		<h1 class="font-weight-bold text-left">공지사항</h1>
 		<!-- 공지사항 목록 검색 -->
@@ -61,24 +78,16 @@
 			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
-						<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							카테고리</button>
-						<div class="dropdown-menu">
-							<div class="form-check dropdown-item">
-								<input class="form-check-input" type="checkbox" value="title" name="category" id="title" checked>
-								<label class="form-check-label" for="title"> 제목 </label>
-							</div>
-							<div class="form-check dropdown-item">
-								<input class="form-check-input" type="checkbox" value="content" name="category" id="content" checked>
-								<label class="form-check-label" for="content"> 내용 </label>
-							</div>
-						</div>
+						<select class="dropdown-menu">
+							<option value="전체">전체</option>
+							<option value="제목">제목</option>
+							<option value="내용">내용</option>
+						</select>
 					</div>
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 				</div>
 			</div>
-			<div class="row text-right">
-				<div class="col-md-4">
+			<div class="col-md-3">
 					<small class="text-left text-dark">가수</small>
 					<select class="form-control-sm" id="artist">
 						<option value="all">전체</option>
@@ -89,15 +98,6 @@
 						<option value="아이유">아이유</option>
 					</select>
 				</div>
-				<div class="col-md-4">
-					<small class="text-left text-dark">날짜</small>
-					<select class="form-control-sm">
-						<option>21년05월24일</option>
-						<option>21년05월25일</option>
-						<option>21년05월26일</option>
-					</select>
-				</div>
-			</div>
 		</form>
 		<!-- 공지사항 목록 -->
 		<div class="container-md text-left">
@@ -130,7 +130,7 @@
 			
 		  	<ul class="pagination justify-content-center">
 		  		<% 
-		  			PageVO pageInfo = Commons.getPageInfo(list[0].getCount(), pageNumber);
+		  			
 		  		%>
 			    <% if(pageInfo.isPrev()) { %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
 				<li class="page-item"><a class="page-link" href="?pageNumber=<%= pageNumber - 1 %>">Previous</a></li>
@@ -138,10 +138,8 @@
 				<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 				<% 
 					} 
-				
 			    int start = pageInfo.getStart();
 			    int end = pageInfo.getEnd();
-			    System.out.println(start + " " + end);
 			    
 			    for(int i=start;i<=end;i++) {
 			    	
