@@ -78,38 +78,8 @@ public class NoticeDAO extends DAO {
 		return list;
 	}
 	
-	// 공지사항 목록에서 검색한 결과 출력
-//	public ArrayList<NoticeVO> searchNoticeListForUser(String text) {
-//		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
-//		NoticeVO notice = null;
-//		
-//		try {
-//			String sql = " select no, title, content, wdate, writer, views from notices "
-//					+ " where regexp_like(title, '?') or regexp_like(content, '?') ";
-//			getPreparedStatement(sql);
-//
-//			pstmt.setString(1, text);
-//			pstmt.setString(2, text);
-//
-//			rs = pstmt.executeQuery();
-//			while(rs.next()) {
-//				notice = new NoticeVO();
-//				notice.setNo(rs.getInt(1));
-//				notice.setTitle(rs.getString(2));
-//				notice.setContent(rs.getString(3));
-//				notice.setDate(rs.getString(4));
-//				notice.setViews(rs.getInt(5));
-//				list.add(notice);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return list;
-//	}
-	
 	// 공지사항 목록에서 검색
-	// 매개변수 category: 1: 제목, 2: 내용, 그 외: 모두 포함
+	// 매개변수 category: 1: 제목, 2: 내용, 그 외: 전체
 	public ArrayList<NoticeVO> getNoticeListForUser(int page, int category, String text) {
 		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
 		NoticeVO notice = null;
@@ -291,7 +261,6 @@ public class NoticeDAO extends DAO {
 	// 페이지 구하기 - 기본
 	public PageVO getPageInfo(int nowPage) {
 		int count = 0;
-		PageVO vo = new PageVO();
 		
 		try {
 			String sql = " select count(*) from notices ";
@@ -311,7 +280,6 @@ public class NoticeDAO extends DAO {
 	// 페이지 구하기 - 가수별
 	public PageVO getPageInfo(int nowPage, String artist) {
 		int count = 0;
-		PageVO vo = new PageVO();
 		
 		try {
 			String sql = " select count(*) from notices "
@@ -334,7 +302,6 @@ public class NoticeDAO extends DAO {
 	// 페이지 구하기 - 검색
 	public PageVO getPageInfo(int nowPage, int category, String text) {
 		int count = 0;
-		PageVO vo = new PageVO();
 		
 		try {
 			String sql = " select count(*) from notices where ";

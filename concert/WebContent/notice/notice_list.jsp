@@ -15,55 +15,12 @@
 <jsp:setProperty name="notice" property="views" />
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
-<%
-	int pageNumber = 1;
-	int category = 0;
-	String artist = "";
-	String search = "";
 
-	// 요청을 넘겨받아 변수에 저장한다.
-	if(request.getParameter("pageNumber") != null) {
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
-	
-	if(request.getParameter("category") != null) {
-		category = Integer.parseInt(request.getParameter("category"));
-	}
-	
-	if(request.getParameter("artist") != null) {
-		artist = request.getParameter("artist");
-	}
-	
-	if(request.getParameter("search") != null) {
-		search = request.getParameter("search");
-	}
-
-	NoticeDAO dao = new NoticeDAO();
-	PrintWriter script = response.getWriter();
-	PageVO pageInfo = null;
-	
-	ArrayList<NoticeVO> list = null;
-	
-	// 목록 불러오기
-	if(artist != null && search != null) {
-		list = dao.getNoticeListForUser(pageNumber, category, artist, search);
-		pageInfo = dao.getPageInfo(pageNumber, category, artist, search);
-	}else if(artist != null) { // 아티스트별
-		list = dao.getNoticeListForUser(pageNumber, artist);
-		pageInfo = dao.getPageInfo(pageNumber, artist);
-	}else if(search != null) { // 검색
-		list = dao.getNoticeListForUser(pageNumber, category, search);
-		pageInfo = dao.getPageInfo(pageNumber, category, search);
-	}else { // 기본
-		list = dao.getNoticeListForUser(pageNumber);
-		pageInfo = dao.getPageInfo(pageNumber);
-	}
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항 목록</title>
 <style>
 	.card {
 		width: 250px; height: 420px;
@@ -71,6 +28,51 @@
 </style>
 </head>
 <body>
+	<%
+		PrintWriter script = response.getWriter();
+		NoticeDAO dao = new NoticeDAO();
+		ArrayList<NoticeVO> list = null;
+		PageVO pageInfo = null;
+		
+		int pageNumber = 1;
+		int category = 0;
+		String artist = "";
+		String search = "";
+		
+		// 요청을 넘겨받아 변수에 저장한다.
+		if(request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+		
+		if(request.getParameter("category") != null) {
+			category = Integer.parseInt(request.getParameter("category"));
+		}
+		
+		if(request.getParameter("artist") != null) {
+			artist = request.getParameter("artist");
+		}
+		
+		if(request.getParameter("search") != null) {
+			search = request.getParameter("search");
+		}
+	
+		
+		
+		// 목록 불러오기
+		if(artist != null && search != null) {
+			list = dao.getNoticeListForUser(pageNumber, category, artist, search);
+			pageInfo = dao.getPageInfo(pageNumber, category, artist, search);
+		}else if(artist != null) { // 아티스트별
+			list = dao.getNoticeListForUser(pageNumber, artist);
+			pageInfo = dao.getPageInfo(pageNumber, artist);
+		}else if(search != null) { // 검색
+			list = dao.getNoticeListForUser(pageNumber, category, search);
+			pageInfo = dao.getPageInfo(pageNumber, category, search);
+		}else { // 기본
+			list = dao.getNoticeListForUser(pageNumber);
+			pageInfo = dao.getPageInfo(pageNumber);
+		}
+	%>
 	<section class="container-md text-center" id="content_notice_list">
 		<h1 class="font-weight-bold text-left">공지사항</h1>
 		<!-- 공지사항 목록 검색 -->
@@ -78,18 +80,18 @@
 			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
-						<select class="dropdown-menu">
-							<option value="전체">전체</option>
-							<option value="제목">제목</option>
-							<option value="내용">내용</option>
-						</select>
+						<div class="dropdown-menu">
+							<label class="dropdown-item">전체</label>
+							<label class="dropdown-item">제목</label>
+							<label class="dropdown-item">내용</label>
+						</div>
 					</div>
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 				</div>
 			</div>
 			<div class="col-md-3">
-					<small class="text-left text-dark">가수</small>
-					<select class="form-control-sm" id="artist">
+					<small class="text-dark">가수</small>
+					<select class="form-control-sm d-inline-block" id="artist">
 						<option value="all">전체</option>
 						<option value="장범준">장범준</option>
 						<option value="잔나비">잔나비</option>
@@ -106,7 +108,6 @@
 			<p class="text-center text-dark">데이터가 없습니다.</p>
 			<% 
 				}else {
-				
 					for(int i=0;i<list.size();i++) {
 			%>
 			<a href="notice_info.jsp?no=<%= list.get(i).getNo() %>"><div class="card d-inline-block">
