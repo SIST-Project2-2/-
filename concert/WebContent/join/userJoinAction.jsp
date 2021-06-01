@@ -20,7 +20,6 @@ String email = null;
 
 
 //회원가입 id정보 불러오기
-if()
 
 if (request.getParameter("id") != null) {
 	id = (String) request.getParameter("id");

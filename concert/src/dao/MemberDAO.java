@@ -96,6 +96,7 @@ public class MemberDAO extends DAO {
 			getPreparedStatement(sql);
 
 			
+		
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2,member.getPw());
 			pstmt.setString(3,member.getNickname());
@@ -104,6 +105,7 @@ public class MemberDAO extends DAO {
 			pstmt.setString(6, member.getSex());
 			pstmt.setString(7, member.getAddress());
 			pstmt.setString(8,member.getPhone());
+		
 			pstmt.setString(9,member.getEmail());
 
 			return pstmt.executeUpdate();
