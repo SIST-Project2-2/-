@@ -79,7 +79,7 @@ if (id == null || pw == null) {
 
 MemberDAO memberDAO = new MemberDAO();
 //dao 통해서 db에  데이터 넣기
-int result = memberDAO.join(id,pw,nickName,name,birth_date,sex,address,phone,email);
+int result = memberDAO.join(id,pw,nickName,firstName,lastName,birth_date,sex,address,phone,email);
 
 //MemberDAO set_profile 회원가입 성공하면  1반환
 if (result == 1) {
