@@ -1,39 +1,49 @@
 div#carouselSlider {
-    margin-top: 10%;
-    background-color: black;
-    height: 140rem;
+	background-color: black;
+	height: 140rem;
 }
 
 .carousel-item {
-    height: 130rem;
-    background: #000;
-}
-div.carousel-item {
-    text-align: center;
-}
-div.article{
-    border:2px solid black;
-    
-    background-color: black;
-}
-div.firstSong{
-  
-    height: 400px;
-    text-align: center;
-    margin-top: 40px;
-}
-div.SecondSong{
-   
-    height: 400px;
-    text-align: center;
-    margin-top: 40px;
-}
-.song1, .song2, .song3, .song4, .song5{
-    width: 400px;
-    height: 400px;
-    padding: 0px 10px;
-}
-#cm{
-    width: 50%;
+	height: 130rem;
+	background: #000;
 }
 
+div.carousel-item {
+	text-align: center;
+}
+
+div.article {
+	border: 2px solid black;
+	background-color: black;
+}
+
+div.firstSong {
+	height: 400px;
+	text-align: center;
+	margin-top: 40px;
+}
+
+div.SecondSong {
+	height: 400px;
+	text-align: center;
+	margin-top: 40px;
+}
+
+.song1, .song2, .song3, .song4, .song5 {
+	width: 400px;
+	height: 400px;
+	padding: 0px 10px;
+}
+
+#cm {
+	width: 50%;
+}
+
+section.container {
+	background-color: bisque;
+}
+
+div.comment {
+	background-color: black;
+	border-top: 3px solid black;
+}

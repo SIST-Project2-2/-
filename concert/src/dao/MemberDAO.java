@@ -87,6 +87,34 @@ public class MemberDAO extends DAO {
 	}
 
 	// 프로필 정보 가져오기
+	
+	//회원가입
+	public int join(MemberVO member) {
+
+		try {
+			String sql = "INSERT INTO MEMBERS VALUES(SEQ_MEMBER_NO.NEXTVAL,?,?,?,?,?,?,?,?,'user',null,?)";
+			getPreparedStatement(sql);
+
+			
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2,member.getPw());
+			pstmt.setString(3,member.getNickname());
+			pstmt.setString(4,member.getName());
+			pstmt.setString(5,member.getBirth_date());
+			pstmt.setString(6, member.getSex());
+			pstmt.setString(7, member.getAddress());
+			pstmt.setString(8,member.getPhone());
+			pstmt.setString(9,member.getEmail());
+
+			return pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return -1;
+	}
+
 	public MemberVO get_profile(String id) {
 		MemberVO member = null;
 
@@ -135,6 +163,28 @@ public class MemberDAO extends DAO {
 			if (val == 1) { // 입력 정보 맞음
 				result = 1;
 			} else { // 입력 정보 틀림
+				result = 0;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 아이디 중복 확인
+	public int check_nickname(MemberVO member) {
+		int result = -2; // 기본값: 데이터베이스 연결 실패
+		try {
+			String sql = "SELECT COUNT(NICKNAME) FROM MEMBERS WHERE LOWER(NICKNAME)=LOWER(?)";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, member.getId());
+			
+			int val = pstmt.executeUpdate();
+			if (val == 1) { // 닉네임 있음
+				result = 1;
+			} else { // 닉네임 없음
 				result = 0;
 			}
 

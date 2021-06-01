@@ -47,5 +47,8 @@ div.joinID div.hp input{
 div.joinID div{
     text-align: center;
 }
-
+input[type="radio"]{
+	float:left;
+	border:1px solid red;
+}
 
