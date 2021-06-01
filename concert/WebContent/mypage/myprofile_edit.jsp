@@ -25,6 +25,10 @@ member = memberDAO.get_profile(member.getId());
 						generate_personal_code();
 						generate_serial_code();
 
+						$("#check_nickname").on("click",  function() {
+							check_nickname();
+						});
+						
 						function generate_profile() {
 							var id = $("#id");
 							var id_fake = $("#id_fake");
@@ -46,6 +50,18 @@ member = memberDAO.get_profile(member.getId());
 							issue_date.val("<%=member.getBirth_date()%>");
 							phone.val("<%=member.getPhone()%>");
 
+						}
+
+						function check_nickname() {
+							var nickname = $("#nickname").val();
+							$.get("check_nickname.jsp?id=" + nickname,
+									function(data, status) {
+										if(data==1){
+											alert("이미 존재하는 닉네임입니다.");
+										}else if(data==0){
+											alert("변경할 수 있는 닉네임입니다.");											
+										}
+									});
 						}
 
 						function generate_serial_code() {
@@ -101,17 +117,19 @@ member = memberDAO.get_profile(member.getId());
 								<div class="col-md-6">
 									<small>ID</small>
 									<input type="text" class="form-control" value="rkdwlstmf1" placeholder="아이디" id="id" name="id" style="display: none;">
-									<input type="text" class="form-control" value="rkdwlstmf1" placeholder="아이디" id="id_fake"  disabled>
+									<input type="text" class="form-control" value="rkdwlstmf1" placeholder="아이디" id="id_fake" disabled>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<small>닉네임</small>
 									<div class="input-group">
-										<input type="text" class="form-control" value="무아무아루" placeholder="닉네임" name="nickname" id="nickname" required="required">
-										<div class="input-group-append">
-											<button class="btn btn-primary">중복확인</button>
-										</div>
+										<form action="check_nickname.jsp" method="get">
+											<input type="text" class="form-control" value="무아무아루" placeholder="닉네임" name="nickname" id="nickname" required="required">
+											<div class="input-group-append">
+												<button class="btn btn-primary" id="check_nickname" type="button">중복확인</button>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -135,12 +153,14 @@ member = memberDAO.get_profile(member.getId());
 								<div class="col-md-6">
 									<small>생년월일/Date of birth</small>
 									<input type="date" class="form-control" value="1997-08-11" placeholder="생년월일/Date of birth" name="birth_date" id="birth_date"
-										required="required">
+										required="required"
+									>
 								</div>
 								<div class="col-md-6">
 									<small>예매날짜/Date of issue</small>
 									<input type="date" class="form-control" value="2022-03-04" placeholder="예매날짜/Date of issue" name="issue_date" id="issue_date"
-										required="required">
+										required="required"
+									>
 								</div>
 							</div>
 							<div class="row">
@@ -148,7 +168,8 @@ member = memberDAO.get_profile(member.getId());
 									<small>휴대폰 번호/Phone number</small>
 									<div class="input-group mb-3">
 										<input type="tel" class="form-control" value="010-5258-7376" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="010-0000-0000" name="phone"
-											id="phone" required="required">
+											id="phone" required="required"
+										>
 									</div>
 								</div>
 							</div>

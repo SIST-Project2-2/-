@@ -171,4 +171,48 @@ public class MemberDAO extends DAO {
 		}
 		return result;
 	}
+
+	// 아이디 중복 확인
+	public int check_nickname(MemberVO member) {
+		int result = -2; // 기본값: 데이터베이스 연결 실패
+		try {
+			String sql = "SELECT COUNT(NICKNAME) FROM MEMBERS WHERE LOWER(NICKNAME)=LOWER(?)";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, member.getId());
+			
+			int val = pstmt.executeUpdate();
+			if (val == 1) { // 닉네임 있음
+				result = 1;
+			} else { // 닉네임 없음
+				result = 0;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 회원탈퇴 신청
+	public int request_withdrawal(MemberVO member) {
+		int result = -2;
+		try {
+			String sql = "UPDATE MEMBERS SET WITHDRAWAL=1 WHERE ID=?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, member.getId());
+
+			int val = pstmt.executeUpdate();
+			if (val == 1) { // 입력 정보 맞음
+				result = 1;
+			} else { // 입력 정보 틀림
+				result = 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
 }

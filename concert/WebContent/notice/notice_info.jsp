@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -7,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src=""></script> <!-- js 파일 경로 넣기! -->
+<script src=""></script>
+<!-- js 파일 경로 넣기! -->
 </head>
 <body>
 	<section class="container-md text-center" id="content_notice_info">
@@ -31,14 +31,25 @@
 			<!-- 내용 -->
 			<tbody>
 				<tr>
-					<td colspan="4" style="text-align:left;">
-						<img class="img-fluid" src="../images/장범준.jpg"><br>
-						공지입니다~~~<br>
-						공지입니다~~~<br>
-						공지입니다~~~<br>
-						공지입니다~~~<br>
-						공지입니다~~~<br>
+					<td colspan="4" class="text-left">
+						<div class="text-center">
+							<img class="img-fluid" src="../images/장범준.jpg">
+							<br>
+						</div>
+						공지입니다~~~
+						<br>
+						공지입니다~~~
+						<br>
+						공지입니다~~~
+						<br>
+						공지입니다~~~
+						<br>
+						공지입니다~~~
+						<br>
 					</td>
+				</tr>
+				<tr>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>

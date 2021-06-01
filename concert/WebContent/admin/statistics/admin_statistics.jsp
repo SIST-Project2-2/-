@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- header -->
-<jsp:include page="../../header.jsp"></jsp:include>
+<jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,13 +40,12 @@
 </script>
 </head>
 <body>
-	<h3>관리자 - 통계</h3>
 	<section class="container-md text-center" id="content_admin_satistics">
+		<h1 class="font-weight-bold text-left">통계</h1>
 		<!-- 통계 방법 선택 -->
 		<div class="row justify-content-end">
-			<div class="col-md-4 text-right">
-				<small class="text-dark">sort by</small>
-				<select class="form-control-sm">
+			<div class="col-md-4 text-right mb-3">
+				<small class="text-dark">sort by</small> <select class="form-control-sm">
 					<option>전체</option>
 					<option>연령</option>
 					<option>성별</option>
