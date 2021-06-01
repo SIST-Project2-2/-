@@ -5,6 +5,7 @@
 <%@ page import="vo.PageVO" %>
 <%@ page import="concert.Commons" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <jsp:useBean id="notice" class="vo.NoticeVO" scope="page" />
@@ -19,9 +20,22 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#artist").change(function() {
-			
-		});
+			location.href = "notice_list.jsp?artist=" + $(this).val();
+		})
 		
+		// 검색 카테고리 클릭시 카테고리 바뀜
+		$("#category_all").click(function() {
+			$("#category_dropdown").html("전체");
+			$("#category").val(0);
+		})
+		$("#category_title").click(function() {
+			$("#category_dropdown").html("제목");
+			$("#category").val(1);
+		})
+		$("#category_content").click(function() {
+			$("#category_dropdown").html("내용")
+			$("#category").val(2);
+		})
 	});
 </script>
 <!DOCTYPE html>
@@ -41,6 +55,7 @@
 		NoticeDAO dao = new NoticeDAO();
 		ArrayList<NoticeVO> list = null;
 		PageVO pageInfo = null;
+		HashMap<String, String> inputs = new HashMap<String, String>();
 		
 		int pageNumber = 1;
 		int category = 0;
@@ -50,18 +65,22 @@
 		// 요청을 넘겨받아 변수에 저장한다.
 		if(request.getParameter("pageNumber") != null) {
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+			//inputs.put("pageNumber", request.getParameter("pageNumber").toString());
 		}
 		
 		if(request.getParameter("category") != null) {
 			category = Integer.parseInt(request.getParameter("category"));
+			inputs.put("category", request.getParameter("category").toString());
 		}
 		
-		if(request.getParameter("artist") != null) {
+		if(request.getParameter("artist") != null && !"all".equals(request.getParameter("artist"))) {
 			artist = request.getParameter("artist");
+			inputs.put("artist", request.getParameter("artist").toString());
 		}
 		
 		if(request.getParameter("search") != null) {
 			search = request.getParameter("search");
+			inputs.put("search", request.getParameter("search").toString());
 		}
 		
 		// 목록 불러오기
@@ -82,17 +101,18 @@
 	<section class="container-md text-center" id="content_notice_list">
 		<h1 class="font-weight-bold text-left">공지사항</h1>
 		<!-- 공지사항 목록 검색 -->
-		<form class="row justify-content-end" name="notice_list_search_form" id="notice_list_search_form">
+		<form class="row justify-content-end" name="notice_list_search_form" id="notice_list_search_form" action="" method="get">
+			<input type="hidden" name="category" id="category" value="0">
 			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown" value="0">
     						전체
   						</button>
 						<div class="dropdown-menu">
-							<label class="dropdown-item">전체</label>
-							<label class="dropdown-item">제목</label>
-							<label class="dropdown-item">내용</label>
+							<label class="dropdown-item" id="category_all">전체</label>
+							<label class="dropdown-item" id="category_title">제목</label>
+							<label class="dropdown-item" id="category_content">내용</label>
 						</div>
 					</div>
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
@@ -102,16 +122,16 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-					<small class="text-dark">가수</small>
-					<select class="form-control-sm d-inline-block" id="artist">
-						<option value="all">전체</option>
-						<option value="장범준">장범준</option>
-						<option value="잔나비">잔나비</option>
-						<option value="10cm">10cm</option>
-						<option value="현아">현아</option>
-						<option value="아이유">아이유</option>
-					</select>
-				</div>
+				<small class="text-dark">가수</small>
+				<select class="form-control-sm d-inline-block" name="artist" id="artist">
+					<option value="all">전체</option>
+					<option value="장범준">장범준</option>
+					<option value="잔나비">잔나비</option>
+					<option value="10cm">10cm</option>
+					<option value="현아">현아</option>
+					<option value="아이유">아이유</option>
+				</select>
+			</div>
 		</form>
 		<!-- 공지사항 목록 -->
 		<div class="container-md text-left">
@@ -125,9 +145,10 @@
 			<a href="notice_info.jsp?no=<%= list.get(i).getNo() %>"><div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
-					<kbd>#일정1</kbd>
-					<kbd>#일정2</kbd>
-					<kbd>#일정3</kbd>
+					<%
+						String tag = list.get(i).getTag();
+					%>
+					<kbd><%= tag %></kbd>
 					<h4 class="card-title text-left text-black"><%= list.get(i).getTitle() %></h4>
 					<p class="card-text text-left text-dark"><%= list.get(i).getContent() %></p>
 					<p class="card-text text-left text-dark"><%= list.get(i).getDate() %></p>
@@ -139,14 +160,18 @@
 			%>
 		</div>
 		<!-- 페이지 이동 버튼 목록 -->
-		<nav>
+		<form name="page" action="" method="get" id="page">
 			
 		  	<ul class="pagination justify-content-center">
 		  		<% 
-		  			
+		  			String url = request.getRequestURL().toString();
+		  			HashMap<String, String> temp = null;
 		  		%>
-			    <% if(pageInfo.isPrev()) { %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
-				<li class="page-item"><a class="page-link" href="?pageNumber=<%= pageNumber - 1 %>">Previous</a></li>
+			    <% if(pageInfo.isPrev()) { 
+			    	temp = (HashMap<String, String>)inputs.clone();
+			    	temp.put("pageNumber", String.valueOf(pageNumber - 1));
+			    %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
+				<li class="page-item"><a class="page-link" href="<%= Commons.get_method(url, temp) %>">Previous</a></li>
 				<% }else { %>
 				<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 				<% 
@@ -155,21 +180,26 @@
 			    int end = pageInfo.getEnd();
 			    
 			    for(int i=start;i<=end;i++) {
+			    	temp = (HashMap<String, String>)inputs.clone();
+			    	temp.put("pageNumber", String.valueOf(i));
 			    	
 			    	if(i == pageNumber) {
 				%>
-				<li class="page-item active"><a class="page-link" href="?pageNumber=<%= i %>"><%= i %></a></li>
+				<li class="page-item active"><a class="page-link" href="<%= Commons.get_method(url, temp) %>"><%= i %></a></li>
 				<%	}else {%>
-			    <li class="page-item"><a class="page-link" href="?pageNumber=<%= i %>"><%= i %></a></li>
+			    <li class="page-item"><a class="page-link" href="<%= Commons.get_method(url, temp) %>"><%= i %></a></li>
 				<%	} 
 				} %>
-			    <% if (pageInfo.isNext()) { %> <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
-				<li class="page-item"><a class="page-link" href="?pageNumber=<%= pageNumber + 1 %>">Next</a></li>
+			    <% if (pageInfo.isNext()) { 
+			    	temp = (HashMap<String, String>)inputs.clone();
+			    	temp.put("pageNumber", String.valueOf(pageNumber + 1));
+			    %> <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
+				<li class="page-item"><a class="page-link" href="<%= Commons.get_method(url, temp) %>">Next</a></li>
 				<% }else { %>
 				<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
 				<% } %>
 		  </ul>
-		</nav>
+		</form>
 	</section>
 </body>
 </html>
