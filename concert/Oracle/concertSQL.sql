@@ -47,44 +47,45 @@ CREATE TABLE COMMENTS(
 );
 
 CREATE TABLE CONCERTS(
-    NO NUMBER(10) CONSTRAINT PK_CONCERTS_NO PRIMARY KEY,
-    ARTIST VARCHAR2(30) CONSTRAINT NN_CONCERTS_ARTIST NOT NULL,
-    CONTENT VARCHAR2(1000) CONSTRAINT NN_CONCERTS_CONTENT NOT NULL,
-    CDATE DATE CONSTRAINT NN_CONCERTS_CDATE NOT NULL,
+    NO NUMBER(10) CONSTRAINT PK_CONCERTS_NO PRIMARY KEY, -- 콘서트 번호
+    ARTIST VARCHAR2(30) CONSTRAINT NN_CONCERTS_ARTIST NOT NULL, -- 공연 아티스트
+    TITLE VARCHAR2(100) CONSTRAINT NN_CONCERTS_TITLE NOT NULL, -- 공연 제목
+    CONTENT VARCHAR2(1000) CONSTRAINT NN_CONCERTS_CONTENT NOT NULL, -- 공연 내용
+    CDATE DATE CONSTRAINT NN_CONCERTS_CDATE NOT NULL, -- 공연 일자
+    LOCATION VARCHAR2(100) CONSTRAINT NN_CONCERTS_LOCATION NOT NULL, -- 공연 장소
     CONSTRAINT FK_CONCERTS_ARTISTS FOREIGN KEY (ARTIST) REFERENCES ARTISTS(NAME)
 );
 
 CREATE TABLE SEAT_PRICE(
-    CONCERT_NO NUMBER(10) CONSTRAINT NN_SEAT_PRICE_CONCERT_NO NOT NULL,
-    CLASS VARCHAR(1) CONSTRAINT NN_SEAT_PRICE_CLASS NOT NULL,
-    PRICE NUMBER(10) CONSTRAINT NN_SEAT_PRICE_PRICE NOT NULL,
+    CONCERT_NO NUMBER(10) CONSTRAINT NN_SEAT_PRICE_CONCERT_NO NOT NULL, -- 공연 번호
+    CLASS VARCHAR(1) CONSTRAINT NN_SEAT_PRICE_CLASS NOT NULL, -- 좌석 등급
+    PRICE NUMBER(10) CONSTRAINT NN_SEAT_PRICE_PRICE NOT NULL, -- 좌석 가격
     CONSTRAINT FK_SEAT_PRICE_CONCERTS FOREIGN KEY (CONCERT_NO) REFERENCES CONCERTS(NO)
 );
 
 CREATE TABLE SEATS(
-    CONCERT_NO NUMBER(10) CONSTRAINT NN_SEATSCONCERT_NO NOT NULL,
-    ID VARCHAR2(10) CONSTRAINT NN_SEATS_ID NOT NULL,
-    CLASS VARCHAR2(1) CONSTRAINT NN_SEATS_CLASS NOT NULL,
-    PRICE VARCHAR2(10) CONSTRAINT NN_SEATS_PRICE NOT NULL,
-    NO VARCHAR2(5) CONSTRAINT NN_SEATS_NO NOT NULL,
+    CONCERT_NO NUMBER(10) CONSTRAINT NN_SEATSCONCERT_NO NOT NULL, -- 공연 번호
+    ID VARCHAR2(10) CONSTRAINT NN_SEATS_ID NOT NULL, -- 예매한 유저 ID
+    CLASS VARCHAR2(1) CONSTRAINT NN_SEATS_CLASS NOT NULL, -- 좌석 등급
+    NO VARCHAR2(5) CONSTRAINT NN_SEATS_NO NOT NULL, -- 좌석 번호
     CONSTRAINT FK_SEATS_CONCERTS FOREIGN KEY (CONCERT_NO) REFERENCES CONCERTS(NO)
 );
 
 CREATE TABLE NOTICES(
-    NO NUMBER(10) CONSTRAINT PK_NOTICES_NO PRIMARY KEY,
-    TITLE VARCHAR2(30) CONSTRAINT NN_NOTICES_TITLE NOT NULL,
-    CONTENT VARCHAR2(1000) CONSTRAINT NN_NOTICES_CONTENT NOT NULL,
-    WDATE DATE CONSTRAINT NN_NOTICES_WDATE NOT NULL,
-    WRITER VARCHAR2(10) CONSTRAINT NN_NOTICES_WRITER NOT NULL,
-    VIEWS NUMBER(10) CONSTRAINT NN_NOTICES_VIEWS NOT NULL,
+    NO NUMBER(10) CONSTRAINT PK_NOTICES_NO PRIMARY KEY, -- 공지사항 번호
+    TITLE VARCHAR2(30) CONSTRAINT NN_NOTICES_TITLE NOT NULL, -- 공지사항 제목
+    CONTENT VARCHAR2(1000) CONSTRAINT NN_NOTICES_CONTENT NOT NULL, -- 공지사항 내용
+    WDATE DATE CONSTRAINT NN_NOTICES_WDATE NOT NULL, -- 작성 일자
+    WRITER VARCHAR2(10) CONSTRAINT NN_NOTICES_WRITER NOT NULL, -- 작성자 ID
+    VIEWS NUMBER(10) CONSTRAINT NN_NOTICES_VIEWS NOT NULL, -- 조회수
     CONSTRAINT FK_NOTICES_WRITER FOREIGN KEY (WRITER) REFERENCES MEMBERS(ID)
 );
 
 CREATE TABLE ORDERS(
-    NO NUMBER(10) CONSTRAINT PK_ORDERS_NO PRIMARY KEY,
-    ID VARCHAR2(10) CONSTRAINT NN_ORDERS_ID NOT NULL,
-    CONCERTS_NO NUMBER(10) CONSTRAINT NN_ORDERS_CONCERTS_NO NOT NULL,
-    SEATS_NO VARCHAR2(5) CONSTRAINT NN_ORDERS_SEATS_NO NOT NULL,
+    NO NUMBER(10) CONSTRAINT PK_ORDERS_NO PRIMARY KEY, -- 주문번호
+    ID VARCHAR2(10) CONSTRAINT NN_ORDERS_ID NOT NULL, -- 주문한 ID
+    CONCERTS_NO NUMBER(10) CONSTRAINT NN_ORDERS_CONCERTS_NO NOT NULL, -- 예매한 콘서트 번호 
+    SEATS_NO VARCHAR2(5) CONSTRAINT NN_ORDERS_SEATS_NO NOT NULL, -- 예매한 좌석 번호
     CONSTRAINTS FK_ORDERS_MEMBERS FOREIGN KEY (ID) REFERENCES MEMBERS(ID),
     CONSTRAINTS FK_ORDERS_CONCERTS FOREIGN KEY (CONCERTS_NO) REFERENCES CONCERTS(NO)
 );
@@ -216,11 +217,46 @@ INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'test', '이�
 -- 콘서트 조회하기
 SELECT * FROM CONCERTS;
 
+-- 등록된 콘서트 개수 조회하기
+SELECT COUNT(*) FROM CONCERTS;
+
+-- 콘서트 목록 한 페이지의 데이터 조회 (페이지당 10개, 2페이지 조회)
+SELECT *
+FROM ( SELECT ROWNUM AS RNO, C.*
+            FROM CONCERTS C
+            ORDER BY NO DESC)
+WHERE RNO> 10 * (2 - 1) AND RNO<= 10 * 2;
+
 -- 콘서트 등록하기
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '장범준의 월드에 오신걸 환영합니다', '2021-01-01');
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '잔나비의 월드에 오신걸 환영합니다', '2021-02-02');
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', 'IU의 월드에 오신걸 환영합니다', '2021-03-03');
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '현아의 월드에 오신걸 환영합니다', '2021-04-04');
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '10cm의 월드에 오신걸 환영합니다', '2021-05-05');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-01-01', '서울');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-02-02', '부산');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-03-03', '인천');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-04-04', '대전');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-05-05', '대구');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-01-02', '서울');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-02-03', '부산');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-03-04', '인천');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-04-05', '대구');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-05-06', '대전');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-01-03', '서울');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-02-04', '부산');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-03-05', '인천');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-04-06', '대구');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-05-07', '대전');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준','제목',  '장범준의 월드에 오신걸 환영합니다', '2021-01-04', '부산');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-02-05', '서울');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-03-06', '대구');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-04-07', '인천');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-05-08', '대전');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-01-04', '서울');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-02-05', '부산');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-03-06', '인천');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-04-07', '대전');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-05-08', '대구');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-01-05', '서울');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-02-06', '부산');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-03-07', '대전');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-04-08', '대구');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-05-09', '인천');
 
 COMMIT;
