@@ -15,7 +15,15 @@
 <jsp:setProperty name="notice" property="views" />
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
-
+<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#artist").change(function() {
+			
+		});
+		
+	});
+</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,17 +63,15 @@
 		if(request.getParameter("search") != null) {
 			search = request.getParameter("search");
 		}
-	
-		
 		
 		// 목록 불러오기
-		if(artist != null && search != null) {
+		if(!artist.equals("") && !search.equals("")) {
 			list = dao.getNoticeListForUser(pageNumber, category, artist, search);
 			pageInfo = dao.getPageInfo(pageNumber, category, artist, search);
-		}else if(artist != null) { // 아티스트별
+		}else if(!artist.equals("")) { // 아티스트별
 			list = dao.getNoticeListForUser(pageNumber, artist);
 			pageInfo = dao.getPageInfo(pageNumber, artist);
-		}else if(search != null) { // 검색
+		}else if(!search.equals("")) { // 검색
 			list = dao.getNoticeListForUser(pageNumber, category, search);
 			pageInfo = dao.getPageInfo(pageNumber, category, search);
 		}else { // 기본
@@ -80,6 +86,9 @@
 			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    						전체
+  						</button>
 						<div class="dropdown-menu">
 							<label class="dropdown-item">전체</label>
 							<label class="dropdown-item">제목</label>
@@ -87,6 +96,9 @@
 						</div>
 					</div>
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
+					<div class="input-group-append">
+						<button class="btn btn-light" type="button" id="btn_search">검색</button>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
