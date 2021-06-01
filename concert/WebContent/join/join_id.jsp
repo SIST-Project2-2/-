@@ -30,18 +30,18 @@
 		$("#nameBtn").click(function() {
 			$(".nameHide").hide();
 			$(".hpHide").css("display", "block");
-		})
+		});
 		$("#hpBtn").click(function() {
 			$(".hpHide").hide();
 			$(".birthHide").css("display", "block");
-		})
+		});
 		$("#birthBtn").click(function() {
 			$(".birthHide").hide();
 			$(".emailHide").css("display", "block");
-		})
+		});
 		$("ebtn").click(function() {
 			$(".emailHide").hide();
-			alert("회원가입이 완료되었습니다.")
+			alert("회원가입이 완료되었습니다.");
 		});
 	});
 </script>
@@ -98,9 +98,9 @@
 				<progress id="file" value="60" max="100"> 60% </progress>
 				<div>
 					<div>이름과 주소를 입력해주세요</div>
-					<input type="text" name="firstname" id="firstname" required
-						placeholder="성 입력"> <input type="text" name="lastname"
-						id="lastname" required placeholder="이름입력"> <input
+					<input type="text" name="lastName" id="lastName" required
+						placeholder="성 입력"> <input type="text" name="firstName"
+						id="firstName" required placeholder="이름입력"> <input
 						type="text" name="addr" id="addr" required placeholder="주소입력">
 					<input type="text" name="daddr" id="daddr" required
 						placeholder="상세주소입력">
@@ -108,7 +108,7 @@
 				<button type="submit" id="nameBtn">다음</button>
 			</div>
 		</div>
-
+ 
 
 		<div class="hpHide" style="display: none;">
 			<div class="joinID">
@@ -126,6 +126,7 @@
 			</div>
 		</div>
 
+ 
 		<div class="birthHide" style="display: none;">
 			<div class="joinID">
 				<h1>가입하기</h1>
@@ -133,8 +134,8 @@
 				<progress id="file" value="90" max="100"> 90% </progress>
 				<div>생년월일과 성별을 선택해주세요</div>
 				<input type="text" name="birth_date" placeholder="생년월일 입력(YYMMDD)"
-					required> <label>남자</label><input type="radio"
-					name="gender" id="m"> <label>여자</label><input type="radio"
+					required> <label>남자</label><input type="checkbox"
+					name="gender" id="m"> <label>여자</label><input type="checkbox"
 					name="gender" id="w">
 				<button type="submit" id="birthBtn">다음</button>
 			</div>
@@ -152,6 +153,11 @@
 				<button type="submit" id="emailBtn">다음</button>
 			</div>
 		</div>
+		
+		
+		
+		
+		
 		<!--   <div class="profileHide" style="display:none;">
     <div class="joinID">
         <h1>가입하기</h1>

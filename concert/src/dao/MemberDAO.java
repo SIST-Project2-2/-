@@ -89,24 +89,31 @@ public class MemberDAO extends DAO {
 	// 프로필 정보 가져오기
 	
 	//회원가입
-	public int join(MemberVO member) {
+	public int join(String id,
+	String pw,
+	String nickname,
+	String name,
+	String birth_date,
+	String sex,
+	String address,
+	String phone,
+	String email
+) {
 
 		try {
-			String sql = "INSERT INTO MEMBERS VALUES(SEQ_MEMBER_NO.NEXTVAL,?,?,?,?,?,?,?,?,'user',null,?)";
+			String sql = "INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,'USER',0,?)";
 			getPreparedStatement(sql);
 
-			
 		
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2,member.getPw());
-			pstmt.setString(3,member.getNickname());
-			pstmt.setString(4,member.getName());
-			pstmt.setString(5,member.getBirth_date());
-			pstmt.setString(6, member.getSex());
-			pstmt.setString(7, member.getAddress());
-			pstmt.setString(8,member.getPhone());
-		
-			pstmt.setString(9,member.getEmail());
+			pstmt.setString(1, id);
+			pstmt.setString(2,pw);
+			pstmt.setString(3,nickname);
+			pstmt.setString(4,name);
+			pstmt.setString(5,birth_date);
+			pstmt.setString(6,sex);
+			pstmt.setString(7,address);
+			pstmt.setString(8,phone);
+			pstmt.setString(9,email);
 
 			return pstmt.executeUpdate();
 

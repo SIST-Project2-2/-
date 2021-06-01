@@ -11,6 +11,8 @@
 String id = null;
 String pw = null;
 String nickName = null;
+String firstName= null;
+String lastName= null;
 String name= null;
 String birth_date = null;
 String sex =null;
@@ -20,6 +22,7 @@ String email = null;
 
 
 //회원가입 id정보 불러오기
+
 
 if (request.getParameter("id") != null) {
 	id = (String) request.getParameter("id");
@@ -31,26 +34,37 @@ if (request.getParameter("pw") != null) {
 if (request.getParameter("nickName") != null) {
 	nickName = (String) request.getParameter("nickName");
 }
+
+
 if (request.getParameter("firstName") != null && request.getParameter("lastName") !=null) {
-	name = (String) request.getParameter("firstName")+(String) request.getParameter("lastName");
+	firstName = (String) request.getParameter("firstName");
+	lastName = (String) request.getParameter("lastName");
+	
+	name = lastName + firstName;
+	
 }
+if (request.getParameter("addr") != null) {
+	address = (String) request.getParameter("addr")+(String) request.getParameter("daddr");
+	
+}
+
+if (request.getParameter("hp1") != null && request.getParameter("hp2") != null && request.getParameter("hp3") !=null) {
+	phone = (String)request.getParameter("hp1") + (String)request.getParameter("hp2") + (String)request.getParameter("hp3");
+}
+
 if (request.getParameter("birth_date") != null) {
 	birth_date = (String) request.getParameter("birth_date");
 }
 if (request.getParameter("gender") != null) {
 	sex = (String) request.getParameter("gender");
 }
-if (request.getParameter("addr") != null) {
-	address = (String) request.getParameter("addr")+(String) request.getParameter("daddr");
-}
-if (request.getParameter("hp1") != null && request.getParameter("hp2") != null && request.getParameter("hp3") !=null) {
-	phone = (String) request.getParameter("hp1") + (String) request.getParameter("hp2") + (String) request.getParameter("hp3");
-}
 if (request.getParameter("email") != null) {
 	email = (String) request.getParameter("email");
 }
 
-/*
+
+
+
 if (id == null || pw == null) {
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
@@ -59,7 +73,9 @@ if (id == null || pw == null) {
 	script.println("</script>");
 	script.close();
 	return;
-}*/
+}
+
+
 
 MemberDAO memberDAO = new MemberDAO();
 //dao 통해서 db에  데이터 넣기
@@ -75,6 +91,8 @@ if (result == 1) {
 	script.close();
 	return;
 }
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -83,6 +101,6 @@ if (result == 1) {
 <title>Insert title here</title>
 </head>
 <body>
-
+	
 </body>
 </html>

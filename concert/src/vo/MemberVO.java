@@ -113,10 +113,10 @@ public class MemberVO {
 
 	
 	//Constructor
-	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex,
-			String address, String phone, String authority, String withdrawal, String email) {
+	public MemberVO(String id, String pw, String nickname, String name, String birth_date, String sex,
+			String address, String phone, String email) {
 		super();
-		this.no = no;
+		
 		this.id = id;
 		this.pw = pw;
 		this.nickname = nickname;
@@ -125,8 +125,6 @@ public class MemberVO {
 		this.sex = sex;
 		this.address = address;
 		this.phone = phone;
-		this.authority = authority;
-		this.withdrawal = withdrawal;
 		this.email = email;
 	}
 	
