@@ -2,11 +2,13 @@ package vo;
 
 public class MemberVO {
 
+	// Field
 	private int no; // 회원번호
 	private String id; // 아이디
 	private String pw; // 비밀번호
 	private String nickname; // 닉네임
-	private String name; // 이름
+	private String first_name; // 이름
+	private String last_name; // 성
 	private String birth_date; // 생일
 	private String sex; // 성별
 	private String address; // 주소
@@ -14,6 +16,27 @@ public class MemberVO {
 	private String authority; // 권한
 	private String withdrawal; // 탈퇴 요청 여부
 	private String email; // 이메일 주소
+
+	// Constructor
+	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex, String address, String phone, String authority, String withdrawal, String email) {
+		super();
+		this.no = no;
+		this.id = id;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.birth_date = birth_date;
+		this.sex = sex;
+		this.address = address;
+		this.phone = phone;
+		this.authority = authority;
+		this.withdrawal = withdrawal;
+		this.email = email;
+	}
+
+	// Method
+	public MemberVO() {
+
+	}
 
 	public String getEmail() {
 		return email;
@@ -45,14 +68,6 @@ public class MemberVO {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getBirth_date() {
@@ -111,29 +126,36 @@ public class MemberVO {
 		this.no = no;
 	}
 
-	
-	//Constructor
-	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex,
-			String address, String phone, String authority, String withdrawal, String email) {
+	// Constructor
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email) {
 		super();
-		this.no = no;
+
 		this.id = id;
 		this.pw = pw;
 		this.nickname = nickname;
-		this.name = name;
+		this.first_name = first_name;
+		this.last_name = last_name;
 		this.birth_date = birth_date;
 		this.sex = sex;
 		this.address = address;
 		this.phone = phone;
-		this.authority = authority;
-		this.withdrawal = withdrawal;
 		this.email = email;
 	}
-	
-	public MemberVO() {
-		
+
+	public String getFirst_name() {
+		return first_name;
 	}
-	
-	
-	
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+
 }

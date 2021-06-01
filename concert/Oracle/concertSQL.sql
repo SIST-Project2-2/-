@@ -19,7 +19,8 @@ CREATE TABLE MEMBERS
     ID VARCHAR2(10) CONSTRAINT PK_MEMBERS_ID PRIMARY KEY, -- 아이디
     PW VARCHAR2(20) CONSTRAINT NN_MEMBERS_PW NOT NULL, -- 패스워드
     NICKNAME VARCHAR2(30) CONSTRAINT NN_MEMBERS_NICKNAME NOT NULL, -- 닉네임
-    NAME VARCHAR2(30) CONSTRAINT NN_MEMBERS_NAME NOT NULL, -- 이름
+    FIRST_NAME VARCHAR2(30) CONSTRAINT NN_MEMBERS_FIRST_NAME NOT NULL, -- 이름
+    LAST_NAME VARCHAR2(30) CONSTRAINT NN_MEMBERS_LAST_NAME NOT NULL, -- 성
     BIRTHDATE DATE CONSTRAINT NN_MEMBERS_BIRTHDATE NOT NULL, -- 생년월일
     SEX VARCHAR(5) CONSTRAINT NN_MEMBERS_SEX NOT NULL, -- 성별
     ADDRESS VARCHAR2(100), -- 주소
@@ -131,20 +132,20 @@ SELECT * FROM USER_SEQUENCES;
 SELECT * FROM MEMBERS;
 
 -- 계정 생성
-INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'test', '1234', '테스트', '홍길동', SYSDATE, 'M', '서울시', '010-1234-5678', 'tester', 0, 'test@test.com');
-INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'hwisaek', '1234', 'hwisaek', '이창민', SYSDATE, 'M', '서울시', '010-0000-0000', 'tester', 0, 'hwisaek@hwisaek.com');
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'test', '1234', '테스트', '길동', '홍', '2021-05-25', 'M', '서울시', '010-1234-5678', 'tester', 0, 'test@test.com');
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'hwisaek', '1234', 'hwisaek', '창민', '이', '2021-02-28', 'M', '서울시', '010-0000-0000', 'tester', 0, 'hwisaek@hwisaek.com');
 
 -- 로그인 기능
 SELECT PW FROM MEMBERS WHERE ID='test';
 
 -- 아이디 찾기
-SELECT ID FROM MEMBERS WHERE NAME='홍길동' AND EMAIL=LOWER('test@test.com');
+SELECT ID FROM MEMBERS WHERE FIRST_NAME='길동' AND LAST_NAME='홍' AND EMAIL=LOWER('test@test.com');
 
 -- 비밀번호 찾기
-SELECT PW FROM MEMBERS WHERE ID='test' AND NAME='홍길동' AND TO_CHAR(BIRTHDATE, 'YYYY-MM-DD')='2021-05-25' AND PHONE='010-1234-5678';
+SELECT PW FROM MEMBERS WHERE ID='test' AND FIRST_NAME='길동' AND LAST_NAME='홍' AND TO_CHAR(BIRTHDATE, 'YYYY-MM-DD')='2021-02-02' AND PHONE='010-9999-9999';
 
 -- 프로필 보기
-SELECT NO,ID,NICKNAME,NAME,TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE,SEX,ADDRESS,PHONE,EMAIL FROM MEMBERS WHERE ID='test';
+SELECT NO,ID,NICKNAME,FIRST_NAME, LAST_NAME,TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE,SEX,ADDRESS,PHONE,EMAIL FROM MEMBERS WHERE ID='test';
 
 -- 프로필 변경하기
 UPDATE MEMBERS SET NICKNAME='아이디수정', ADDRESS='경기도', BIRTHDATE=TO_DATE('2020-02-02', 'YYYY-MM-DD'), PHONE='010-9999-9999' WHERE ID='test';
@@ -206,15 +207,20 @@ INSERT INTO ARTISTS VALUES(ARTISTS_NO_SEQ.NEXTVAL, 'IU', '섬세하고 아련한
 INSERT INTO ARTISTS VALUES(ARTISTS_NO_SEQ.NEXTVAL, '10cm', '소규모 사운드로 거대한 감동을 추구하며 로맨스의 모든 면을 다루는 가사로 무장한 ''10cm''\n\n- 2009년 홍대 클럽을 중심으로 활동 시작.\n- 제이슨 므라즈의 영향을 받은 부분이 많으나 그와는 또다른 독자적인 세계를 가지고 있음.\n- 뉴욕 맨하탄 스타일의 스마트하고 도도하며 섹시함이 깃든 음악을 구현하고 있음.\n- 소규모 사운드로 거대한 감동을 추구하며 로맨스의 모든 면을 다루는 가사로 무장.\n\n분명히 10cm는 한국 음악계의 하나의 아이콘이다. 질펀한 가사와 달콤한 멜로디로 대중들을 사로잡은 10cm.\n인디 신에서 시작한 이 엉큼한 뮤지션은 한국 음악계의 인디와 메이저의 경계를 허문 장본인이기도 하다.\n‘오늘밤은 어둠이 무서워요’, ‘아메리카노’로 이름을 알린 2010년에는 한국 버스킹 1세대로써 홍대 씬의 ‘통기타와 젬베’ 열풍을 설명하는 척도였고, 연이어 꾸준히 발매된 앨범들을 통해 대체 불가의 존재로 거듭나게 되었다.\n탑 아이돌들과의 콜라버레이션, 각종 드라마 ost, 대형 페스티벌 등 섭외 1순위가 되었고, 식을 줄 모르는 열광 속에서 전 회 매진을 기록하는 단독 공연들로 명실상부 대한민국의 대표 인디밴드로 자리 잡았다.\n\n2017년, 멤버 윤철중의 탈퇴로 10cm는 권정열 1인체제로 변경하여 네 번째 정규앨범 [4.0]으로 활동을 이어나갔으며 2018년 발표한 싱글 [매트리스]로 다시 한번 음악차트 1위를 거머쥐며 음원 강자 10cm의 저력을 보여주었다.\n\n[AWARD]\n2016  제8회 멜론뮤직어워드 뮤직스타일상 포크블루스 부문\n2015  제7회 멜론뮤직어워드 포크부문\n2011  제8회 한국대중음악상 최우수 팝 노래 부문\n2010  M.NET 아시안 뮤직 어워드 올해의 발견상');
 INSERT INTO ARTISTS VALUES(ARTISTS_NO_SEQ.NEXTVAL, '현아', '항상 새로운 장르의 음악과 퍼포먼스로 트렌드를 리드해나가는 진정한 퀸 ''''현아''!\n\n현아는 약 4년의 연습생 생활을 거쳐 2007년 원더걸스의 싱글 [The Wonder Begins]로 데뷔. 이후 2009년 큐브 엔터테인먼트로 소속을 옮겨 포미닛의 멤버로서 활발히 활동하기 시작했다. 이후 2010년 1월에는 첫 솔로 싱글 [Change], [Bubble Pop!], [A Talk] 등 발매하고 활발히 활동하여, 각 종 음반 차트에서 상위권을 유지하며 이 시대 트렌드 아이콘으로서 성공적인 행보를 보인다. 이후 장현승과 유닛 그룹 트러블 메이커를 결성해 2014년까지 활동하였고, 2016년 그룹 포미닛 해체 후 8월 1일 다섯 번째 EP 음반 [A''wesome]을 발매했다. 2017년 5월 펜타곤 멤버 후이, 이던과 함께 트리플 H로 활동하며 다양한 무대를 보여왔다.\n\n2017년 8월, 올해 데뷔 10주년을 맞은 현아는 새로운 미니앨범을 통해 기존에 보여주었던 그녀의 섹시함은 물론 색다른 모습을 보여 줄 예정이다. 언제나 다채로운 음악적인 색깔을 보여주는 현아는, 더욱 더 깊어진 음악적인 색깔과 새로운 모습을 보여줄 준비가 되었다.\n\n출생: 1992년 6월 6일\n신체: 164cm, 44kg\n소속그룹: 포미닛, 트러블 메이커, 트리플 H\n수상: 2015년 제24회 하이원 서울가요대상 댄스 퍼포먼스상');
 
+-- 댓글 조회하기
+SELECT * FROM COMMENTS;
+
+-- 댓글 등록하기
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'test', '이것은 댓글입니다', '2021-01-02');
+
 -- 콘서트 조회하기
 SELECT * FROM CONCERTS;
 
 -- 콘서트 등록하기
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '장범준의 월드에 오신걸 환영합니다', SYSDATE);
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '잔나비의 월드에 오신걸 환영합니다', SYSDATE);
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', 'IU의 월드에 오신걸 환영합니다', SYSDATE);
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '현아의 월드에 오신걸 환영합니다', SYSDATE);
-INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '10cm의 월드에 오신걸 환영합니다', SYSDATE);
-
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '장범준의 월드에 오신걸 환영합니다', '2021-01-01');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '잔나비의 월드에 오신걸 환영합니다', '2021-02-02');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', 'IU의 월드에 오신걸 환영합니다', '2021-03-03');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '현아의 월드에 오신걸 환영합니다', '2021-04-04');
+INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '10cm의 월드에 오신걸 환영합니다', '2021-05-05');
 
 COMMIT;
