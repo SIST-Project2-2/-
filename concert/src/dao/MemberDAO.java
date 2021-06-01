@@ -87,6 +87,34 @@ public class MemberDAO extends DAO {
 	}
 
 	// 프로필 정보 가져오기
+	
+	//회원가입
+	public int join(MemberVO member) {
+
+		try {
+			String sql = "INSERT INTO MEMBERS VALUES(SEQ_MEMBER_NO.NEXTVAL,?,?,?,?,?,?,?,?,'user',null,?)";
+			getPreparedStatement(sql);
+
+			
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2,member.getPw());
+			pstmt.setString(3,member.getNickname());
+			pstmt.setString(4,member.getName());
+			pstmt.setString(5,member.getBirth_date());
+			pstmt.setString(6, member.getSex());
+			pstmt.setString(7, member.getAddress());
+			pstmt.setString(8,member.getPhone());
+			pstmt.setString(9,member.getEmail());
+
+			return pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return -1;
+	}
+
 	public MemberVO get_profile(String id) {
 		MemberVO member = null;
 
