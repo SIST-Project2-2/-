@@ -1,5 +1,6 @@
+
 div#carouselSlider {
-    margin-top: 10%;
+   
     background-color: black;
     height: 140rem;
 }
@@ -21,6 +22,7 @@ div.firstSong{
     height: 400px;
     text-align: center;
     margin-top: 40px;
+   
 }
 div.SecondSong{
    
@@ -33,4 +35,13 @@ div.SecondSong{
     height: 400px;
     padding: 0px 10px;
 }
-
+#cm{
+    width: 50%;
+}
+section.container{
+    background-color:bisque;
+}
+div.comment{
+    background-color: black;
+    border-top:3px solid black;
+}
