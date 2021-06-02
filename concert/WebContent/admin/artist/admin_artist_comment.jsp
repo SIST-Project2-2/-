@@ -13,14 +13,22 @@
 }
 
 .box {
-	display: inline-block;
+	display: inline-block;	
 	width: 150px;
+}
+
+div.d2{
+	width: 86%;
+}
+table.table {
+	width:90%;
+	margin: 0 auto;
 }
 </style>
 </head>
 <body>
 	<h3>댓글관리</h3>
-	<div class="text-right" >
+	<div class="d2 text-right">
 		<div class="box">
 			<label>가수</label> <select class="custom-select">
 				<option selected>선택</option>
@@ -32,22 +40,24 @@
 			</select>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col"></div>
-			<div class="col-6 text-center">
-				<input type="text">
-				<button type="button">돋보기</button>
-			</div>
-			<div class="col text-right">
-				<div class="box">
-					<div>
-						<label>신고수</label>
+	<div class="d1">
+		<div class="container">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-6 text-center">
+					<input type="text">
+					<button type="button">돋보기</button>
+				</div>
+				<div class="col text-right">
+					<div class="box">
+						<div>
+							<label>신고수</label>
+						</div>
+						<select class="custom-select">
+							<option selected>내림차순</option>
+							<option value="1">오름차순</option>
+						</select>
 					</div>
-					<select class="custom-select">
-						<option selected>내림차순</option>
-						<option value="1">오름차순</option>
-					</select>
 				</div>
 			</div>
 		</div>
@@ -135,6 +145,6 @@
 			</ul>
 		</nav>
 	</div>
-</div>
+	</div>
 </body>
 </html>
