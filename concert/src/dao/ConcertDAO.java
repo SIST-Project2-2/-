@@ -40,16 +40,17 @@ public class ConcertDAO extends DAO {
 	}
 
 	// 콘서트 특정 페이지 조회
-	public ArrayList<ConcertVO> get_concert_list(int page_no, int list_size) {
-		ArrayList<ConcertVO> concert_list = null;
+	public ArrayList<ConcertVO> get_concert_list(int page_no, int page_size) {
+		ArrayList<ConcertVO> concert_list = new ArrayList<ConcertVO>();
 
 		try {
-			concert_list = new ArrayList<ConcertVO>();
-			String sql = "SELECT * FROM ( SELECT ROWNUM AS RNO, C.* FROM CONCERTS C ORDER BY NO DESC) WHERE RNO> " + list_size + " * (? - 1) AND RNO<= " + list_size + " * ?";
+			String sql = "SELECT * FROM ( SELECT ROWNUM AS RNO, C.* FROM CONCERTS C ORDER BY NO DESC) WHERE RNO <= ? * ? AND RNO > ? * (? - 1)";
 			getPreparedStatement(sql);
 
-			pstmt.setInt(1, page_no);
+			pstmt.setInt(1, page_size);
 			pstmt.setInt(2, page_no);
+			pstmt.setInt(3, page_size);
+			pstmt.setInt(4, page_no);
 
 			rs = pstmt.executeQuery();
 
