@@ -43,8 +43,8 @@ member = memberDAO.get_profile(member.getId());
 							id.val("<%=member.getId()%>");
 							id_fake.val("<%=member.getId()%>");
 							nickname.val("<%=member.getNickname()%>");
-							surname.val("<%=member.getName()%>");
-							given_name.val("<%=member.getName()%>");
+							given_name.val("<%=member.getFirst_name()%>");
+							surname.val("<%=member.getLast_name()%>");
 							address.val("<%=member.getAddress()%>");
 							birth_date.val("<%=member.getBirth_date()%>");
 							issue_date.val("<%=member.getBirth_date()%>");
@@ -80,11 +80,11 @@ member = memberDAO.get_profile(member.getId());
 							var personal_code = document
 									.getElementById("personal_code");
 							var text = "";
-							text += document.getElementById("id").innerHTML;
-							text += document.getElementById("nickname").innerHTML;
-							text += document.getElementById("surname").innerHTML;
+							text += $("#id").val();
+							text += $("#nickname").val();
+							text += $("#surname").val();
 							text += "&lt;&lt;";
-							text += document.getElementById("given_name").innerHTML;
+							text += $("#given_name").val();
 							for (var i = 0; i < 100; i++) {
 								text += "&lt;";
 							}

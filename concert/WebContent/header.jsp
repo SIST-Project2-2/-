@@ -101,7 +101,7 @@ a:hover {
 					<a class="auser" href="http://localhost:9000/concert/login/login.jsp"> LOGIN</a>
 				</li>
 				<li class="nav-item">
-					<a class="auser" href="http://localhost:9000/concert/join/join_id.html"> JOIN</a>
+					<a class="auser" href="http://localhost:9000/concert/join/join_id.jsp"> JOIN</a>
 				</li>
 			</ul>
 		</div>

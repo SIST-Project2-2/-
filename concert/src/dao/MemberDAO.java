@@ -37,21 +37,21 @@ public class MemberDAO extends DAO {
 	}
 
 	// 아이디 찾기
-	public String find_id(String name, String nickname, String email) {
+	public String find_id(MemberVO member) {
 		String result = null;
 
 		try {
-			String sql = "SELECT ID FROM MEMBERS WHERE NAME=? AND EMAIL=LOWER(?)";
+			String sql = "SELECT ID FROM MEMBERS WHERE FIRST_NAME=? AND LAST_NAME=? AND EMAIL=LOWER(?)";
 			getPreparedStatement(sql);
 
-			pstmt.setString(1, name);
-			pstmt.setString(2, email);
-
+			pstmt.setString(1, member.getFirst_name());
+			pstmt.setString(2, member.getLast_name());
+			pstmt.setString(3, member.getEmail());
+			System.out.println(member.getFirst_name() + ", " + member.getLast_name() + ", " + member.getEmail());
 			rs = pstmt.executeQuery();
 			if (rs.next()) { // 입력 정보 맞음
 				result = rs.getString(1);
 			} else { // 입력 정보 틀림
-
 			}
 
 		} catch (Exception e) {
@@ -61,17 +61,18 @@ public class MemberDAO extends DAO {
 	}
 
 	// 비밀번호 찾기
-	public String find_password(String id, String name, String date, String phone) {
+	public String find_password(MemberVO member) {
 		String result = null;
 
 		try {
-			String sql = "SELECT PW FROM MEMBERS WHERE ID=? AND NAME=? AND TO_CHAR(BIRTHDATE, 'YYYY-MM-DD')=? AND PHONE=?";
+			String sql = "SELECT PW FROM MEMBERS WHERE ID=? AND FIRST_NAME=? AND LAST_NAME=? AND TO_CHAR(BIRTHDATE, 'YYYY-MM-DD')=? AND PHONE=?";
 			getPreparedStatement(sql);
 
-			pstmt.setString(1, id);
-			pstmt.setString(2, name);
-			pstmt.setString(3, date);
-			pstmt.setString(4, phone);
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getFirst_name());
+			pstmt.setString(3, member.getLast_name());
+			pstmt.setString(4, member.getBirth_date());
+			pstmt.setString(5, member.getPhone());
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) { // 입력 정보 맞음
@@ -87,24 +88,24 @@ public class MemberDAO extends DAO {
 	}
 
 	// 프로필 정보 가져오기
-	
-	//회원가입
-	public int join(MemberVO member) {
+
+	// 회원가입
+	public int join(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email) {
 
 		try {
-			String sql = "INSERT INTO MEMBERS VALUES(SEQ_MEMBER_NO.NEXTVAL,?,?,?,?,?,?,?,?,'user',null,?)";
+			String sql = "INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'tester', 0, ?)";
 			getPreparedStatement(sql);
 
-			
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2,member.getPw());
-			pstmt.setString(3,member.getNickname());
-			pstmt.setString(4,member.getName());
-			pstmt.setString(5,member.getBirth_date());
-			pstmt.setString(6, member.getSex());
-			pstmt.setString(7, member.getAddress());
-			pstmt.setString(8,member.getPhone());
-			pstmt.setString(9,member.getEmail());
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			pstmt.setString(3, nickname);
+			pstmt.setString(4, first_name);
+			pstmt.setString(5, last_name);
+			pstmt.setString(6, birth_date);
+			pstmt.setString(7, sex);
+			pstmt.setString(8, address);
+			pstmt.setString(9, phone);
+			pstmt.setString(10, email);
 
 			return pstmt.executeUpdate();
 
@@ -119,7 +120,7 @@ public class MemberDAO extends DAO {
 		MemberVO member = null;
 
 		try {
-			String sql = "SELECT NO,ID,NICKNAME,NAME,TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE,SEX,ADDRESS,PHONE,EMAIL FROM MEMBERS WHERE ID=?";
+			String sql = "SELECT NO,ID,NICKNAME,FIRST_NAME, LAST_NAME,TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE,SEX,ADDRESS,PHONE,EMAIL FROM MEMBERS WHERE ID=?";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, id);
@@ -130,12 +131,13 @@ public class MemberDAO extends DAO {
 				member.setNo(rs.getInt(1));
 				member.setId(rs.getString(2));
 				member.setNickname(rs.getString(3));
-				member.setName(rs.getString(4));
-				member.setBirth_date(rs.getString(5));
-				member.setSex(rs.getString(6));
-				member.setAddress(rs.getString(7));
-				member.setPhone(rs.getString(8));
-				member.setEmail(rs.getString(9));
+				member.setFirst_name(rs.getString(4));
+				member.setLast_name(rs.getString(5));
+				member.setBirth_date(rs.getString(6));
+				member.setSex(rs.getString(7));
+				member.setAddress(rs.getString(8));
+				member.setPhone(rs.getString(9));
+				member.setEmail(rs.getString(10));
 			} else { // 입력 정보 틀림
 
 			}
@@ -180,7 +182,7 @@ public class MemberDAO extends DAO {
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, member.getId());
-			
+
 			int val = pstmt.executeUpdate();
 			if (val == 1) { // 닉네임 있음
 				result = 1;

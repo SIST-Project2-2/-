@@ -27,7 +27,7 @@
 				</div>
 			</form>
 			<div class="text-right">
-				<small class="text-muted"><a href="#" class="text-decoration-none text-muted">아이디 찾기</a> | <a href="#" class="text-decoration-none text-muted">비밀번호 찾기</a></small>
+				<small class="text-muted"><a href="find_id.jsp" class="text-decoration-none text-muted">아이디 찾기</a> | <a href="find_password.jsp" class="text-decoration-none text-muted">비밀번호 찾기</a></small>
 			</div>
 		</div>
 	</div>

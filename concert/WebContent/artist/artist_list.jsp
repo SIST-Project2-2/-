@@ -23,7 +23,23 @@
 	crossorigin="anonymous "></script>
 <!--자바스크립트 -->
 <script defer src="artist_list.js"></script>
-
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	addClickEvent("iu");
+	
+	function addClickEvent(name){
+		for(var i =1;i<=1;i++){
+			$("#"+name+"_img"+i).click(function(){
+				alert(name+"_audio"+i);
+				var audio = document.getElementById(name+"_audio"+i);
+				alert($("#iu_audio"+i).attr("id"));
+		        audio.play();
+			});
+		}
+	}
+});
+</script>
 <title>아티스트 목록</title>
 </head>
 
@@ -46,25 +62,25 @@
 					<div class="article">
 						<img src="../images/아이유.jpg" class="h-100">
 						<div class="firstSong">
-							<img src="../images/아이유음원1.jpg" class="song1"
-								onmouseenter="iu_play1()" onmouseleave="iu_pause1()">
+							<img src="../images/아이유음원1.jpg" class="song1" id="iu_img1"
+								onmouseenter="iu_play1('iu_audio1')" onmouseleave="iu_pause1('iu_audio1')">
 							<audio id="iu_audio1" src="../song/아이유노래1.mp3"></audio>
 
-							<img src="../images/아이유음원2.png" class="song2"
-								onmouseenter="iu_play2()" onmouseleave="iu_pause2()">
+							<img src="../images/아이유음원2.png" class="song2" id="iu_img2"
+								onmouseenter="iu_play2('iu_audio2')" onmouseleave="iu_pause2('iu_audio2')">
 							<audio id="iu_audio2" src="../song/아이유노래2.mp3"></audio>
 
-							<img src="../images/아이유음원3.jpg" class="song3"
-								onmouseenter="iu_play3()" onmouseleave="iu_pause3()">
+							<img src="../images/아이유음원3.jpg" class="song3" id="iu_img3"
+								onmouseenter="iu_play3('iu_audio3')" onmouseleave="iu_pause3('iu_audio3')">
 							<audio id="iu_audio3" src="../song/아이유노래3.mp3"></audio>
 						</div>
 
 						<div class="SecondSong">
 							<img src="../images/아이유음원4.jpg" class="song4"
-								onmouseenter="iu_play4()" onmouseleave="iu_pause4()">
+								onmouseenter="iu_play4('iu_audio4')" onmouseleave="iu_pause4('iu_audio4')">
 							<audio id="iu_audio4" src="../song/아이유노래4.mp3"></audio>
 							<img src="../images/아이유음원5.jpg" class="song5"
-								onmouseenter="iu_play5()" onmouseleave="iu_pause5()">
+								onmouseenter="iu_play5('iu_audio5')" onmouseleave="iu_pause5('iu_audio5')">
 							<audio id="iu_audio5" src="../song/아이유노래5.mp3"></audio>
 						</div>
 					</div>
@@ -80,24 +96,24 @@
 						<div class="firstSong">
 
 							<img src="../images/장범준앨범1.jpg" class="song1"
-								onmouseenter="jang_play1()" onmouseleave="jang_pause1()">
+								onmouseenter="jang_play1('jangMusic1')" onmouseleave="jang_pause1('jangMusic1')">
 							<audio id="jang_audio1" src="../song/장범준노래1.mp3"></audio>
 
 							<img src="../images/장범준앨범2.png" class="song2"
-								onmouseenter="jang_play2()" onmouseleave="jang_pause2()">
+								onmouseenter="jang_play2('jangMusic2')" onmouseleave="jang_pause2('jangMusic2')">
 							<audio id="jang_audio2" src="../song/장범준노래2.mp3"></audio>
 
 							<img src="../images/장범준앨범3.jpg" class="song3"
-								onmouseenter="jang_play3()" onmouseleave="jang_pause3()">
+								onmouseenter="jang_play3('jangMusic3')" onmouseleave="jang_pause3('jangMusic3')">
 							<audio id="jang_audio3" src="../song/장범준노래3.mp3"></audio>
 						</div>
 
 						<div class="SecondSong">
 							<img src="../images/장범준앨범4.jpg" class="song4"
-								onmouseenter="jang_play4()" onmouseleave="jang_pause4()">
+								onmouseenter="jang_play4('jangMusic4')" onmouseleave="jang_pause4('jangMusic4')">
 							<audio id="jang_audio4" src="../song/장범준노래4.mp3"></audio>
 							<img src="../images/장범준앨범5.jpg" class="song5"
-								onmouseenter="jang_play5()" onmouseleave="jang_pause5()">
+								onmouseenter="jang_play5('jangMusic5')" onmouseleave="jang_pause5('jangMusic5')">
 							<audio id="jang_audio5" src="../song/장범준노래5.mp3"></audio>
 						</div>
 					</div>
@@ -114,24 +130,24 @@
 						<div class="firstSong">
 
 							<img src="../images/잔나비앨범1.jpg" class="song1"
-								onmouseenter="jan_play1()" onmouseleave="jan_pause1()">
+								onmouseenter="jan_play1('janMusic1')" onmouseleave="jan_pause1('janMusic1')">
 							<audio id="jan_audio1" src="../song/잔나비노래1.mp3"></audio>
 
 							<img src="../images/잔나비앨범2.png" class="song2"
-								onmouseenter="jan_play2()" onmouseleave="jan_pause2()">
+								onmouseenter="jan_play2('janMusic2')" onmouseleave="jan_pause2('janMusic2')">
 							<audio id="jan_audio2" src="../song/잔나비노래2.mp3"></audio>
 
 							<img src="../images/잔나비앨범3.jpg" class="song3"
-								onmouseenter="jan_play3()" onmouseleave="jan_pause3()">
+								onmouseenter="jan_play3('janMusic3')" onmouseleave="jan_pause3('janMusic3')">
 							<audio id="jan_audio3" src="../song/잔나비노래3.mp3"></audio>
 						</div>
 
 						<div class="SecondSong">
 							<img src="../images/잔나비앨범4.jpg" class="song4"
-								onmouseenter="jan_play4()" onmouseleave="jan_pause4()">
+								onmouseenter="jan_play4('janMusic4')" onmouseleave="jan_pause4('janMusic4')">
 							<audio id="jan_audio4" src="../song/잔나비노래4.mp3"></audio>
 							<img src="../images/잔나비앨범5.jpg" class="song5"
-								onmouseenter="jan_play5()" onmouseleave="jan_pause5()">
+								onmouseenter="jan_play5('janMusic5')" onmouseleave="jan_pause5('janMusic5')">
 							<audio id="jan_audio5" src="../song/잔나비노래5.mp3"></audio>
 						</div>
 					</div>
@@ -147,24 +163,24 @@
 						<div class="firstSong">
 
 							<img src="../images/현아앨범1.jpg" class="song1"
-								onmouseenter="hyun_play1()" onmouseleave="hyun_pause1()">
+								onmouseenter="hyun_play1('hyunMusic1')" onmouseleave="hyun_pause1('hyunMusic1')">
 							<audio id="hyun_audio1" src="../song/현아노래1.mp3"></audio>
 
 							<img src="../images/현아앨범2.jpg" class="song2"
-								onmouseenter="hyun_play2()" onmouseleave="hyun_pause2()">
+								onmouseenter="hyun_play2('hyunMusic2')" onmouseleave="hyun_pause2('hyunMusic2')">
 							<audio id="hyun_audio2" src="../song/현아노래2.mp3"></audio>
 
 							<img src="../images/현아앨범3.jpg" class="song3"
-								onmouseenter="hyun_play3()" onmouseleave="hyun_pause3()">
+								onmouseenter="hyun_play3('hyunMusic3')" onmouseleave="hyun_pause3('hyunMusic3')">
 							<audio id="hyun_audio3" src="../song/현아노래3.mp3"></audio>
 						</div>
 
 						<div class="SecondSong">
 							<img src="../images/현아앨범4.jpg" class="song4"
-								onmouseenter="hyun_play4()" onmouseleave="hyun_pause4()">
+								onmouseenter="hyun_play4('hyunMusic4')" onmouseleave="hyun_pause4('hyunMusic4')">
 							<audio id="hyun_audio4" src="../song/현아노래4.mp3"></audio>
 							<img src="../images/현아앨범5.jpg" class="song5"
-								onmouseenter="hyun_play5()" onmouseleave="hyun_pause5()">
+								onmouseenter="hyun_play5('hyunMusic5')" onmouseleave="hyun_pause5('hyunMusic5')">
 							<audio id="hyun_audio5" src="../song/현아노래5.mp3"></audio>
 						</div>
 					</div>
@@ -181,24 +197,24 @@
 						<div class="firstSong">
 
 							<img src="../images/십센치앨범1.jpg" class="song1"
-								onmouseenter="cm_play1()" onmouseleave="cm_pause1()">
+								onmouseenter="cm_play1('cmMusic1')" onmouseleave="cm_pause1('cmMusic1')">
 							<audio id="cm_audio1" src="../song/십센치노래1.mp3"></audio>
 
 							<img src="../images/십센치앨범2.jpg" class="song2"
-								onmouseenter="cm_play2()" onmouseleave="cm_pause2()">
+								onmouseenter="cm_play2('cmMusic2')" onmouseleave="cm_pause2('cmMusic2')">
 							<audio id="cm_audio2" src="../song/십센치노래2.mp3"></audio>
 
 							<img src="../images/십센치앨범3.jpg" class="song3"
-								onmouseenter="cm_play3()" onmouseleave="cm_pause3()">
+								onmouseenter="cm_play3('cmMusic3')" onmouseleave="cm_pause3('cmMusic3')">
 							<audio id="cm_audio3" src="../song/십센치노래3.mp3"></audio>
 						</div>
 
 						<div class="SecondSong">
 							<img src="../images/십센치앨범4.jpg" class="song4"
-								onmouseenter="cm_play4()" onmouseleave="cm_pause4()">
+								onmouseenter="cm_play4('cmMusic4')" onmouseleave="cm_pause4('cmMusic4')">
 							<audio id="cm_audio4" src="../song/십센치노래4.mp3"></audio>
 							<img src="../images/십센치앨범5.jpg" class="song5"
-								onmouseenter="cm_play5()" onmouseleave="cm_pause5()">
+								onmouseenter="cm_play5('cmMusic5')" onmouseleave="cm_pause5('cmMusic5')">
 							<audio id="cm_audio5" src="../song/십센치노래5.mp3"></audio>
 						</div>
 					</div>

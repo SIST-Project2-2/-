@@ -1,13 +1,9 @@
+<%@page import="vo.MemberVO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-<jsp:useBean id="member" class="vo.MemberVO" scope="page" />
-<jsp:setProperty property="id" name="member" />
-<jsp:setProperty property="name" name="member" />
-<jsp:setProperty property="birth_date" name="member" />
-<jsp:setProperty property="phone" name="member" />
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,12 +13,19 @@
 </head>
 <body>
 	<%
-		MemberDAO memberDAO = new MemberDAO();
-	String result = memberDAO.find_password(member.getId(), member.getName(), member.getBirth_date(), member.getPhone());
+		MemberVO member = new MemberVO();
+	member.setId(request.getParameter("id"));
+	member.setFirst_name(request.getParameter("first_name"));
+	member.setLast_name(request.getParameter("last_name"));
+	member.setBirth_date(request.getParameter("birth_date"));
+	member.setPhone(request.getParameter("phone"));
+
+	MemberDAO memberDAO = new MemberDAO();
+	String result = memberDAO.find_password(member);
 	PrintWriter script = response.getWriter();
 	if (result == null) {
 		script.println("<script>");
-		script.println("alert('입력한 정보가 틀립니다');");
+		script.println("alert('입력한 정보가 틀립니다.');");
 		script.println("history.back();");
 		script.println("</script>");
 	} else {
