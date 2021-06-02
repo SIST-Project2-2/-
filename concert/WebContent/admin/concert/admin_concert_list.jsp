@@ -1,3 +1,5 @@
+<%@page import="java.lang.reflect.Field"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="dao.ConcertDAO"%>
 <%@page import="vo.ConcertVO"%>
 <%@page import="java.util.ArrayList"%>
@@ -13,7 +15,6 @@
 	Enumeration<String> parameter_names = request.getParameterNames();
 	page_count = concert_dao.count_concert_pages(10);
 	
-	
 	// 파라미터들 중 'page_no'를 찾아내기 위한 반복문
 	while (parameter_names.hasMoreElements()) {
 		String parameter_name = parameter_names.nextElement();
@@ -22,7 +23,27 @@
 			page_no = Integer.parseInt(request.getParameter(parameter_name));
 		}
 	}
-	concert_list = concert_dao.get_concert_list(page_no, 10);
+	
+	// 검색 카테고리 설정
+	ConcertVO concert = new ConcertVO(); // 카테고리 설정하기 위해 사용될 객체 생성
+	String[] searchCategories = request.getParameterValues("category");
+//	System.out.println("jsp파일 카테고리 목록: " + Arrays.toString(searchCategories));
+		
+	Field[] fields = concert.getClass().getDeclaredFields();
+	for(Field field : fields){
+		field.setAccessible(true);
+		if(searchCategories!=null){
+			for(int i = 0; i < searchCategories.length; i++){
+				if(field.getName().equals(searchCategories[i])){
+					field.set(concert, request.getParameter("search"));
+					break;
+				}
+			}			
+		}
+	}
+	
+	
+	concert_list = concert_dao.get_concert_search_list(page_no, 10, concert);
 	list_size = concert_list.size();
 %>
 <!-- header -->
@@ -55,7 +76,7 @@
 			pagenation.after("<%= html_pagenation%>");
 			$("#page_link" + <%= page_no %>).addClass("font-weight-bold");
 			$("#page_previous_link").attr("href", "?page_no=<%= (page_start - 10 <= 0) ? 1 : page_start - 10%>");
-			$("#page_next_link").attr("href", "?page_no=<%= (page_start + 10 > page_count) ? page_count : page_start + 10%>");
+			$("#page_next_link").attr("href", "?page_no=<%= (page_start + 10 > page_count) ? page_count : (page_start + 10)%>");
 	 	}
 
 		function create_tbody() {
@@ -107,7 +128,7 @@
 						</div>
 						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 						<div class="input-group-append">
-							<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+							<button type="submit" class="btn btn-primary" id="notice_list_search_button">검색</button>
 						</div>
 					</div>
 				</div>
