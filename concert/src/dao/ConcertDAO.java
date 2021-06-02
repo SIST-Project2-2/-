@@ -44,7 +44,7 @@ public class ConcertDAO extends DAO {
 		ArrayList<ConcertVO> concert_list = new ArrayList<ConcertVO>();
 
 		try {
-			String sql = "SELECT * FROM ( SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS C ORDER BY NO DESC) WHERE RNO <= ? * ? AND RNO > ? * (? - 1)";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RNO, C.* FROM (SELECT * FROM CONCERTS ORDER BY NO DESC) C) WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, page_size);

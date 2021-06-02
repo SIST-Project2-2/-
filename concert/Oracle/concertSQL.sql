@@ -216,17 +216,18 @@ SELECT * FROM COMMENTS;
 INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'test', '이것은 댓글입니다', '2021-01-02');
 
 -- 콘서트 조회하기
-SELECT * FROM CONCERTS;
+SELECT * FROM CONCERTS ORDER BY NO DESC;
 
 -- 등록된 콘서트 개수 조회하기
 SELECT COUNT(*) FROM CONCERTS;
 
 -- 콘서트 목록 한 페이지의 데이터 조회 (페이지당 10개, 2페이지 조회)
 SELECT *
-FROM ( SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
-            FROM CONCERTS C
-            ORDER BY NO DESC)
-WHERE RNO> 10 * (2 - 1) AND RNO<= 10 * 2;
+FROM (SELECT ROWNUM AS RNO, C.*
+           FROM (SELECT * 
+                     FROM CONCERTS 
+                     ORDER BY NO DESC) C)
+WHERE RNO > 10 * (2 - 1) AND RNO <= 10 * 2;
 
 -- 콘서트 검색하기 - 콘서트 명 검색
 SELECT *
