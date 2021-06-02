@@ -223,7 +223,7 @@ SELECT COUNT(*) FROM CONCERTS;
 
 -- 콘서트 목록 한 페이지의 데이터 조회 (페이지당 10개, 2페이지 조회)
 SELECT *
-FROM (SELECT ROWNUM AS RNO, C.*
+FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
            FROM (SELECT * 
                      FROM CONCERTS 
                      ORDER BY NO DESC) C)
@@ -231,27 +231,30 @@ WHERE RNO > 10 * (2 - 1) AND RNO <= 10 * 2;
 
 -- 콘서트 검색하기 - 콘서트 명 검색
 SELECT *
-FROM ( SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
-            FROM CONCERTS C
-            WHERE TITLE LIKE('%제%')
-            ORDER BY NO DESC)
-WHERE RNO> 10 * (2 - 1) AND RNO<= 10 * 2;
+FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
+           FROM (SELECT * 
+                     FROM CONCERTS 
+                     WHERE TITLE LIKE('%제%')
+                     ORDER BY NO DESC) C)
+WHERE RNO > 10 * (2 - 1) AND RNO <= 10 * 2;
 
 -- 콘서트 검색하기 - 아티스트 검색
 SELECT *
-FROM ( SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
-            FROM CONCERTS C
-            WHERE ARTIST LIKE('%범준%')
-            ORDER BY NO DESC)
-WHERE RNO> 10 * (2 - 1) AND RNO<= 10 * 2;
+FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
+           FROM (SELECT * 
+                     FROM CONCERTS 
+                     WHERE ARTIST LIKE('%범준%')
+                     ORDER BY NO DESC) C)
+WHERE RNO > 10 * (2 - 1) AND RNO <= 10 * 2;
 
 -- 콘서트 검색하기 - 아티스트 & 콘서트 검색
 SELECT *
-FROM ( SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
-            FROM CONCERTS C
-            WHERE ARTIST LIKE('%범준%') OR TITLE LIKE('%범준%')
-            ORDER BY NO DESC)
-WHERE RNO> 10 * (2 - 1) AND RNO<= 10 * 2;
+FROM SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
+           FROM (SELECT * 
+                     FROM CONCERTS 
+                     WHERE ARTIST LIKE('%범준%') OR TITLE LIKE('%범준%')
+                     ORDER BY NO DESC) C)
+WHERE RNO > 10 * (2 - 1) AND RNO <= 10 * 2;
 
 -- 콘서트 등록하기
 INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-01-01', '서울');
