@@ -5,8 +5,10 @@ public class ConcertVO {
 	// Field
 	private int no;
 	private String artist;
+	private String title;
 	private String content;
 	private String cdate;
+	private String location;
 
 	// Method
 	public int getNo() {
@@ -39,6 +41,22 @@ public class ConcertVO {
 
 	public void setCdate(String cdate) {
 		this.cdate = cdate;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 }
