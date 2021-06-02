@@ -71,4 +71,44 @@ public class ConcertDAO extends DAO {
 	}
 
 	// 콘서트 등록
+	public int insert_concert(ConcertVO concert) {
+		int result = -2;
+
+		try {
+			String sql = "INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, concert.getArtist());
+			pstmt.setString(2, concert.getTitle());
+			pstmt.setString(3, concert.getContent());
+			pstmt.setString(4, concert.getCdate());
+			pstmt.setString(5, concert.getLocation());
+
+			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	// 콘서트 수정
+	public int edit_concert(String no, ConcertVO concert) {
+		int result = -2;
+
+		try {
+			String sql = "";
+			getPreparedStatement(sql);
+
+			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 }
