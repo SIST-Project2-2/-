@@ -44,7 +44,7 @@ public class ConcertDAO extends DAO {
 		ArrayList<ConcertVO> concert_list = new ArrayList<ConcertVO>();
 
 		try {
-			String sql = "SELECT * FROM ( SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS C ORDER BY NO DESC) WHERE RNO <= ? * ? AND RNO > ? * (? - 1)";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RNO, C.* FROM (SELECT * FROM CONCERTS ORDER BY NO DESC) C) WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, page_size);
@@ -64,6 +64,32 @@ public class ConcertDAO extends DAO {
 				concert.setLocation(rs.getString(7));
 				concert_list.add(concert);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return concert_list;
+	}
+
+	// 콘서트 검색 결과 중 특정 페이지 조회
+	public ArrayList<ConcertVO> get_concert_search_list(int page_no, int page_size, ConcertVO search_target) {
+		ArrayList<ConcertVO> concert_list = new ArrayList<ConcertVO>();
+
+		try {
+			String sql = "";
+			getPreparedStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ConcertVO concert = new ConcertVO();
+				concert.setNo(rs.getInt(2));
+				concert.setArtist(rs.getString(3));
+				concert.setTitle(rs.getString(4));
+				concert.setContent(rs.getString(5));
+				concert.setCdate(rs.getString(6));
+				concert.setLocation(rs.getString(7));
+				concert_list.add(concert);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

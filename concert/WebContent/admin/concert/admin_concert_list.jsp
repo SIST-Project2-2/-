@@ -5,25 +5,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	int page_no = 1; // 현재 페이지 번호
-int list_size = 0; // 페이지 당 보여줄 게시글 수
-int page_count = 0; // 총 페이지 수
-ConcertDAO concert_dao = new ConcertDAO();
-ArrayList<ConcertVO> concert_list = null;
-
-Enumeration<String> parameter_names = request.getParameterNames();
-page_count = concert_dao.count_concert_pages(10);
-
-
-// 파라미터들 중 'page_no'를 찾아내기 위한 반복문
-while (parameter_names.hasMoreElements()) {
-	String parameter_name = parameter_names.nextElement();
-	// 'page_no'가 존재하면 작업
-	if (parameter_name.equals("page_no")) {
-		page_no = Integer.parseInt(request.getParameter(parameter_name));
+	int list_size = 0; // 페이지 당 보여줄 게시글 수
+	int page_count = 0; // 총 페이지 수
+	ConcertDAO concert_dao = new ConcertDAO();
+	ArrayList<ConcertVO> concert_list = null;
+	
+	Enumeration<String> parameter_names = request.getParameterNames();
+	page_count = concert_dao.count_concert_pages(10);
+	
+	
+	// 파라미터들 중 'page_no'를 찾아내기 위한 반복문
+	while (parameter_names.hasMoreElements()) {
+		String parameter_name = parameter_names.nextElement();
+		// 'page_no'가 존재하면 작업
+		if (parameter_name.equals("page_no")) {
+			page_no = Integer.parseInt(request.getParameter(parameter_name));
+		}
 	}
-}
-concert_list = concert_dao.get_concert_list(page_no, 10);
-list_size = concert_list.size();
+	concert_list = concert_dao.get_concert_list(page_no, 10);
+	list_size = concert_list.size();
 %>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
@@ -43,7 +43,7 @@ list_size = concert_list.size();
 			<%
 			String html_pagenation = "";
 			int page_start = (page_no % 10 == 0) ? ((page_no / 10) - 1) * 10 + 1 : (page_no / 10) * 10 + 1;
-			int page_end = page_start + 9;
+			int page_end = (page_start + 9 > page_count) ? page_count : page_start + 9; 
 			for(int i = page_start; i <= page_end && i <= page_count; i++){
 				String html = "";
 				html += "<li class='page-item'>";
@@ -54,8 +54,8 @@ list_size = concert_list.size();
 			%>
 			pagenation.after("<%= html_pagenation%>");
 			$("#page_link" + <%= page_no %>).addClass("font-weight-bold");
-			$("#page_previous_link").attr("href", "?page_no=<%= page_start - 10%>");
-			$("#page_next_link").attr("href", "?page_no=<%= page_start + 10%>");
+			$("#page_previous_link").attr("href", "?page_no=<%= (page_start - 10 <= 0) ? 1 : page_start - 10%>");
+			$("#page_next_link").attr("href", "?page_no=<%= (page_start + 10 > page_count) ? page_count : page_start + 10%>");
 	 	}
 
 		function create_tbody() {
