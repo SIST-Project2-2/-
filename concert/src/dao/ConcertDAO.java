@@ -22,11 +22,21 @@ public class ConcertDAO extends DAO {
 			String sql = "SELECT COUNT(*) FROM CONCERTS";
 			getPreparedStatement(sql);
 
-			result = pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			} else {
+				result = -1;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	// 콘서트 목록 페이지 수 조회
+	public int count_concert_pages(int page_size) {
+		return (int) Math.ceil(count_concerts() / (double) page_size);
 	}
 
 	// 콘서트 특정 페이지 조회
