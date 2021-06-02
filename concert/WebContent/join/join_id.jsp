@@ -135,8 +135,8 @@
 				<div>생년월일과 성별을 선택해주세요</div>
 				<input type="text" name="birth_date" placeholder="생년월일 입력(YYMMDD)"
 					required> <label>남자</label><input type="checkbox"
-					name="gender" id="m"> <label>여자</label><input type="checkbox"
-					name="gender" id="w">
+					name="gender" value="남자"> <label>여자</label><input type="checkbox"
+					name="gender" value="여자">
 				<button type="submit" id="birthBtn">다음</button>
 			</div>
 		</div>
