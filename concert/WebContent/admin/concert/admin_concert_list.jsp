@@ -44,7 +44,7 @@ list_size = concert_list.size();
 			String html_pagenation = "";
 			int page_start = (page_no % 10 == 0) ? ((page_no / 10) - 1) * 10 + 1 : (page_no / 10) * 10 + 1;
 			int page_end = page_start + 9;
-			for(int i = page_start; i <= page_end; i++){
+			for(int i = page_start; i <= page_end && i <= page_count; i++){
 				String html = "";
 				html += "<li class='page-item'>";
 				html += "	<a class='page-link' id='page_link" + i + "' href='?page_no=" + i + "' name='" + i + "'>" + i + "</a>";
