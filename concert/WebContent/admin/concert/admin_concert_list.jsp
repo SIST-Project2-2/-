@@ -1,4 +1,30 @@
+<%@page import="dao.ConcertDAO"%>
+<%@page import="vo.ConcertVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	int page_no = 1; // 현재 페이지 번호
+int list_size = 0; // 페이지 당 보여줄 게시글 수
+int page_count = 0; // 총 페이지 수
+ConcertDAO concert_dao = new ConcertDAO();
+ArrayList<ConcertVO> concert_list = null;
+
+Enumeration<String> parameter_names = request.getParameterNames();
+page_count = concert_dao.count_concert_pages(10);
+
+
+// 파라미터들 중 'page_no'를 찾아내기 위한 반복문
+while (parameter_names.hasMoreElements()) {
+	String parameter_name = parameter_names.nextElement();
+	// 'page_no'가 존재하면 작업
+	if (parameter_name.equals("page_no")) {
+		page_no = Integer.parseInt(request.getParameter(parameter_name));
+	}
+}
+concert_list = concert_dao.get_concert_list(page_no, 10);
+list_size = concert_list.size();
+%>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -6,19 +32,68 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 - 콘서트 목록</title>
+<script type="text/javascript">
+	window.onload = function() {
+		
+		create_tbody();
+		create_pagenation();
+		
+		function create_pagenation(){
+			var pagenation = $("#page_previous");
+			<%
+			String html_pagenation = "";
+			int page_start = (page_no % 10 == 0) ? ((page_no / 10) - 1) * 10 + 1 : (page_no / 10) * 10 + 1;
+			int page_end = page_start + 9;
+			for(int i = page_start; i <= page_end && i <= page_count; i++){
+				String html = "";
+				html += "<li class='page-item'>";
+				html += "	<a class='page-link' id='page_link" + i + "' href='?page_no=" + i + "' name='" + i + "'>" + i + "</a>";
+				html += "</li>";
+				html_pagenation += html;
+			}
+			%>
+			pagenation.after("<%= html_pagenation%>");
+			$("#page_link" + <%= page_no %>).addClass("font-weight-bold");
+			$("#page_previous_link").attr("href", "?page_no=<%= page_start - 10%>");
+			$("#page_next_link").attr("href", "?page_no=<%= page_start + 10%>");
+	 	}
+
+		function create_tbody() {
+			var tbody = $("#tbody");
+			<%
+			String html = "";
+			for (int i = 0; i < list_size; i++) {
+				html += "<tr>";
+				html += "<th scope=\"row\">" + concert_list.get(i).getNo() + "</th>";
+				html += "<td class=\"text-left\">" + concert_list.get(i).getTitle() + "</td>";
+				html += "<td>" + concert_list.get(i).getArtist() + "</td>";
+				html += "<td>" + concert_list.get(i).getCdate() + "</td>";
+				html += "<td>" + concert_list.get(i).getLocation() + "</td>";
+				html += "<td>";
+				html += "	<a class=\"btn-sm btn-light\" href=\"admin_concert_edit.jsp\">수정</a>";
+				html += "</td>";
+				html += "<td>";
+				html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
+						+ concert_list.get(i).getNo() + "\">삭제</a>";
+				html += "</td>";
+				html += "</tr>";
+			}%>
+			tbody.html('<%=html%>');
+		}
+	}
+</script>
 </head>
 <body>
 	<div class="container">
 		<h1 class="font-weight-bold text-left">콘서트 목록</h1>
-		
+
 		<!-- 검색 창 -->
 		<form action="#">
 			<div class="row">
 				<div class="col-8 container mb-3">
 					<div class="input-group input-group-sm">
 						<div class="input-group-prepend">
-							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								카테고리</button>
+							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">카테고리</button>
 							<div class="dropdown-menu">
 								<div class="form-check dropdown-item">
 									<input class="form-check-input" type="checkbox" value="title" name="category" id="title">
@@ -38,7 +113,7 @@
 				</div>
 			</div>
 		</form>
-		
+
 		<table class="table table-hover table-sm text-center">
 			<thead>
 				<tr>
@@ -51,157 +126,18 @@
 					<th scope="col">삭제</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">4</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">5</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">6</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">7</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">8</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">9</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">10</th>
-					<td class="text-left">장범준 희망 콘서트</td>
-					<td>장범준</td>
-					<td>2021-05-20</td>
-					<td>대구</td>
-					<td>
-						<a class="btn-sm btn-light" href="admin_concert_edit.jsp">수정</a>
-					</td>
-					<td>
-						<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="1">삭제</a>
-					</td>
-				</tr>
+			<tbody id="tbody">
 			</tbody>
 		</table>
 		<div class="text-right">
 			<a href="admin_concert_add.jsp" class="btn-sm btn-primary">등록</a>
 		</div>
-		<ul class="pagination justify-content-center">
-			<li class="page-item">
-				<a class="page-link" href="#">&lt;</a>
+		<ul class="pagination justify-content-center" id="pagenation">
+			<li class="page-item" id="page_previous">
+				<a class="page-link" id="page_previous_link" href="#">&lt;</a>
 			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">1</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">2</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">3</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">&gt;</a>
+			<li class="page-item" id="page_next">
+				<a class="page-link" id="page_next_link" href="#">&gt;</a>
 			</li>
 		</ul>
 	</div>
