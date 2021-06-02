@@ -14,12 +14,13 @@ public class Commons {
 		return tags.split("/");
 	}
 	
-	// url과 파라미터를 입력받아 주어진 url에 get 형식으로 요청한다.
-	public static String get_method(String url, HashMap<String, String> inputs ) {
+	// 현재 url과 파라미터 값의 주어진 페이지를 불러온다.
+	public static String get_page(String url, HashMap<String, Object> inputs, int pageNumber) {
+		inputs.put("pageNumber", pageNumber);
 		url += "?";
 		for(String key : inputs.keySet()) {
 			url += key + "=" + inputs.get(key) + "&";
 		}
-		return url.substring(0, url.length()-1);
+		return url.substring(0, url.length()-1); // 마지막에 붙는 &는 제외
 	}
 }

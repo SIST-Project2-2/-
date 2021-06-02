@@ -243,7 +243,7 @@ public class NoticeDAO extends DAO {
 		}
 		
 		// 현 페이지가 마지막 페이지인 경우 다음 버튼 비활성화
-		if(nowPage == total_page) { 
+		if(nowPage == total_page || total_page == 0) { 
 			vo.setNext(false);
 		}else {
 			vo.setNext(true);
