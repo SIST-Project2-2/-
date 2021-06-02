@@ -60,7 +60,7 @@ public class ConcertDAO extends DAO {
 				concert.setArtist(rs.getString(3));
 				concert.setTitle(rs.getString(4));
 				concert.setContent(rs.getString(5));
-				concert.setCdate(rs.getString(6));
+				concert.setCdate(rs.getString(6).substring(0, 10));
 				concert.setLocation(rs.getString(7));
 				concert_list.add(concert);
 			}

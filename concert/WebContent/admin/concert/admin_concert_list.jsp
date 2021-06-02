@@ -39,40 +39,46 @@ list_size = concert_list.size();
 		create_pagenation();
 		
 		function create_pagenation(){
-			var pagenation = $("#page-previous");
-			<%String html_pagenation = "";
-			for (int i = page_no; i > page_no - 5 && i > 1; i--) {
-				html_pagenation += "<li class='page-item'>";
-				html_pagenation += "	<a class='page-link' href='#' name='" + i + "'>" + i + "</a>";
-				html_pagenation += "</li>";
+			var pagenation = $("#page_previous");
+			<%
+			String html_pagenation = "";
+			int page_start = (page_no % 10 == 0) ? ((page_no / 10) - 1) * 10 + 1 : (page_no / 10) * 10 + 1;
+			int page_end = page_start + 9;
+			for(int i = page_start; i <= page_end; i++){
+				String html = "";
+				html += "<li class='page-item'>";
+				html += "	<a class='page-link' id='page_link" + i + "' href='?page_no=" + i + "' name='" + i + "'>" + i + "</a>";
+				html += "</li>";
+				html_pagenation += html;
 			}
-			html_pagenation += "<li class='page-item'>";
-			html_pagenation += "	<a class='page-link font-weight-bold' href='#' name='" + page_no + "'>" + page_no + "</a>";
-			html_pagenation += "</li>";%>
-			pagenation.after("<%=html_pagenation%>");
-		}
+			%>
+			pagenation.after("<%= html_pagenation%>");
+			$("#page_link" + <%= page_no %>).addClass("font-weight-bold");
+			$("#page_previous_link").attr("href", "?page_no=<%= page_start - 10%>");
+			$("#page_next_link").attr("href", "?page_no=<%= page_start + 10%>");
+	 	}
 
-		function create_tbody() {			
-		var tbody = $("#tbody");
-		<%
-		String html = "";
-		for (int i = 0; i < list_size; i++) {
-			html += "<tr>";
-			html += "<th scope=\"row\">" + concert_list.get(i).getNo() + "</th>";
-			html += "<td class=\"text-left\">" + concert_list.get(i).getTitle() + "</td>";
-			html += "<td>" + concert_list.get(i).getArtist() + "</td>";
-			html += "<td>" + concert_list.get(i).getCdate() + "</td>";
-			html += "<td>" + concert_list.get(i).getLocation() + "</td>";
-			html += "<td>";
-			html += "	<a class=\"btn-sm btn-light\" href=\"admin_concert_edit.jsp\">수정</a>";
-			html += "</td>";
-			html += "<td>";
-			html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
-					+ concert_list.get(i).getNo() + "\">삭제</a>";
-			html += "</td>";
-			html += "</tr>";
-		}%>
-		tbody.html('<%=html%>');
+		function create_tbody() {
+			var tbody = $("#tbody");
+			<%
+			String html = "";
+			for (int i = 0; i < list_size; i++) {
+				html += "<tr>";
+				html += "<th scope=\"row\">" + concert_list.get(i).getNo() + "</th>";
+				html += "<td class=\"text-left\">" + concert_list.get(i).getTitle() + "</td>";
+				html += "<td>" + concert_list.get(i).getArtist() + "</td>";
+				html += "<td>" + concert_list.get(i).getCdate() + "</td>";
+				html += "<td>" + concert_list.get(i).getLocation() + "</td>";
+				html += "<td>";
+				html += "	<a class=\"btn-sm btn-light\" href=\"admin_concert_edit.jsp\">수정</a>";
+				html += "</td>";
+				html += "<td>";
+				html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
+						+ concert_list.get(i).getNo() + "\">삭제</a>";
+				html += "</td>";
+				html += "</tr>";
+			}%>
+			tbody.html('<%=html%>');
 		}
 	}
 </script>
@@ -126,12 +132,12 @@ list_size = concert_list.size();
 		<div class="text-right">
 			<a href="admin_concert_add.jsp" class="btn-sm btn-primary">등록</a>
 		</div>
-		<ul class="pagination justify-content-center">
-			<li class="page-item" id="page-previous">
-				<a class="page-link" href="#">&lt;</a>
+		<ul class="pagination justify-content-center" id="pagenation">
+			<li class="page-item" id="page_previous">
+				<a class="page-link" id="page_previous_link" href="#">&lt;</a>
 			</li>
 			<li class="page-item" id="page_next">
-				<a class="page-link" href="#">&gt;</a>
+				<a class="page-link" id="page_next_link" href="#">&gt;</a>
 			</li>
 		</ul>
 	</div>
