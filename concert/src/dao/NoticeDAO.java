@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 
+import concert.Commons;
 import vo.NoticeVO;
 import vo.PageVO;
 
@@ -90,11 +91,11 @@ public class NoticeDAO extends DAO {
 					+ "		from notices where ";
 			
 			if(category == 1) { // category값에 따라 검색하는 범위 변경
-				sql += " 	title like('%?%') ";
+				sql += " 	title like(?) ";
 			}else if(category == 2) {
-				sql += " 	content like('%?%') ";
+				sql += " 	content like(?) ";
 			}else {
-				sql += " 	(title like('%?%') or content like('%?%')) ";
+				sql += " 	(title like(?) or content like(?)) ";
 			}
 			
 			sql += " and rownum <= ? * ? " // 페이지 범위 내의 목록 출력
@@ -104,9 +105,9 @@ public class NoticeDAO extends DAO {
 			getPreparedStatement(sql);
 			
 			int i = 1;
-			pstmt.setString(i++, text);
-			if(category == 3) {
-				pstmt.setString(i++, text);
+			pstmt.setString(i++, Commons.s_string(text));
+			if(category != 1 && category != 2) {
+				pstmt.setString(i++, Commons.s_string(text));
 			}
 			pstmt.setInt(i++, notice_per_page);
 			pstmt.setInt(i++, page);
@@ -137,16 +138,16 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 		
 		try {
-			String sql = " select no, title, content, wdate, writer, views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, writer, views, tag "
+			String sql = " select no, title, content, wdate, views, tag "
+					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
 					+ " 	from notices "
-					+ " 	where tag like('%?%') and rownum <= ? * ?) "
+					+ " 	where tag like(?) and rownum <= ? * ?) "
 					+ " where rno > ? * (? - 1) ";
 			
 			
 			getPreparedStatement(sql);
 			
-			pstmt.setString(1, artist);
+			pstmt.setString(1, Commons.s_string(artist));
 			pstmt.setInt(2, notice_per_page);
 			pstmt.setInt(3, page);
 			pstmt.setInt(4, notice_per_page);
@@ -176,30 +177,35 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 		
 		try {
-			String sql = " select no, title, content, wdate, writer, views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, writer, views, tag "
+			String sql = " select no, title, content, wdate, views, tag "
+					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
 					+ " from notices "
-					+ " where tag like('%?%') and ";
+					+ " where tag like(?) and ";
 			
 			if(category == 1) { // category값에 따라 검색하는 범위 변경
-				sql += " title like('%?%') ";
+				sql += " title like(?) ";
 			}else if(category == 2) {
-				sql += " content like('%?%') ";
+				sql += " content like(?) ";
 			}else {
-				sql += " (title like('%?%') or content like('%?%') ";
+				sql += " (title like(?) or content like(?)) ";
 			}
 			
-			sql += " and rownum <= ? * ?) " // 페이지 범위 내의 목록 출력
+			sql += " and rownum <= ? * ? " // 페이지 범위 내의 목록 출력
 				+ "	order by no desc) "
 				+ " where rno > ? * (? - 1) ";
 			
 			getPreparedStatement(sql);
 			
-			pstmt.setString(1, artist);
-			pstmt.setInt(2, notice_per_page);
-			pstmt.setInt(3, page);
-			pstmt.setInt(4, notice_per_page);
-			pstmt.setInt(5, page);
+			int i = 1;
+			pstmt.setString(i++, Commons.s_string(artist));
+			pstmt.setString(i++, Commons.s_string(text));
+			if(category != 1 && category != 2) {
+				pstmt.setString(i++, Commons.s_string(text));
+			}
+			pstmt.setInt(i++, notice_per_page);
+			pstmt.setInt(i++, page);
+			pstmt.setInt(i++, notice_per_page);
+			pstmt.setInt(i++, page);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -237,7 +243,7 @@ public class NoticeDAO extends DAO {
 		}
 		
 		// 현 페이지가 마지막 페이지인 경우 다음 버튼 비활성화
-		if(nowPage == total_page) { 
+		if(nowPage == total_page || total_page == 0) { 
 			vo.setNext(false);
 		}else {
 			vo.setNext(true);
@@ -249,7 +255,7 @@ public class NoticeDAO extends DAO {
 			vo.setEnd(total_page);
 		}else if(total_page - nowPage <= 2) { // 현 페이지가 뒤에서 2번째 이내일 경우
 			vo.setStart(total_page - 4);
-			vo.setEnd(total_page);;
+			vo.setEnd(total_page);
 		}else { // 그 외의 경우
 			vo.setStart(nowPage - 2);
 			vo.setEnd(nowPage + 2);
@@ -283,10 +289,10 @@ public class NoticeDAO extends DAO {
 		
 		try {
 			String sql = " select count(*) from notices "
-					+ " where tag like('%?%') ";
+					+ " where tag like(?) ";
 			getPreparedStatement(sql);
 			
-			pstmt.setString(1, artist);
+			pstmt.setString(1, Commons.s_string(artist));
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -306,18 +312,18 @@ public class NoticeDAO extends DAO {
 		try {
 			String sql = " select count(*) from notices where ";
 			if(category == 1) {
-				sql += " title like('%?%') ";
+				sql += " title like(?) ";
 			}else if(category == 2) {
-				sql += " content like('%?%') ";
+				sql += " content like(?) ";
 			}else {
-				sql += " title like('%?%') and content like('%?%') ";
+				sql += " title like(?) and content like(?) ";
 			}
 			
 			getPreparedStatement(sql);
 			
-			pstmt.setString(1, text);
+			pstmt.setString(1, Commons.s_string(text));
 			if(category != 1 && category != 2) {
-				pstmt.setString(2, text);
+				pstmt.setString(2, Commons.s_string(text));
 			}
 			
 			rs = pstmt.executeQuery();
@@ -336,21 +342,22 @@ public class NoticeDAO extends DAO {
 		int count = 0;
 		
 		try {
-			String sql = " select count(*) from notices where "
-					+ "  ";
+			String sql = " select count(*) from notices "
+					+ " where tag like(?) and ";
 			if(category == 1) {
-				sql += " title like('%?%') ";
+				sql += " title like(?) ";
 			}else if(category == 2) {
-				sql += " content like('%?%') ";
+				sql += " content like(?) ";
 			}else {
-				sql += " title like('%?%') and content like('%?%') ";
+				sql += " (title like(?) or content like(?)) ";
 			}
 			
 			getPreparedStatement(sql);
 			
-			pstmt.setString(1, text);
+			pstmt.setString(1, Commons.s_string(artist));
+			pstmt.setString(2, Commons.s_string(text));
 			if(category != 1 && category != 2) {
-				pstmt.setString(2, text);
+				pstmt.setString(3, Commons.s_string(text));
 			}
 			
 			rs = pstmt.executeQuery();
