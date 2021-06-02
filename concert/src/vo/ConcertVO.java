@@ -3,12 +3,27 @@ package vo;
 public class ConcertVO {
 
 	// Field
-	private int no;
+	private int no = -1;
 	private String artist;
 	private String title;
 	private String content;
 	private String cdate;
 	private String location;
+
+	public String toString() {
+		String json = "ConcertVO {";
+
+		if (no != -1) {
+			json += "no: " + this.no + ", ";
+		}
+		
+		if (artist != null) {
+			json += "artist: " + this.artist + ", ";
+		}
+
+		json += "}";
+		return json;
+	}
 
 	// Method
 	public int getNo() {
