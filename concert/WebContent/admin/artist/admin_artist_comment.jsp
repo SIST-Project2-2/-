@@ -9,44 +9,55 @@
 <title>Insert title here</title>
 <style>
 .comment_content {
-	width: 80%;
+	width: 75%;
 }
-
+.comment_button {
+	margin: 0 auto;
+}
 .box {
-	display: inline-block;	
+	display: inline-block;
 	width: 150px;
 }
 
-div.d2{
-	width: 86%;
+table span.s1 {
+	border: 1px solid black;
+	padding: 5px;
+	margin-right: 5px;
 }
-table.table {
-	width:90%;
-	margin: 0 auto;
+div.d2 {
+	margin-bottom: 10px;
 }
 </style>
 </head>
 <body>
-	<h3>댓글관리</h3>
-	<div class="d2 text-right">
-		<div class="box">
-			<label>가수</label> <select class="custom-select">
-				<option selected>선택</option>
-				<option value="1">10cm</option>
-				<option value="2">IU</option>
-				<option value="3">잔나비</option>
-				<option value="4">장범준</option>
-				<option value="5">현아</option>
-			</select>
+	<section class="container text-center">
+		<h1 class="font-weight-bold text-left">댓글관리</h1>
+		
+		<!-- 가수 선택 박스 -->
+		<div class="d1 container text-right">
+			<div class="box">
+				<label>가수</label> <select class="custom-select">
+					<option selected>선택</option>
+					<option value="1">10cm</option>
+					<option value="2">IU</option>
+					<option value="3">잔나비</option>
+					<option value="4">장범준</option>
+					<option value="5">현아</option>
+				</select>
+			</div>
 		</div>
-	</div>
-	<div class="d1">
-		<div class="container">
+		
+		<!-- 검색창과 신고수 정렬 방법 선택 박스 -->
+		<div class="d2 container">
 			<div class="row">
 				<div class="col"></div>
 				<div class="col-6 text-center">
-					<input type="text">
-					<button type="button">돋보기</button>
+					<div class="input-group">
+						<input type="text" class="form-control">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-primary">검색</button>
+						</span>
+					</div>
 				</div>
 				<div class="col text-right">
 					<div class="box">
@@ -61,90 +72,113 @@ table.table {
 				</div>
 			</div>
 		</div>
-	</div>
-	<div>
+		
 		<table class="table">
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 			<tr>
-				<td class="comment_content">장범준 댓글내용</td>
+				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
-					<button type="button">신고수</button>
-					<button type="button">추천수</button>
-					<button type="button">삭제</button>
-				</td>
+				<div class="input-group">
+					<span class="s1">신고수 10</span>
+					<span class="s1">추천수 10</span>
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">삭제</button></td>
+					</span>
+				</div>
 			</tr>
 		</table>
-	</div>
-	<div>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</ul>
-		</nav>
-	</div>
-	</div>
+		
+		<div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item"><a class="page-link" href="#"
+						aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+					</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#"
+						aria-label="Next"> <span aria-hidden="true">&gt;</span>
+					</a></li>
+				</ul>
+			</nav>
+		</div>
+	</section>
 </body>
 </html>
