@@ -13,6 +13,129 @@ public class NoticeDAO extends DAO {
 		super();
 	}
 	
+	// 공지사항 번호를 입력받아 해당 공지사항 상세내용 가져오기(관리자)
+	public NoticeVO getNoticeInfoForAdmin(int no) {
+		NoticeVO info = new NoticeVO();
+		
+		try {
+			String sql = "SELECT NO, TITLE, CONTENT, WDATE, WRITER, VIEWS, TAG "
+					+ " FROM NOTICES WHERE NO = ? ";
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				info.setNo(rs.getInt(1));
+				info.setTitle(rs.getString(2));
+				info.setContent(rs.getString(3));
+				info.setDate(rs.getString(4));
+				info.setWriter(rs.getString(5));
+				info.setViews(rs.getInt(6));
+				info.setTag(rs.getString(7));
+			} else {
+				return null; // 해당하는 공지사항이 없을 경우 null 반환
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return info;
+	}
+	
+	// 페이지 번호를 입력받아 해당 페이지의 공지사항 목록 불러오기(관리자)
+	public ArrayList<NoticeVO> getNoticeListForAdmin(int page) {
+		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
+		NoticeVO notice = null;
+		
+		try {
+			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
+			String sql = "select no, title, content, wdate, writer, views, tag "
+					+ " from (select rownum as rno, no, title, content, wdate, writer, views, tag "
+					+ "	from notices "
+					+ "	where rownum <= ? * ? "
+					+ "	order by no desc) "
+					+ " where rno > ? * (? - 1) ";
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, notice_per_page);
+			pstmt.setInt(2, page);
+			pstmt.setInt(3, notice_per_page);
+			pstmt.setInt(4, page);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				notice = new NoticeVO();
+				notice.setNo(rs.getInt(1));
+				notice.setTitle(rs.getString(2));
+				notice.setContent(rs.getString(3));
+				notice.setDate(rs.getString(4));
+				notice.setWriter(rs.getString(5));
+				notice.setViews(rs.getInt(6));
+				notice.setTag(rs.getString(7));
+				list.add(notice);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	// 공지사항 목록에서 검색
+	// 매개변수 category: 1: 제목, 2: 내용, 그 외: 전체
+	public ArrayList<NoticeVO> getNoticeListForAdmin(int page, int category, String text) {
+		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
+		NoticeVO notice = null;
+		
+		try {
+			String sql = "select no, title, content, wdate, writer, views, tag "
+					+ " from (select rownum as rno, no, title, content, wdate, writer, views, tag "
+					+ "		from notices where ";
+			
+			if(category == 1) { // category값에 따라 검색하는 범위 변경
+				sql += " 	title like(?) ";
+			}else if(category == 2) {
+				sql += " 	content like(?) ";
+			}else {
+				sql += " 	(title like(?) or content like(?)) ";
+			}
+			
+			sql += " and rownum <= ? * ? " // 페이지 범위 내의 목록 출력
+					+ "	order by no desc) "
+					+ " where rno > ? * (? - 1) ";
+			
+			getPreparedStatement(sql);
+			
+			int i = 1;
+			pstmt.setString(i++, Commons.s_string(text));
+			if(category != 1 && category != 2) {
+				pstmt.setString(i++, Commons.s_string(text));
+			}
+			pstmt.setInt(i++, notice_per_page);
+			pstmt.setInt(i++, page);
+			pstmt.setInt(i++, notice_per_page);
+			pstmt.setInt(i++, page);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				notice = new NoticeVO();
+				notice.setNo(rs.getInt(1));
+				notice.setTitle(rs.getString(2));
+				notice.setContent(rs.getString(3));
+				notice.setDate(rs.getString(4));
+				notice.setWriter(rs.getString(5));
+				notice.setViews(rs.getInt(6));
+				notice.setTag(rs.getString(7)); // 태그를 String으로 넣을까 리스트로 넣을까?
+				list.add(notice);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	// 공지사항 번호를 입력받아 해당 공지사항 상세내용 가져오기(사용자)
 	public NoticeVO getNoticeInfoForUser(int no) {
 		NoticeVO info = new NoticeVO();
