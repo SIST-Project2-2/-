@@ -6,92 +6,92 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-ul {
+#header_div ul {
 	list-style: none;
 }
 
-.lT {
+#header_div .lT {
 	height: 66px;
 	margin: 10px 0;
 	margin-left: 10px;
 }
 
-.art>.d {
+#header_div .art>.d {
 	display: none;
 }
 
-#top_nav li:hover {
+#header_div #top_nav li:hover {
 	text-decoration: underline 3px;
 }
 
-.art:hover .d {
+#header_div .art:hover .d {
 	display: block;
 }
 
-.justify-content-end {
+#header_div .justify-content-end {
 	margin-right: 10px
 }
 
-.logo {
+#header_div .logo {
 	float: left;
 }
 
-a:link, a:visited {
+#header_div a:link, #header_div a:visited {
 	color: white;
 	text-decoration: none;
 }
 
-a:hover {
+#header_div a:hover {
 	color: black;
 }
 
-#top_nav {
+#header_div #top_nav {
 	text-align: center;
 	height: 56px;
 	background-color: tomato;
 	margin-bottom: 100px
 }
 
-#top_nav>ul {
+#header_div #top_nav>ul {
 	display: inline-block;
 	padding: 16px;
 }
 
-#top_nav>ul>li {
+#header_div #top_nav>ul>li {
 	float: left;
 	align-conten: center;
 	margin-left: 50px;
 	color: white;
 }
 
-.sIcon {
+#header_div .sIcon {
 	float: right;
 	margin: 4px 10px 0 0;
 }
 
-.d {
+#header_div .d {
 	background-color: gray;
 	text-align: left;
 	padding-left: 0;
 	width: 100px;
 }
 
-.d li {
+#header_div .d li {
 	padding: 5px 0;
 }
 
-.nav-item {
+#header_div .nav-item {
 	padding: 0 10px;
 }
 
-.auser:link, .auser:visited {
+#header_div .auser:link, #header_div .auser:visited {
 	color: black;
 	text-decoration: none;
 }
 </style>
 </head>
 <body>
-	<div>
+	<div id="header_div">
 		<div class="lT">
 			<a class=logo href="http://localhost:9000/concert/index.jsp">
 				<img alt="" src="http://localhost:9000/concert/images/logo.png">
