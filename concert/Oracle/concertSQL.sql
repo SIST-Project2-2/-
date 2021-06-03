@@ -222,7 +222,13 @@ SELECT * FROM CONCERTS ORDER BY NO DESC;
 SELECT COUNT(*) FROM CONCERTS;
 
 -- 검색결과에 해당하는 콘서트 개수 조회하기
-SELECT COUNT(*) FROM CONCERTS WHERE ARTIST LIKE('%범준%') OR TITLE LIKE('%범준%');
+SELECT COUNT(*)
+FROM (SELECT *
+          FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
+                     FROM (SELECT * 
+                               FROM CONCERTS 
+                               WHERE ARTIST LIKE('%범준%') OR TITLE LIKE('%범준%')
+                               ORDER BY NO DESC) C));
 
 -- 콘서트 목록 한 페이지의 데이터 조회 (페이지당 10개, 2페이지 조회)
 SELECT *
@@ -252,7 +258,7 @@ WHERE RNO > 10 * (2 - 1) AND RNO <= 10 * 2;
 
 -- 콘서트 검색하기 - 아티스트 & 콘서트 검색
 SELECT *
-FROM SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
+FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
            FROM (SELECT * 
                      FROM CONCERTS 
                      WHERE ARTIST LIKE('%범준%') OR TITLE LIKE('%범준%')
