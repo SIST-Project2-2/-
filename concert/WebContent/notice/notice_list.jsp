@@ -8,12 +8,6 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("utf-8"); %>
-<jsp:useBean id="notice" class="vo.NoticeVO" scope="page" />
-<jsp:setProperty name="notice" property="no" />
-<jsp:setProperty name="notice" property="title" />
-<jsp:setProperty name="notice" property="content" />
-<jsp:setProperty name="notice" property="date" />
-<jsp:setProperty name="notice" property="views" />
 <%
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
@@ -64,6 +58,8 @@
 		list = dao.getNoticeListForUser(pageNumber);
 		pageInfo = dao.getPageInfo(pageNumber);
 	}
+	
+	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
