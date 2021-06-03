@@ -13,7 +13,6 @@
 	ArrayList<ConcertVO> concert_list = null;
 	
 	Enumeration<String> parameter_names = request.getParameterNames();
-	page_count = concert_dao.count_concert_pages(10);
 	
 	// 파라미터들 중 'page_no'를 찾아내기 위한 반복문
 	while (parameter_names.hasMoreElements()) {
@@ -29,20 +28,33 @@
 	String[] searchCategories = request.getParameterValues("category");
 //	System.out.println("jsp파일 카테고리 목록: " + Arrays.toString(searchCategories));
 		
-	Field[] fields = concert.getClass().getDeclaredFields();
-	for(Field field : fields){
-		field.setAccessible(true);
-		if(searchCategories!=null){
+	String search_parameters = ""; // get 방식으로 URL 뒤에 붙일 스트링
+
+	Field[] fields = concert.getClass().getDeclaredFields(); // ConcertVO 에 선언된 필드 목록
+	for(Field field : fields){ 
+		field.setAccessible(true); // private 필드에도 접근 가능하도록 설정
+		if(searchCategories != null){ // 검색할 category가 존재하는지 확인
 			for(int i = 0; i < searchCategories.length; i++){
-				if(field.getName().equals(searchCategories[i])){
-					field.set(concert, request.getParameter("search"));
+				if(field.getName().equals(searchCategories[i])){ // 해당 카테고리가 필드에 존재하는지 확인
+					field.set(concert, request.getParameter("search")); // 존재하면 conert 객체의 해당 필드에 값을 넣음
+					if(search_parameters.equals("")){
+						search_parameters += "&";
+					}
+					search_parameters += "category=" + field.getName();
+//					search_parameters += field.getName() + "=" + request.getParameter("search");
 					break;
 				}
 			}			
 		}
 	}
+	if(!search_parameters.equals("")){
+		search_parameters += "&search=" + request.getParameter("search");
+	}
 	
-	
+	System.out.println(search_parameters);
+
+	page_count = concert_dao.count_concert_pages(10, concert);
+	System.out.println("총 페이지 수: " + page_count);
 	concert_list = concert_dao.get_concert_search_list(page_no, 10, concert);
 	list_size = concert_list.size();
 %>
@@ -68,15 +80,15 @@
 			for(int i = page_start; i <= page_end && i <= page_count; i++){
 				String html = "";
 				html += "<li class='page-item'>";
-				html += "	<a class='page-link' id='page_link" + i + "' href='?page_no=" + i + "' name='" + i + "'>" + i + "</a>";
+				html += "	<a class='page-link' id='page_link" + i + "' href='?page_no=" + i + search_parameters + "' name='" + i + "'>" + i + "</a>";
 				html += "</li>";
 				html_pagenation += html;
 			}
 			%>
 			pagenation.after("<%= html_pagenation%>");
 			$("#page_link" + <%= page_no %>).addClass("font-weight-bold");
-			$("#page_previous_link").attr("href", "?page_no=<%= (page_start - 10 <= 0) ? 1 : page_start - 10%>");
-			$("#page_next_link").attr("href", "?page_no=<%= (page_start + 10 > page_count) ? page_count : (page_start + 10)%>");
+			$("#page_previous_link").attr("href", "?page_no=<%= (page_start - 10 <= 0) ? 1 : page_start - 10%><%=search_parameters%>");
+			$("#page_next_link").attr("href", "?page_no=<%= (page_start + 10 > page_count) ? page_count : (page_start + 10)%><%=search_parameters%>");
 	 	}
 
 		function create_tbody() {
