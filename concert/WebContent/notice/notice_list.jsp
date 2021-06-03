@@ -58,6 +58,8 @@
 		list = dao.getNoticeListForUser(pageNumber);
 		pageInfo = dao.getPageInfo(pageNumber);
 	}
+	
+	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>

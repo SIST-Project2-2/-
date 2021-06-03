@@ -18,7 +18,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO info = new NoticeVO();
 		
 		try {
-			String sql = "SELECT NO, TITLE, CONTENT, WDATE, WRITER, VIEWS, TAG "
+			String sql = "SELECT NO, TITLE, CONTENT, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), WRITER, VIEWS, TAG "
 					+ " FROM NOTICES WHERE NO = ? ";
 			getPreparedStatement(sql);
 			
@@ -43,6 +43,30 @@ public class NoticeDAO extends DAO {
 		return info;
 	}
 	
+	// 공지사항 번호를 입력받아 해당 공지사항 삭제하기(관리자)
+	public boolean deleteNotice(int no) {
+		int result = 0;
+		
+		try {
+			String sql = " DELETE FROM NOTICES "
+					+ " WHERE NO = ? ";
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 삭제된 데이터가 1개일 경우 true 반환(삭제 성공) 그 외에는 false 반환(오류 발생)
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	// 페이지 번호를 입력받아 해당 페이지의 공지사항 목록 불러오기(관리자)
 	public ArrayList<NoticeVO> getNoticeListForAdmin(int page) {
 		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
@@ -50,8 +74,8 @@ public class NoticeDAO extends DAO {
 		
 		try {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
-			String sql = "select no, title, content, wdate, writer, views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, writer, views, tag "
+			String sql = "select no, title, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), writer, views "
+					+ " from (select rownum as rno, no, title, wdate, writer, views "
 					+ "	from notices "
 					+ "	where rownum <= ? * ? "
 					+ "	order by no desc) "
@@ -68,11 +92,9 @@ public class NoticeDAO extends DAO {
 				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setContent(rs.getString(3));
-				notice.setDate(rs.getString(4));
-				notice.setWriter(rs.getString(5));
-				notice.setViews(rs.getInt(6));
-				notice.setTag(rs.getString(7));
+				notice.setDate(rs.getString(3));
+				notice.setWriter(rs.getString(4));
+				notice.setViews(rs.getInt(5));
 				list.add(notice);
 			}
 		} catch (Exception e) {
@@ -82,15 +104,15 @@ public class NoticeDAO extends DAO {
 		return list;
 	}
 	
-	// 공지사항 목록에서 검색
+	// 공지사항 목록에서 검색(관리자)
 	// 매개변수 category: 1: 제목, 2: 내용, 그 외: 전체
 	public ArrayList<NoticeVO> getNoticeListForAdmin(int page, int category, String text) {
 		ArrayList<NoticeVO> list = new ArrayList<NoticeVO>();
 		NoticeVO notice = null;
 		
 		try {
-			String sql = "select no, title, content, wdate, writer, views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, writer, views, tag "
+			String sql = "select no, title, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), writer, views "
+					+ " from (select rownum as rno, no, title, wdate, writer, views "
 					+ "		from notices where ";
 			
 			if(category == 1) { // category값에 따라 검색하는 범위 변경
@@ -122,11 +144,9 @@ public class NoticeDAO extends DAO {
 				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setContent(rs.getString(3));
-				notice.setDate(rs.getString(4));
-				notice.setWriter(rs.getString(5));
-				notice.setViews(rs.getInt(6));
-				notice.setTag(rs.getString(7)); // 태그를 String으로 넣을까 리스트로 넣을까?
+				notice.setDate(rs.getString(3));
+				notice.setWriter(rs.getString(4));
+				notice.setViews(rs.getInt(5));
 				list.add(notice);
 			}
 		} catch (Exception e) {
@@ -141,7 +161,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO info = new NoticeVO();
 		
 		try {
-			String sql = "SELECT NO, TITLE, CONTENT, WDATE, VIEWS "
+			String sql = "SELECT NO, TITLE, CONTENT, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), VIEWS "
 					+ " FROM NOTICES WHERE NO = ? ";
 			getPreparedStatement(sql);
 
@@ -171,7 +191,7 @@ public class NoticeDAO extends DAO {
 		
 		try {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
-			String sql = "select no, title, content, wdate, views, tag "
+			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
 					+ "	from notices "
 					+ "	where rownum <= ? * ? "
@@ -209,7 +229,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 		
 		try {
-			String sql = "select no, title, content, wdate, views, tag "
+			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
 					+ "		from notices where ";
 			
@@ -261,7 +281,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 		
 		try {
-			String sql = " select no, title, content, wdate, views, tag "
+			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
 					+ " 	from notices "
 					+ " 	where tag like(?) and rownum <= ? * ?) "
@@ -300,7 +320,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 		
 		try {
-			String sql = " select no, title, content, wdate, views, tag "
+			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
 					+ " from notices "
 					+ " where tag like(?) and ";

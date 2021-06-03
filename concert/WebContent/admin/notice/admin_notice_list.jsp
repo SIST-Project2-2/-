@@ -14,7 +14,6 @@
 	PageVO pageInfo = null; // 페이지 정보를 저장하는 변수
 	HashMap<String, Object> inputs = new HashMap<String, Object>(); // request 파라미터들을 저장
 	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
-	String[] options = {"전체", "장범준", "잔나비", "10cm", "현아", "IU"}; // 아티스트별 목록 보기 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	
 	int pageNumber = 1;
@@ -45,9 +44,12 @@
 		list = dao.getNoticeListForAdmin(pageNumber);
 		pageInfo = dao.getPageInfo(pageNumber);
 	}
+	
+	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기
 %>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,39 +57,61 @@
 <title>관리자 - 공지사항 목록</title>
 <script type="text/javascript">
 </script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// 검색 카테고리 클릭시 카테고리 바뀜
+		$("#category_all").click(function() {
+			$("#category_dropdown").html("전체");
+			$("#category").val(0);
+		})
+		$("#category_title").click(function() {
+			$("#category_dropdown").html("제목");
+			$("#category").val(1);
+		})
+		$("#category_content").click(function() {
+			$("#category_dropdown").html("내용")
+			$("#category").val(2);
+		})
+		
+		// 검색 버튼 클릭시 검색
+		$("#btn_search").click(function() {
+			notice_list_search_form.submit();
+		})
+		
+		// 삭제 버튼 클릭시 팝업
+		$('#exampleModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget) // Button that triggered the modal
+			var recipient = button.data('whatever') // Extract info from data-* attributes
+			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			var modal = $(this)
+			modal.find('.modal-title').text(+recipient + '번 게시글을 삭제하시겟습니까?')
+		})
+	});
+</script>
 </head>
 <body>
 	<section class="container text-center">
 		<h1 class="font-weight-bold text-left">공지사항 목록</h1>
 
 		<!-- 검색 창 -->
-		<form action="#">
-			<div class="row">
-				<div class="col-8 container mb-3">
-					<div class="input-group input-group-sm">
-						<!-- <select class="custom-select col-2" id="category">
-							<option value="title" selected>제목</option>
-							<option value="content">내용</option>
-							<option value="writer">작성자</option>
-						</select> -->
-						<div class="input-group-prepend">
-							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								카테고리</button>
-							<div class="dropdown-menu">
-								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="title" name="category" id="title">
-									<label class="form-check-label" for="title"> 제목 </label>
-								</div>
-								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="content" name="category" id="content">
-									<label class="form-check-label" for="content"> 내용 </label>
-								</div>
-							</div>
+		<form class="row justify-content-center" name="notice_list_search_form" id="notice_list_search_form" action="" method="get">
+			<input type="hidden" name="category" id="category" value="<%= category %>">
+			<div class="col-md-6 d-block mb-3">
+				<div class="input-group input-group-sm">
+					<div class="input-group-prepend">
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown">
+    						<%= categories[category] %>
+  						</button>
+						<div class="dropdown-menu">
+							<label class="dropdown-item" id="category_all" value="0">전체</label>
+							<label class="dropdown-item" id="category_title" value="1">제목</label>
+							<label class="dropdown-item" id="category_content" value="2">내용</label>
 						</div>
-						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
-						<div class="input-group-append">
-							<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
-						</div>
+					</div>
+					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search" value="<%= search %>">
+					<div class="input-group-append">
+						<button class="btn btn-light" type="button" id="btn_search">검색</button>
 					</div>
 				</div>
 			</div>
@@ -113,7 +137,7 @@
 						<td><%= notice.getViews() %></td>
 						<td><%= notice.getWriter() %></td>
 						<td><%= notice.getDate() %></td>
-						<td><a class="btn-sm btn-light" href="admin_notice_edit.jsp?no=<%= notice.getNo() %>">수정</a></td>
+						<td><a type="button" class="btn-sm btn-secondary" href="admin_notice_edit.jsp?no=<%= notice.getNo() %>">수정</a></td>
 						<td><a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="<%= notice.getNo() %>">삭제</a></td>
 					</tr>
 				<% } %>
@@ -167,14 +191,4 @@
 		</div>
 	</div>
 </body>
-<script>
-	$('#exampleModal').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget) // Button that triggered the modal
-		var recipient = button.data('whatever') // Extract info from data-* attributes
-		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		var modal = $(this)
-		modal.find('.modal-title').text(+recipient + '번 게시글을 삭제하시겟습니까?')
-	})
-</script>
 </html>
