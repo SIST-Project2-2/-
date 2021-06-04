@@ -16,7 +16,7 @@
 	String[] searchCategories = request.getParameterValues("category"); // 검색 카테고리들을 String 형태로 저장하는 배열
 	String searchTarget = request.getParameter("search"); // 검색할 내용
 	
-	// 파라미터들 중 'page_no'를 찾아내기 위한 반복문
+	/** 파라미터들 중 'page_no'를 찾아내기 위한 반복문 **/
 	while (parameter_names.hasMoreElements()) {
 		String parameter_name = parameter_names.nextElement();
 		// 'page_no'가 존재하면 작업
@@ -25,7 +25,7 @@
 		}
 	}
 	
-	// 검색 카테고리 설정
+	/** 검색 카테고리 설정 **/
 	ConcertVO concert = new ConcertVO(); // 카테고리 설정하기 위해 사용될 객체 생성
 //	System.out.println("jsp파일 카테고리 목록: " + Arrays.toString(searchCategories));
 		
@@ -130,7 +130,7 @@
 				html += "	<a class=\"btn-sm btn-secondary\" href=\"admin_concert_edit.jsp\">수정</a>";
 				html += "</td>";
 				html += "<td>";
-				html += "	<a type=\"button\" class=\"btn-sm btn-warning\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
+				html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
 						+ concert_list.get(i).getNo() + "\">삭제</a>";
 				html += "</td>";
 				html += "</tr>";

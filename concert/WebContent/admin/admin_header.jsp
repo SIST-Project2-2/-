@@ -8,34 +8,47 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top mb-3">
+		<!-- Brand -->
+		<a class="navbar-brand mr-auto" href="http://localhost:9000/concert/index.jsp">
+			<img src="http://localhost:9000/concert/images/logo.png" height="30">
+		</a>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<!-- Links -->
+			<ul class="navbar-nav mx-auto">
+				<li class="nav-item mx-3" id="member">
+					<a class="nav-link text-nowrap" href="/concert/admin/member/admin_member_list.jsp">회원 관리</a>
+				</li>
+
+				<li class="nav-item mx-3" id="concert">
+					<a class="nav-link text-nowrap" href="http://localhost:9000/concert/admin/concert/admin_concert_list.jsp">콘서트 관리</a>
+				</li>
+
+				<li class="nav-item mx-3" id="notice">
+					<a class="nav-link text-nowrap" href="http://localhost:9000/concert/admin/notice/admin_notice_list.jsp">공지사항 관리</a>
+				</li>
+
+				<li class="nav-item dropdown mx-3" id="artist">
+					<a class="nav-link dropdown-toggle text-nowrap" href="http://localhost:9000/concert/admin/statistics/admin_statistics.jsp" id="navbardrop"
+						data-toggle="dropdown"> 아티스트 관리</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="http://localhost:9000/concert/admin/artist/admin_artist_list.jsp">아티스트 목록</a>
+						<a class="dropdown-item" href="http://localhost:9000/concert/admin/artist/admin_artist_comment.jsp">댓글 관리</a>
+					</div>
+				</li>
+				<li class="nav-item mx-3" id="statistic">
+					<a class="nav-link text-nowrap" href="http://localhost:9000/concert/admin/statistics/admin_statistics.jsp">통계</a>
+				</li>
+			</ul>
+		</div>
+
+
+		<a class="text-info text-nowrap font-weight-bold" href="http://localhost:9000/concert/login/login.jsp">LOGOUT</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</nav>
 </body>
 </html>
