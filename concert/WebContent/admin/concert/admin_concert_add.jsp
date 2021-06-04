@@ -28,7 +28,7 @@
 				<h6>날짜</h6>
 			</div>
 			<div class="col-md-2">
-				<h6>인원수</h6>
+				<h6>지역</h6>
 			</div>
 		</div>
 		
