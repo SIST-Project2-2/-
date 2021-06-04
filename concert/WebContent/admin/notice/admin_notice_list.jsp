@@ -154,7 +154,7 @@
 				%>
 					<tr>
 						<th scope="row"><%= notice.getNo() %></th>
-						<td class="text-left"><%= notice.getTitle() %></td>
+						<td class="text-left"><a class="text-body text-decoration-none" href="../../notice/notice_info.jsp?no=<%= notice.getNo() %>"><%= notice.getTitle() %></a></td>
 						<td><%= notice.getViews() %></td>
 						<td><%= notice.getWriter() %></td>
 						<td><%= notice.getDate() %></td>
