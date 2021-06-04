@@ -18,6 +18,7 @@ public class CommentDAO extends DAO{
 	// 목록 불러오기 실행 함수 - 기본
 	private ArrayList<CommentVO> executeSelectList(String sql, int page) {
 		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
+		CommentVO comment = null;
 		
 		try {
 			getPreparedStatement(sql);
@@ -29,7 +30,17 @@ public class CommentDAO extends DAO{
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+				comment = new CommentVO();
 				
+				comment.setNo(rs.getInt(1));
+				comment.setArtist(rs.getString(2));
+				comment.setId(rs.getString(3));
+				comment.setContent(rs.getString(4));
+				comment.setReport(rs.getInt(5));
+				comment.setRecommend(rs.getInt(6));
+				comment.setDate(rs.getString(7));
+				
+				list.add(comment);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,6 +52,7 @@ public class CommentDAO extends DAO{
 	// 목록 불러오기 실행 함수 - 아티스트별 또는 검색
 	private ArrayList<CommentVO> executeSelectList(String sql, int page, String str) {
 		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
+		CommentVO comment = null;
 		
 		try {
 			getPreparedStatement(sql);
@@ -53,7 +65,17 @@ public class CommentDAO extends DAO{
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+				comment = new CommentVO();
 				
+				comment.setNo(rs.getInt(1));
+				comment.setArtist(rs.getString(2));
+				comment.setId(rs.getString(3));
+				comment.setContent(rs.getString(4));
+				comment.setReport(rs.getInt(5));
+				comment.setRecommend(rs.getInt(6));
+				comment.setDate(rs.getString(7));
+				
+				list.add(comment);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,6 +87,7 @@ public class CommentDAO extends DAO{
 	// 목록 불러오기 실행 함수 - 아티스트별 검색
 	private ArrayList<CommentVO> executeSelectList(String sql, int page, String artist, String search) {
 		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
+		CommentVO comment = null;
 		
 		try {
 			getPreparedStatement(sql);
@@ -78,7 +101,17 @@ public class CommentDAO extends DAO{
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+				comment = new CommentVO();
 				
+				comment.setNo(rs.getInt(1));
+				comment.setArtist(rs.getString(2));
+				comment.setId(rs.getString(3));
+				comment.setContent(rs.getString(4));
+				comment.setReport(rs.getInt(5));
+				comment.setRecommend(rs.getInt(6));
+				comment.setDate(rs.getString(7));
+				
+				list.add(comment);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,65 +120,17 @@ public class CommentDAO extends DAO{
 		return list;
 	}
 	
-	// 댓글 목록 출력 - 전체
-	public ArrayList<CommentVO> getCommentList(int page) {
-		String sql = listCommonStart + " order by no desc "
-				+  listCommonEnd;
+	// 댓글 목록 출력 - 기본
+	public ArrayList<CommentVO> getCommentList(int page, int order) {
+		String sql = listCommonStart + " order by ";
 		
-		return executeSelectList(sql, page);
-	}
-	
-	// 댓글 목록 출력 - 전체
-//	public ArrayList<CommentVO> getCommentList(int page) {
-//		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
-//		CommentVO comment = null;
-//		
-//		try {
-//			String sql = " select no, artist, id, content, report, recommend, wdate "
-//					+ " from (select rownum as rno, no, artist, id, content, report, recommend, wdate "
-//					+ " 	from (select no, artist, id, content, report, recommend, wdate "
-//					+ "			from comments order by no desc "
-//					+  " 	where rownum <= ? * ? ) "
-//					+ " where rno > ? * (? - 1) ";
-//			
-//			getPreparedStatement(sql);
-//			
-//			pstmt.setInt(1, commentPerPage);
-//			pstmt.setInt(2, page);
-//			pstmt.setInt(3, commentPerPage);
-//			pstmt.setInt(4, page);
-//			
-//			rs = pstmt.executeQuery();
-//			while(rs.next()) {
-//				comment = new CommentVO();
-//				
-//				comment.setNo(rs.getInt(1));
-//				comment.setArtist(rs.getString(2));
-//				comment.setId(rs.getString(3));
-//				comment.setContent(rs.getString(4));
-//				comment.setReport(rs.getInt(5));
-//				comment.setRecommend(rs.getInt(6));
-//				comment.setDate(rs.getString(7));
-//				
-//				list.add(comment);
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return list;
-//	}
-	
-	// 댓글 목록 출력 - 신고순
-	public ArrayList<CommentVO> getCommentList(int page, boolean order) {
-		String sql = listCommonStart + " order by report ";
-		
-		// order가 true일 경우 내림차순, false일 경우 오름차순
-		if(order == true) {
-			sql += " desc ";
-		}else {
-			sql += " asc ";
+		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
+		if(order == 0) {
+			sql += " no desc ";
+		}else if(order == 1) {
+			sql += " report desc ";
+		}else if(order == 2){
+			sql += " report asc ";
 		}
 				
 		sql +=  listCommonEnd;
@@ -154,22 +139,16 @@ public class CommentDAO extends DAO{
 	}
 	
 	// 댓글 목록 출력 - 아티스트별
-	public ArrayList<CommentVO> getCommentList(int page, String artist) {
-		String sql = listCommonStart + " where artist = ? order by no desc "
-				+ listCommonEnd;
+	public ArrayList<CommentVO> getCommentList(int page, int order, String artist) {
+		String sql = listCommonStart + " where artist = ? order by ";
 		
-		return executeSelectList(sql, page, artist);
-	}
-	
-	// 댓글 목록 출력 - 아티스트별 신고순
-	public ArrayList<CommentVO> getCommentList(int page, boolean order, String artist) {
-		String sql = listCommonStart + " where artist = ? order by report ";
-		
-		// order가 true일 경우 내림차순, false일 경우 오름차순
-		if(order == true) {
-			sql += " desc ";
-		}else {
-			sql += " asc ";
+		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
+		if(order == 0) {
+			sql += " no desc ";
+		}else if(order == 1) {
+			sql += " report desc ";
+		}else if(order == 2){
+			sql += " report asc ";
 		}
 		
 		sql += listCommonEnd;
@@ -178,31 +157,35 @@ public class CommentDAO extends DAO{
 	}
 	
 	// 댓글 목록 출력 - 검색
-	public ArrayList<CommentVO> getCommentListSearch(int page, String search) {
-		String sql = listCommonStart + " where comment like(?) order by no desc "
-				+ listCommonEnd;
+	public ArrayList<CommentVO> getCommentListSearch(int page, int order, String search) {
+		String sql = listCommonStart + " where id like(?) order by ";
+		
+		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
+		if(order == 0) {
+			sql += " no desc ";
+		}else if(order == 1) {
+			sql += " report desc ";
+		}else if(order == 2){
+			sql += " report asc ";
+		}
+		
+		sql += listCommonEnd;
 		
 		return executeSelectList(sql, page, Commons.s_string(search));
 	}
 	
 	// 댓글 목록 출력 - 아티스트별 검색
-	public ArrayList<CommentVO> getCommentListSearch(int page, String artist, String search) {
-		String sql = listCommonStart + " where artist = ? and comment like(?) order by no desc "
-				+ listCommonEnd;
+	public ArrayList<CommentVO> getCommentListSearch(int page, int order, String artist, String search) {
+		String sql = listCommonStart + " where artist = ? and id like(?) order by ";
 		
-		return executeSelectList(sql, page, artist);
-	}
-	
-	// 댓글 목록 출력 - 아티스트별 검색 신고순
-	public ArrayList<CommentVO> getCommentListSearch(int page, boolean order, String artist, String search) {
-		String sql = listCommonStart + " where artist = ? and comment like(?) order by report ";
-		
-		// order가 true일 경우 내림차순, false일 경우 오름차순
-		if(order == true) {
-			sql += " desc ";
-		}else {
-			sql += " asc ";
-		}
+		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
+				if(order == 0) {
+					sql += " no desc ";
+				}else if(order == 1) {
+					sql += " report desc ";
+				}else if(order == 2){
+					sql += " report asc ";
+				}
 		
 		sql += listCommonEnd;
 		
