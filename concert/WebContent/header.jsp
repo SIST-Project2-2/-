@@ -98,6 +98,9 @@
 			</a>
 			<ul class="nav justify-content-end">
 				<li class="nav-item">
+					<a class="auser" href="http://localhost:9000/concert/admin/member/admin_member_list.jsp"> ADMIN</a>
+				</li>
+				<li class="nav-item">
 					<a class="auser" href="http://localhost:9000/concert/login/login.jsp"> LOGIN</a>
 				</li>
 				<li class="nav-item">
