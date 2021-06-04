@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%
+%>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아티스트 댓글 관리</title>
 <style>
 .comment_content {
 	width: 75%;
@@ -74,83 +77,6 @@ div.d2 {
 		</div>
 		
 		<table class="table">
-			<tr>
-				<td class="comment_content text-left">장범준 댓글내용</td>
-				<td class="comment_buttons">
-				<div class="input-group">
-					<span class="s1">신고수 10</span>
-					<span class="s1">추천수 10</span>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">삭제</button></td>
-					</span>
-				</div>
-			</tr>
-			<tr>
-				<td class="comment_content text-left">장범준 댓글내용</td>
-				<td class="comment_buttons">
-				<div class="input-group">
-					<span class="s1">신고수 10</span>
-					<span class="s1">추천수 10</span>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">삭제</button></td>
-					</span>
-				</div>
-			</tr>
-			<tr>
-				<td class="comment_content text-left">장범준 댓글내용</td>
-				<td class="comment_buttons">
-				<div class="input-group">
-					<span class="s1">신고수 10</span>
-					<span class="s1">추천수 10</span>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">삭제</button></td>
-					</span>
-				</div>
-			</tr>
-			<tr>
-				<td class="comment_content text-left">장범준 댓글내용</td>
-				<td class="comment_buttons">
-				<div class="input-group">
-					<span class="s1">신고수 10</span>
-					<span class="s1">추천수 10</span>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">삭제</button></td>
-					</span>
-				</div>
-			</tr>
-			<tr>
-				<td class="comment_content text-left">장범준 댓글내용</td>
-				<td class="comment_buttons">
-				<div class="input-group">
-					<span class="s1">신고수 10</span>
-					<span class="s1">추천수 10</span>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">삭제</button></td>
-					</span>
-				</div>
-			</tr>
-			<tr>
-				<td class="comment_content text-left">장범준 댓글내용</td>
-				<td class="comment_buttons">
-				<div class="input-group">
-					<span class="s1">신고수 10</span>
-					<span class="s1">추천수 10</span>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">삭제</button></td>
-					</span>
-				</div>
-			</tr>
-			<tr>
-				<td class="comment_content text-left">장범준 댓글내용</td>
-				<td class="comment_buttons">
-				<div class="input-group">
-					<span class="s1">신고수 10</span>
-					<span class="s1">추천수 10</span>
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">삭제</button></td>
-					</span>
-				</div>
-			</tr>
 			<tr>
 				<td class="comment_content text-left">장범준 댓글내용</td>
 				<td class="comment_buttons">
