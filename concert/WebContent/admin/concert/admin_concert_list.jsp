@@ -127,10 +127,10 @@
 				html += "<td>" + concert_list.get(i).getCdate() + "</td>";
 				html += "<td>" + concert_list.get(i).getLocation() + "</td>";
 				html += "<td>";
-				html += "	<a class=\"btn-sm btn-light\" href=\"admin_concert_edit.jsp\">수정</a>";
+				html += "	<a class=\"btn-sm btn-secondary\" href=\"admin_concert_edit.jsp\">수정</a>";
 				html += "</td>";
 				html += "<td>";
-				html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
+				html += "	<a type=\"button\" class=\"btn-sm btn-warning\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
 						+ concert_list.get(i).getNo() + "\">삭제</a>";
 				html += "</td>";
 				html += "</tr>";
@@ -164,7 +164,7 @@
 						</div>
 						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 						<div class="input-group-append">
-							<button type="submit" class="btn btn-primary" id="notice_list_search_button">검색</button>
+							<button type="submit" class="btn btn-light border" id="notice_list_search_button">검색</button>
 						</div>
 					</div>
 				</div>
