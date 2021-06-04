@@ -76,9 +76,8 @@ public class NoticeDAO extends DAO {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
 			String sql = "select no, title, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), writer, views "
 					+ " from (select rownum as rno, no, title, wdate, writer, views "
-					+ "	from notices "
-					+ "	where rownum <= ? * ? "
-					+ "	order by no desc) "
+					+ "		from (select * from notices order by no desc) "
+					+ "		where rownum <= ? * ?) "
 					+ " where rno > ? * (? - 1) ";
 			getPreparedStatement(sql);
 			
@@ -113,7 +112,7 @@ public class NoticeDAO extends DAO {
 		try {
 			String sql = "select no, title, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), writer, views "
 					+ " from (select rownum as rno, no, title, wdate, writer, views "
-					+ "		from notices where ";
+					+ "		from (select * from notices order by no desc) where ";
 			
 			if(category == 1) { // category값에 따라 검색하는 범위 변경
 				sql += " 	title like(?) ";
@@ -123,8 +122,7 @@ public class NoticeDAO extends DAO {
 				sql += " 	(title like(?) or content like(?)) ";
 			}
 			
-			sql += " and rownum <= ? * ? " // 페이지 범위 내의 목록 출력
-					+ "	order by no desc) "
+			sql += " and rownum <= ? * ?) " // 페이지 범위 내의 목록 출력
 					+ " where rno > ? * (? - 1) ";
 			
 			getPreparedStatement(sql);
@@ -193,9 +191,8 @@ public class NoticeDAO extends DAO {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
 			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
-					+ "	from notices "
-					+ "	where rownum <= ? * ? "
-					+ "	order by no desc) "
+					+ "		from (select * from notices order by no desc) "
+					+ "		where rownum <= ? * ?) "
 					+ " where rno > ? * (? - 1) ";
 			getPreparedStatement(sql);
 
@@ -231,7 +228,7 @@ public class NoticeDAO extends DAO {
 		try {
 			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
-					+ "		from notices where ";
+					+ "		from (select * from notices order by no desc) where ";
 			
 			if(category == 1) { // category값에 따라 검색하는 범위 변경
 				sql += " 	title like(?) ";
@@ -241,8 +238,7 @@ public class NoticeDAO extends DAO {
 				sql += " 	(title like(?) or content like(?)) ";
 			}
 			
-			sql += " and rownum <= ? * ? " // 페이지 범위 내의 목록 출력
-				+ "	order by no desc) "
+			sql += " and rownum <= ? * ?) " // 페이지 범위 내의 목록 출력
 				+ " where rno > ? * (? - 1) ";
 			
 			getPreparedStatement(sql);
@@ -283,7 +279,7 @@ public class NoticeDAO extends DAO {
 		try {
 			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
-					+ " 	from notices "
+					+ " 	from (select * from notices order by no desc) "
 					+ " 	where tag like(?) and rownum <= ? * ?) "
 					+ " where rno > ? * (? - 1) ";
 			
@@ -322,7 +318,7 @@ public class NoticeDAO extends DAO {
 		try {
 			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
 					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
-					+ " from notices "
+					+ " from (select * from notices order by no desc) "
 					+ " where tag like(?) and ";
 			
 			if(category == 1) { // category값에 따라 검색하는 범위 변경
@@ -333,8 +329,7 @@ public class NoticeDAO extends DAO {
 				sql += " (title like(?) or content like(?)) ";
 			}
 			
-			sql += " and rownum <= ? * ? " // 페이지 범위 내의 목록 출력
-				+ "	order by no desc) "
+			sql += " and rownum <= ? * ?) " // 페이지 범위 내의 목록 출력
 				+ " where rno > ? * (? - 1) ";
 			
 			getPreparedStatement(sql);
@@ -459,7 +454,7 @@ public class NoticeDAO extends DAO {
 			}else if(category == 2) {
 				sql += " content like(?) ";
 			}else {
-				sql += " title like(?) and content like(?) ";
+				sql += " title like(?) or content like(?) ";
 			}
 			
 			getPreparedStatement(sql);
