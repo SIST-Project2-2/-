@@ -33,7 +33,7 @@ public class ConcertDAO extends DAO {
 							continue;
 						}
 						if (sql_where.equals("")) { // 해당 필드에 값이 존재하고 WHERE 구문이 존재하지 않으면 WHERE 생성
-							sql_where += "WHERE ";
+							sql_where += " WHERE ";
 						}
 						if (sql_whereHasCreated) { // WHERE 구문에 조건을 추가하는게 첫번째가 아니면 OR 추가
 							sql_where += "OR ";
@@ -50,9 +50,9 @@ public class ConcertDAO extends DAO {
 
 		sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM (SELECT * FROM CONCERTS " + sql_where + " ORDER BY NO DESC) C)";
 		if (page_no != 0) {
-			sql += "WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
+			sql += " WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 		}
-		System.out.println("SQL 구문: " + sql);
+		System.out.println("만들어진 SQL 구문: " + sql);
 		return sql;
 	}
 
@@ -72,6 +72,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return result;
 	}
 
@@ -91,7 +92,8 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("총 게시글 수: " + result);
+		
+//		System.out.println("총 게시글 수: " + result);
 		return result;
 	}
 
@@ -128,6 +130,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return concert_list;
 	}
 
@@ -159,6 +162,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return concert_list;
 	}
 
@@ -182,6 +186,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 
 		return result;
 	}
@@ -200,7 +205,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return result;
 	}
 }

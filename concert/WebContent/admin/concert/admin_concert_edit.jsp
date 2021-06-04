@@ -47,7 +47,7 @@
 				<h6>날짜</h6>
 			</div>
 			<div class="col-md-2">
-				<h6>인원수</h6>
+				<h6>지역</h6>
 			</div>
 		</div>
 		<form>
@@ -66,12 +66,14 @@
 					<input type="date" class="form-control" name="date" id="date" required="required">
 				</div>
 				<div class="col-md-2">
-					<select class="custom-select" name="count" id="count">
-						<option selected="selected">인원 수</option>
-						<option value="1">성인 1명</option>
-						<option value="2">성인 2명</option>
-						<option value="3">성인 3명</option>
-						<option value="4">성인 4명</option>
+					<select class="custom-select" name="location" id="location">
+						<option selected="selected">지역</option>
+						<option value="서울">서울</option>
+						<option value="경기도">경기도</option>
+						<option value="강원도">강원도</option>
+						<option value="충청도">충청도</option>
+						<option value="경상도">경상도</option>
+						<option value="전라도">전라도</option>
 					</select>
 				</div>
 			</div>
