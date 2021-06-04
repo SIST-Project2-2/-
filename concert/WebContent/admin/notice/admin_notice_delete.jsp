@@ -4,27 +4,19 @@
 <%@ page import="java.io.PrintWriter" %>
 <%
 	PrintWriter script = response.getWriter();
-
-	// 관리자 계정으로 로그인되어 있는지 확인하는 코드 넣기~	
-
-	// 잘못된 접근 감지
-	if(request.getParameter("no") == null) {
-		script.write("<script>");
-		script.write("location.href();"); // 오류 페이지로 이동
-		script.write("</script>");
-	}
-
 	NoticeDAO dao = new NoticeDAO();
-	
-	
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	int no = 0;
 
-</body>
-</html>
+	// 잘못된 접근 감지 / if문 안에 관리자 계정으로 로그인되어 있는지 확인하는 코드 넣기
+	if(request.getParameter("no") == null) {
+		out.println("false");
+		return;
+	}
+	
+	no = Integer.parseInt(request.getParameter("no")); // 삭제할 게시글 번호
+	
+	// 성공하면 true 리턴, 실패하면 false 리턴
+	out.println(dao.deleteNotice(no));
+	dao.close();
+	return;
+%>
