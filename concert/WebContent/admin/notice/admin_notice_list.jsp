@@ -12,7 +12,8 @@
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
 	PageVO pageInfo = null; // 페이지 정보를 저장하는 변수
-	HashMap<String, Object> inputs = new HashMap<String, Object>(); // request 파라미터들을 저장
+	//HashMap<String, Object> inputs = new HashMap<String, Object>(); // request 파라미터들을 저장
+	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
 	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	
@@ -23,17 +24,14 @@
 	// 요청 변수 저장
 	if(request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		inputs.put("pageNumber", Integer.parseInt(request.getParameter("pageNumber")));
 	}
 	
 	if(request.getParameter("category") != null) {
 		category = Integer.parseInt(request.getParameter("category"));
-		inputs.put("category", Integer.parseInt(request.getParameter("category")));
 	}
 	
 	if(request.getParameter("search") != null) {
 		search = request.getParameter("search");
-		inputs.put("search", request.getParameter("search").toString());
 	}
 	
 	// 목록 불러오기

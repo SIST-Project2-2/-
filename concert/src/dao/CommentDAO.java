@@ -15,6 +15,31 @@ public class CommentDAO extends DAO{
 	String listCommonEnd = " ) where rownum <= ? * ? ) where rno > ? * (? - 1) "; // 댓글 리스트 출력 sql문 뒷부분 공통
 	String countCommon = " select count(*) from comments "; // 댓글 수 출력 sql문 공통
 	
+	// 댓글 삭제
+	public boolean deleteComment(int no) {
+		int result = 0;
+		
+		try {
+			String sql = " DELETE FROM COMMENTS "
+					+ " WHERE NO = ? ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 1개 데이터가 삭제된 경우 true 반환, 아닌 경우 false 반환
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	// 목록 불러오기 실행 함수 - 기본
 	private ArrayList<CommentVO> executeSelectList(String sql, int page) {
 		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
@@ -274,7 +299,7 @@ public class CommentDAO extends DAO{
 	
 	// 페이지 정보 출력 - 검색
 	public PageVO getPageInfoSearch(int nowPage, String search) {
-		String sql = countCommon + " where comment like(?) ";
+		String sql = countCommon + " where id like(?) ";
 		
 		int count = executeCount(sql, Commons.s_string(search));
 		
@@ -283,7 +308,7 @@ public class CommentDAO extends DAO{
 	
 	// 페이지 정보 출력 - 아티스트별 검색
 	public PageVO getPageInfoSearch(int nowPage, String artist, String search) {
-		String sql = countCommon + " where artist = ? and comment like(?) ";
+		String sql = countCommon + " where artist = ? and id like(?) ";
 		
 		int count = executeCount(sql, artist, Commons.s_string(search));
 		

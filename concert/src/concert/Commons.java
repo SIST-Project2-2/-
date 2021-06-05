@@ -18,7 +18,7 @@ public class Commons {
 	}
 	
 	// 현재 url과 파라미터 값의 주어진 페이지를 불러온다.
-	public static String get_page(String url, Map<String, String[]> inputs, int pageNumber) {
+	public static String get_page(String url, HashMap<String, String[]> inputs, int pageNumber) {
 		String[] pageInput = {String.valueOf(pageNumber)};
 		inputs.put("pageNumber", pageInput);
 		url += "?";
@@ -28,15 +28,24 @@ public class Commons {
 		return url.substring(0, url.length()-1); // 마지막에 붙는 &는 제외
 	}
 	
-	// 현재 url과 파라미터 값의 주어진 페이지를 불러온다.
-	public static String get_page(String url, HashMap<String, Object> inputs, int pageNumber) {
-		inputs.put("pageNumber", pageNumber);
+	// 현재 페이지의 파라미터를 포함한 주소를 출력한다.
+	public static String get_page(String url, HashMap<String, String[]> inputs) {
 		url += "?";
 		for(String key : inputs.keySet()) {
-			url += key + "=" + inputs.get(key) + "&";
+			url += key + "=" + inputs.get(key)[0] + "&";
 		}
 		return url.substring(0, url.length()-1); // 마지막에 붙는 &는 제외
 	}
+	
+	// 현재 url과 파라미터 값의 주어진 페이지를 불러온다.
+//	public static String get_page(String url, HashMap<String, Object> inputs, int pageNumber) {
+//		inputs.put("pageNumber", pageNumber);
+//		url += "?";
+//		for(String key : inputs.keySet()) {
+//			url += key + "=" + inputs.get(key) + "&";
+//		}
+//		return url.substring(0, url.length()-1); // 마지막에 붙는 &는 제외
+//	}
 	
 	// PageVO를 설정하는 함수
 	public static PageVO getPageProcess(int count, int nowPage, int post_per_page) {
