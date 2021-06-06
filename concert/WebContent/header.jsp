@@ -49,7 +49,6 @@
 	text-align: center;
 	height: 56px;
 	background-color: tomato;
-	margin-bottom: 100px
 }
 
 #header_div #top_nav>ul {
@@ -91,7 +90,7 @@
 </style>
 </head>
 <body>
-	<div id="header_div">
+	<div id="header_div" class="mb-3">
 		<div class="lT">
 			<a class=logo href="http://localhost:9000/concert/index.jsp">
 				<img alt="" src="http://localhost:9000/concert/images/logo.png">
