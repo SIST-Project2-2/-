@@ -1,4 +1,12 @@
+<%@page import="dao.ConcertDAO"%>
+<%@page import="vo.ConcertVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	int concert_no = Integer.parseInt(request.getParameter("concert_no"));
+
+	ConcertDAO dao = new ConcertDAO();
+	ConcertVO vo = dao.getConcertInfo(concert_no);
+%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -10,11 +18,11 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<h3 class="clearfix col-9 d-inline-block float-lfet">장범준</h3>
+			<h1 class="clearfix col-9 d-inline-block float-lfet font-weight-bold text-left"><%=vo.getArtist()%></h1>
 			<div class="clearfix col-9">
 
-				<div class="border " style="height: 5000px">
-					<img>
+				<div class="border" style="height: 800px">
+					<%=vo.getContent()%>
 				</div>
 			</div>
 
@@ -25,9 +33,10 @@
 					<li style="margin-bottom: 10px;">
 						<div class="row text-left">
 							<div>
-								<small class="d-block text-left text-dark">가수</small> <select class="form-control-sm">
+								<small class="d-block text-left text-dark ml-2">가수</small>
+								<select class="form-control-sm" disabled>
 									<optgroup label="가수">
-										<option>장범준</option>
+										<option selected><%=vo.getArtist()%></option>
 										<option>잔나비</option>
 										<option>10cm</option>
 										<option>현아</option>
@@ -40,21 +49,16 @@
 					<li style="margin-bottom: 10px;">
 						<div class="row text-left">
 							<div>
-								<small class="d-block text-left text-dark">날짜</small> <select class="form-control-sm">
-									<optgroup label="날짜">
-										<option>21년 05월 30일 대구 콘서트</option>
-										<option>21년 06월 04일 부산 콘서트</option>
-										<option>21년 06월 06일 전북 콘서트</option>
-										<option>21년 06월 09일 서울 콘서트</option>
-									</optgroup>
-								</select>
+								<small class="d-block text-left text-dark ml-2">날짜</small>
+								<input type="date" value="<%=vo.getCdate()%>" disabled>
 							</div>
 						</div>
 					</li>
-					<li">
+					<li>
 						<div class="row text-left">
 							<div class="">
-								<small class="d-block text-left text-dark">인원수</small> <select style="margin-bottom: 5px;"form-control-sm">
+								<small class="d-block text-left text-dark ml-2">인원수</small>
+								<select style="margin-bottom: 5px;" class="form-control-sm">
 									<optgroup label="인원수">
 										<option>성인1명</option>
 										<option>성인2명</option>
@@ -67,7 +71,7 @@
 						</div>
 					</li>
 				</ul>
-				<button class="container btn btn-light " type="button">좌석고르기</button>
+				<a class="container btn btn-light" href="http://localhost:9000/concert/concert/concert_reservation.jsp">좌석고르기</a>
 			</div>
 		</div>
 	</div>
