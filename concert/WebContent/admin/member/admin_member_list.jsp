@@ -5,6 +5,7 @@
 	request.setCharacterEncoding("utf-8");
 	MemberDAO dao = new MemberDAO();
 	ArrayList<MemberVO> list = dao.getList();
+	String id = request.getParameter("id");
 %>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
@@ -14,6 +15,11 @@
 <meta charset="UTF-8">
 <title>회원 관리</title>
 <script type="text/javascript">
+$(document).ready(function(){
+	if($("#id").is(":checked") == true) {
+		
+	}
+});
 <!--
 	window.onload = function() {
 		var table_body = document.getElementById("table_body");
@@ -111,9 +117,13 @@ div#member_delete {
 					<td><%=vo.getLast_name()%><%=vo.getFirst_name()%></td>
 					<td><%=vo.getPhone()%></td>
 					<td><%=vo.getEmail()%></td>
-					<td><a type="button" class="btn-sm btn-danger"
+					<td><a href="admin_member_list_delete_process.jsp?id=<%=vo.getId()%>"><button type="button" class="btn-sm btn-danger">삭제</button></a>
+					
+					<!-- 
+					<td><a href="admin_member_list_delete_process.jsp?id=<%=id%>" type="button" class="btn-sm btn-danger"
 						data-toggle="modal" data-target="#exampleModal"
 						data-whatever="'+i+'">삭제</a></td>
+						 -->
 				</tr>
 				<%
 					}
