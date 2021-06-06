@@ -16,7 +16,7 @@
 	String[] searchCategories = request.getParameterValues("category"); // 검색 카테고리들을 String 형태로 저장하는 배열
 	String searchTarget = request.getParameter("search"); // 검색할 내용
 	
-	// 파라미터들 중 'page_no'를 찾아내기 위한 반복문
+	/** 파라미터들 중 'page_no'를 찾아내기 위한 반복문 **/
 	while (parameter_names.hasMoreElements()) {
 		String parameter_name = parameter_names.nextElement();
 		// 'page_no'가 존재하면 작업
@@ -25,11 +25,9 @@
 		}
 	}
 	
-	// 검색 카테고리 설정
+	/** 검색 카테고리 설정 **/
 	ConcertVO concert = new ConcertVO(); // 카테고리 설정하기 위해 사용될 객체 생성
 //	System.out.println("jsp파일 카테고리 목록: " + Arrays.toString(searchCategories));
-		
-
 	Field[] fields = concert.getClass().getDeclaredFields(); // ConcertVO 에 선언된 필드 목록
 	for(Field field : fields){ 
 		field.setAccessible(true); // private 필드에도 접근 가능하도록 설정
@@ -52,7 +50,6 @@
 	}
 //	System.out.println("GET방식으로 받아온 파라미터: " + Arrays.toString(searchCategories));
 //	System.out.println("만든 검색 파라미터: " + search_parameters);
-
 	page_count = concert_dao.count_concert_pages(10, concert);
 //	System.out.println("총 페이지 수: " + page_count);
 	concert_list = concert_dao.get_concert_search_list(page_no, 10, concert);
@@ -113,7 +110,6 @@
 			$("#page_previous_link").attr("href", "?page_no=<%= (page_start - 10 <= 0) ? 1 : page_start - 10%><%=search_parameters%>");
 			$("#page_next_link").attr("href", "?page_no=<%= (page_start + 10 > page_count) ? page_count : (page_start + 10)%><%=search_parameters%>");
 	 	}
-
 		// 테이블 부분을 생성하는 함수
 		function create_tbody() {
 			var tbody = $("#tbody");
@@ -127,7 +123,7 @@
 				html += "<td>" + concert_list.get(i).getCdate() + "</td>";
 				html += "<td>" + concert_list.get(i).getLocation() + "</td>";
 				html += "<td>";
-				html += "	<a class=\"btn-sm btn-light\" href=\"admin_concert_edit.jsp\">수정</a>";
+				html += "	<a class=\"btn-sm btn-secondary\" href=\"admin_concert_edit.jsp\">수정</a>";
 				html += "</td>";
 				html += "<td>";
 				html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
@@ -143,7 +139,6 @@
 <body>
 	<div class="container">
 		<h1 class="font-weight-bold text-left">콘서트 목록</h1>
-
 		<!-- 검색 창 -->
 		<form action="#">
 			<div class="row">
@@ -164,13 +159,12 @@
 						</div>
 						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 						<div class="input-group-append">
-							<button type="submit" class="btn btn-primary" id="notice_list_search_button">검색</button>
+							<button type="submit" class="btn btn-light border" id="notice_list_search_button">검색</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
-
 		<table class="table table-hover table-sm text-center">
 			<thead>
 				<tr>
@@ -198,8 +192,6 @@
 			</li>
 		</ul>
 	</div>
-
-
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -211,21 +203,24 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-danger">삭제</button>
+					<button type="button" class="btn btn-danger" id="btn_delete">삭제</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-
 <script>
 	$('#exampleModal').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget) // Button that triggered the modal
-		var recipient = button.data('whatever') // Extract info from data-* attributes
+		var button = $(event.relatedTarget); // Button that triggered the modal
+		var recipient = button.data('whatever'); // Extract info from data-* attributes
 		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		var modal = $(this)
-		modal.find('.modal-title').text(+recipient + '번 콘서트을 삭제하시겟습니까?')
+		var modal = $(this);
+		modal.find('.modal-title').text(+recipient + '번 콘서트을 삭제하시겟습니까?');
+		
+		$("#btn_delete").click(function() {
+			location.href = "http://localhost:9000/concert/admin/concert/admin_concert_delete_action.jsp?no=" + recipient;
+		}); 
 	})
 </script>
 </html>
