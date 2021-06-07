@@ -1,4 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="dao.MemberDAO, vo.MemberVO, java.util.*"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	MemberDAO dao = new MemberDAO();
+	ArrayList<MemberVO> list = dao.getList();
+	String id = request.getParameter("id");
+%>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -7,10 +15,16 @@
 <meta charset="UTF-8">
 <title>회원 관리</title>
 <script type="text/javascript">
+$(document).ready(function(){
+	if($("#id").is(":checked") == true) {
+		
+	}
+});
+<!--
 	window.onload = function() {
 		var table_body = document.getElementById("table_body");
 
-		for (var i = 1; i <= 10; i++) {
+		for (var i = 0; i < list.length; i++) {
 			table_body.innerHTML += '<tr>'
 					+ '<th scope="row">HWISAEK</th>'
 					+ '<td class="text-left">휘색</td>'
@@ -22,6 +36,7 @@
 					+ '</td>' + '</tr>';
 		}
 	}
+	-->
 </script>
 <style>
 form div {
@@ -54,22 +69,27 @@ div#member_delete {
 							<option value="writer">작성자</option>
 						</select> -->
 						<div class="input-group-prepend">
-							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								카테고리</button>
+							<button class="btn btn-outline-info dropdown-toggle"
+								type="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">카테고리</button>
 							<div class="dropdown-menu">
 								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="id" name="category" id="id">
-									<label class="form-check-label" for="id"> 아이디 </label>
+									<input class="form-check-input" type="checkbox" value="id"
+										name="category" id="id"> <label
+										class="form-check-label" for="id"> 아이디 </label>
 								</div>
 								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="content" name="category" id="content">
-									<label class="form-check-label" for="content"> 닉네임 </label>
+									<input class="form-check-input" type="checkbox" value="content"
+										name="category" id="content"> <label
+										class="form-check-label" for="content"> 닉네임 </label>
 								</div>
 							</div>
 						</div>
-						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
+						<input type="text" class="form-control" placeholder="검색..."
+							name="search" id="notice_list_search">
 						<div class="input-group-append">
-							<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+							<button type="button" class="btn btn-primary"
+								id="notice_list_search_button">검색</button>
 						</div>
 					</div>
 				</div>
@@ -88,37 +108,48 @@ div#member_delete {
 				</tr>
 			</thead>
 			<tbody id="table_body">
+				<%
+					for (MemberVO vo : list) {
+				%>
+				<tr>
+					<th scope="row"><%=vo.getId()%></th>
+					<td class="text-left"><%=vo.getNickname()%></td>
+					<td><%=vo.getLast_name()%><%=vo.getFirst_name()%></td>
+					<td><%=vo.getPhone()%></td>
+					<td><%=vo.getEmail()%></td>
+					<td><a href="admin_member_list_delete_process.jsp?id=<%=vo.getId()%>"><button type="button" class="btn-sm btn-danger">삭제</button></a>
+					
+					<!-- 
+					<td><a href="admin_member_list_delete_process.jsp?id=<%=id%>" type="button" class="btn-sm btn-danger"
+						data-toggle="modal" data-target="#exampleModal"
+						data-whatever="'+i+'">삭제</a></td>
+						 -->
+				</tr>
+				<%
+					}
+				%>
 			</tbody>
 		</table>
 		<div class="text-right">
 			<a href="admin_notice_add.jsp" class="btn-sm btn-primary">글쓰기</a>
 		</div>
 		<ul class="pagination justify-content-center">
-			<li class="page-item">
-				<a class="page-link" href="#">&lt;</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">1</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">2</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">3</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="#">&gt;</a>
-			</li>
+			<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
 		</ul>
 	</section>
 
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">New message</h5>
-					<a type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+					<a type="button" class="close" data-dismiss="modal"
+						aria-label="Close"> <span aria-hidden="true">&times;</span>
 					</a>
 				</div>
 				<div class="modal-footer">
