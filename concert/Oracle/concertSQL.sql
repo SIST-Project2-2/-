@@ -324,12 +324,18 @@ INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'hwisaek', 2);
 INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'test', 2);
 
 -- 좌석 정보 추가
-INSERT INTO SEATS VALUES(2, 'A_01', 'hwisaek', NULL);
+INSERT INTO SEATS VALUES(2, 'A_01', 'hwisaek', 1);
 INSERT INTO SEATS VALUES(2, 'A_02', NULL, NULL);
 INSERT INTO SEATS VALUES(2, 'A_03', NULL, NULL);
 INSERT INTO SEATS VALUES(2, 'A_04', NULL, NULL);
-INSERT INTO SEATS VALUES(2, 'A_05', 'test', NULL);
-INSERT INTO SEATS VALUES(2, 'A_06', 'test', NULL);
-INSERT INTO SEATS VALUES(2, 'A_07', 'test', NULL);
+INSERT INTO SEATS VALUES(2, 'A_05', 'test', 2);
+INSERT INTO SEATS VALUES(2, 'A_06', 'test', 2);
+INSERT INTO SEATS VALUES(2, 'A_07', 'test', 2);
+
+-- 해당 주문 번호의 결제 정보 조회
+SELECT o.NO, m.first_name, m.last_name, m.phone, c.cdate FROM orders o, concerts c, members m WHERE o.NO = 1 AND o.concerts_no = c.NO AND o.ID = m.ID;
+
+-- 해당 주문 번호의 결제 좌석 조회
+SELECT seat_no FROM seats WHERE order_no = 1;
 
 COMMIT;
