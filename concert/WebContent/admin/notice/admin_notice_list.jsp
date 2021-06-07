@@ -12,7 +12,8 @@
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
 	PageVO pageInfo = null; // 페이지 정보를 저장하는 변수
-	HashMap<String, Object> inputs = new HashMap<String, Object>(); // request 파라미터들을 저장
+	//HashMap<String, Object> inputs = new HashMap<String, Object>(); // request 파라미터들을 저장
+	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
 	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	
@@ -23,17 +24,14 @@
 	// 요청 변수 저장
 	if(request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		inputs.put("pageNumber", Integer.parseInt(request.getParameter("pageNumber")));
 	}
 	
 	if(request.getParameter("category") != null) {
 		category = Integer.parseInt(request.getParameter("category"));
-		inputs.put("category", Integer.parseInt(request.getParameter("category")));
 	}
 	
 	if(request.getParameter("search") != null) {
 		search = request.getParameter("search");
-		inputs.put("search", request.getParameter("search").toString());
 	}
 	
 	// 목록 불러오기
@@ -79,13 +77,28 @@
 		})
 		
 		// 삭제 버튼 클릭시 팝업
-		$('#exampleModal').on('show.bs.modal', function(event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			var recipient = button.data('whatever') // Extract info from data-* attributes
-			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			var modal = $(this)
-			modal.find('.modal-title').text(+recipient + '번 게시글을 삭제하시겟습니까?')
+		$('#deleteModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget)
+			var recipient = button.data('whatever'); // 게시글 번호
+			var modal = $(this);
+			
+			modal.find('.modal-title').text(+recipient + '번 게시글');
+			
+			modal.find('#btn_ok').click(function() {
+				$.ajax({
+					type: "get",
+					url: "admin_notice_delete.jsp?no=" + recipient,
+					dataType: "text",
+					success: function(res) {
+						if($.trim(res) == "true") { // 삭제 성공시 페이지 새로고침
+							location.reload();
+						}else {
+							alert("error");
+							// 에러 페이지 이동
+						}
+					}
+				})
+			})
 		})
 	});
 </script>
@@ -130,15 +143,21 @@
 				</tr>
 			</thead>
 			<tbody id="table_body">
-				<% for(NoticeVO notice : list) { %>
+				<% if(list.size() == 0) { %>
+					<tr>
+						<td class="text-center" colspan="7">데이터가 없습니다.</td>
+					</tr>
+				<% }
+					for(NoticeVO notice : list) { 
+				%>
 					<tr>
 						<th scope="row"><%= notice.getNo() %></th>
-						<td class="text-left"><%= notice.getTitle() %></td>
+						<td class="text-left"><a class="text-body text-decoration-none" href="../../notice/notice_info.jsp?no=<%= notice.getNo() %>"><%= notice.getTitle() %></a></td>
 						<td><%= notice.getViews() %></td>
 						<td><%= notice.getWriter() %></td>
 						<td><%= notice.getDate() %></td>
 						<td><a type="button" class="btn-sm btn-secondary" href="admin_notice_edit.jsp?no=<%= notice.getNo() %>">수정</a></td>
-						<td><a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="<%= notice.getNo() %>">삭제</a></td>
+						<td><a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-whatever="<%= notice.getNo() %>">삭제</a></td>
 					</tr>
 				<% } %>
 			</tbody>
@@ -173,22 +192,25 @@
 				<% } %>
 		  </ul>
 	</section>
-
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">New message</h5>
-					<a type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</a>
-				</div>
-				<div class="modal-footer">
-					<a type="button" class="btn-sm btn-secondary" data-dismiss="modal">취소</a>
-					<a type="button" class="btn-sm btn-danger">삭제</a>
-				</div>
-			</div>
-		</div>
+	<!-- 삭제 메시지 팝업 -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel"></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        정말로 삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="btn_ok">삭제</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 </body>
 </html>

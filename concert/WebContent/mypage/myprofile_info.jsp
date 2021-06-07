@@ -160,9 +160,9 @@ member = memberDAO.get_profile(member.getId());
 			<div class="col-md-12 text-right mt-4">
 				<form action="myprofile_edit.jsp" method="get">
 					<div class="form-group">
-						<input type="text" class="form-control" value="test" id="id" name="id" style="display:none">
+						<input type="hidden" class="form-control" value="test" id="id" name="id">
 						<button type="submit" class="btn btn-primary">수정하기</button>
-						<a href="accountdelete.jsp" class="btn btn-danger">탈퇴하기</a>
+						<a href="withdrawal.jsp" class="btn btn-danger">탈퇴하기</a>
 					</div>
 				</form>
 			</div>
