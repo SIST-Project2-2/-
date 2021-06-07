@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import vo.MemberVO;
 
 public class MemberDAO extends DAO {
@@ -216,5 +218,86 @@ public class MemberDAO extends DAO {
 		}
 		return result;
 
+	}
+	
+	//지원 작성
+	//회원 전체 리스트
+	public ArrayList<MemberVO> getList(){
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		String sql = "select id, nickname, first_name, last_name, phone, email "
+					 + " from members ";
+				
+		getPreparedStatement(sql);
+		
+		try {
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString(1));
+				vo.setNickname(rs.getString(2));
+				vo.setFirst_name(rs.getString(3));
+				vo.setLast_name(rs.getString(4));
+				vo.setPhone(rs.getString(5));
+				vo.setEmail(rs.getString(6));
+				
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return list;
+	}
+	
+	//회원 검색-id
+	public ArrayList<MemberVO> getSearchId(){
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		String sql = "select id, nickname, first_name, last_name, phone, email "
+					 + " from members ";
+				
+		getPreparedStatement(sql);
+		
+		try {
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString(1));
+				vo.setNickname(rs.getString(2));
+				vo.setFirst_name(rs.getString(3));
+				vo.setLast_name(rs.getString(4));
+				vo.setPhone(rs.getString(5));
+				vo.setEmail(rs.getString(6));
+				
+				list.add(vo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return list;
+	}
+	
+	//회원 삭제
+	public boolean getDeleteResult(String id) {
+		boolean result = false;
+		String sql = "delete from members where id=?";
+				
+		getPreparedStatement(sql);
+		
+		try {
+			pstmt.setString(1, id);
+			
+			int value = pstmt.executeUpdate();
+			if(value != 0){
+				result = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return result;
 	}
 }

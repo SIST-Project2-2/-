@@ -16,6 +16,48 @@ public class ConcertDAO extends DAO {
 
 	// Method
 
+	// 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
+
+	// 콘서트 조회 메소드
+	public ConcertVO getConcertInfo(int no) {
+		ConcertVO vo = new ConcertVO();
+		try {
+			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS WHERE NO = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo.setNo(rs.getInt(1));
+				vo.setArtist(rs.getString(2));
+				vo.setTitle(rs.getString(3));
+				vo.setContent(rs.getString(4));
+				vo.setCdate(rs.getString(5));
+				vo.setLocation(rs.getString(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
+	// 콘서트 삭제 메소드
+	public int deleteConcert(ConcertVO concert) {
+		int result = -2;
+		try {
+			String sql = "DELETE FROM CONCERTS WHERE NO = ?";
+			getPreparedStatement(sql);
+			pstmt.setInt(1, concert.getNo());
+			System.out.println("삭제대상: " + concert.getNo());
+			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	// 조건에 해당하는 sql 구문 자동생성 메소드
 	public String getSql(int page_no, int page_size, ConcertVO search_target) {
 		String sql = null;
@@ -52,7 +94,7 @@ public class ConcertDAO extends DAO {
 		if (page_no != 0) {
 			sql += " WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 		}
-		System.out.println("만들어진 SQL 구문: " + sql);
+//		System.out.println("만들어진 SQL 구문: " + sql);
 		return sql;
 	}
 
@@ -72,7 +114,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 
@@ -92,7 +134,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 //		System.out.println("총 게시글 수: " + result);
 		return result;
 	}
@@ -130,7 +172,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return concert_list;
 	}
 
@@ -162,7 +204,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return concert_list;
 	}
 
@@ -186,7 +228,6 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 
 		return result;
 	}
@@ -205,7 +246,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 }

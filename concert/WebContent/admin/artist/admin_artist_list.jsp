@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="dao.ArtistDAO, vo.ArtistVO, java.util.*"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	ArtistDAO dao = new ArtistDAO();
+	ArrayList<ArtistVO> list = dao.getList();
+	String name = request.getParameter("name");
+%>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
 
@@ -69,14 +76,16 @@ body {
 	<div class="container bootstrap snippets bootdey">
 		<div class="row">
 			<div class="post-list">
-			<!-- 아티스트 추가 버튼  -->
+				<!-- 아티스트 추가 버튼  -->
 				<div class="row">
 					<div class="col-sm-12">
-						<a class="btn btn btn-primary" href="http://localhost:9000/concert/admin/artist/admin_artist_add.jsp">아티스트 추가</a>
+						<a class="btn btn btn-primary"
+							href="http://localhost:9000/concert/admin/artist/admin_artist_add.jsp">아티스트
+							추가</a>
 					</div>
 				</div>
 			</div>
-			
+
 			<!--  장범준  -->
 			<div class="post-list">
 				<div class="row">
@@ -97,9 +106,13 @@ body {
 						<a class="btn btn btn-secondary"
 							href="http://localhost:9000/concert/admin/artist/admin_artist_edit.jsp">
 							<i class="fa fa-share"></i> 수정
-						</a> <a class="btn btn btn-danger" href="#"> <i
-							class="fa fa-share"></i> 삭제
+						</a> 
+						<!-- 
+						<a class="btn btn btn-danger"
+							href="admin_artist_list_delete_process.jsp?name=퍼센트겟네임">
+							<i class="fa fa-share"></i> 삭제
 						</a>
+						 -->
 					</div>
 				</div>
 			</div>

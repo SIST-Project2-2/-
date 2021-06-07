@@ -118,12 +118,12 @@
 			for (int i = 0; i < list_size; i++) {
 				html += "<tr>";
 				html += "<th scope=\"row\">" + concert_list.get(i).getNo() + "</th>";
-				html += "<td class=\"text-left\">" + concert_list.get(i).getTitle() + "</td>";
+				html += "<td class=\"text-left\"><a href=\"http://localhost:9000/concert/concert/concert_info.jsp?concert_no=" + concert_list.get(i).getNo() + "\">" + concert_list.get(i).getTitle() + "</a></td>";
 				html += "<td>" + concert_list.get(i).getArtist() + "</td>";
 				html += "<td>" + concert_list.get(i).getCdate() + "</td>";
 				html += "<td>" + concert_list.get(i).getLocation() + "</td>";
 				html += "<td>";
-				html += "	<a class=\"btn-sm btn-secondary\" href=\"admin_concert_edit.jsp\">수정</a>";
+				html += "	<a class=\"btn-sm btn-secondary\" href=\"admin_concert_edit.jsp?concert_no=" + concert_list.get(i).getNo() + "\">수정</a>";
 				html += "</td>";
 				html += "<td>";
 				html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
