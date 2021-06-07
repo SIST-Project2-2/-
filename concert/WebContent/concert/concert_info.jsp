@@ -2,6 +2,8 @@
 <%@page import="vo.ConcertVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+
+
 	int concert_no = Integer.parseInt(request.getParameter("concert_no"));
 
 	ConcertDAO dao = new ConcertDAO();
