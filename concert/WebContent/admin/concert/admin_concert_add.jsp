@@ -52,28 +52,10 @@
 
 					</select>
 				</div>
-			</div>
-
-			<div class="row m-1">
-				<div class="col-md">
-					<small>A-Class 가격</small>
+				<div class="col-md-2">
+					<small>가격</small>
 					<br>
-					<input type="number" class="form-control" name="price_a" id="price_a" required>
-				</div>
-				<div class="col-md">
-					<small>B-Class 가격</small>
-					<br>
-					<input type="number" class="form-control" name="price_b" id="price_b" required>
-				</div>
-				<div class="col-md">
-					<small>C-Class 가격</small>
-					<br>
-					<input type="number" class="form-control" name="price_c" id="price_c" required>
-				</div>
-				<div class="col-md">
-					<small>D-Class 가격</small>
-					<br>
-					<input type="number" class="form-control" name="price_d" id="price_d" required>
+					<input type="number" class="form-control" name="price" id="price" required>
 				</div>
 			</div>
 
