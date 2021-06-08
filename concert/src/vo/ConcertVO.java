@@ -3,7 +3,7 @@ package vo;
 public class ConcertVO {
 
 	// Field
-	private int no = -1;
+	private int no = -1, price;
 	private String artist;
 	private String title;
 	private String content;
@@ -72,6 +72,14 @@ public class ConcertVO {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 }
