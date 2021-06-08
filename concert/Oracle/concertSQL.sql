@@ -314,15 +314,32 @@ INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장
 -- 콘서트 상세정보 조회하기
 SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM CONCERTS WHERE NO = 30;
 
+
+-- 예매 정보 조회하기
+SELECT * FROM ORDERS;
+
+-- 예매 번호 생성하기
+SELECT ORDERS_NO_SEQ.NEXTVAL FROM DUAL;
+
 -- 주문 정보 추가
 INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'hwisaek', 2);
 INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'test', 2);
 
--- 좌석 정보 추가
+-- 전체 좌석 보기
+SELECT * FROM SEATS;
+
+-- 좌석 하나 예매하기
 INSERT INTO SEATS VALUES(2, 'A_1', 'hwisaek', 1);
 INSERT INTO SEATS VALUES(2, 'A_5', 'test', 2);
 INSERT INTO SEATS VALUES(2, 'A_6', 'test', 2);
 INSERT INTO SEATS VALUES(2, 'A_7', 'test', 2);
+
+-- 한번에 여러 좌석 예매하기 
+INSERT INTO SEATS
+    SELECT 299, 'B_1', 'test', 4 FROM DUAL UNION ALL 
+    SELECT 299, 'B_2', 'test', 4 FROM DUAL UNION ALL 
+    SELECT 299, 'B_3', 'test', 4 FROM DUAL UNION ALL 
+    SELECT 299, 'B_4', 'test', 4 FROM DUAL; 
 
 -- 해당 주문 번호의 결제 정보 조회
 SELECT o.NO, m.first_name, m.last_name, m.phone, c.cdate FROM orders o, concerts c, members m WHERE o.NO = 1 AND o.concerts_no = c.NO AND o.ID = m.ID;

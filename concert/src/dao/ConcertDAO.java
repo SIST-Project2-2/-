@@ -5,18 +5,8 @@ import java.util.ArrayList;
 
 import vo.ConcertVO;
 
+// 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 public class ConcertDAO extends DAO {
-
-	// Field
-
-	// Constructor
-	public ConcertDAO() {
-		super();
-	}
-
-	// Method
-
-	// 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 
 	// 콘서트 조회 메소드
 	public ConcertVO getConcertInfo(int no) {
