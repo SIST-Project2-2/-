@@ -341,6 +341,9 @@ INSERT INTO SEATS
     SELECT 299, 'B_3', 'test', 4 FROM DUAL UNION ALL 
     SELECT 299, 'B_4', 'test', 4 FROM DUAL; 
 
+-- 특정 콘서트의 예매된 좌석 조회
+SELECT * FROM SEATS WHERE CONCERT_NO = 300;
+
 -- 해당 주문 번호의 결제 정보 조회
 SELECT o.NO, m.first_name, m.last_name, m.phone, c.cdate FROM orders o, concerts c, members m WHERE o.NO = 1 AND o.concerts_no = c.NO AND o.ID = m.ID;
 

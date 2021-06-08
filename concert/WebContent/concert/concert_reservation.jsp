@@ -11,6 +11,8 @@ int concert_no = Integer.parseInt(request.getParameter("concert_no"));
 ConcertDAO concertDAO = new ConcertDAO();
 ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
 
+SeatDAO seatDAO = new SeatDAO();
+ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -31,6 +33,10 @@ ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		// checkSeat();
+		disableReservedSeats();
+
 		$("input[name='seat']").on("click", function() {
 			checkSeat();
 		});
@@ -44,6 +50,14 @@ ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
 		});
 
 	});
+
+	function disableReservedSeats() {
+		<%for (SeatVO vo : seatList) {
+			out.write("$('input#" + vo.getSeat_no() + "').removeAttr('name');");
+			out.write("$('input#" + vo.getSeat_no() + "').attr('disabled', 'disabled');");
+		}%>
+	}
+
 	function checkSeat() {
 		// 예매할 인원 수
 		var max = $("#number option:selected").val();
