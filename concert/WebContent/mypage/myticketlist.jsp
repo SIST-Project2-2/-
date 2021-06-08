@@ -32,7 +32,7 @@
 		<div class="row justify-content-center font-weight-bold">
 			<div class="d1 col-md-9">
 				<div class="top row bg-primary pl-3">
-					<small>(여기 로고 넣으면 좋을듯)</small>
+					<img src="http://localhost:9000/concert/images/logo.png" class="img-fluid align-self-center" style="height:40px">
 					<h1 class="text-white">10cm</h1>
 				</div>
 				<div class="row text-left">

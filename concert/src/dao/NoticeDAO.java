@@ -13,6 +13,30 @@ public class NoticeDAO extends DAO {
 		super();
 	}
 	
+	// 해당 공지사항의 조회수를 올려주는 함수
+	public boolean updateViews(int no) {
+		int result = 0;
+		
+		try {
+			String sql = " update notices set views = views + 1 where no = ? ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 1개 행이 업데이트된 경우 성공(true 반환), 그 외의 경우 실패(false 반환)
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	// 공지사항 번호를 입력받아 해당 공지사항 상세내용 가져오기(관리자)
 	public NoticeVO getNoticeInfoForAdmin(int no) {
 		NoticeVO info = new NoticeVO();
@@ -180,6 +204,7 @@ public class NoticeDAO extends DAO {
 			e.printStackTrace();
 		}
 		
+		updateViews(no); // 조회수 1 추가
 		return info;
 	}
 	

@@ -142,7 +142,7 @@
 				}else {
 					for(int i=0;i<list.size();i++) {
 			%>
-			<a href="notice_info.jsp?no=<%= list.get(i).getNo() %>"><div class="card d-inline-block">
+			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= list.get(i).getNo() %>"><div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
 					<%
@@ -161,23 +161,20 @@
 			%>
 		</div>
 		<!-- 페이지 이동 버튼 목록 -->
-		<form name="page" action="" method="get" id="page">
-			
-		  	<ul class="pagination justify-content-center">
-			    <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
-				<li class="page-item <% if(!pageInfo.isPrev()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
-				<% 
-			    int start = pageInfo.getStart();
-			    int end = pageInfo.getEnd();
-			    
-			    for(int i=start;i<=end;i++) {
-				%>
-				<li class="page-item <% if(i == pageNumber) { %>active <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
-				<% } %>
-			    <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
-				<li class="page-item <% if(!pageInfo.isNext()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
-		  </ul>
-		</form>
+	  	<ul class="pagination justify-content-center mt-3">
+		    <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
+			<li class="page-item <% if(!pageInfo.isPrev()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
+			<% 
+		    int start = pageInfo.getStart();
+		    int end = pageInfo.getEnd();
+		    
+		    for(int i=start;i<=end;i++) {
+			%>
+			<li class="page-item <% if(i == pageNumber) { %>active <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
+			<% } %>
+		    <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
+			<li class="page-item <% if(!pageInfo.isNext()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
+	  </ul>
 	</section>
 </body>
 </html>
