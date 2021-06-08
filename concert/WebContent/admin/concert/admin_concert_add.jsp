@@ -8,32 +8,22 @@
 <title>관리자 - 콘서트 등록</title>
 </head>
 <body>
-<form name="concert_list" action="./admin_concert_action.jsp" method="post">
-	<div class="container border border-dark rounded pt-2">
-		<div class="row m-1">
-			<div class="col-md">
-				<h3>콘서트 등록</h3>
+	<form name="concert_list" action="./admin_concert_add_action.jsp" method="get">
+		<div class="container border border-dark rounded p-2">
+			<div class="row m-1">
+				<div class="col-md">
+					<h3>콘서트 등록</h3>
+				</div>
+				<div class="col-md-4 text-right">
+					<button class="btn btn-outline-dark">임시저장</button>
+					<button class="btn btn-outline-dark" type="submit">등록하기</button>
+				</div>
 			</div>
-			<div class="col-md-4 text-right">
-				<button class="btn btn-outline-dark">임시저장</button>
-				<button class="btn btn-outline-dark" type="submit" >등록하기</button>
-			</div>
-		</div>
 
-		<div class="row m-1">
-			<div class="col-md-2">
-				<h6>가수</h6>
-			</div>
-			<div class="col-md-3">
-				<h6>날짜</h6>
-			</div>
-			<div class="col-md-2">
-				<h6>지역</h6>
-			</div>
-		</div>
-		
 			<div class="row m-1">
 				<div class="col-md-2">
+					<small>가수</small>
+					<br>
 					<select class="custom-select" name="artist" id="artist" required="required">
 						<option selected="selected">가수 선택</option>
 						<option value="장범준">장범준</option>
@@ -44,9 +34,13 @@
 					</select>
 				</div>
 				<div class="col-md-3">
+					<small>날짜</small>
+					<br>
 					<input type="date" class="form-control" name="date" id="date" required="required">
 				</div>
 				<div class="col-md-2">
+					<small>지역</small>
+					<br>
 					<select class="custom-select" name="location" id="location">
 						<option selected="selected">지역</option>
 						<option value="서울">서울</option>
@@ -55,10 +49,16 @@
 						<option value="충청도">충청도</option>
 						<option value="경상도">경상도</option>
 						<option value="전라도">전라도</option>
-						
+
 					</select>
 				</div>
+				<div class="col-md-2">
+					<small>가격</small>
+					<br>
+					<input type="number" class="form-control" name="price" id="price" required>
+				</div>
 			</div>
+
 			<div class="row m-1">
 				<div class="col-md">
 					<input type="text" class="form-control" placeholder="제목을 입력하세요" name="title" id="title">
@@ -77,7 +77,7 @@
 				</div>
 			</div>
 
-	</div>
+		</div>
 	</form>
 </body>
 </html>

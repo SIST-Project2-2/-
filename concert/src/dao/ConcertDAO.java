@@ -22,7 +22,7 @@ public class ConcertDAO extends DAO {
 	public ConcertVO getConcertInfo(int no) {
 		ConcertVO vo = new ConcertVO();
 		try {
-			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS WHERE NO = ?";
+			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM CONCERTS WHERE NO = ?";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, no);
@@ -35,6 +35,7 @@ public class ConcertDAO extends DAO {
 				vo.setContent(rs.getString(4));
 				vo.setCdate(rs.getString(5));
 				vo.setLocation(rs.getString(6));
+				vo.setPrice(rs.getInt(7));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,7 +114,7 @@ public class ConcertDAO extends DAO {
 			e.printStackTrace();
 		}
 
-		sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM (SELECT * FROM CONCERTS " + sql_where + " ORDER BY NO DESC) C)";
+		sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM (SELECT * FROM CONCERTS " + sql_where + " ORDER BY NO DESC) C)";
 		if (page_no != 0) {
 			sql += " WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 		}
@@ -231,19 +232,40 @@ public class ConcertDAO extends DAO {
 		return concert_list;
 	}
 
+	// 콘서트 등록 번호 구하기
+	private int getNextConcertNo() {
+		int result = -2;
+		try {
+			String sql = "SELECT CONCERTS_NO_SEQ.NEXTVAL FROM DUAL";
+			getPreparedStatement(sql);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	// 콘서트 등록
 	public int insert_concert(ConcertVO concert) {
 		int result = -2;
 
+		int no = getNextConcertNo();
+
 		try {
-			String sql = "INSERT INTO CONCERTS VALUES(CONCERTS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO CONCERTS VALUES(?, ?, ?, ?, ?, ?, ?)";
 			getPreparedStatement(sql);
 
-			pstmt.setString(1, concert.getArtist());
-			pstmt.setString(2, concert.getTitle());
-			pstmt.setString(3, concert.getContent());
-			pstmt.setString(4, concert.getCdate());
-			pstmt.setString(5, concert.getLocation());
+			pstmt.setInt(1, no);
+			pstmt.setString(2, concert.getArtist());
+			pstmt.setString(3, concert.getTitle());
+			pstmt.setString(4, concert.getContent());
+			pstmt.setString(5, concert.getCdate());
+			pstmt.setString(6, concert.getLocation());
+			pstmt.setInt(7, concert.getPrice());
 
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 			result = pstmt.executeUpdate();
@@ -251,6 +273,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 
 		return result;
 	}
