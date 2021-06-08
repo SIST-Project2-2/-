@@ -1,3 +1,6 @@
+<%@page import="vo.SeatVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.SeatDAO"%>
 <%@page import="vo.ConcertVO"%>
 <%@page import="dao.ConcertDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -5,8 +8,11 @@
 	//
 int concert_no = Integer.parseInt(request.getParameter("concert_no"));
 
-ConcertDAO dao = new ConcertDAO();
-ConcertVO vo = dao.getConcertInfo(concert_no);
+ConcertDAO concertDAO = new ConcertDAO();
+ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
+
+SeatDAO seatDAO = new SeatDAO();
+ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -27,6 +33,10 @@ ConcertVO vo = dao.getConcertInfo(concert_no);
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		// checkSeat();
+		disableReservedSeats();
+
 		$("input[name='seat']").on("click", function() {
 			checkSeat();
 		});
@@ -35,7 +45,19 @@ ConcertVO vo = dao.getConcertInfo(concert_no);
 			checkSeat();
 		});
 
+		$("button#btn_submit").on("click", function() {
+			submit();
+		});
+
 	});
+
+	function disableReservedSeats() {
+		<%for (SeatVO vo : seatList) {
+			out.write("$('input#" + vo.getSeat_no() + "').removeAttr('name');");
+			out.write("$('input#" + vo.getSeat_no() + "').attr('disabled', 'disabled');");
+		}%>
+	}
+
 	function checkSeat() {
 		// 예매할 인원 수
 		var max = $("#number option:selected").val();
@@ -52,13 +74,28 @@ ConcertVO vo = dao.getConcertInfo(concert_no);
 		} else {
 			$("input[name='seat']:disabled").removeAttr("disabled");
 		}
+
+	}
+
+	function submit() {
+		// 예매할 인원 수
+		var max = $("#number option:selected").val();
+
+		// 체크된 좌석 
+		var checked = $("input[name='seat']:checked");
+		if (max == checked.length) {
+			form.submit();
+		} else {
+			alert("좌석 수를 확인해주세요");
+		}
 	}
 </script>
 </head>
 <body>
 	<div class="container">
 		<h1 class="font-weight-bold text-left m-3">좌석 선택</h1>
-		<form action="http://localhost:9000/concert/concert/concert_reservation.jsp" method="get">
+		<form name="form" action="concert_reservation_action.jsp" method="get">
+			<input type="hidden" value="<%=concert_no%>" name="concert_no" id="concert_no">
 			<div class="row">
 				<div class="col-md border rounded p-2 m-2">
 					<table class="table table-borderless text-center">
@@ -114,9 +151,9 @@ ConcertVO vo = dao.getConcertInfo(concert_no);
 					</select>
 					<br>
 					<small class="text-danger m-2">코로나로 인해 5인 이상 예매 불가능 합니다.</small>
-					<h6 class="font-weight-bold text-right"><%=vo.getPrice()%><small>원</small>
+					<h6 class="font-weight-bold text-right"><%=concertVO.getPrice()%><small>원</small>
 					</h6>
-					<button type="submit" class="btn d-block btn-light m-2 p-2" style="width: -webkit-fill-available;">예매하기</button>
+					<button id="btn_submit" type="button" class="btn d-block btn-light m-2 p-2" style="width: -webkit-fill-available;">예매하기</button>
 				</div>
 			</div>
 		</form>
