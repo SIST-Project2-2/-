@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	//
+// 로그인했으면 id에 값이 저장되고 로그인 되어있지 않으면 null이 저장된 id 변수 설정
+String id = (String) session.getAttribute("id");
+%>
 <!DOCTYPE html>
 <!-- header -->
 <jsp:include page="/import.jsp"></jsp:include>
@@ -14,11 +19,24 @@
 				<img alt="" src="http://localhost:9000/concert/images/logo.png">
 			</a>
 			<ul class="nav justify-content-end">
+				<%
+					if (id != null) {
+					out.write("<li class='nav-item'>");
+					out.write("<span class='font-weight-bold'>" + id + "</span>");
+					out.write("</li>");
+				}
+				%>
 				<li class="nav-item">
 					<a class="auser" href="http://localhost:9000/concert/admin/member/admin_member_list.jsp"> ADMIN</a>
 				</li>
 				<li class="nav-item">
-					<a class="auser" href="http://localhost:9000/concert/login/login.jsp"> LOGIN</a>
+					<%
+						if (id == null) {
+						out.write("<a class='auser' href='http://localhost:9000/concert/login/login.jsp'>LOGIN</a>");
+					} else {
+						out.write("<a class='auser' href='http://localhost:9000/concert/login/logout.jsp'>LOGOUT</a>");
+					}
+					%>
 				</li>
 				<li class="nav-item">
 					<a class="auser" href="http://localhost:9000/concert/join/join_id.jsp"> JOIN</a>
