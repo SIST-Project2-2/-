@@ -16,6 +16,18 @@ public class MemberVO {
 	private String authority; // 권한
 	private String withdrawal; // 탈퇴 요청 여부
 	private String email; // 이메일 주소
+	private String emailHash; //이메일 인증 데이터
+	private int emailCheck; // 이메일 인증 여부
+
+	public String getEmailHash() {
+		return emailHash;
+	}
+
+	public void setEmailHash(String emailHash) {
+		this.emailHash = emailHash;
+	}
+
+	
 
 	// Constructor
 	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex, String address, String phone, String authority, String withdrawal, String email) {
@@ -158,4 +170,38 @@ public class MemberVO {
 		this.last_name = last_name;
 	}
 
+	public int getEmailCheck() {
+		return emailCheck;
+	}
+
+	public void setEmailCheck(int emailCheck) {
+		this.emailCheck = emailCheck;
+	}
+
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name,
+			String birth_date, String sex, String address, String phone, 
+			String email, String emailHash, int emailCheck) {
+		super();
+		
+		this.id = id;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.birth_date = birth_date;
+		this.sex = sex;
+		this.address = address;
+		this.phone = phone;
+		
+		this.email = email;
+		this.emailHash = emailHash;
+		this.emailCheck = emailCheck;
+	}
+
+	
+
+	
+	
+	
+	
 }

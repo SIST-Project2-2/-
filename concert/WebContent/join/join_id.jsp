@@ -133,7 +133,7 @@
 				<label for="file"></label>
 				<progress id="file" value="90" max="100"> 90% </progress>
 				<div>생년월일과 성별을 선택해주세요</div>
-				<input type="text" name="birth_date" placeholder="생년월일 입력(YYMMDD)"
+				<input type="text" name="birth_date" placeholder="생년월일 입력(YYYYMMDD)"
 					required> <label>남자</label><input type="checkbox"
 					name="gender" value="남자"> <label>여자</label><input type="checkbox"
 					name="gender" value="여자">
@@ -147,9 +147,9 @@
 				<label for="file"></label>
 				<progress id="file" value="100" max="100"></progress>
 				<div>사용할 이메일을 입력해주세요</div>
-				<input type="email" name="email" id="emial"
+				<input type="email" name="email" id="email"
 					placeholder="이메일 입력(abcdefg@naver.com)" required>
-				<div id="msg"></div>
+				<div id="msg">회원가입 후 이메일 인증을 해주셔야 합니다.</div>
 				<button type="submit" id="emailBtn">다음</button>
 			</div>
 		</div>

@@ -3,8 +3,10 @@
 <%@ page import="dao.MemberDAO"%>
 <%@ page import="vo.MemberVO"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="email.SHA256" %>
 
 <%
+//사용자 요청 정보 UTF-8로 출력
 	request.setCharacterEncoding("UTF-8");
 
 
@@ -79,28 +81,30 @@ if (id == null || pw == null) {
 
 MemberDAO memberDAO = new MemberDAO();
 //dao 통해서 db에  데이터 넣기
-int result = memberDAO.join(id,pw,nickName,firstName,lastName,birth_date,sex,address,phone,email);
+int result = memberDAO.join(new MemberVO(id,pw,nickName,firstName,lastName,birth_date,sex,address,phone,email,SHA256.getSHA256(email),0));
 
-//MemberDAO set_profile 회원가입 성공하면  1반환
+
 if (result == 1) {
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('회원가입 성공');");
-	script.println("location.href = 'join_id.jsp';");
+	script.println("location.href = 'emailSendAction.jsp?id="+id+"'");
 	script.println("</script>");
 	script.close();
 	return;
 }
 
 
+else if(result==-1){
+	PrintWriter script = response.getWriter();
+	script.println("<script>");
+	script.println("alert('이미존재하는 아이디입니다');");
+	script.println("history.back()");
+	script.println("</script>");
+	script.close();
+	return;
+}
+
+
+
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	
-</body>
-</html>
