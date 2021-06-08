@@ -12,10 +12,6 @@ String concert_no =request.getParameter("concert_no");
 ConcertDAO dao = new ConcertDAO();
 ConcertVO vo = dao.getConcertInfo(concert_no);
 
-System.out.println(concert_no);
-
-
-
 %>
 
 <!DOCTYPE html>

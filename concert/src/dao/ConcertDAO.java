@@ -45,10 +45,10 @@ public class ConcertDAO extends DAO {
 	public ConcertVO getConcertInfo(String no) {
 		ConcertVO vo = new ConcertVO();
 		try {
-			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS WHERE NO = 30";
+			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS WHERE NO = ?";
 			getPreparedStatement(sql);
 			
-		//	pstmt.setString(1, no);
+			pstmt.setString(1, no);
 			
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
