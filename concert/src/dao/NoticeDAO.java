@@ -159,7 +159,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO info = new NoticeVO();
 		
 		try {
-			String sql = "SELECT NO, TITLE, CONTENT, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), VIEWS "
+			String sql = "SELECT NO, TITLE, CONTENT, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), VIEWS , TAG"
 					+ " FROM NOTICES WHERE NO = ? ";
 			getPreparedStatement(sql);
 
@@ -172,6 +172,7 @@ public class NoticeDAO extends DAO {
 				info.setContent(rs.getString(3));
 				info.setDate(rs.getString(4));
 				info.setViews(rs.getInt(5));
+				info.setTag(rs.getString(6));
 			} else {
 				return null; // 해당하는 공지사항이 없을 경우 null 반환
 			}

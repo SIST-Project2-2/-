@@ -149,9 +149,10 @@
 						String tag = list.get(i).getTag();
 					%>
 					<kbd><%= tag %></kbd>
-					<h4 class="card-title text-left text-black"><%= list.get(i).getTitle() %></h4>
-					<p class="card-text text-left text-dark"><%= list.get(i).getContent() %></p>
-					<p class="card-text text-left text-dark"><%= list.get(i).getDate() %></p>
+					<h4 class="card-title text-left text-black text-truncate"><%= list.get(i).getTitle() %></h4>
+					<p class="card-text text-left text-dark text-truncate"><%= list.get(i).getContent() %></p>
+					<p class="card-text text-left text-dark d-inline-block"><%= list.get(i).getDate() %></p>
+					<small class="card-text text-left text-dark font-weight-bold"><%= "조회수: " + list.get(i).getViews() %></small>
 				</div>
 			</div></a>
 			<%
@@ -163,30 +164,18 @@
 		<form name="page" action="" method="get" id="page">
 			
 		  	<ul class="pagination justify-content-center">
-			    <% if(pageInfo.isPrev()) { 
-			    %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
-				<li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">Previous</a></li>
-				<% }else { %>
-				<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+			    <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
+				<li class="page-item <% if(!pageInfo.isPrev()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
 				<% 
-					} 
 			    int start = pageInfo.getStart();
 			    int end = pageInfo.getEnd();
 			    
 			    for(int i=start;i<=end;i++) {
-			    	if(i == pageNumber) {
 				%>
-				<li class="page-item active"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
-				<%	}else {%>
-			    <li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
-				<%	} 
-				} %>
-			    <% if (pageInfo.isNext()) { 
-			    %> <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
-				<li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">Next</a></li>
-				<% }else { %>
-				<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+				<li class="page-item <% if(i == pageNumber) { %>active <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
 				<% } %>
+			    <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
+				<li class="page-item <% if(!pageInfo.isNext()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
 		  </ul>
 		</form>
 	</section>
