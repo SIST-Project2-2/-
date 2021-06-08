@@ -1,11 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="dao.PayInfoDAO" %>
+<%@ page import="vo.PayInfoVO" %>
+<%
+	PrintWriter script = response.getWriter();
+	PayInfoDAO dao = new PayInfoDAO();
+	ArrayList<PayInfoVO> list;
+	String id = "";
+	
+	// 입력받은 id가 없을 경우 에러 페이지 이동
+	if(request.getParameter("id") == null || "".equals(request.getParameter("id"))) {
+		response.sendRedirect("../error.jsp");
+	}
+	
+	id = request.getParameter("id");
+	list = dao.getTicketlist(id);
+	
+	// 데이터를 모두 불러온 뒤, dao 객체 닫음
+	dao.close();
+%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>콘서트 예매내역</title>
 <style>
 	.d1, .d2 {
 		height:300px;
@@ -29,81 +50,82 @@
 <body>
 	<h3>콘서트 예매내역</h3>
 	<section class="container-md text-center" id="content_myticketlist">
-		<div class="row justify-content-center font-weight-bold">
+		<% for(PayInfoVO info : list) { %>
+		<div class="row justify-content-center font-weight-bold mt-3">
 			<div class="d1 col-md-9">
 				<div class="top row bg-primary pl-3">
 					<img src="http://localhost:9000/concert/images/logo.png" class="img-fluid align-self-center" style="height:40px">
-					<h1 class="text-white">10cm</h1>
+					<h1 class="text-white"><%= info.getArtist() %></h1>
 				</div>
 				<div class="row text-left">
 					<div class="col-md-2 bg-light">
 						대충 바코드 영역~
 					</div>
-					<div class="col-md-4 py-4 pl-5 pr-2">
-						<div class="row mb-4">
-							<small>
-								성명:<br>
-								홍 길동
-							</small>
+					<div class="col-md-10 container p-3">
+						<div class="row pb-3">
+							<div class="col-md-4">
+								<p>성명:<br><%= info.getFirstName() + " " + info.getLastName() %></p>
+							</div>
+							<div class="col-md-4">
+								<p>콘서트일자:<br><%= info.getDate().split(" ")[0] %></p>
+							</div>
+							<div class="col-md-4">
+								<p>콘서트번호:<br><%= info.getConcertNo() %></p>
+							</div>
 						</div>
-						<div class="row mb-4">
-							<small>
-								출발:~~운동장<br>
-								도착:10cm랜드~
-							</small>
+						<div class="row pb-3">
+							<div class="col-md-4">
+								<p>장소:<br><%= info.getLocation() %></p>
+							</div>
+							<div class="col-md-4">
+								<p>콘서트명:<br><%= info.getTitle() %></p>
+							</div>
+							<div class="col-md-4">
+								<p>주문 번호:<br><%= info.getOrderNo() %></p>
+							</div>
 						</div>
 						<div class="row">
-							<p>
-								이륙시간:<br>
-								19:00
-							</p>
-						</div>
-					</div>
-					<div class="col-md-2 py-4 px-2">
-						<div class="row mb-4">
-							<small>
-								출발일자:<br>
-								2021.05.26
-							</small>
-						</div>
-						<div class="row mb-4">
-							<small>
-								편명:<br>
-								10cm콘서트
-							</small>
-						</div>
-					</div>
-					<div class="col-md-2 py-4 px-2">
-						<div class="row mb-4">
-							<small>
-								비행기 번호:<br>
-								2313231232
-							</small>
-						</div>
-						<div class="row md-4">
-							<small>
-								좌석:<br>
-								30A
-							</small>
-						</div>
-					</div>
-					<div class="col-md-2 py-4 px-2">
-						<div class="row md-4">
-							<small>
-								예약 번호:<br>
-								352
-							</small>
+							<div class="col-md-8 align-self-center">
+								<h3>시작예정시간: <%= info.getDate().split(" ")[1] %></h3>
+							</div>
+							<div class="col-md-4">
+								<p>좌석:<br><%= String.join("/", info.getSeats()) %></p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="d2 col-md-3">
 				<div class="top row bg-primary pl-2">
-					
+					<h1 class="text-white"><%= info.getArtist() %></h1>
 				</div>
-				옆에 있는 정보 복붙 / 정보, 배치는 나중에 수정
+				<div class="row text-left pt-3">
+					<div class="col-md-5">
+						<p>성명:<br><%= info.getFirstName() + " " + info.getLastName() %></p>
+					</div>
+					<div class="col-md-7">
+						<p>주문 번호:<br><%= info.getOrderNo() %></p>
+					</div>
+				</div>
+				<div class="row text-left pt-3">
+					<div class="col-md-5">
+						<p>장소:<br><%= info.getLocation() %></p>
+					</div>
+					<div class="col-md-7">
+						<p>좌석:<br><%= String.join("/", info.getSeats()) %></p>
+					</div>
+				</div>
+				<div class="row text-left pt-3">
+					<div class="col-md-5">
+						<p>날짜:<br><%= info.getDate().split(" ")[0] %></p>
+					</div>
+					<div class="col-md-7">
+						<p>시작예정시간:<br><%= info.getDate().split(" ")[1] %></p>
+					</div>
+				</div>
 			</div>
 		</div>
+		<% } %>
 	</section>
 </body>
 </html>

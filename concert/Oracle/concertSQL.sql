@@ -330,4 +330,9 @@ SELECT o.NO, m.first_name, m.last_name, m.phone, c.cdate FROM orders o, concerts
 -- 해당 주문 번호의 결제 좌석 조회
 SELECT seat_no FROM seats WHERE order_no = 1;
 
+-- 해당 사용자의 주문 내역을 조회
+select m.first_name, m.last_name, o.no, c.no, c.artist, c.title, c.location, to_char(c.cdate, 'YYYY.MM.DD HH:Mi') 
+from members m, orders o, concerts c 
+where m.id = 'test' and o.id = m.id and o.concerts_no = c.no;
+
 COMMIT;
