@@ -6,6 +6,47 @@ import vo.PayInfoVO;
 
 public class PayInfoDAO extends DAO {
 	
+	// 해당 유저의 주문 정보들 불러오기
+	public ArrayList<PayInfoVO> getTicketlist(String id) {
+		ArrayList<PayInfoVO> list = new ArrayList<PayInfoVO>();
+		PayInfoVO vo = null;
+		
+		try {
+			String sql = " select m.first_name, m.last_name, o.no, c.no, c.artist, c.title, c.location, to_char(c.cdate, 'YYYY.MM.DD HH:Mi') "
+					+ " from members m, orders o, concerts c "
+					+ " where m.id = ? and o.id = m.id and o.concerts_no = c.no ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new PayInfoVO();
+				
+				vo.setFirstName(rs.getString(1));
+				vo.setLastName(rs.getString(2));
+				vo.setOrderNo(rs.getInt(3));
+				vo.setConcertNo(rs.getInt(4));
+				vo.setArtist(rs.getString(5));
+				vo.setTitle(rs.getString(6));
+				vo.setLocation(rs.getString(7));
+				vo.setDate(rs.getString(8));
+				
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 해당 사용자의 각 주문별 좌석 정보 구하기
+		for(PayInfoVO ticket : list) {
+			ticket.setSeats(getOrderSeats(ticket.getOrderNo()));
+		}
+		
+		return list;
+	}
+	
 	// 해당 주문 번호의 결제 정보를 반환하는 함수
 	public PayInfoVO getPayInfo(int no) { // no: 주문 번호
 		PayInfoVO payInfo = new PayInfoVO();
@@ -21,7 +62,7 @@ public class PayInfoDAO extends DAO {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				payInfo.setNo(rs.getInt(1));
+				payInfo.setOrderNo(rs.getInt(1));
 				payInfo.setFirstName(rs.getString(2));
 				payInfo.setLastName(rs.getString(3));
 				payInfo.setHp(rs.getString(4));
