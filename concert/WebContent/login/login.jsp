@@ -43,10 +43,6 @@ for (Cookie cookie : cookies) {
 					<input type="checkbox" name="id_store" id="id_store" <%=(storedId.equals("")) ? "" : "checked"%>>
 					<small> 아이디 저장 </small>
 				</label>
-				<label class="ml-2">
-					<input type="checkbox" name="auto_login" id="auto_login">
-					<small> 자동 로그인 </small>
-				</label>
 				<small class="ml-auto">
 					<a href="find_id.jsp" class="text-decoration-none text-muted">아이디 찾기</a>
 					|
