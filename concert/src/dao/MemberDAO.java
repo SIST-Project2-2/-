@@ -133,7 +133,7 @@ public class MemberDAO extends DAO {
 		// 사용자가 이메일 인증 실패일 경우 0값 반환
 		return 0;
 	}
-	
+
 	// 사용자의 이메일 인증이 완료되었을 경우 정보 update(이메일 인증 수행)
 	public int updateEmailCheck(String id) {
 
@@ -281,6 +281,50 @@ public class MemberDAO extends DAO {
 		member.setId(id);
 		return request_withdrawal(member);
 	}
+
+	// 회원탈퇴 요청을 했는지 확인
+	public boolean hasWithdrawn(String id) {
+		boolean result = false;
+		try {
+			String sql = "SELECT WITHDRAWAL FROM MEMBERS WHERE ID = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, id);
+
+			rs = pstmt.executeQuery();
+
+			int val = -2;
+
+			if (rs.next()) {
+				val = rs.getInt(1);
+			}
+
+			if (val == 1) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 회원탈퇴 취소
+	public int cancelWithdrawal(String id) {
+		int result = -2;
+		try {
+			String sql = "UPDATE MEMBERS SET WITHDRAWAL = 0 WHERE ID = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, id);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return result;
+	}
+
 	// 지원 작성
 	// 회원 전체 리스트
 	public ArrayList<MemberVO> getList() {

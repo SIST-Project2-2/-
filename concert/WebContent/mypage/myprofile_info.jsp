@@ -160,13 +160,18 @@ boolean hasWithdrawn = memberDAO.hasWithdrawn(id);
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-right mt-4">
-				<form action="myprofile_edit.jsp" method="get">
-					<div class="form-group">
-						<input type="hidden" class="form-control" value="test" id="id" name="id">
-						<button type="submit" class="btn btn-primary">수정하기</button>
-						<a href="withdrawal.jsp" class="btn btn-danger">탈퇴하기</a>
-					</div>
+				<form class="d-inline-block" action="myprofile_edit.jsp" method="post">
+					<input type="hidden" class="form-control" value="test" id="id" name="id">
+					<button type="submit" class="btn btn-primary">수정하기</button>
 				</form>
+				<%
+					//
+				if (hasWithdrawn) {
+					out.write("<a href='withdrawal_cancle_action.jsp' class='btn btn-danger'>탈퇴취소</a>");
+				} else {
+					out.write("<a href='withdrawal.jsp' class='btn btn-danger'>탈퇴하기</a>");
+				}
+				%>
 			</div>
 		</div>
 	</div>
