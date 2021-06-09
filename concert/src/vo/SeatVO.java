@@ -1,8 +1,8 @@
 package vo;
 
 public class SeatVO {
-	private int seat_no, concert_no;
-	private String id, seat_class;
+	private int concert_no, order_no;
+	private String id, seat_no;
 
 	public int getConcert_no() {
 		return concert_no;
@@ -20,19 +20,20 @@ public class SeatVO {
 		this.id = id;
 	}
 
-	public String getSeat_class() {
-		return seat_class;
-	}
-
-	public void setSeat_class(String seat_class) {
-		this.seat_class = seat_class;
-	}
-
-	public int getSeat_no() {
+	public String getSeat_no() {
 		return seat_no;
 	}
 
-	public void setSeat_no(int seat_no) {
+	public void setSeat_no(String seat_no) {
 		this.seat_no = seat_no;
 	}
+
+	public int getOrder_no() {
+		return order_no;
+	}
+
+	public void setOrder_no(int order_no) {
+		this.order_no = order_no;
+	}
+
 }
