@@ -133,8 +133,8 @@ SELECT * FROM USER_SEQUENCES;
 SELECT * FROM MEMBERS;
 
 -- 계정 생성
-INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'test', '1234', '테스트', '길동', '홍', '2021-05-25', 'M', '서울시', '010-1234-5678', 'tester', 0, 'test@test.com');
-INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'hwisaek', '1234', 'hwisaek', '창민', '이', '2021-02-28', 'M', '서울시', '010-0000-0000', 'tester', 0, 'hwisaek@hwisaek.com');
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'test', '1234', '테스트', '길동', '홍', '2021-05-25', 'M', '서울시', '010-1234-5678', 'tester', 0, 'test@test.com','test1',0);
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'hwisaek', '1234', 'hwisaek', '창민', '이', '2021-02-28', 'M', '서울시', '010-0000-0000', 'tester', 0, 'hwisaek@hwisaek.com','test2',0);
 
 -- 로그인 기능
 SELECT PW FROM MEMBERS WHERE ID='test';
