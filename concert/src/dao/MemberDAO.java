@@ -5,14 +5,7 @@ import java.util.ArrayList;
 import vo.MemberVO;
 
 public class MemberDAO extends DAO {
-	// Field
 
-	// Constructor
-	public MemberDAO() {
-		super();
-	}
-
-	// Method
 	// 로그인
 	public int login(String id, String pw) {
 		int result = -2;
@@ -89,8 +82,6 @@ public class MemberDAO extends DAO {
 		return result;
 	}
 
-	// 프로필 정보 가져오기
-
 	// 회원가입
 	public int join(MemberVO member) {
 
@@ -111,83 +102,80 @@ public class MemberDAO extends DAO {
 			pstmt.setString(11, member.getEmailHash());
 
 			int value = pstmt.executeUpdate();
-			
+
 			return value;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		close();
 		return -1;
 	}
-	//사용자가 이메일 인증이 되었는지 확인해 주는 함수
+
+	// 사용자가 이메일 인증이 되었는지 확인해 주는 함수
 	public int emailCheck(String id) {
-		
+
 		try {
 			String sql = "select emailchecked from members where id = ? ";
 			getPreparedStatement(sql);
-			
+
 			pstmt.setString(1, id);
-			
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				//사용자가 이메일 인증 성공일 경우 1값 반환
+			if (rs.next()) {
+				// 사용자가 이메일 인증 성공일 경우 1값 반환
 				return rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		close();
-		//사용자가 이메일 인증 실패일 경우 0값 반환 
+		// 사용자가 이메일 인증 실패일 경우 0값 반환
 		return 0;
 	}
-	
-	//사용자의 이메일 인증이 완료되었을 경우 정보 update(이메일 인증 수행)
+
+	// 사용자의 이메일 인증이 완료되었을 경우 정보 update(이메일 인증 수행)
 	public int updateEmailCheck(String id) {
-		
+
 		try {
 			String sql = "update members set emailchecked = 1 where id = ?";
 			getPreparedStatement(sql);
-			
+
 			pstmt.setString(1, id);
-			
-			
+
 			pstmt.executeUpdate();
 			return 1;
-	
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		close();
-		//사용자가 이메일 인증 실패일 경우 0값 반환 
+		// 사용자가 이메일 인증 실패일 경우 0값 반환
 		return 0;
 	}
-	
+
 	// 사용자의 id 값에 따라 저장된 email 불러오기
 	public String memberEmail(String id) {
-		
+
 		try {
 			String sql = "select email from members where id = ? ";
 			getPreparedStatement(sql);
-			
+
 			pstmt.setString(1, id);
-			
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				
+			if (rs.next()) {
+
 				return rs.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		close();
 		return null;
 	}
-	
 
+	// 프로필 정보 가져오기
 	public MemberVO get_profile(String id) {
 		MemberVO member = null;
 
@@ -213,7 +201,6 @@ public class MemberDAO extends DAO {
 			} else { // 입력 정보 틀림
 
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -287,21 +274,68 @@ public class MemberDAO extends DAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
 
+	public int requestWithdrawal(String id) {
+		MemberVO member = new MemberVO();
+		member.setId(id);
+		return request_withdrawal(member);
 	}
-	
-	//지원 작성
-	//회원 전체 리스트
-	public ArrayList<MemberVO> getList(){
+
+	// 회원탈퇴 요청을 했는지 확인
+	public boolean hasWithdrawn(String id) {
+		boolean result = false;
+		try {
+			String sql = "SELECT WITHDRAWAL FROM MEMBERS WHERE ID = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, id);
+
+			rs = pstmt.executeQuery();
+
+			int val = -2;
+
+			if (rs.next()) {
+				val = rs.getInt(1);
+			}
+
+			if (val == 1) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 회원탈퇴 취소
+	public int cancelWithdrawal(String id) {
+		int result = -2;
+		try {
+			String sql = "UPDATE MEMBERS SET WITHDRAWAL = 0 WHERE ID = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, id);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return result;
+	}
+
+	// 지원 작성
+	// 회원 전체 리스트
+	public ArrayList<MemberVO> getList() {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email "
-					 + " from members ";
-				
+		String sql = "select id, nickname, first_name, last_name, phone, email " + " from members ";
+
 		getPreparedStatement(sql);
-		
+
 		try {
 			rs = pstmt.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				MemberVO vo = new MemberVO();
 				vo.setId(rs.getString(1));
 				vo.setNickname(rs.getString(2));
@@ -309,28 +343,27 @@ public class MemberDAO extends DAO {
 				vo.setLast_name(rs.getString(4));
 				vo.setPhone(rs.getString(5));
 				vo.setEmail(rs.getString(6));
-				
+
 				list.add(vo);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		close();
 		return list;
 	}
-	
-	//회원 검색-id
-	public ArrayList<MemberVO> getSearchId(){
+
+	// 회원 검색-id
+	public ArrayList<MemberVO> getSearchId() {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email "
-					 + " from members ";
-				
+		String sql = "select id, nickname, first_name, last_name, phone, email " + " from members ";
+
 		getPreparedStatement(sql);
-		
+
 		try {
 			rs = pstmt.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				MemberVO vo = new MemberVO();
 				vo.setId(rs.getString(1));
 				vo.setNickname(rs.getString(2));
@@ -338,32 +371,32 @@ public class MemberDAO extends DAO {
 				vo.setLast_name(rs.getString(4));
 				vo.setPhone(rs.getString(5));
 				vo.setEmail(rs.getString(6));
-				
+
 				list.add(vo);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		close();
 		return list;
 	}
-	
-	//회원 삭제
+
+	// 회원 삭제
 	public boolean getDeleteResult(String id) {
 		boolean result = false;
 		String sql = "delete from members where id=?";
-				
+
 		getPreparedStatement(sql);
-		
+
 		try {
 			pstmt.setString(1, id);
-			
+
 			int value = pstmt.executeUpdate();
-			if(value != 0){
+			if (value != 0) {
 				result = true;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

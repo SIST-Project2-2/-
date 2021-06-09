@@ -126,14 +126,11 @@ ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 								for (int i = 1; i <= 12; i++) {
 									String id = Character.toString((char) j) + "_" + i;
 									tbody += "<td>";
-									//tbody += "	<button type='button' class='btn btn-secondary seat' id='" + id + "'>" + id + "</button>";
-									//tbody += "	<input type='radio' name='seat' class='btn btn-secondary seat' id='" + id + "'>";
 									tbody += "	<input type='checkbox' name='seat' class='btn btn-secondary seat' value='" + id + "' id='" + id + "'>";
 									tbody += "</td>";
 								}
 								tbody += "</tr>";
 							}
-
 							out.write(tbody);
 							%>
 						</tbody>
