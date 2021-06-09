@@ -43,6 +43,15 @@
 			$(".emailHide").hide();
 			alert("회원가입이 완료되었습니다.");
 		});
+		
+		//input 창에서 엔터키 막아놓음
+		$('input[type="text"],input[type="radio"],input[type="password"]').keydown(function() {
+			  if (event.keyCode === 13) {
+			    event.preventDefault();
+			  };
+			});
+	
+		
 	});
 </script>
 <link rel="stylesheet" href="join.css">
@@ -134,8 +143,8 @@
 				<progress id="file" value="90" max="100"> 90% </progress>
 				<div>생년월일과 성별을 선택해주세요</div>
 				<input type="text" name="birth_date" placeholder="생년월일 입력(YYYYMMDD)"
-					required> <label>남자</label><input type="checkbox"
-					name="gender" value="남자"> <label>여자</label><input type="checkbox"
+					required > <label style="margin-left:16rem;">남자</label><input type="radio" 
+					name="gender" value="남자"> <label style="margin-left:16rem;">여자</label><input type="radio"
 					name="gender" value="여자">
 				<button type="submit" id="birthBtn">다음</button>
 			</div>
