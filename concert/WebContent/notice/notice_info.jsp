@@ -1,6 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="dao.NoticeDAO, vo.NoticeVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.NoticeDAO" %>
+<%@ page import="vo.NoticeVO" %>
+<%@ page import="java.io.PrintWriter" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<%
+	PrintWriter script = response.getWriter();
+	NoticeDAO dao = new NoticeDAO();
+	NoticeVO vo = null;
+	int no = 0;
+	
+	// 공지사항 번호를 입력받지 않은 경우 에러페이지 이동
+	if(request.getParameter("no") == null) {
+		response.sendRedirect("../error.jsp");
+	}
+	
+	no = Integer.parseInt(request.getParameter("no"));
+	vo = dao.getNoticeInfoForUser(no);
+	
+	// 해당하는 공지사항이 존재하지 않은 경우 에러페이지 이동
+	if(vo.getNo() == 0) {
+		response.sendRedirect("../error.jsp");
+	}
+	
+	dao.close();
+%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <%
@@ -30,9 +53,11 @@ dao.getUpdateView(no);
 				<tr>
 					<th class="text-left">
 						<div>
-							<kbd><%=vo.getTag()%></kbd>
+							<kbd><%= vo.getTag() %></kbd>
 						</div>
-						<h2 class="text-weight-bold"><%=vo.getTitle()%></h2> <small><%=vo.getDate()%></small>
+						<h2 class="text-weight-bold"><%= vo.getTitle() %></h2>
+						<small class="text-dark font-weight-bold"><%= vo.getDate() %></small>
+						<small class="text-dark font-weight-bold"><%= "조회수: " + vo.getViews() %></small>
 					</th>
 				</tr>
 			</thead>

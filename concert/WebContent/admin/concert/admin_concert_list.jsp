@@ -84,10 +84,9 @@
 			}else{%>
 				search_text.val("<%=searchTarget%>");<%
 				for(String str: searchCategories){
-				out.write(str + ".attr(\"checked\", \"checked\");");
+					out.write(str + ".attr(\"checked\", \"checked\");");
 				}
-			}
-			%>			
+			}%>			
 		}
 		
 		// 페이지네이션 부분을 생성하는 함수
@@ -110,6 +109,7 @@
 			$("#page_previous_link").attr("href", "?page_no=<%= (page_start - 10 <= 0) ? 1 : page_start - 10%><%=search_parameters%>");
 			$("#page_next_link").attr("href", "?page_no=<%= (page_start + 10 > page_count) ? page_count : (page_start + 10)%><%=search_parameters%>");
 	 	}
+		
 		// 테이블 부분을 생성하는 함수
 		function create_tbody() {
 			var tbody = $("#tbody");
@@ -126,7 +126,7 @@
 				html += "	<a class=\"btn-sm btn-secondary\" href=\"./admin_concert_edit.jsp?concert_no=" + concert_list.get(i).getNo() + "\">수정</a>";
 				html += "</td>";
 				html += "<td>";
-				html += "	<a type=\"button\" class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
+				html += "	<a class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
 						+ concert_list.get(i).getNo() + "\">삭제</a>";
 				html += "</td>";
 				html += "</tr>";

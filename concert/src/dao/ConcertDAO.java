@@ -5,18 +5,8 @@ import java.util.ArrayList;
 
 import vo.ConcertVO;
 
+// 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 public class ConcertDAO extends DAO {
-
-	// Field
-
-	// Constructor
-	public ConcertDAO() {
-		super();
-	}
-
-	// Method
-
-	// 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 
 	// 콘서트 조회 메소드
 	public ConcertVO getConcertInfo(int no) {
@@ -95,7 +85,7 @@ public class ConcertDAO extends DAO {
 					field.setAccessible(true); // private 설정된 필드도 접근 가능하도록 설정
 					if (field.get(search_target) != null) { // 해당 필드가 null 이 아니면 실행
 //						System.out.println(field.getName() + ": " + field.get(search_target));
-						if (field.getName().equals("no") && (int) field.get(search_target) == -1) { // no 필드는 int 타입이므로 없으면 null이 아닌 -1을 저장
+						if ((field.getName().equals("no") || field.getName().equals("price")) && (int) field.get(search_target) == -1) { // no 필드는 int 타입이므로 없으면 null이 아닌 -1을 저장
 							continue;
 						}
 						if (sql_where.equals("")) { // 해당 필드에 값이 존재하고 WHERE 구문이 존재하지 않으면 WHERE 생성
@@ -256,7 +246,7 @@ public class ConcertDAO extends DAO {
 		int no = getNextConcertNo();
 
 		try {
-			String sql = "INSERT INTO CONCERTS VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, no);

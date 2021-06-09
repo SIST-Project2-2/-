@@ -1,93 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	//
+// 로그인했으면 id에 값이 저장되고 로그인 되어있지 않으면 null이 저장된 id 변수 설정
+String id = (String) session.getAttribute("id");
+%>
 <!DOCTYPE html>
 <!-- header -->
 <jsp:include page="/import.jsp"></jsp:include>
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">
-#header_div ul {
-	list-style: none;
-}
-
-#header_div .lT {
-	height: 66px;
-	margin: 10px 0;
-	margin-left: 10px;
-}
-
-#header_div .art>.d {
-	display: none;
-}
-
-#header_div #top_nav li:hover {
-	text-decoration: underline 3px;
-}
-
-#header_div .art:hover .d {
-	display: block;
-}
-
-#header_div .justify-content-end {
-	margin-right: 10px
-}
-
-#header_div .logo {
-	float: left;
-}
-
-#header_div a:link, #header_div a:visited {
-	color: white;
-	text-decoration: none;
-}
-
-#header_div a:hover {
-	color: black;
-}
-
-#header_div #top_nav {
-	text-align: center;
-	height: 56px;
-	background-color: tomato;
-}
-
-#header_div #top_nav>ul {
-	display: inline-block;
-	padding: 16px;
-}
-
-#header_div #top_nav>ul>li {
-	float: left;
-	align-conten: center;
-	margin-left: 50px;
-	color: white;
-}
-
-#header_div .sIcon {
-	float: right;
-	margin: 4px 10px 0 0;
-}
-
-#header_div .d {
-	background-color: gray;
-	text-align: left;
-	padding-left: 0;
-	width: 100px;
-}
-
-#header_div .d li {
-	padding: 5px 0;
-}
-
-#header_div .nav-item {
-	padding: 0 10px;
-}
-
-#header_div .auser:link, #header_div .auser:visited {
-	color: black;
-	text-decoration: none;
-}
-</style>
+<link rel="stylesheet" href="http://localhost:9000/concert/css/header.css">
 </head>
 <body>
 	<div id="header_div" class="mb-3">
@@ -96,11 +19,24 @@
 				<img alt="" src="http://localhost:9000/concert/images/logo.png">
 			</a>
 			<ul class="nav justify-content-end">
+				<%
+					if (id != null) {
+					out.write("<li class='nav-item'>");
+					out.write("<span class='font-weight-bold'>" + id + "</span>");
+					out.write("</li>");
+				}
+				%>
 				<li class="nav-item">
 					<a class="auser" href="http://localhost:9000/concert/admin/member/admin_member_list.jsp"> ADMIN</a>
 				</li>
 				<li class="nav-item">
-					<a class="auser" href="http://localhost:9000/concert/login/login.jsp"> LOGIN</a>
+					<%
+						if (id == null) {
+						out.write("<a class='auser' href='http://localhost:9000/concert/login/login.jsp'>LOGIN</a>");
+					} else {
+						out.write("<a class='auser' href='http://localhost:9000/concert/login/logout.jsp'>LOGOUT</a>");
+					}
+					%>
 				</li>
 				<li class="nav-item">
 					<a class="auser" href="http://localhost:9000/concert/join/join_id.jsp"> JOIN</a>

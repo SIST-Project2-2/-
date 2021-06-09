@@ -16,7 +16,7 @@
 	}
 	
 	vo = dao.getPayInfo(no);
-	if(vo.getNo() == 0) { // 해당하는 데이터가 없을 경우 에러 페이지 이동
+	if(vo.getOrderNo() == 0) { // 해당하는 데이터가 없을 경우 에러 페이지 이동
 		response.sendRedirect("../error.jsp");
 	}
 	
@@ -37,7 +37,7 @@
 			<div class="col-md-7 bg-dark">
 				<div class="bg-white my-3 p-3 rounded font-weight-bold">
 					<small class="text-left font-weight-bold">예매번호</small>
-					<h2 class="text-center my-3"><%= vo.getNo() %></h2>
+					<h2 class="text-center my-3"><%= vo.getOrderNo() %></h2>
 					<div class="row justify-content-center">
 						<div class="col-md-10 my-4" style="border-top: 2px dashed gray;"></div>
 					</div>

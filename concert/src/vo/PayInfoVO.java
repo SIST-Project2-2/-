@@ -3,19 +3,29 @@ package vo;
 import java.util.ArrayList;
 
 public class PayInfoVO {
-	private int no; // 주문 번호
+	private int orderNo; // 주문 번호
+	private int ConcertNo; // 콘서트 번호
 	private String firstName; // 이름
 	private String lastName; // 성
 	private String hp; // 결제자 휴대폰 번호
+	private String artist; // 아티스트
+	private String title; // 콘서트명
+	private String location; // 장소
 	private String date; // 콘서트 날짜
 	private ArrayList<String> seats; // 좌석 번호
 	private int price; // 가격
 	
-	public int getNo() {
-		return no;
+	public int getOrderNo() {
+		return orderNo;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+	public int getConcertNo() {
+		return ConcertNo;
+	}
+	public void setConcertNo(int concertNo) {
+		ConcertNo = concertNo;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -35,6 +45,24 @@ public class PayInfoVO {
 	public void setHp(String hp) {
 		this.hp = hp;
 	}
+	public String getArtist() {
+		return artist;
+	}
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
 	public String getDate() {
 		return date;
 	}
@@ -53,4 +81,5 @@ public class PayInfoVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
 }
