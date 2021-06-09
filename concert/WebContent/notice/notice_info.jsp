@@ -7,6 +7,8 @@
 	int no = Integer.parseInt(request.getParameter("no"));
 NoticeDAO dao = new NoticeDAO();
 NoticeVO vo = dao.getNoticeInfoForAdmin(no);
+
+dao.getUpdateView(no);
 %>
 <!DOCTYPE html>
 <html>

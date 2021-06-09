@@ -525,4 +525,20 @@ public class NoticeDAO extends DAO {
 		return result;
 	}
 
+	// 관리자 - 공지사항 조회수
+	public void getUpdateView(int no) {
+		String sql = "update notices set views = views + 1 where no = ? ";
+		getPreparedStatement(sql);
+		
+		try {
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		close();
+	}
+	
+	
 }
