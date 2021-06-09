@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="vo.NoticeVO" %>
-<%@ page import="java.io.PrintWriter" %>
-<% request.setCharacterEncoding("utf-8"); %>
 <%
-	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO();
 	NoticeVO vo = null;
 	int no = 0;
@@ -26,13 +23,6 @@
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
-<%
-	int no = Integer.parseInt(request.getParameter("no"));
-NoticeDAO dao = new NoticeDAO();
-NoticeVO vo = dao.getNoticeInfoForAdmin(no);
-
-dao.getUpdateView(no);
-%>
 <!DOCTYPE html>
 <html>
 <head>
