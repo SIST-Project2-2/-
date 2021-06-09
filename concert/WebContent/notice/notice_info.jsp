@@ -4,7 +4,9 @@
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <%
-	int no = Integer.parseInt(request.getParameter("no"));
+	request.setCharacterEncoding("UTF-8");
+String no = request.getParameter("no");
+
 NoticeDAO dao = new NoticeDAO();
 NoticeVO vo = dao.getNoticeInfoForAdmin(no);
 

@@ -15,7 +15,7 @@ public class NoticeDAO extends DAO {
 	}
 
 	// 공지사항 번호를 입력받아 해당 공지사항 상세내용 가져오기(관리자)
-	public NoticeVO getNoticeInfoForAdmin(int no) {
+	public NoticeVO getNoticeInfoForAdmin(String no) {
 		NoticeVO info = new NoticeVO();
 
 		try {
@@ -23,7 +23,7 @@ public class NoticeDAO extends DAO {
 					+ " FROM NOTICES WHERE NO = ? ";
 			getPreparedStatement(sql);
 
-			pstmt.setInt(1, no);
+			pstmt.setString(1, no);
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -526,12 +526,12 @@ public class NoticeDAO extends DAO {
 	}
 
 	// 관리자 - 공지사항 조회수
-	public void getUpdateView(int no) {
+	public void getUpdateView(String no) {
 		String sql = "update notices set views = views + 1 where no = ? ";
 		getPreparedStatement(sql);
 		
 		try {
-			pstmt.setInt(1, no);
+			pstmt.setString(1, no);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -539,6 +539,37 @@ public class NoticeDAO extends DAO {
 		
 		close();
 	}
+	
+	public int getUpdateNotice(String no, NoticeVO vo) {
+		
+		int result = -2;
+		String sql = "update notices set tag=?,title=?,content=? where no=?";
+		getPreparedStatement(sql);
+		
+		try {
+			
+			pstmt.setString(1, vo.getTag());
+			pstmt.setString(2,vo.getTitle());
+			pstmt.setString(3,vo.getContent());
+			pstmt.setString(4,no);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result==1) {
+				result=1; //업데이트 성공
+			}else {
+				result=0; //업데이트 실패
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		close();
+		return result;
+		
+	}
+
 	
 	
 }
