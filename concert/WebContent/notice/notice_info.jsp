@@ -3,9 +3,6 @@
 <%@ page import="dao.NoticeDAO"%>
 <%@ page import="vo.NoticeVO"%>
 <%
-	
-	
-	// 해당하는 공지사항이 존재하지 않은 경우 에러페이지 이동
 	String num = request.getParameter("no");
 NoticeDAO dao = new NoticeDAO();
 NoticeVO vo = null;
