@@ -26,11 +26,18 @@
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
+<%
+	int no = Integer.parseInt(request.getParameter("no"));
+NoticeDAO dao = new NoticeDAO();
+NoticeVO vo = dao.getNoticeInfoForAdmin(no);
+
+dao.getUpdateView(no);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리저 공지사항 상세정보</title>
 <script src=""></script>
 <!-- js 파일 경로 넣기! -->
 </head>
@@ -57,10 +64,9 @@
 				<tr>
 					<td colspan="4" class="text-left">
 						<div class="text-center">
-							<img class="img-fluid" src="../images/장범준.jpg">
+							<%=vo.getContent()%>
 							<br>
 						</div>
-						<%= vo.getContent() %>
 					</td>
 				</tr>
 				<tr>

@@ -123,7 +123,7 @@
 				html += "<td>" + concert_list.get(i).getCdate() + "</td>";
 				html += "<td>" + concert_list.get(i).getLocation() + "</td>";
 				html += "<td>";
-				html += "	<a class=\"btn-sm btn-secondary\" href=\"admin_concert_edit.jsp?concert_no=" + concert_list.get(i).getNo() + "\">수정</a>";
+				html += "	<a class=\"btn-sm btn-secondary\" href=\"./admin_concert_edit.jsp?concert_no=" + concert_list.get(i).getNo() + "\">수정</a>";
 				html += "</td>";
 				html += "<td>";
 				html += "	<a class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""

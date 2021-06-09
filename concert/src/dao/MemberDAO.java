@@ -92,31 +92,101 @@ public class MemberDAO extends DAO {
 	// 프로필 정보 가져오기
 
 	// 회원가입
-	public int join(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email) {
+	public int join(MemberVO member) {
 
 		try {
-			String sql = "INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'tester', 0, ?)";
+			String sql = "INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, TO_DATE(?,'YYYY-MM-DD'), ?, ?, ?, 'tester', 0, ?,?,0)";
 			getPreparedStatement(sql);
 
-			pstmt.setString(1, id);
-			pstmt.setString(2, pw);
-			pstmt.setString(3, nickname);
-			pstmt.setString(4, first_name);
-			pstmt.setString(5, last_name);
-			pstmt.setString(6, birth_date);
-			pstmt.setString(7, sex);
-			pstmt.setString(8, address);
-			pstmt.setString(9, phone);
-			pstmt.setString(10, email);
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPw());
+			pstmt.setString(3, member.getNickname());
+			pstmt.setString(4, member.getFirst_name());
+			pstmt.setString(5, member.getLast_name());
+			pstmt.setString(6, member.getBirth_date());
+			pstmt.setString(7, member.getSex());
+			pstmt.setString(8, member.getAddress());
+			pstmt.setString(9, member.getPhone());
+			pstmt.setString(10, member.getEmail());
+			pstmt.setString(11, member.getEmailHash());
 
-			return pstmt.executeUpdate();
-
+			int value = pstmt.executeUpdate();
+			
+			return value;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		close();
 		return -1;
 	}
+	//사용자가 이메일 인증이 되었는지 확인해 주는 함수
+	public int emailCheck(String id) {
+		
+		try {
+			String sql = "select emailchecked from members where id = ? ";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				//사용자가 이메일 인증 성공일 경우 1값 반환
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		//사용자가 이메일 인증 실패일 경우 0값 반환 
+		return 0;
+	}
+	
+	//사용자의 이메일 인증이 완료되었을 경우 정보 update(이메일 인증 수행)
+	public int updateEmailCheck(String id) {
+		
+		try {
+			String sql = "update members set emailchecked = 1 where id = ?";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			
+			pstmt.executeUpdate();
+			return 1;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		//사용자가 이메일 인증 실패일 경우 0값 반환 
+		return 0;
+	}
+	
+	// 사용자의 id 값에 따라 저장된 email 불러오기
+	public String memberEmail(String id) {
+		
+		try {
+			String sql = "select email from members where id = ? ";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				
+				return rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		close();
+		return null;
+	}
+	
 
 	public MemberVO get_profile(String id) {
 		MemberVO member = null;
