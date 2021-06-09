@@ -51,4 +51,28 @@ public class NoticeVO {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	
+	public NoticeVO(int no, String title, String content, String date, String writer, int views, String tag) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.content = content;
+		this.date = date;
+		this.writer = writer;
+		this.views = views;
+		this.tag = tag;
+	}
+	
+	public NoticeVO(String title, String content, String tag) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.tag = tag;
+	}
+	
+	public NoticeVO() {
+		
+	}
+	
+	
 }
