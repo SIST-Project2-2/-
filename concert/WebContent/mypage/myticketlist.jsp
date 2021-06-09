@@ -10,8 +10,8 @@
 	String id = (String)session.getAttribute("id");
 	
 	// 입력받은 id가 없을 경우 에러 페이지 이동
-	if(request.getParameter("id") == null || "".equals(request.getParameter("id"))) {
-	//	response.sendRedirect("../error.jsp");
+	if(id.equals("")) {
+		response.sendRedirect("../error.jsp");
 	}
 	
 	list = dao.getTicketlist(id);

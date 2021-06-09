@@ -20,7 +20,6 @@ public class StatisticsDAO extends DAO {
 			while(rs.next()) {
 				data.put(rs.getString(1), rs.getInt(2));
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -34,7 +33,7 @@ public class StatisticsDAO extends DAO {
 		
 		try {
 			String sql = " select sex, count(*) "
-					+ " from order o, members m, concerts c "
+					+ " from orders o, members m, concerts c "
 					+ " where o.id = m.id and c.artist = ? "
 					+ " group by sex ";
 			
@@ -46,7 +45,6 @@ public class StatisticsDAO extends DAO {
 			while(rs.next()) {
 				data.put(rs.getString(1), rs.getInt(2));
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,16 +52,52 @@ public class StatisticsDAO extends DAO {
 		return data;
 	}
 	
-	/* 작성중!
 	// 연령별 통계를 위한 데이터를 불러오는 함수(전체)
 	public HashMap<String, Integer> getDataByAge() {
 		HashMap<String, Integer> data = new HashMap<String, Integer>();
 		
 		try {
+			String sql = " select age, count(*) "
+					+ " from (select floor((to_char(sysdate, 'YYYY') - to_char(m.birthdate, ' YYYY')) / 10) * 10 as age "
+					+ "		from orders o, members m where o.id = m.id) "
+					+ " group by age ";
 			
+			getPreparedStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				data.put(rs.getString(1), rs.getInt(2));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return data;
 	}
-	*/
+	
+	// 연령별 통계를 위한 데이터를 불러오는 함수(아티스트별)
+	public HashMap<String, Integer> getDataByAge(String artist) {
+		HashMap<String, Integer> data = new HashMap<String, Integer>();
+		
+		try {
+			String sql = " select age, count(*) "
+					+ " from (select floor((to_char(sysdate, 'YYYY') - to_char(m.birthdate, ' YYYY')) / 10) * 10 as age "
+					+ "		from orders o, members m, concerts c "
+					+ "		where o.id = m.id and c.artist = ?) "
+					+ " group by age ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, artist);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				data.put(rs.getString(1), rs.getInt(2));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return data;
+	}
 }

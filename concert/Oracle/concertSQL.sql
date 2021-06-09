@@ -358,4 +358,16 @@ select m.first_name, m.last_name, o.no, c.no, c.artist, c.title, c.location, to_
 from members m, orders o, concerts c 
 where m.id = 'test' and o.id = m.id and o.concerts_no = c.no;
 
+-- 성별 통계 데이터 조회
+select sex, count(*)
+from orders o, members m
+WHERE o.ID = m.ID
+GROUP BY sex;
+
+-- 연령별 통계 데이터 조회
+select age, count(*)
+FROM (SELECT floor((to_char(SYSDATE, 'YYYY') - to_char(m.birthdate, ' YYYY')) / 10) * 10 AS age 
+	FROM orders o, members m WHERE o.ID = m.ID)
+GROUP BY age;
+
 COMMIT;
