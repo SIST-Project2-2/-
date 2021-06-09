@@ -51,7 +51,7 @@
 	<h3>콘서트 예매내역</h3>
 	<section class="container-md text-center" id="content_myticketlist">
 		<% for(PayInfoVO info : list) { %>
-		<div class="row justify-content-center font-weight-bold mt-3">
+		<a href="../concert/concert_payinfo.jsp?no=<%= info.getOrderNo() %>" class="text-decoration-none text-dark"><div class="row justify-content-center font-weight-bold mt-3">
 			<div class="d1 col-md-9">
 				<div class="top row bg-primary pl-3">
 					<img src="http://localhost:9000/concert/images/logo.png" class="img-fluid align-self-center" style="height:40px">
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div></a>
 		<% } %>
 	</section>
 </body>

@@ -14,7 +14,8 @@ public class PayInfoDAO extends DAO {
 		try {
 			String sql = " select m.first_name, m.last_name, o.no, c.no, c.artist, c.title, c.location, to_char(c.cdate, 'YYYY.MM.DD HH:Mi') "
 					+ " from members m, orders o, concerts c "
-					+ " where m.id = ? and o.id = m.id and o.concerts_no = c.no ";
+					+ " where m.id = ? and o.id = m.id and o.concerts_no = c.no "
+					+ " order by o.no desc ";
 			
 			getPreparedStatement(sql);
 			
