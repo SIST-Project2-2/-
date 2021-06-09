@@ -1,23 +1,26 @@
+<%@page import="vo.MemberVO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
-<jsp:useBean id="member" class="vo.MemberVO" scope="page" />
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	//
+String id = (String) session.getAttribute("id");
+
+MemberVO member = new MemberVO();
+member.setId(id);
+
+MemberDAO memberDAO = new MemberDAO();
+member = memberDAO.get_profile(member.getId());
+
+boolean hasWithdrawn = memberDAO.hasWithdrawn(id);
+%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 - 프로필 보기</title>
-<%
-	MemberDAO memberDAO = new MemberDAO();
-member.setId("test");
-member = memberDAO.get_profile(member.getId());
-%>
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -45,7 +48,6 @@ member = memberDAO.get_profile(member.getId());
 							birth_date.text("<%=member.getBirth_date()%>");
 							issue_date.text("<%=member.getBirth_date()%>");
 							phone.text("<%=member.getPhone()%>");
-
 						}
 
 						function generate_serial_code() {
