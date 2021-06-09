@@ -84,10 +84,9 @@
 			}else{%>
 				search_text.val("<%=searchTarget%>");<%
 				for(String str: searchCategories){
-				out.write(str + ".attr(\"checked\", \"checked\");");
+					out.write(str + ".attr(\"checked\", \"checked\");");
 				}
-			}
-			%>			
+			}%>			
 		}
 		
 		// 페이지네이션 부분을 생성하는 함수

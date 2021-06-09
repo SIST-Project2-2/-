@@ -7,14 +7,13 @@
 	PrintWriter script = response.getWriter();
 	PayInfoDAO dao = new PayInfoDAO();
 	ArrayList<PayInfoVO> list;
-	String id = "";
+	String id = (String)session.getAttribute("id");
 	
 	// 입력받은 id가 없을 경우 에러 페이지 이동
 	if(request.getParameter("id") == null || "".equals(request.getParameter("id"))) {
-		response.sendRedirect("../error.jsp");
+	//	response.sendRedirect("../error.jsp");
 	}
 	
-	id = request.getParameter("id");
 	list = dao.getTicketlist(id);
 	
 	// 데이터를 모두 불러온 뒤, dao 객체 닫음
