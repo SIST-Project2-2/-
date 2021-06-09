@@ -3,7 +3,7 @@ package vo;
 public class ConcertVO {
 
 	// Field
-	private int no = -1, price;
+	private int no = -1, price = -1;
 	private String artist;
 	private String title;
 	private String content;
