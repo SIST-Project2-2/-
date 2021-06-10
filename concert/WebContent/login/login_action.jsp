@@ -21,10 +21,12 @@ member.setId(id);
 member.setPw(pw);
 
 int result = memberDAO.login(member.getId(), member.getPw());
+int authority = memberDAO.getAuthority(id);
 if (result == 1) {
 	// 로그인에 성공하면 세션에 로그인한 id를 추가함.
 	session.setAttribute("id", member.getId());
-
+	session.setAttribute("authority", String.valueOf(authority));
+	
 	Cookie[] cookies = request.getCookies(); // 연결된 클라이언트의 쿠키들을 모두 불러옴
 	if (id_store != null) { // 아이디 저장을 체크 했으면 쿠키에 아이디 저장
 		boolean cookieIsCreated = false;
