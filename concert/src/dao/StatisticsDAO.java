@@ -18,7 +18,11 @@ public class StatisticsDAO extends DAO {
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				data.put(rs.getString(1), rs.getInt(2));
+				if(rs.getString(1).equals("M")) {
+					data.put("남", rs.getInt(2));
+				} else if(rs.getString(1).equals("F")) {
+					data.put("여", rs.getInt(2));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,7 +38,7 @@ public class StatisticsDAO extends DAO {
 		try {
 			String sql = " select sex, count(*) "
 					+ " from orders o, members m, concerts c "
-					+ " where o.id = m.id and c.artist = ? "
+					+ " where o.id = m.id and o.concerts_no = c.no and c.artist = ? "
 					+ " group by sex ";
 			
 			getPreparedStatement(sql);
@@ -43,7 +47,11 @@ public class StatisticsDAO extends DAO {
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				data.put(rs.getString(1), rs.getInt(2));
+				if(rs.getString(1).equals("M")) {
+					data.put("남", rs.getInt(2));
+				} else if(rs.getString(1).equals("F")) {
+					data.put("여", rs.getInt(2));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,7 +91,7 @@ public class StatisticsDAO extends DAO {
 			String sql = " select age, count(*) "
 					+ " from (select floor((to_char(sysdate, 'YYYY') - to_char(m.birthdate, ' YYYY')) / 10) * 10 as age "
 					+ "		from orders o, members m, concerts c "
-					+ "		where o.id = m.id and c.artist = ?) "
+					+ "		where o.id = m.id and o.concerts_no = c.no and c.artist = ?) "
 					+ " group by age ";
 			
 			getPreparedStatement(sql);

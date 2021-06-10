@@ -29,15 +29,16 @@
 <meta charset="UTF-8">
 <title>통계</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> <!-- js 구글 통계 라이브러리 --> 
-<% // js object에 꺼내온 데이터 저장
+<% // js 배열에 꺼내온 데이터 저장
 	script.println("<script>");
 	script.println("var bySex = [], byAge = [];");
+	
 	for(String key : bySex.keySet()) {
 		script.println("bySex.push(['" + key + "'," + bySex.get(key) + "]);");
 	}
 	
 	for(String key : byAge.keySet()) {
-		script.println("byAge.push(['" + key + "'," + byAge.get(key) + "]);");
+		script.println("byAge.push(['" + key + "대'," + byAge.get(key) + "]);");
 	}
 	script.println("</script>");
 %>
@@ -48,32 +49,36 @@
 		});
 	});
 	
-	//Load the Visualization API and the corechart package.
 	google.charts.load('current', {'packages':['corechart']});
 	
-	// Set a callback to run when the Google Visualization API is loaded.
-	google.charts.setOnLoadCallback(drawChart);
+	google.charts.setOnLoadCallback(drawChartBySex);
+	google.charts.setOnLoadCallback(drawChartByAge);
 	
-	// Callback that creates and populates a data table,
-	// instantiates the pie chart, passes in the data and
-	// draws it.
-	function drawChart() {
-		// Create the data table.
+	function drawChartBySex() {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', '성별');
 		data.addColumn('number', '인원 수');
-		data.addRows([
-			['남', 3],
-			['여', 2]
-		]);
+		data.addRows(bySex);
 		
-		// Set chart options
-		var options = {'title':'통계 예시',
-		               'width':800,
-		               'height':600};
+		var options = {'title':'성별 통계',
+		               'width':500,
+		               'height':450};
 		
-		// Instantiate and draw our chart, passing in some options.
-		var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+		var chart = new google.visualization.PieChart(document.getElementById('chart_by_sex'));
+		chart.draw(data, options);
+	};
+	
+	function drawChartByAge() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', '연령별');
+		data.addColumn('number', '연령');
+		data.addRows(byAge);
+		
+		var options = {'title':'연령별 통계',
+		               'width':500,
+		               'height':450};
+		
+		var chart = new google.visualization.ColumnChart(document.getElementById('chart_by_age'));
 		chart.draw(data, options);
 	};
 </script>
@@ -86,14 +91,17 @@
 			<div class="col-md-4 text-right mb-3">
 				<small class="text-dark">아티스트:</small>
 				<select class="form-control-sm" id="artist_select">
-					<% for(String str : artists) { %>
+					<% for(String str : artists) { // 아티스트별 셀렉트박스 생성 %>
 					<option value="<%= str %>" <% if(str.equals(request.getParameter("artist"))) { %> selected <% } %>><%= str %></option>
 					<% } %>
 				</select>
 			</div>
 		</div>
 		<!-- 통계 그림 -->
-		<div class="row justify-content-center border rounded" id="chart_div"></div>
+		<div class="row justify-content-center border rounded" id="chart_div">
+			<div class="d-inline-block" id ="chart_by_sex"></div>
+			<div class="d-inline-block" id ="chart_by_age"></div>
+		</div>
 	</section>
 </body>
 </html>
