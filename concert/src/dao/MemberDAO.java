@@ -240,15 +240,13 @@ public class MemberDAO extends DAO {
 			String sql = "SELECT COUNT(NICKNAME) FROM MEMBERS WHERE LOWER(NICKNAME)=LOWER(?)";
 			getPreparedStatement(sql);
 
-			pstmt.setString(1, member.getId());
+			pstmt.setString(1, member.getNickname());
 
-			int val = pstmt.executeUpdate();
-			if (val == 1) { // 닉네임 있음
-				result = 1;
-			} else { // 닉네임 없음
-				result = 0;
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
