@@ -6,6 +6,12 @@
 	//
 String id = (String) session.getAttribute("id");
 
+if (id == null) {
+	// PrintWriter는 버퍼에 담아서 한번에 보내지 않고, 실행시마다 바로 돌려주므로 에러페이지를 보여주기 전에 메인 화면으로 돌려보냄
+	PrintWriter script = response.getWriter();
+	script.write("<script>alert('로그인이 필요합니다');location.href='../index.jsp';</script>");
+}
+
 MemberVO member = new MemberVO();
 member.setId(id);
 
