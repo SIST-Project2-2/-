@@ -23,15 +23,17 @@
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap());
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	String[] artists = {"전체", "10cm", "IU", "잔나비", "장범준", "현아"};
-	
-	// 여기에 관리자 계정으로 로그인되어 있는지 확인하는 코드 넣기~~~
+	HashMap<String, String> categories = new HashMap<String, String>();
+	categories.put("id", "ID");	
+	categories.put("content", "내용");	
 	
 	// 각 파라미터 기본값으로 초기화
 	int commentPerPage = 10;
 	int pageNumber = 1;
 	int order = 0;
-	String artist = "";
+	String category = "ID";
 	String search = "";
+	String artist = "";
 	
 	// 입력받은 파라미터가 있을 경우 그 값으로 초기화
 	if(inputs.get("pageNumber") != null) {
@@ -50,16 +52,20 @@
 		search = inputs.get("search")[0];
 	}
 	
+	if(inputs.get("category") != null) {
+		category = inputs.get("category")[0];
+	}
+	
 	// db에서 입력받은 파라미터로 데이터 조회
 	if(!artist.equals("") && !artist.equals("전체") && !search.equals("")) { // 아티스트별 검색
-		list = dao.getCommentListSearch(pageNumber, order, artist, search);
-		pageInfo = Commons.getPageInfo(dao.getCountSearch(pageNumber, artist, search), pageNumber, commentPerPage);
+		list = dao.getCommentListSearch(pageNumber, order, category, artist, search);
+		pageInfo = Commons.getPageInfo(dao.getCountSearch(pageNumber, category, artist, search), pageNumber, commentPerPage);
 	}else if(!artist.equals("") && !artist.equals("전체")) { // 아티스트별
 		list = dao.getCommentList(pageNumber, order, artist);
 		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, artist), pageNumber, commentPerPage);
 	}else if(!search.equals("")) { // 검색
-		list = dao.getCommentListSearch(pageNumber, order, search);
-		pageInfo = Commons.getPageInfo(dao.getCountSearch(pageNumber, search), pageNumber, commentPerPage);
+		list = dao.getCommentListSearch(pageNumber, order, category, search);
+		pageInfo = Commons.getPageInfo(dao.getCountSearch(pageNumber, category, search), pageNumber, commentPerPage);
 	}else { // 기본
 		list = dao.getCommentList(pageNumber, order);
 		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber), pageNumber, commentPerPage);
@@ -107,6 +113,16 @@ div.d2 {
 %>
 <script>
 	$(document).ready(function() {
+		// 검색 카테고리 클릭시 카테고리 바뀜
+		$("#category_id").click(function() {
+			$("#category_dropdown").html("ID");
+			$("#category").val("id");
+		})
+		$("#category_content").click(function() {
+			$("#category_dropdown").html("내용");
+			$("#category").val("content");
+		})
+		
 		// 검색 버튼 클릭시 submit
 		$("#btn_search").click(function() {
 			admin_artist_comment_search_form.submit();
@@ -183,7 +199,17 @@ div.d2 {
 				<div class="row">
 					<div class="col"></div>
 					<div class="col-6 text-center">
+						<input type="hidden" name="category" id="category" value="<%= category %>">
 						<div class="input-group">
+							<div class="input-group-prepend">
+								<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown">
+	    						<%= categories.get(category) %>
+	  							</button>
+								<div class="dropdown-menu">
+									<label class="dropdown-item" id="category_id" value="id">ID</label>
+									<label class="dropdown-item" id="category_content" value="content">내용</label>
+								</div>
+							</div>
 							<input type="text" class="form-control" name="search" placeholder="검색..." value="<%= search %>">
 							<div class="input-group-append">
 								<button type="button" class="btn btn-primary" id="btn_search">검색</button>
