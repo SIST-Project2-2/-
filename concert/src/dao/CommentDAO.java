@@ -11,7 +11,7 @@ public class CommentDAO extends DAO{
 			+ " from (select rownum as rno, no, artist, id, content, report, recommend, wdate "
 			+ " 	from (select no, artist, id, content, report, recommend, wdate "
 			+ "			from comments "; // 댓글 리스트 출력 sql문 앞부분 공통
-	String listCommonEnd = " ) where rownum <= ? * ? ) where rno > ? * (? - 1) "; // 댓글 리스트 출력 sql문 뒷부분 공통
+	String listCommonEnd = " no desc) where rownum <= ? * ? ) where rno > ? * (? - 1) "; // 댓글 리스트 출력 sql문 뒷부분 공통
 	String countCommon = " select count(*) from comments "; // 댓글 수 출력 sql문 공통
 	
 	// 댓글 삭제
@@ -149,12 +149,8 @@ public class CommentDAO extends DAO{
 		String sql = listCommonStart + " order by ";
 		
 		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
-		if(order == 0) {
-			sql += " no desc ";
-		}else if(order == 1) {
-			sql += " report desc ";
-		}else if(order == 2){
-			sql += " report asc ";
+		if(order == 1) {
+			sql += " report desc, ";
 		}
 				
 		sql +=  listCommonEnd;
@@ -167,12 +163,8 @@ public class CommentDAO extends DAO{
 		String sql = listCommonStart + " where artist = ? order by ";
 		
 		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
-		if(order == 0) {
-			sql += " no desc ";
-		}else if(order == 1) {
-			sql += " report desc ";
-		}else if(order == 2){
-			sql += " report asc ";
+		if(order == 1) {
+			sql += " report desc, ";
 		}
 		
 		sql += listCommonEnd;
@@ -181,16 +173,12 @@ public class CommentDAO extends DAO{
 	}
 	
 	// 댓글 목록 출력 - 검색
-	public ArrayList<CommentVO> getCommentListSearch(int page, int order, String search) {
-		String sql = listCommonStart + " where id like(?) order by ";
+	public ArrayList<CommentVO> getCommentListSearch(int page, int order, String category, String search) {
+		String sql = listCommonStart + " where " + category + " like(?) order by ";
 		
-		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
-		if(order == 0) {
-			sql += " no desc ";
-		}else if(order == 1) {
-			sql += " report desc ";
-		}else if(order == 2){
-			sql += " report asc ";
+		// order = 1일 경우 신고 순 정렬 추가
+		if(order == 1) {
+			sql += "report desc, ";
 		}
 		
 		sql += listCommonEnd;
@@ -199,17 +187,13 @@ public class CommentDAO extends DAO{
 	}
 	
 	// 댓글 목록 출력 - 아티스트별 검색
-	public ArrayList<CommentVO> getCommentListSearch(int page, int order, String artist, String search) {
-		String sql = listCommonStart + " where artist = ? and id like(?) order by ";
+	public ArrayList<CommentVO> getCommentListSearch(int page, int order, String category, String artist, String search) {
+		String sql = listCommonStart + " where artist = ? and " + category + " like(?) order by ";
 		
 		// order가 0일 경우 최신순, 1일 경우 신고 내림차순, 2일 경우 신고 오름차순
-				if(order == 0) {
-					sql += " no desc ";
-				}else if(order == 1) {
-					sql += " report desc ";
-				}else if(order == 2){
-					sql += " report asc ";
-				}
+		if(order == 1) {
+			sql += " report desc, ";
+		}
 		
 		sql += listCommonEnd;
 		
@@ -297,8 +281,8 @@ public class CommentDAO extends DAO{
 	}
 	
 	// 페이지 정보 출력 - 검색
-	public int getCountSearch(int nowPage, String search) {
-		String sql = countCommon + " where id like(?) ";
+	public int getCountSearch(int nowPage, String category, String search) {
+		String sql = countCommon + " where " + category + " like(?) ";
 		
 		int count = executeCount(sql, Commons.s_string(search));
 		
@@ -306,8 +290,8 @@ public class CommentDAO extends DAO{
 	}
 	
 	// 페이지 정보 출력 - 아티스트별 검색
-	public int getCountSearch(int nowPage, String artist, String search) {
-		String sql = countCommon + " where artist = ? and id like(?) ";
+	public int getCountSearch(int nowPage, String category, String artist, String search) {
+		String sql = countCommon + " where artist = ? and " + category + " like(?) ";
 		
 		int count = executeCount(sql, artist, Commons.s_string(search));
 		
