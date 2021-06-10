@@ -6,6 +6,31 @@ import vo.PayInfoVO;
 
 public class PayInfoDAO extends DAO {
 	
+	// 해당 유저의 주문이 맞는지 확인
+	public boolean isCorrectUser(int no, String id) {
+		boolean result =false;
+		
+		try {
+			String sql = " select count(*) from orders where no = ? and id = ? ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, no);
+			pstmt.setString(2, id);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) { // 해당 유저의 주문이 맞을 경우 true 반환, 아닐 경우 false(초기값) 반환
+				if(rs.getInt(1) == 1) {
+					result = true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	// 해당 유저의 주문 정보들 불러오기
 	public ArrayList<PayInfoVO> getTicketlist(String id) {
 		ArrayList<PayInfoVO> list = new ArrayList<PayInfoVO>();

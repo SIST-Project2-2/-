@@ -9,7 +9,7 @@
 	ArrayList<PayInfoVO> list;
 	String id = (String)session.getAttribute("id");
 	
-	// 입력받은 id가 없을 경우 에러 페이지 이동
+	// 로그인되어 있지 않을 경우 에러 페이지 이동
 	if(id.equals("")) {
 		response.sendRedirect("../error.jsp");
 	}

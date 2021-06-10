@@ -5,7 +5,6 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="vo.CommentVO" %>
 <%@ page import="dao.CommentDAO" %>
-<%@ page import="vo.MemberVO" %>
 <%@ page import="dao.MemberDAO" %>
 <%@ page import="concert.Commons" %>
 <%

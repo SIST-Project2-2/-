@@ -2,6 +2,7 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dao.PayInfoDAO" %>
+<%@ page import="dao.MemberDAO" %>
 <%@ page import="vo.PayInfoVO" %>
 <%
 	PrintWriter script = response.getWriter();
@@ -9,9 +10,13 @@
 	PayInfoVO vo = null;
 	int no = 0;
 	
-	if(request.getParameter("no") != null) {
-		no = Integer.parseInt(request.getParameter("no"));
-	}else { // 입력받은 주문 번호가 없을 경우 에러 페이지 이동
+	if(request.getParameter("no") == null) { // 입력받은 주문 번호가 없을 경우 에러 페이지 이동
+		response.sendRedirect("../error.jsp");
+	}
+	no = Integer.parseInt(request.getParameter("no"));
+	
+	// 해당 주문 정보의 id와 로그인한 id가 일치하지 않은 경우 에러 페이지 이동
+	if(!dao.isCorrectUser(no, (String)session.getAttribute("id"))) {
 		response.sendRedirect("../error.jsp");
 	}
 	
@@ -66,7 +71,8 @@
 						<div class="col-md-10 my-3" style="border-top: 2px solid gray;"></div>
 					</div>
 					<div class="row justify-content-end my-3">
-						<h3 class="mr-5">&#8361;<%= vo.getPrice() * vo.getSeats().size() %></h3> <!-- 좌석 가격 * 좌석 갯수 --> 
+						<!-- 총 가격 = 좌석 가격 * 좌석 갯수 -->
+						<h3 class="mr-5">&#8361;<%= vo.getPrice() * vo.getSeats().size() %></h3> 
 					</div>
 					<div>바코드 영역~</div>
 				</div>
