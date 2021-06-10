@@ -10,8 +10,8 @@
 	String id = (String)session.getAttribute("id");
 	
 	// 입력받은 id가 없을 경우 에러 페이지 이동
-	if(request.getParameter("id") == null || "".equals(request.getParameter("id"))) {
-	//	response.sendRedirect("../error.jsp");
+	if(id.equals("")) {
+		response.sendRedirect("../error.jsp");
 	}
 	
 	list = dao.getTicketlist(id);
@@ -50,7 +50,7 @@
 	<h3>콘서트 예매내역</h3>
 	<section class="container-md text-center" id="content_myticketlist">
 		<% for(PayInfoVO info : list) { %>
-		<div class="row justify-content-center font-weight-bold mt-3">
+		<a href="../concert/concert_payinfo.jsp?no=<%= info.getOrderNo() %>" class="text-decoration-none text-dark"><div class="row justify-content-center font-weight-bold mt-3">
 			<div class="d1 col-md-9">
 				<div class="top row bg-primary pl-3">
 					<img src="http://localhost:9000/concert/images/logo.png" class="img-fluid align-self-center" style="height:40px">
@@ -123,7 +123,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div></a>
 		<% } %>
 	</section>
 </body>
