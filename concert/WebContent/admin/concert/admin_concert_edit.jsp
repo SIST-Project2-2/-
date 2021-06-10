@@ -1,6 +1,19 @@
+
+<%@page import="dao.ConcertDAO"%>
+<%@page import="vo.ConcertVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
+
+
+<%
+
+String concert_no =request.getParameter("concert_no");
+ConcertDAO dao = new ConcertDAO();
+ConcertVO vo = dao.getConcertInfo(concert_no);
+
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,14 +41,16 @@
 </script>
 </head>
 <body>
-	<div class="container border border-dark rounded">
+		<form name="concert_update" method="post" action="admin_concert_edit_action.jsp" >
+		<input type="hidden" name="no" value=<%= concert_no %>>
+		<div class="container border border-dark rounded">
 		<div class="row my-3">
 			<div class="col-md">
 				<h3>콘서트 수정</h3>
 			</div>
 			<div class="col-md-4 text-right">
-				<button class="btn btn-outline-dark">임시저장</button>
-				<button class="btn btn-outline-dark">등록하기</button>
+				<button class="btn btn-outline-dark" >임시저장</button>
+				<button class="btn btn-outline-dark" type="submit">등록하기</button>
 			</div>
 		</div>
 
@@ -50,11 +65,10 @@
 				<h6>지역</h6>
 			</div>
 		</div>
-		<form>
 			<div class="row m-1">
 				<div class="col-md-2">
 					<select class="custom-select" name="artist" id="artist" required="required">
-						<option selected="selected">가수 선택</option>
+						<option selected><%= vo.getArtist() %></option>
 						<option value="장범준">장범준</option>
 						<option value="잔나비">잔나비</option>
 						<option value="현아">현아</option>
@@ -63,11 +77,11 @@
 					</select>
 				</div>
 				<div class="col-md-3">
-					<input type="date" class="form-control" name="date" id="date" required="required">
+					<input type="date" class="form-control" name="date" id="date" required="required" value="<%= vo.getCdate() %>">
 				</div>
 				<div class="col-md-2">
 					<select class="custom-select" name="location" id="location">
-						<option selected="selected">지역</option>
+						<option selected><%= vo.getLocation() %></option>
 						<option value="서울">서울</option>
 						<option value="경기도">경기도</option>
 						<option value="강원도">강원도</option>
@@ -79,7 +93,7 @@
 			</div>
 			<div class="row m-1">
 				<div class="col-md">
-					<input type="text" class="form-control" placeholder="제목을 입력하세요">
+					<input type="text" class="form-control" value=" <%= vo.getTitle() %> " name="title" id="title">
 				</div>
 			</div>
 			<div class="row m-1">
@@ -90,12 +104,12 @@
 							<button type="button" class="btn btn-outline-dark">이미지 삽입</button>
 						</div>
 						<hr>
-						<textarea class="form-control border-0" style="height: 600px;" placeholder="내용을 입력하세요"></textarea>
+						<textarea class="form-control border-0" style="height: 600px;" name="content" id="content" ><%= vo.getContent() %></textarea>
 					</div>
 				</div>
 			</div>
 
-		</form>
 	</div>
+		</form>
 </body>
 </html>

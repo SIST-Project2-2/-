@@ -32,6 +32,29 @@ public class ConcertDAO extends DAO {
 		}
 		return vo;
 	}
+	
+	public ConcertVO getConcertInfo(String no) {
+		ConcertVO vo = new ConcertVO();
+		try {
+			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS WHERE NO = ?";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, no);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo.setNo(rs.getInt(1));
+				vo.setArtist(rs.getString(2));
+				vo.setTitle(rs.getString(3));
+				vo.setContent(rs.getString(4));
+				vo.setCdate(rs.getString(5));
+				vo.setLocation(rs.getString(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
+	}
 
 	// 콘서트 삭제 메소드
 	public int deleteConcert(ConcertVO concert) {
@@ -246,20 +269,36 @@ public class ConcertDAO extends DAO {
 	}
 
 	// 콘서트 수정
-	public int edit_concert(String no, ConcertVO concert) {
-		int result = -2;
-
+	public boolean edit_concert(String no, ConcertVO concert) {
+		
+		boolean result = false;
+		
+		
 		try {
-			String sql = "";
+			String sql = "update concerts set artist=?, title=?, content=?, cdate=?, location=? where no=?";
 			getPreparedStatement(sql);
 
+			pstmt.setString(1, concert.getArtist());
+			pstmt.setString(2, concert.getTitle());
+			pstmt.setString(3, concert.getContent());
+			pstmt.setString(4, concert.getCdate());
+			pstmt.setString(5, concert.getLocation());
+			pstmt.setString(6, no);
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
-			result = pstmt.executeUpdate();
+							
+			int value= pstmt.executeUpdate();
+				
+			if(value!=0) {
+				result= true;
+			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		close();
 		return result;
 	}
+	
 }
