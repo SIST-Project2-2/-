@@ -401,4 +401,37 @@ public class MemberDAO extends DAO {
 		close();
 		return result;
 	}
+	
+	// 해당 유저의 권한(일반유저, 관리자, 테스터 등) 확인
+	public int getAuthority(String id) {
+		int result = 0;
+		
+		try {
+			String sql = " select authority from members where id = ? ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String type = rs.getString(1);
+				if(type.equals("USER")) {
+					result = 0;
+				}else if(type.equals("admin")) {
+					result = 1;
+				}else if(type.equals("tester")) {
+					result = 2;
+				}else {
+					result = -1; // 확인되지 않은 권한
+				}
+			}else { // 회원 정보가 없음
+				result = -1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
