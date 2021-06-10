@@ -6,8 +6,19 @@ import concert.Commons;
 import vo.NoticeVO;
 
 public class NoticeDAO extends DAO {
-	//int notice_per_page = 8; // 한 페이지 당 보이는 공지 개수
-
+	String listCommonStartAdmin = " select no, title, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), writer, views "
+			+ " from (select rownum as rno, no, title, wdate, writer, views "
+			+ "		from (select * from notices order by no desc) where "; // 관리자 목록 출력 시작부분 공통
+	String listCommonStart = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
+			+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
+			+ "		from (select * from notices order by no desc) where "; // 목록 출력 시작부분 공통 
+	String listCommonEnd = " rownum <= ? * ?) where rno > ? * (? - 1) "; // 목록 출력 끝부분 공통
+	String countCommon = " select count(*) from notices "; // 게시글수 출력 공통
+	String byArtist = " tag like(?) "; // 아티스트별
+	String categoryTitle = " title like(?) "; // 제목 검색
+	String categoryContent = " content like(?) "; // 내용 검색
+	String categoryAll = " (title like(?) or content like(?)) "; // 제목+내용 검색
+	
 	public NoticeDAO() {
 		super();
 	}
@@ -72,10 +83,7 @@ public class NoticeDAO extends DAO {
 
 		try {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
-			String sql = "select no, title, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), writer, views "
-					+ " from (select rownum as rno, no, title, wdate, writer, views "
-					+ "		from (select * from notices order by no desc) " + "		where rownum <= ? * ?) "
-					+ " where rno > ? * (? - 1) ";
+			String sql = listCommonStartAdmin + listCommonEnd;
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, noticePerPage);
@@ -107,20 +115,17 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 
 		try {
-			String sql = "select no, title, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), writer, views "
-					+ " from (select rownum as rno, no, title, wdate, writer, views "
-					+ "		from (select * from notices order by no desc) where ";
+			String sql = listCommonStartAdmin;
 
 			if (category == 1) { // category값에 따라 검색하는 범위 변경
-				sql += " 	title like(?) ";
+				sql += categoryTitle;
 			} else if (category == 2) {
-				sql += " 	content like(?) ";
+				sql += categoryContent;
 			} else {
-				sql += " 	(title like(?) or content like(?)) ";
+				sql += categoryAll;
 			}
 
-			sql += " and rownum <= ? * ?) " // 페이지 범위 내의 목록 출력
-					+ " where rno > ? * (? - 1) ";
+			sql += listCommonEnd;
 
 			getPreparedStatement(sql);
 
@@ -187,10 +192,7 @@ public class NoticeDAO extends DAO {
 
 		try {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
-			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
-					+ "		from (select * from notices order by no desc) " + "		where rownum <= ? * ?) "
-					+ " where rno > ? * (? - 1) ";
+			String sql = listCommonStart + listCommonEnd;
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, noticePerPage);
@@ -224,20 +226,17 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 
 		try {
-			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
-					+ "		from (select * from notices order by no desc) where ";
+			String sql = listCommonStart;
 
 			if (category == 1) { // category값에 따라 검색하는 범위 변경
-				sql += " 	title like(?) ";
+				sql += categoryTitle;
 			} else if (category == 2) {
-				sql += " 	content like(?) ";
+				sql += categoryContent;
 			} else {
-				sql += " 	(title like(?) or content like(?)) ";
+				sql += categoryAll;
 			}
 
-			sql += " and rownum <= ? * ?) " // 페이지 범위 내의 목록 출력
-					+ " where rno > ? * (? - 1) ";
+			sql += " and " + listCommonEnd;
 
 			getPreparedStatement(sql);
 
@@ -276,10 +275,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 
 		try {
-			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
-					+ " 	from (select * from notices order by no desc) "
-					+ " 	where tag like(?) and rownum <= ? * ?) " + " where rno > ? * (? - 1) ";
+			String sql = listCommonStart + byArtist + " and " + listCommonEnd;
 
 			getPreparedStatement(sql);
 
@@ -314,20 +310,17 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 
 		try {
-			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
-					+ " from (select * from notices order by no desc) " + " where tag like(?) and ";
+			String sql = listCommonStart + byArtist + " and ";
 
 			if (category == 1) { // category값에 따라 검색하는 범위 변경
-				sql += " title like(?) ";
+				sql += categoryTitle;
 			} else if (category == 2) {
-				sql += " content like(?) ";
+				sql += categoryContent;
 			} else {
-				sql += " (title like(?) or content like(?)) ";
+				sql += categoryAll;
 			}
 
-			sql += " and rownum <= ? * ?) " // 페이지 범위 내의 목록 출력
-					+ " where rno > ? * (? - 1) ";
+			sql += " and " + listCommonEnd;
 
 			getPreparedStatement(sql);
 
@@ -366,7 +359,7 @@ public class NoticeDAO extends DAO {
 		int count = 0;
 		
 		try {
-			String sql = " select count(*) from notices ";
+			String sql = countCommon;
 			getPreparedStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -385,8 +378,7 @@ public class NoticeDAO extends DAO {
 		int count = 0;
 		
 		try {
-			String sql = " select count(*) from notices " 
-					+ " where tag like(?) ";
+			String sql = countCommon + " where " + byArtist;
 			getPreparedStatement(sql);
 			
 			pstmt.setString(1, Commons.s_string(artist));
@@ -407,13 +399,13 @@ public class NoticeDAO extends DAO {
 		int count = 0;
 
 		try {
-			String sql = " select count(*) from notices where ";
-			if (category == 1) {
-				sql += " title like(?) ";
+			String sql = countCommon + " where ";
+			if (category == 1) { // category값에 따라 검색하는 범위 변경
+				sql += categoryTitle;
 			} else if (category == 2) {
-				sql += " content like(?) ";
+				sql += categoryContent;
 			} else {
-				sql += " title like(?) or content like(?) ";
+				sql += categoryAll;
 			}
 
 			getPreparedStatement(sql);
@@ -439,14 +431,13 @@ public class NoticeDAO extends DAO {
 		int count = 0;
 
 		try {
-			String sql = " select count(*) from notices " 
-					+ " where tag like(?) and ";
-			if (category == 1) {
-				sql += " title like(?) ";
+			String sql = countCommon + " where " + byArtist + " and ";
+			if (category == 1) { // category값에 따라 검색하는 범위 변경
+				sql += categoryTitle;
 			} else if (category == 2) {
-				sql += " content like(?) ";
+				sql += categoryContent;
 			} else {
-				sql += " (title like(?) or content like(?)) ";
+				sql += categoryAll;
 			}
 
 			getPreparedStatement(sql);
