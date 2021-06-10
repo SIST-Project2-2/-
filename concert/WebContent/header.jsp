@@ -39,7 +39,7 @@ String id = (String) session.getAttribute("id");
 					%>
 				</li>
 				<li class="nav-item">
-					<a class="auser" href="http://localhost:9000/concert/join/join_id.jsp"> JOIN</a>
+					<a class="auser" href="http://localhost:9000/concert/join/join.jsp"> JOIN</a>
 				</li>
 			</ul>
 		</div>
