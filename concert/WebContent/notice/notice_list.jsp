@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="vo.NoticeVO" %>
-<%@ page import="vo.PageVO" %>
 <%@ page import="concert.Commons" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
@@ -12,12 +11,13 @@
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
-	PageVO pageInfo = null; // 페이지 정보를 저장하는 변수
+	HashMap<String, Integer> pageInfo = null;
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
 	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
 	String[] options = {"전체", "장범준", "잔나비", "10cm", "현아", "IU"}; // 아티스트별 목록 보기 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	
+	int noticePerPage = 8;
 	int pageNumber = 1;
 	int category = 0;
 	String artist = "";
@@ -41,18 +41,18 @@
 	}
 	
 	// 목록 불러오기
-	if(!artist.equals("") && !search.equals("")) {
-		list = dao.getNoticeListForUser(pageNumber, category, artist, search);
-		pageInfo = dao.getPageInfo(pageNumber, category, artist, search);
+	if(!artist.equals("") && !search.equals("")) { // 아티스트별 + 검색
+		list = dao.getNoticeListForUser(pageNumber, noticePerPage, category, artist, search);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, category, artist, search), pageNumber, noticePerPage);
 	}else if(!artist.equals("")) { // 아티스트별
-		list = dao.getNoticeListForUser(pageNumber, artist);
-		pageInfo = dao.getPageInfo(pageNumber, artist);
+		list = dao.getNoticeListForUser(pageNumber, noticePerPage, artist);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, artist), pageNumber, noticePerPage);
 	}else if(!search.equals("")) { // 검색
-		list = dao.getNoticeListForUser(pageNumber, category, search);
-		pageInfo = dao.getPageInfo(pageNumber, category, search);
+		list = dao.getNoticeListForUser(pageNumber, noticePerPage, category, search);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, category, search), pageNumber, noticePerPage);
 	}else { // 기본
-		list = dao.getNoticeListForUser(pageNumber);
-		pageInfo = dao.getPageInfo(pageNumber);
+		list = dao.getNoticeListForUser(pageNumber, noticePerPage);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber), pageNumber, noticePerPage);
 	}
 	
 	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기
@@ -122,14 +122,9 @@
 			<div class="col-md-3">
 				<small class="text-dark">가수</small>
 				<select class="form-control-sm d-inline-block" name="artist" id="artist">
-					<% // request로 요청받은 가수를 select한다.
-						for(String option : options) {
-							if(option.equals(artist)) {
-					%>
-								<option value="<%= option %>" selected><%= option %></option>
-					<%  	}else { %>		
-								<option value="<%= option %>"><%= option %></option>
-					<%  }} %>
+					<% for(String option : options) { // request로 요청받은 가수를 select한다. %>
+					<option value="<%= option %>" <% if(option.equals(artist)) { %>selected <% } %>><%= option %></option>
+					<% } %>
 				</select>
 			</div>
 		</form>
@@ -140,19 +135,19 @@
 			<p class="text-center text-dark">데이터가 없습니다.</p>
 			<% 
 				}else {
-					for(int i=0;i<list.size();i++) {
+					for(NoticeVO notice : list) {
 			%>
-			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= list.get(i).getNo() %>"><div class="card d-inline-block">
+			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= notice.getNo() %>"><div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
 					<%
-						String tag = list.get(i).getTag();
+						String tag = notice.getTag();
 					%>
 					<kbd><%= tag %></kbd>
-					<h4 class="card-title text-left text-black text-truncate"><%= list.get(i).getTitle() %></h4>
-					<p class="card-text text-left text-dark text-truncate"><%= list.get(i).getContent() %></p>
-					<p class="card-text text-left text-dark d-inline-block"><%= list.get(i).getDate() %></p>
-					<small class="card-text text-left text-dark font-weight-bold"><%= "조회수: " + list.get(i).getViews() %></small>
+					<h4 class="card-title text-left text-black text-truncate"><%= notice.getTitle() %></h4>
+					<p class="card-text text-left text-dark text-truncate"><%= notice.getContent() %></p>
+					<p class="card-text text-left text-dark d-inline-block"><%= notice.getDate() %></p>
+					<small class="card-text text-left text-dark font-weight-bold"><%= "조회수: " + notice.getViews() %></small>
 				</div>
 			</div></a>
 			<%
@@ -163,17 +158,17 @@
 		<!-- 페이지 이동 버튼 목록 -->
 	  	<ul class="pagination justify-content-center mt-3">
 		    <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
-			<li class="page-item <% if(!pageInfo.isPrev()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
+			<li class="page-item <% if(pageInfo.get("prev") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
 			<% 
-		    int start = pageInfo.getStart();
-		    int end = pageInfo.getEnd();
+		    int start = pageInfo.get("start");
+		    int end = pageInfo.get("end");
 		    
 		    for(int i=start;i<=end;i++) {
 			%>
 			<li class="page-item <% if(i == pageNumber) { %>active <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
 			<% } %>
 		    <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
-			<li class="page-item <% if(!pageInfo.isNext()) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
+			<li class="page-item <% if(pageInfo.get("next") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
 	  </ul>
 	</section>
 </body>

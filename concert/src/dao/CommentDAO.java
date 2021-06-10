@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import concert.Commons;
 import vo.CommentVO;
-import vo.PageVO;
 
 public class CommentDAO extends DAO{
 	int commentPerPage = 10; // 댓글 목록 한 페이지 당 보이는 댓글 수
@@ -280,38 +279,38 @@ public class CommentDAO extends DAO{
 	}
 	
 	// 페이지 정보 출력 - 기본
-	public PageVO getPageInfo(int nowPage) {
+	public int getCount(int nowPage) {
 		String sql = countCommon;
 		
 		int count = executeCount(sql);
 		
-		return Commons.getPageProcess(count, nowPage, commentPerPage);
+		return count;
 	}
 	
 	// 페이지 정보 출력 - 아티스트별
-	public PageVO getPageInfo(int nowPage, String artist) {
+	public int getCount(int nowPage, String artist) {
 		String sql = countCommon + " where artist = ? ";
 		
 		int count = executeCount(sql, artist);
 		
-		return Commons.getPageProcess(count, nowPage, commentPerPage);
+		return count;
 	}
 	
 	// 페이지 정보 출력 - 검색
-	public PageVO getPageInfoSearch(int nowPage, String search) {
+	public int getCountSearch(int nowPage, String search) {
 		String sql = countCommon + " where id like(?) ";
 		
 		int count = executeCount(sql, Commons.s_string(search));
 		
-		return Commons.getPageProcess(count, nowPage, commentPerPage);
+		return count;
 	}
 	
 	// 페이지 정보 출력 - 아티스트별 검색
-	public PageVO getPageInfoSearch(int nowPage, String artist, String search) {
+	public int getCountSearch(int nowPage, String artist, String search) {
 		String sql = countCommon + " where artist = ? and id like(?) ";
 		
 		int count = executeCount(sql, artist, Commons.s_string(search));
 		
-		return Commons.getPageProcess(count, nowPage, commentPerPage);
+		return count;
 	}
 }

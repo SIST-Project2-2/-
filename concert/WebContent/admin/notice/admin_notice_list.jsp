@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="vo.NoticeVO" %>
-<%@ page import="vo.PageVO" %>
 <%@ page import="concert.Commons" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
@@ -11,12 +10,12 @@
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
-	PageVO pageInfo = null; // 페이지 정보를 저장하는 변수
-	//HashMap<String, Object> inputs = new HashMap<String, Object>(); // request 파라미터들을 저장
+	HashMap<String, Integer> pageInfo = null; // 페이지네이션 정보
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
 	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	
+	int noticePerPage = 10; // 한 페이지당 출력되는 공지 수
 	int pageNumber = 1;
 	int category = 0;
 	String search = "";
@@ -36,11 +35,11 @@
 	
 	// 목록 불러오기
 	if(!search.equals("")) { // 검색
-		list = dao.getNoticeListForAdmin(pageNumber, category, search);
-		pageInfo = dao.getPageInfo(pageNumber, category, search);
+		list = dao.getNoticeListForAdmin(pageNumber, noticePerPage, category, search);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, category, search), pageNumber, noticePerPage);
 	}else { // 기본
-		list = dao.getNoticeListForAdmin(pageNumber);
-		pageInfo = dao.getPageInfo(pageNumber);
+		list = dao.getNoticeListForAdmin(pageNumber, noticePerPage);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber), pageNumber, noticePerPage);
 	}
 	
 	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기
@@ -165,32 +164,20 @@
 		<div class="text-right">
 			<a href="admin_notice_add.jsp" class="btn-sm btn-primary">글쓰기</a>
 		</div>
-		<ul class="pagination justify-content-center">
-			    <% if(pageInfo.isPrev()) { 
-			    %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
-				<li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
-				<% }else { %>
-				<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
-				<% 
-					} 
-			    int start = pageInfo.getStart();
-			    int end = pageInfo.getEnd();
-			    
-			    for(int i=start;i<=end;i++) {
-			    	if(i == pageNumber) {
-				%>
-				<li class="page-item active"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
-				<%	}else {%>
-			    <li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
-				<%	} 
-				} %>
-			    <% if (pageInfo.isNext()) { 
-			    %> <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
-				<li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
-				<% }else { %>
-				<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
-				<% } %>
-		  </ul>
+		<ul class="pagination justify-content-center mt-3">
+		    <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
+			<li class="page-item <% if(pageInfo.get("prev") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
+			<% 
+		    int start = pageInfo.get("start");
+		    int end = pageInfo.get("end");
+		    
+		    for(int i=start;i<=end;i++) {
+			%>
+			<li class="page-item <% if(i == pageNumber) { %>active <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
+			<% } %>
+		    <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
+			<li class="page-item <% if(pageInfo.get("next") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
+	  </ul>
 	</section>
 	<!-- 삭제 메시지 팝업 -->
 	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

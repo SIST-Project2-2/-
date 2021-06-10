@@ -8,6 +8,8 @@ public class NoticeVO {
 	private String writer; // 작성자
 	private int views; // 조회수
 	private String tag; // 태그
+	private String img; // 이미지명
+	private String simg; // 저장된 이미지명
 	
 	public int getNo() {
 		return no;
@@ -50,6 +52,31 @@ public class NoticeVO {
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getSimg() {
+		return simg;
+	}
+	public void setSimg(String simg) {
+		this.simg = simg;
+	}
+	
+	public NoticeVO(int no, String title, String content, String date, String writer, int views, String tag, String img, String simg) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.content = content;
+		this.date = date;
+		this.writer = writer;
+		this.views = views;
+		this.tag = tag;
+		this.img = img;
+		this.simg = simg;
 	}
 	
 	public NoticeVO(int no, String title, String content, String date, String writer, int views, String tag) {
