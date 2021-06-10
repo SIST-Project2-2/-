@@ -10,5 +10,14 @@ while (attributes.hasMoreElements()) {
 	session.removeAttribute(attr);
 }
 
+Cookie[] cookies = request.getCookies();
+for (Cookie c : cookies) {
+	if (c.getName().equals("auto_login")) {
+		c.setMaxAge(0);
+		response.addCookie(c);
+		break;
+	}
+}
+
 response.sendRedirect("http://localhost:9000/concert/index.jsp");
 %>
