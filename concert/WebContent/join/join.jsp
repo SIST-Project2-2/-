@@ -144,8 +144,8 @@
 				<div>생년월일과 성별을 선택해주세요</div>
 				<input type="text" name="birth_date" placeholder="생년월일 입력(YYYYMMDD)"
 					required > <label style="margin-left:16rem;">남자</label><input type="radio" 
-					name="gender" value="남자"> <label style="margin-left:16rem;">여자</label><input type="radio"
-					name="gender" value="여자">
+					name="gender" value="M"> <label style="margin-left:16rem;">여자</label><input type="radio"
+					name="gender" value="F">
 				<button type="submit" id="birthBtn">다음</button>
 			</div>
 		</div>
