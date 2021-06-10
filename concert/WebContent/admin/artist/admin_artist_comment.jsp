@@ -4,14 +4,13 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="vo.CommentVO" %>
-<%@ page import="vo.PageVO" %>
 <%@ page import="dao.CommentDAO" %>
 <%@ page import="concert.Commons" %>
 <%
 	PrintWriter script = response.getWriter();
 	CommentDAO dao = new CommentDAO();
 	ArrayList<CommentVO> list = null;
-	PageVO pageInfo = null;
+	HashMap<String, Integer> pageInfo = null;
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap());
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	String[] artists = {"전체", "10cm", "IU", "잔나비", "장범준", "현아"};
@@ -19,6 +18,7 @@
 	// 여기에 관리자 계정으로 로그인되어 있는지 확인하는 코드 넣기~~~
 	
 	// 각 파라미터 기본값으로 초기화
+	int commentPerPage = 10;
 	int pageNumber = 1;
 	int order = 0;
 	String artist = "";
@@ -44,16 +44,16 @@
 	// db에서 입력받은 파라미터로 데이터 조회
 	if(!artist.equals("") && !artist.equals("전체") && !search.equals("")) { // 아티스트별 검색
 		list = dao.getCommentListSearch(pageNumber, order, artist, search);
-		pageInfo = dao.getPageInfoSearch(pageNumber, artist, search);
+		pageInfo = Commons.getPageInfo(dao.getCountSearch(pageNumber, artist, search), pageNumber, commentPerPage);
 	}else if(!artist.equals("") && !artist.equals("전체")) { // 아티스트별
 		list = dao.getCommentList(pageNumber, order, artist);
-		pageInfo = dao.getPageInfo(pageNumber, artist);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, artist), pageNumber, commentPerPage);
 	}else if(!search.equals("")) { // 검색
 		list = dao.getCommentListSearch(pageNumber, order, search);
-		pageInfo = dao.getPageInfoSearch(pageNumber, search);
+		pageInfo = Commons.getPageInfo(dao.getCountSearch(pageNumber, search), pageNumber, commentPerPage);
 	}else { // 기본
 		list = dao.getCommentList(pageNumber, order);
-		pageInfo = dao.getPageInfo(pageNumber);
+		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber), pageNumber, commentPerPage);
 	}
 	
 	// db에서 필요한 데이터를 모두 가져온 뒤 dao 객체 닫음
@@ -87,32 +87,32 @@ div.d2 {
 	margin-bottom: 10px;
 }
 </style>
+<% // 현 url과 파라미터들을 js에 전달
+	script.println("<script>");
+	script.println("var url = '" + url + "';");
+	script.println("var inputs = {};");
+	for(String key : inputs.keySet()) {
+		script.println("inputs['" + key + "'] = '" + inputs.get(key)[0] + "';");
+	}
+	script.println("</script>");
+%>
 <script>
 	$(document).ready(function() {
-		var url = $("#url").val();
-		var params = url.split(".jsp?")[1].split("&");
-		var inputs = [];
-		for(var i=0;i<params.length;i++) {
-			var pair = params[i].split("="); 
-			inputs[pair[0]] = pair[1];
-		}
-
+		// 검색 버튼 클릭시 submit
 		$("#btn_search").click(function() {
 			admin_artist_comment_search_form.submit();
 		})
 		
 		// 정렬방식을 유지하면서 아티스트 변경
-		$("#artist").change(function() {
+		$("#artist_select").change(function() {
 			inputs["artist"] = $(this).val();
-			var url = getUrl("admin_artist_comment.jsp?", inputs);
-			location.href = url;
+			location.href = getUrl(url, inputs);
 		});
 		
 		// 아티스트를 유지하면서 정렬방식 변경
 		$("#order").change(function() {
 			inputs["order"] = $(this).val();
-			var url = getUrl("admin_artist_comment.jsp?", inputs);
-			location.href = url;
+			location.href = getUrl(url, inputs);
 		});
 		
 		// 삭제 버튼 클릭시 팝업
@@ -143,6 +143,7 @@ div.d2 {
 	
 	// 현 파라미터를 유지하면서 페이지 이동을 위해 url을 반환하는 함수
 	function getUrl(url, inputs) {
+		url += "?";
 		delete inputs["pageNumber"];
 		delete inputs["search"];
 		for(key in inputs) {
@@ -161,7 +162,7 @@ div.d2 {
 			<!-- 가수 선택 박스 -->
 			<div class="d1 container text-right">
 				<div class="box">
-					<label>가수</label> <select class="custom-select" name="artist" id="artist">
+					<label>가수</label> <select class="custom-select" name="artist" id="artist_select">
 						<% for(String str : artists) { %>
 							<option value="<%= str %>" <% if(str.equals(artist)) { %> selected <% } %>><%= str %></option>
 						<% } // parameter로 넘겨받은 아티스트의 경우 selected로 초기화된다 %>
@@ -212,29 +213,20 @@ div.d2 {
 			<% } %>
 		</table>
 		
-		<ul class="pagination justify-content-center">
-			<% if(pageInfo.isPrev()) { %> <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
-			<li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
-			<% }else { %>
-			<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
-			<% } 
-			int start = pageInfo.getStart();
-			int end = pageInfo.getEnd();
-			
-			for(int i=start;i<=end;i++) {
-			if(i == pageNumber) {
+		<ul class="pagination justify-content-center mt-3">
+		    <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
+			<li class="page-item <% if(pageInfo.get("prev") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
+			<% 
+		    int start = pageInfo.get("start");
+		    int end = pageInfo.get("end");
+		    
+		    for(int i=start;i<=end;i++) {
 			%>
-			<li class="page-item active"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
-			<% }else {%>
-			<li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
-			<% } 
-			} %>
-			<% if (pageInfo.isNext()) { %> <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
-			<li class="page-item"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
-			<% }else { %>
-			<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+			<li class="page-item <% if(i == pageNumber) { %>active <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, i) %>"><%= i %></a></li>
 			<% } %>
-		</ul>
+		    <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
+			<li class="page-item <% if(pageInfo.get("next") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
+	  </ul>
 	</section>
 	<!-- 삭제 메시지 팝업 -->
 	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
