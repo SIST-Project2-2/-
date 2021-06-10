@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.LinkedHashMap" %>
 <%@ page import="dao.StatisticsDAO" %>
 <%
 	//response.setContentType("text/html; charset=UTF-8");
 	PrintWriter script = response.getWriter();
 	StatisticsDAO dao = new StatisticsDAO();
-	HashMap<String, Integer> bySex = null;
-	HashMap<String, Integer> byAge = null;
+	LinkedHashMap<String, Integer> bySex = null;
+	LinkedHashMap<String, Integer> byAge = null;
 	String[] artists = {"전체", "10cm", "IU", "잔나비", "장범준", "현아"};
 
 	// 입력받은 파라미터가 없을 경우 전체 통계를 불러오고, 아티스트를 입력받았으면 해당 아티스트 통계를 불러온다.
@@ -49,11 +49,14 @@
 		});
 	});
 	
+	// 구글 차트 기능 로드
 	google.charts.load('current', {'packages':['corechart']});
 	
+	// 구글 차트 로딩 완료 시 해당 함수 실행
 	google.charts.setOnLoadCallback(drawChartBySex);
 	google.charts.setOnLoadCallback(drawChartByAge);
 	
+	// 성별 통계 차트 그리기
 	function drawChartBySex() {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', '성별');
@@ -68,10 +71,11 @@
 		chart.draw(data, options);
 	};
 	
+	// 연령별 통계 차트 그리기
 	function drawChartByAge() {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', '연령별');
-		data.addColumn('number', '연령');
+		data.addColumn('number', '인원 수');
 		data.addRows(byAge);
 		
 		var options = {'title':'연령별 통계',

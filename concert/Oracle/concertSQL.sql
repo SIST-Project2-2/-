@@ -139,6 +139,10 @@ SELECT * FROM MEMBERS;
 -- 계정 생성
 INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'test', '1234', '테스트', '길동', '홍', '2021-05-25', 'M', '서울시', '010-1234-5678', 'tester', 0, 'test@test.com');
 INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'hwisaek', '1234', 'hwisaek', '창민', '이', '2021-02-28', 'M', '서울시', '010-0000-0000', 'tester', 0, 'hwisaek@hwisaek.com');
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'qqqqq', '1234', 'qqq', '흥식', '김', '1998-02-28', 'F', '서울시', '010-0000-0000', 'tester', 0, 'qqqq@naver.com');
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'asdasd', '1234', 'asd', '아아', '김', '1997-02-28', 'M', '서울시', '010-0000-0000', 'tester', 0, 'qqqq@naver.com');
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'zxc', '1234', 'zxc', '흥수', '박', '1987-02-28', 'F', '서울시', '010-0000-0000', 'tester', 0, 'qqqq@naver.com');
+INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, 'aaa', '1234', 'aaa', '민숙', '이', '1983-02-28', 'F', '서울시', '010-0000-0000', 'tester', 0, 'qqqq@naver.com');
 
 -- 로그인 기능
 SELECT PW FROM MEMBERS WHERE ID='test';
@@ -324,15 +328,25 @@ SELECT ORDERS_NO_SEQ.NEXTVAL FROM DUAL;
 -- 주문 정보 추가
 INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'hwisaek', 2);
 INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'test', 2);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'qqqqq', 2);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'qqqqq', 3);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'asdasd', 2);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'zxc', 3);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'aaa', 2);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'zxc', 2);
 
 -- 전체 좌석 보기
 SELECT * FROM SEATS;
 
 -- 좌석 하나 예매하기
-INSERT INTO SEATS VALUES(2, 'A_1', 'hwisaek', 1);
-INSERT INTO SEATS VALUES(2, 'A_5', 'test', 2);
-INSERT INTO SEATS VALUES(2, 'A_6', 'test', 2);
-INSERT INTO SEATS VALUES(2, 'A_7', 'test', 2);
+INSERT INTO SEATS VALUES(2, 'A_1', 'hwisaek', 2);
+INSERT INTO SEATS VALUES(2, 'A_5', 'test', 3);
+INSERT INTO SEATS VALUES(2, 'B_6', 'qqqqq', 4);
+INSERT INTO SEATS VALUES(3, 'B_2', 'qqqqq', 5);
+INSERT INTO SEATS VALUES(2, 'A_11', 'asdasd', 6);
+INSERT INTO SEATS VALUES(3, 'A_7', 'zxc', 7);
+INSERT INTO SEATS VALUES(2, 'A_7', 'aaa', 8);
+INSERT INTO SEATS VALUES(2, 'A_12', 'zxc', 9);
 
 -- 한번에 여러 좌석 예매하기 
 INSERT INTO SEATS

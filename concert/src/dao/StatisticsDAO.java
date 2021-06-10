@@ -1,12 +1,12 @@
 package dao;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class StatisticsDAO extends DAO {
 
 	// 성별 통계를 위한 데이터를 불러오는 함수(전체)
-	public HashMap<String, Integer> getDataBySex() {
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
+	public LinkedHashMap<String, Integer> getDataBySex() {
+		LinkedHashMap<String, Integer> data = new LinkedHashMap<String, Integer>();
 		
 		try {
 			String sql = " select sex, count(*) "
@@ -32,8 +32,8 @@ public class StatisticsDAO extends DAO {
 	}
 
 	// 성별 통계를 위한 데이터를 불러오는 함수(아티스트별)
-	public HashMap<String, Integer> getDataBySex(String artist) {
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
+	public LinkedHashMap<String, Integer> getDataBySex(String artist) {
+		LinkedHashMap<String, Integer> data = new LinkedHashMap<String, Integer>();
 		
 		try {
 			String sql = " select sex, count(*) "
@@ -61,14 +61,15 @@ public class StatisticsDAO extends DAO {
 	}
 	
 	// 연령별 통계를 위한 데이터를 불러오는 함수(전체)
-	public HashMap<String, Integer> getDataByAge() {
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
+	public LinkedHashMap<String, Integer> getDataByAge() {
+		LinkedHashMap<String, Integer> data = new LinkedHashMap<String, Integer>();
 		
 		try {
 			String sql = " select age, count(*) "
 					+ " from (select floor((to_char(sysdate, 'YYYY') - to_char(m.birthdate, ' YYYY')) / 10) * 10 as age "
 					+ "		from orders o, members m where o.id = m.id) "
-					+ " group by age ";
+					+ " group by age "
+					+ " order by age asc ";
 			
 			getPreparedStatement(sql);
 			
@@ -84,15 +85,16 @@ public class StatisticsDAO extends DAO {
 	}
 	
 	// 연령별 통계를 위한 데이터를 불러오는 함수(아티스트별)
-	public HashMap<String, Integer> getDataByAge(String artist) {
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
+	public LinkedHashMap<String, Integer> getDataByAge(String artist) {
+		LinkedHashMap<String, Integer> data = new LinkedHashMap<String, Integer>();
 		
 		try {
 			String sql = " select age, count(*) "
 					+ " from (select floor((to_char(sysdate, 'YYYY') - to_char(m.birthdate, ' YYYY')) / 10) * 10 as age "
 					+ "		from orders o, members m, concerts c "
 					+ "		where o.id = m.id and o.concerts_no = c.no and c.artist = ?) "
-					+ " group by age ";
+					+ " group by age "
+					+ " order by age asc ";
 			
 			getPreparedStatement(sql);
 			
