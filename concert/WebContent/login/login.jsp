@@ -3,12 +3,26 @@
 	//
 
 String storedId = ""; // 마지막으로 로그인 성공한 아이디
+String auto_login = null;
 
+int count = 0;
 Cookie[] cookies = request.getCookies();
 for (Cookie cookie : cookies) {
 	if (cookie.getName().equals("storedId")) {
 		storedId = cookie.getValue();
+		count++;
 	}
+	if (cookie.getName().equals("auto_login")) {
+		auto_login = cookie.getValue();
+		count++;
+	}
+	if (count >= 2) {
+		break;
+	}
+}
+
+if (storedId != null && auto_login != null) {
+	response.sendRedirect("login_action.jsp?id=" + storedId + "&pw="+auto_login+"&id_store=on&auto_login=on");
 }
 %>
 <!-- header -->

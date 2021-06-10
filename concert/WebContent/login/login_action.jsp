@@ -11,6 +11,7 @@
 String id = request.getParameter("id");
 String pw = request.getParameter("pw");
 String id_store = request.getParameter("id_store");
+String auto_login = request.getParameter("auto_login");
 
 // out.write는 버퍼에 담아서 한번에 보내지만 PrintWriter는 print할 때마다 보냄(?) -> 확인 필요
 PrintWriter script = response.getWriter();
@@ -32,7 +33,9 @@ if (result == 1) {
 		boolean cookieIsCreated = false;
 		for (Cookie c : cookies) { // 쿠키들을 조회해서 storedId 쿠키가 있으면 값 변경
 			if (c.getName().equals("storedId")) {
-				c.setValue(id);
+				c.setMaxAge(0);
+				Cookie cookie = new Cookie("storedId", id); // 로그인 성공하면 쿠키 생성
+				response.addCookie(cookie); // 만든 쿠키를 브라우저에 전달함			
 				cookieIsCreated = true;
 			}
 		}
@@ -50,6 +53,29 @@ if (result == 1) {
 		}
 	}
 
+	if(auto_login != null){ // 자동로그인 설정했으면 적용
+		boolean cookieIsCreated = false;
+		for(Cookie c:cookies){
+			if(c.getName().equals("auto_login")){ // 자동 로그인 설정 했는데 기존에 쿠키가 있으면 지우고 새로 생성
+				c.setMaxAge(0);
+				Cookie cookie = new Cookie("auto_login", pw);
+				response.addCookie(cookie);
+				cookieIsCreated = true;
+			}
+		}
+		if(!cookieIsCreated){ // 자동 로그인 설정을 했는데 기존에 쿠키가 없으면 새로 생성
+			Cookie cookie = new Cookie("auto_login", pw);
+			cookie.setMaxAge(60 * 60 * 24 * 30); // 로그인 아이디를 저장하는 쿠키는 30일동안 유지
+			response.addCookie(cookie); // 만든 쿠키를 브라우저에 전달함			
+		}
+	} else { // 자동 로그인을 해제했으면 해당 쿠키 삭제
+		for (Cookie c : cookies) {
+			if (c.getName().equals("auto_login")) {
+				c.setMaxAge(0);
+				response.addCookie(c);
+			}
+		}
+	}
 
 	// 한줄로 주려면 세미콜론을 줘야함.
 	script.println("<script>alert('로그인 성공');location.href='../index.jsp';</script>");
