@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="vo.NoticeVO" %>
-<%@ page import="vo.PageVO" %>
 <%@ page import="concert.Commons" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
@@ -12,7 +11,6 @@
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
-	//PageVO pageInfo = null; // 페이지 정보를 저장하는 변수
 	HashMap<String, Integer> pageInfo = null;
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
 	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
@@ -46,7 +44,6 @@
 	if(!artist.equals("") && !search.equals("")) { // 아티스트별 + 검색
 		list = dao.getNoticeListForUser(pageNumber, noticePerPage, category, artist, search);
 		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, category, artist, search), pageNumber, noticePerPage);
-		//pageInfo = dao.getPageInfo(pageNumber, category, artist, search);
 	}else if(!artist.equals("")) { // 아티스트별
 		list = dao.getNoticeListForUser(pageNumber, noticePerPage, artist);
 		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, artist), pageNumber, noticePerPage);
@@ -138,19 +135,19 @@
 			<p class="text-center text-dark">데이터가 없습니다.</p>
 			<% 
 				}else {
-					for(int i=0;i<list.size();i++) {
+					for(NoticeVO notice : list) {
 			%>
-			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= list.get(i).getNo() %>"><div class="card d-inline-block">
+			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= notice.getNo() %>"><div class="card d-inline-block">
 				<img class="card-img-top" src="../images/장범준.jpg">
 				<div class="card-body font-weight-bold">
 					<%
-						String tag = list.get(i).getTag();
+						String tag = notice.getTag();
 					%>
 					<kbd><%= tag %></kbd>
-					<h4 class="card-title text-left text-black text-truncate"><%= list.get(i).getTitle() %></h4>
-					<p class="card-text text-left text-dark text-truncate"><%= list.get(i).getContent() %></p>
-					<p class="card-text text-left text-dark d-inline-block"><%= list.get(i).getDate() %></p>
-					<small class="card-text text-left text-dark font-weight-bold"><%= "조회수: " + list.get(i).getViews() %></small>
+					<h4 class="card-title text-left text-black text-truncate"><%= notice.getTitle() %></h4>
+					<p class="card-text text-left text-dark text-truncate"><%= notice.getContent() %></p>
+					<p class="card-text text-left text-dark d-inline-block"><%= notice.getDate() %></p>
+					<small class="card-text text-left text-dark font-weight-bold"><%= "조회수: " + notice.getViews() %></small>
 				</div>
 			</div></a>
 			<%

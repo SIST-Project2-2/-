@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="vo.NoticeVO" %>
-<%@ page import="vo.PageVO" %>
 <%@ page import="concert.Commons" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
@@ -11,8 +10,7 @@
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
-	//PageVO pageInfo = null; // 페이지 정보를 저장하는 변수
-	HashMap<String, Integer> pageInfo = null;
+	HashMap<String, Integer> pageInfo = null; // 페이지네이션 정보
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
 	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
@@ -39,11 +37,9 @@
 	if(!search.equals("")) { // 검색
 		list = dao.getNoticeListForAdmin(pageNumber, noticePerPage, category, search);
 		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber, category, search), pageNumber, noticePerPage);
-		//pageInfo = dao.getPageInfo(pageNumber, category, search);
 	}else { // 기본
 		list = dao.getNoticeListForAdmin(pageNumber, noticePerPage);
 		pageInfo = Commons.getPageInfo(dao.getCount(pageNumber), pageNumber, noticePerPage);
-		//pageInfo = dao.getPageInfo(pageNumber);
 	}
 	
 	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기

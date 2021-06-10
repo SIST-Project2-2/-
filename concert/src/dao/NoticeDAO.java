@@ -187,8 +187,8 @@ public class NoticeDAO extends DAO {
 
 		try {
 			// 한 페이지에 공지사항 10개 씩 불러오도록 작성함
-			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
+			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
+					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
 					+ "		from (select * from notices order by no desc) " + "		where rownum <= ? * ?) "
 					+ " where rno > ? * (? - 1) ";
 			getPreparedStatement(sql);
@@ -207,6 +207,7 @@ public class NoticeDAO extends DAO {
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
 				notice.setTag(rs.getString(6));
+				notice.setSimg(rs.getString(7));
 				list.add(notice);
 			}
 		} catch (Exception e) {
@@ -223,8 +224,8 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 
 		try {
-			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
+			String sql = "select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
+					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
 					+ "		from (select * from notices order by no desc) where ";
 
 			if (category == 1) { // category값에 따라 검색하는 범위 변경
@@ -258,7 +259,8 @@ public class NoticeDAO extends DAO {
 				notice.setContent(rs.getString(3));
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
-				notice.setTag(rs.getString(6)); // 태그를 String으로 넣을까 리스트로 넣을까?
+				notice.setTag(rs.getString(6));
+				notice.setSimg(rs.getString(7));
 				list.add(notice);
 			}
 		} catch (Exception e) {
@@ -274,8 +276,8 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 
 		try {
-			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
+			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
+					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
 					+ " 	from (select * from notices order by no desc) "
 					+ " 	where tag like(?) and rownum <= ? * ?) " + " where rno > ? * (? - 1) ";
 
@@ -296,6 +298,7 @@ public class NoticeDAO extends DAO {
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
 				notice.setTag(rs.getString(6));
+				notice.setSimg(rs.getString(7));
 				list.add(notice);
 			}
 		} catch (Exception e) {
@@ -311,8 +314,8 @@ public class NoticeDAO extends DAO {
 		NoticeVO notice = null;
 
 		try {
-			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag "
-					+ " from (select rownum as rno, no, title, content, wdate, views, tag "
+			String sql = " select no, title, content, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), views, tag, simg "
+					+ " from (select rownum as rno, no, title, content, wdate, views, tag, simg "
 					+ " from (select * from notices order by no desc) " + " where tag like(?) and ";
 
 			if (category == 1) { // category값에 따라 검색하는 범위 변경
@@ -348,6 +351,7 @@ public class NoticeDAO extends DAO {
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
 				notice.setTag(rs.getString(6));
+				notice.setSimg(rs.getString(7));
 				list.add(notice);
 			}
 		} catch (Exception e) {
@@ -357,46 +361,6 @@ public class NoticeDAO extends DAO {
 		return list;
 	}
 
-//	// 페이지 구하기 - 기본
-//	public PageVO getPageInfo(int nowPage) {
-//		int count = 0;
-//
-//		try {
-//			String sql = " select count(*) from notices ";
-//			getPreparedStatement(sql);
-//
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				count = rs.getInt(1);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return Commons.getPageProcess(count, nowPage, notice_per_page);
-//	}
-//
-//	// 페이지 구하기 - 가수별
-//	public PageVO getPageInfo(int nowPage, String artist) {
-//		int count = 0;
-//
-//		try {
-//			String sql = " select count(*) from notices " + " where tag like(?) ";
-//			getPreparedStatement(sql);
-//
-//			pstmt.setString(1, Commons.s_string(artist));
-//
-//			rs = pstmt.executeQuery();
-//			if (rs.next()) {
-//				count = rs.getInt(1);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return Commons.getPageProcess(count, nowPage, notice_per_page);
-//	}
-	
 	// 페이지 구하기 - 기본
 	public int getCount(int nowPage) {
 		int count = 0;
@@ -421,7 +385,8 @@ public class NoticeDAO extends DAO {
 		int count = 0;
 		
 		try {
-			String sql = " select count(*) from notices " + " where tag like(?) ";
+			String sql = " select count(*) from notices " 
+					+ " where tag like(?) ";
 			getPreparedStatement(sql);
 			
 			pstmt.setString(1, Commons.s_string(artist));
@@ -474,7 +439,8 @@ public class NoticeDAO extends DAO {
 		int count = 0;
 
 		try {
-			String sql = " select count(*) from notices " + " where tag like(?) and ";
+			String sql = " select count(*) from notices " 
+					+ " where tag like(?) and ";
 			if (category == 1) {
 				sql += " title like(?) ";
 			} else if (category == 2) {

@@ -15,7 +15,7 @@ if (request.getParameter("no") == null) {
 
 no = Integer.parseInt(request.getParameter("no"));
 vo = dao.getNoticeInfoForUser(no);
-// dao.getUpdateView(num);
+dao.getUpdateView(num);
 
 // 해당하는 공지사항이 존재하지 않은 경우 에러페이지 이동
 if (vo.getNo() == 0) {
