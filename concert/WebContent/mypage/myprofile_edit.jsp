@@ -1,11 +1,22 @@
+<%@page import="vo.MemberVO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
-<jsp:useBean id="member" class="vo.MemberVO" scope="page" />
-<jsp:setProperty property="id" name="member" />
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	//
+String id = (String) session.getAttribute("id");
+
+if (id == null) {
+	// PrintWriter는 버퍼에 담아서 한번에 보내지 않고, 실행시마다 바로 돌려주므로 에러페이지를 보여주기 전에 메인 화면으로 돌려보냄
+	PrintWriter script = response.getWriter();
+	script.write("<script>alert('로그인이 필요합니다');location.href='../index.jsp';</script>");
+}
+
+MemberDAO memberDAO = new MemberDAO();
+MemberVO member = memberDAO.get_profile(id);
+
+
+%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -13,10 +24,6 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 - 프로필 수정</title>
-<%
-	MemberDAO memberDAO = new MemberDAO();
-member = memberDAO.get_profile(member.getId());
-%>
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -54,7 +61,7 @@ member = memberDAO.get_profile(member.getId());
 
 						function check_nickname() {
 							var nickname = $("#nickname").val();
-							$.get("check_nickname.jsp?id=" + nickname,
+							$.get("check_nickname.jsp?nickname=" + nickname,
 									function(data, status) {
 										if(data==1){
 											alert("이미 존재하는 닉네임입니다.");
@@ -95,7 +102,7 @@ member = memberDAO.get_profile(member.getId());
 </script>
 </head>
 <body>
-	<form action="myprofile_edit_action.jsp" method="get">
+	<form name="edit_form" action="myprofile_edit_action.jsp" method="get">
 		<div class="container">
 			<h1 class="font-weight-bold text-left">프로필 수정</h1>
 			<div class="row">
@@ -125,7 +132,7 @@ member = memberDAO.get_profile(member.getId());
 									<small>닉네임</small>
 									<div class="input-group">
 										<form action="check_nickname.jsp" method="get">
-											<input type="text" class="form-control" value="무아무아루" placeholder="닉네임" name="nickname" id="nickname" required="required">
+											<input type="text" class="form-control" placeholder="닉네임" name="nickname" id="nickname" required="required">
 											<div class="input-group-append">
 												<button class="btn btn-primary" id="check_nickname" type="button">중복확인</button>
 											</div>
@@ -152,24 +159,18 @@ member = memberDAO.get_profile(member.getId());
 							<div class="row">
 								<div class="col-md-6">
 									<small>생년월일/Date of birth</small>
-									<input type="date" class="form-control" value="1997-08-11" placeholder="생년월일/Date of birth" name="birth_date" id="birth_date"
-										required="required"
-									>
+									<input type="date" class="form-control" value="1997-08-11" placeholder="생년월일/Date of birth" name="birth_date" id="birth_date" required="required">
 								</div>
 								<div class="col-md-6">
 									<small>예매날짜/Date of issue</small>
-									<input type="date" class="form-control" value="2022-03-04" placeholder="예매날짜/Date of issue" name="issue_date" id="issue_date"
-										required="required"
-									>
+									<input type="date" class="form-control" value="2022-03-04" placeholder="예매날짜/Date of issue" name="issue_date" id="issue_date" required="required">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<small>휴대폰 번호/Phone number</small>
 									<div class="input-group mb-3">
-										<input type="tel" class="form-control" value="010-5258-7376" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="010-0000-0000" name="phone"
-											id="phone" required="required"
-										>
+										<input type="tel" class="form-control" value="010-5258-7376" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="010-0000-0000" name="phone" id="phone" required="required">
 									</div>
 								</div>
 							</div>
