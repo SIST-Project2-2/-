@@ -74,14 +74,17 @@
 		
 		// 검색 카테고리를 설정하는 함수
 		function set_category() {
-			var artist = $("#artist");
-			var title = $("#title");
+			var artist = $("#chkbox_artist");
+			var title = $("#chkbox_title");
 			var search_text = $("#notice_list_search");
 			<% 
-			if(searchCategories == null){%> // 검색을 하지 않았으면 둘 다 설정
+			if(searchCategories == null){ // 검색을 하지 않았으면 둘 다 설정
+				System.out.println("카테고리 널입니다");%>
 				artist.attr("checked", "checked");
-				title.attr("checked", "checked");<%
-			}else{%>
+				title.attr("checked", "checked");
+			<%}else{
+				System.out.println(Arrays.toString(searchCategories));
+				%>
 				search_text.val("<%=searchTarget%>");<%
 				for(String str: searchCategories){
 					out.write(str + ".attr(\"checked\", \"checked\");");
@@ -148,12 +151,12 @@
 							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">카테고리</button>
 							<div class="dropdown-menu">
 								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="title" name="category" id="title">
-									<label class="form-check-label" for="title"> 콘서트 명 </label>
+									<input class="form-check-input" type="checkbox" value="title" name="category" id="chkbox_title">
+									<label class="form-check-label" for="chkbox_title"> 콘서트 명 </label>
 								</div>
 								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="artist" name="category" id="artist">
-									<label class="form-check-label" for="artist"> 아티스트 </label>
+									<input class="form-check-input" type="checkbox" value="artist" name="category" id="chkbox_artist">
+									<label class="form-check-label" for="chkbox_artist"> 아티스트 </label>
 								</div>
 							</div>
 						</div>
