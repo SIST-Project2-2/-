@@ -78,13 +78,10 @@
 			var title = $("#chkbox_title");
 			var search_text = $("#notice_list_search");
 			<% 
-			if(searchCategories == null){ // 검색을 하지 않았으면 둘 다 설정
-				System.out.println("카테고리 널입니다");%>
+			if(searchCategories == null){%> // 검색을 하지 않았으면 둘 다 설정
 				artist.attr("checked", "checked");
-				title.attr("checked", "checked");
-			<%}else{
-				System.out.println(Arrays.toString(searchCategories));
-				%>
+				title.attr("checked", "checked");<%
+			}else{%>
 				search_text.val("<%=searchTarget%>");<%
 				for(String str: searchCategories){
 					out.write(str + ".attr(\"checked\", \"checked\");");
