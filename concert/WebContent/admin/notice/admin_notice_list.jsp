@@ -17,7 +17,7 @@
 	
 	int noticePerPage = 10; // 한 페이지당 출력되는 공지 수
 	int pageNumber = 1;
-	int category = 0;
+	int category = 3;
 	String search = "";
 	
 	// 요청 변수 저장
@@ -56,17 +56,19 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// 검색 카테고리 클릭시 카테고리 바뀜
-		$("#category_all").click(function() {
-			$("#category_dropdown").html("전체");
-			$("#category").val(0);
+		$("#check_title").change(function() {
+			if($(this).is(":checked")) {
+				$("#category").val(parseInt($("#category").val()) + 1);
+			}else {
+				$("#category").val(parseInt($("#category").val()) - 1);
+			}
 		})
-		$("#category_title").click(function() {
-			$("#category_dropdown").html("제목");
-			$("#category").val(1);
-		})
-		$("#category_content").click(function() {
-			$("#category_dropdown").html("내용")
-			$("#category").val(2);
+		$("#check_content").change(function() {
+			if($(this).is(":checked")) {
+				$("#category").val(parseInt($("#category").val()) + 2);
+			}else {
+				$("#category").val(parseInt($("#category").val()) - 2);
+			}
 		})
 		
 		// 검색 버튼 클릭시 검색
@@ -111,13 +113,16 @@
 			<div class="col-md-6 d-block mb-3">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown">
-    						<%= categories[category] %>
-  						</button>
-						<div class="dropdown-menu">
-							<label class="dropdown-item" id="category_all" value="0">전체</label>
-							<label class="dropdown-item" id="category_title" value="1">제목</label>
-							<label class="dropdown-item" id="category_content" value="2">내용</label>
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown">카테고리</button>
+						<div class="dropdown-menu col-md-2">
+							<div class="form-check dropdown-item">
+								<input type="checkbox" class="form-check-input" id="check_title" <% if(category % 2 != 0) { %> checked <% } %>>
+								<label class="form-check-label" for="check_title">제목</label>
+							</div>
+							<div class="form-check dropdown-item">
+								<input type="checkbox" class="form-check-input" id="check_content" <% if(category >= 2) { %> checked <% } %>>
+								<label class="form-check-label" for="check_content">내용</label>
+							</div>
 						</div>
 					</div>
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search" value="<%= search %>">

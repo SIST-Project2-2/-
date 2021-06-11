@@ -13,13 +13,12 @@
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
 	HashMap<String, Integer> pageInfo = null;
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
-	String[] categories = {"전체", "제목", "내용"}; // 검색 카테고리 목록
 	String[] options = {"전체", "장범준", "잔나비", "10cm", "현아", "IU"}; // 아티스트별 목록 보기 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	
 	int noticePerPage = 8;
 	int pageNumber = 1;
-	int category = 0;
+	int category = 3;
 	String artist = "";
 	String search = "";
 	
@@ -71,19 +70,22 @@
 		})
 		
 		// 검색 카테고리 클릭시 카테고리 바뀜
-		$("#category_all").click(function() {
-			$("#category_dropdown").html("전체");
-			$("#category").val(0);
+		$("#check_title").change(function() {
+			if($(this).is(":checked")) {
+				$("#category").val(parseInt($("#category").val()) + 1);
+			}else {
+				$("#category").val(parseInt($("#category").val()) - 1);
+			}
 		})
-		$("#category_title").click(function() {
-			$("#category_dropdown").html("제목");
-			$("#category").val(1);
-		})
-		$("#category_content").click(function() {
-			$("#category_dropdown").html("내용")
-			$("#category").val(2);
+		$("#check_content").change(function() {
+			if($(this).is(":checked")) {
+				$("#category").val(parseInt($("#category").val()) + 2);
+			}else {
+				$("#category").val(parseInt($("#category").val()) - 2);
+			}
 		})
 		
+		// 검색 버튼 클릭시 submit
 		$("#btn_search").click(function() {
 			notice_list_search_form.submit();
 		})
@@ -104,13 +106,16 @@
 			<div class="col-md-6 d-block">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown">
-    						<%= categories[category] %>
-  						</button>
-						<div class="dropdown-menu">
-							<label class="dropdown-item" id="category_all" value="0">전체</label>
-							<label class="dropdown-item" id="category_title" value="1">제목</label>
-							<label class="dropdown-item" id="category_content" value="2">내용</label>
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown">카테고리</button>
+						<div class="dropdown-menu col-md-2">
+							<div class="form-check dropdown-item">
+								<input type="checkbox" class="form-check-input" id="check_title" <% if(category % 2 != 0) { %> checked <% } %>>
+								<label class="form-check-label" for="check_title">제목</label>
+							</div>
+							<div class="form-check dropdown-item">
+								<input type="checkbox" class="form-check-input" id="check_content" <% if(category >= 2) { %> checked <% } %>>
+								<label class="form-check-label" for="check_content">내용</label>
+							</div>
 						</div>
 					</div>
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search" value="<%= search %>">
