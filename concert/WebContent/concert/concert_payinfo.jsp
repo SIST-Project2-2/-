@@ -27,13 +27,13 @@
 	
 	dao.close();
 %>
-<!-- header -->
-<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>결제 영수증</title>
+<!-- header -->
+<jsp:include page="../header.jsp"></jsp:include>
 </head>
 <body>
 	<section class="container-md" id="content_concert_payinfo">

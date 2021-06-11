@@ -5,17 +5,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="vo.CommentVO" %>
 <%@ page import="dao.CommentDAO" %>
-<%@ page import="dao.MemberDAO" %>
 <%@ page import="concert.Commons" %>
 <%
-	MemberDAO mDao = new MemberDAO();
-
-	// 로그인한 유저가 관리자나 테스터가 아닌 경우 에러 페이지 이동
-	if(mDao.getAuthority((String)session.getAttribute("id")) != 1 && mDao.getAuthority((String)session.getAttribute("id")) != 2) {
-		response.sendRedirect("../../error.jsp");
-	}
-	mDao.close();
-
 	PrintWriter script = response.getWriter();
 	CommentDAO dao = new CommentDAO();
 	ArrayList<CommentVO> list = null;
@@ -75,12 +66,12 @@
 	dao.close();
 %>
 <!-- header -->
-<jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>아티스트 댓글 관리</title>
+<jsp:include page="../admin_header.jsp"></jsp:include>
 <style>
 .comment_content {
 	width: 75%;

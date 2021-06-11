@@ -125,7 +125,7 @@ public class NoticeDAO extends DAO {
 				sql += categoryAll;
 			}
 
-			sql += listCommonEnd;
+			sql += " and " + listCommonEnd;
 
 			getPreparedStatement(sql);
 
