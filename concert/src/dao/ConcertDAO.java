@@ -104,7 +104,7 @@ public class ConcertDAO extends DAO {
 			e.printStackTrace();
 		}
 
-		sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM (SELECT * FROM CONCERTS " + sql_where + " ORDER BY NO DESC) C)";
+		sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM (SELECT * FROM CONCERTS " + sql_where + " ORDER BY CDATE DESC) C)";
 		if (page_no != 0) {
 			sql += " WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 		}
@@ -163,7 +163,7 @@ public class ConcertDAO extends DAO {
 		ArrayList<ConcertVO> concert_list = new ArrayList<ConcertVO>();
 
 		try {
-			String sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM (SELECT * FROM CONCERTS ORDER BY NO DESC) C) WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM (SELECT * FROM CONCERTS ORDER BY CDATE DESC) C) WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, page_size);
