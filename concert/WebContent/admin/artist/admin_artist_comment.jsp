@@ -5,7 +5,6 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="vo.CommentVO" %>
 <%@ page import="dao.CommentDAO" %>
-<%@ page import="dao.MemberDAO" %>
 <%@ page import="concert.Commons" %>
 <%
 	PrintWriter script = response.getWriter();

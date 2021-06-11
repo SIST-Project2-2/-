@@ -3,7 +3,6 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.LinkedHashMap" %>
 <%@ page import="dao.StatisticsDAO" %>
-<%@ page import="dao.MemberDAO" %>
 <%
 	PrintWriter script = response.getWriter();
 	StatisticsDAO dao = new StatisticsDAO();
