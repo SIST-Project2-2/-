@@ -4,8 +4,36 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	MemberDAO dao = new MemberDAO();
-	ArrayList<MemberVO> list = dao.getList();
+	//ArrayList<MemberVO> list = dao.getList();
 	String id = request.getParameter("id");
+	String rpage = request.getParameter("page");
+	
+	//페이징 처리 - startCount, endCount 구하기
+	int startCount = 0;
+	int endCount = 0;
+	int pageSize = 10;	//한페이지당 게시물 수
+	int reqPage = 1;	//요청페이지	
+	int pageCount = 1;	//전체 페이지 수
+	int dbCount = dao.execTotalCount();	//DB에서 가져온 전체 행수
+	
+	//총 페이지 수 계산
+	if(dbCount % pageSize == 0){
+		pageCount = dbCount/pageSize;
+	}else{
+		pageCount = dbCount/pageSize+1;
+	}
+	
+	//요청 페이지 계산
+	if(rpage != null){
+		reqPage = Integer.parseInt(rpage);
+		startCount = (reqPage-1) * pageSize+1;
+		endCount = reqPage *pageSize;
+	}else{
+		startCount = 1;
+		endCount = 10;
+	}
+	
+	ArrayList<MemberVO> list = dao.getList(startCount, endCount);
 %>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
@@ -14,30 +42,35 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
-<script type="text/javascript">
-$(document).ready(function(){
-	if($("#id").is(":checked") == true) {
+<link rel="stylesheet" href="http://localhost:9000/concert/css/am-pagination.css">
+<script src="http://localhost:9000/concert/js/jquery-3.6.0.min.js"></script>
+<script src="http://localhost:9000/concert/js/am-pagination.js"></script>
+<script>
+	$(document).ready(function(){
 		
-	}
-});
-<!--
-	window.onload = function() {
-		var table_body = document.getElementById("table_body");
-
-		for (var i = 0; i < list.length; i++) {
-			table_body.innerHTML += '<tr>'
-					+ '<th scope="row">HWISAEK</th>'
-					+ '<td class="text-left">휘색</td>'
-					+ '<td>이창민</td>'
-					+ '<td>010-1234-5678</td>'
-					+ '<td>example@test.com</td>'
-					+ '<td>'
-					+ '	<a type="button" class="btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="'+i+'">삭제</a>'
-					+ '</td>' + '</tr>';
-		}
-	}
-	-->
-</script>
+		var pager = jQuery('#ampaginationsm').pagination({
+		
+		    maxSize: 7,	    		// max page size
+		    totals: <%=dbCount%>,	// total pages	
+		    page: <%=rpage%>,		// initial page		
+		    pageSize: 10,			// max number items per page
+		
+		    // custom labels		
+		    lastText: '&raquo;', 		
+		    firstText: '&laquo;',		
+		    prevText: '&lt;',		
+		    nextText: '&gt;',
+				     
+		    btnSize:'sm'	// 'sm'  or 'lg'		
+		});
+		
+		jQuery('#ampaginationsm').on('am.pagination.change',function(e){
+			   jQuery('.showlabelsm').text('The selected page no: '+e.page);
+	           $(location).attr('href', "http://localhost:9000/concert/admin/member/admin_member_list.jsp?page="+e.page);         
+	    });
+		
+ 	});
+</script> 
 <style>
 form div {
 	text-align: center;
@@ -130,9 +163,8 @@ div#member_delete {
 				%>
 			</tbody>
 		</table>
-		<div class="text-right">
-			<a href="admin_notice_add.jsp" class="btn-sm btn-primary">글쓰기</a>
-		</div>
+		<td colspan=4><div id="ampaginationsm"></div></td>
+		<!-- 
 		<ul class="pagination justify-content-center">
 			<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
 			<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -140,6 +172,7 @@ div#member_delete {
 			<li class="page-item"><a class="page-link" href="#">3</a></li>
 			<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
 		</ul>
+		 -->
 	</section>
 
 	<div class="modal fade" id="exampleModal" tabindex="-1"
