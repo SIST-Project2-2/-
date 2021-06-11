@@ -8,14 +8,6 @@
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <%
-	MemberDAO mDao = new MemberDAO();
-
-	//로그인한 유저가 관리자나 테스터가 아닌 경우 에러 페이지 이동
-	if(mDao.getAuthority((String)session.getAttribute("id")) != 1 && mDao.getAuthority((String)session.getAttribute("id")) != 2) {
-		response.sendRedirect("../../error.jsp");
-	}
-	mDao.close();
-	
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO(); // db 연결 객체
 	ArrayList<NoticeVO> list = null; // 공지사항 목록

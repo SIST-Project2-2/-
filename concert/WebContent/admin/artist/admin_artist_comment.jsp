@@ -8,14 +8,6 @@
 <%@ page import="dao.MemberDAO" %>
 <%@ page import="concert.Commons" %>
 <%
-	MemberDAO mDao = new MemberDAO();
-
-	// 로그인한 유저가 관리자나 테스터가 아닌 경우 에러 페이지 이동
-	if(mDao.getAuthority((String)session.getAttribute("id")) != 1 && mDao.getAuthority((String)session.getAttribute("id")) != 2) {
-		response.sendRedirect("../../error.jsp");
-	}
-	mDao.close();
-
 	PrintWriter script = response.getWriter();
 	CommentDAO dao = new CommentDAO();
 	ArrayList<CommentVO> list = null;
