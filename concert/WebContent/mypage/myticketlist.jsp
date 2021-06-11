@@ -19,13 +19,13 @@
 	// 데이터를 모두 불러온 뒤, dao 객체 닫음
 	dao.close();
 %>
-<!-- header -->
-<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>콘서트 예매내역</title>
+<!-- header -->
+<jsp:include page="../header.jsp"></jsp:include>
 <style>
 	.d1, .d2 {
 		height:300px;

@@ -20,13 +20,13 @@
 	}
 	dao.close();
 %>
-<!-- header -->
-<jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>통계</title>
+<!-- header -->
+<jsp:include page="../admin_header.jsp"></jsp:include>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> <!-- js 구글 통계 라이브러리 --> 
 <% // js 배열에 꺼내온 데이터 저장
 	script.println("<script>");

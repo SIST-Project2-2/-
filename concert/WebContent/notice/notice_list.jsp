@@ -57,6 +57,11 @@
 	
 	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기
 %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공지사항 목록</title>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <script type="text/javascript">
@@ -84,11 +89,6 @@
 		})
 	});
 </script>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>공지사항 목록</title>
 <style>
 	.card {
 		width: 250px; height: 420px;

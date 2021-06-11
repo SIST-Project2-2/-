@@ -44,14 +44,13 @@
 	
 	dao.close(); // 데이터를 모두 불러온 뒤 dao 객체 닫기
 %>
-<!-- header -->
-<jsp:include page="../admin_header.jsp"></jsp:include>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자 - 공지사항 목록</title>
+<!-- header -->
+<jsp:include page="../admin_header.jsp"></jsp:include>
 <script type="text/javascript">
 </script>
 <script type="text/javascript">

@@ -66,12 +66,12 @@
 	dao.close();
 %>
 <!-- header -->
-<jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>아티스트 댓글 관리</title>
+<jsp:include page="../admin_header.jsp"></jsp:include>
 <style>
 .comment_content {
 	width: 75%;
