@@ -176,7 +176,7 @@ MemberVO member = memberDAO.get_profile(id);
 							</div>
 							<div class="row">
 								<div class="col-md-6">
-									<a href="myticketlist.jsp" class="btn btn-light">예매내역 확인</a>
+									<a class="btn btn-light invisible">예매내역 확인</a>
 								</div>
 							</div>
 						</div>
