@@ -32,15 +32,15 @@ public class ConcertDAO extends DAO {
 		}
 		return vo;
 	}
-	
+
 	public ConcertVO getConcertInfo(String no) {
 		ConcertVO vo = new ConcertVO();
 		try {
 			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS WHERE NO = ?";
 			getPreparedStatement(sql);
-			
+
 			pstmt.setString(1, no);
-			
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				vo.setNo(rs.getInt(1));
@@ -95,7 +95,7 @@ public class ConcertDAO extends DAO {
 							sql_where += "OR ";
 						}
 						// 해당 필드가 존재하면 WHERE 구문에 "속성명 LIKE('%속성값%')" 을 추가함
-						sql_where += field.getName() + " LIKE('%" + field.get(search_target) + "%') ";
+						sql_where += "LOWER(" + field.getName() + ") LIKE(LOWER('%" + field.get(search_target) + "%')) ";
 						sql_whereHasCreated = true;
 					}
 				}
@@ -270,10 +270,9 @@ public class ConcertDAO extends DAO {
 
 	// 콘서트 수정
 	public boolean edit_concert(String no, ConcertVO concert) {
-		
+
 		boolean result = false;
-		
-		
+
 		try {
 			String sql = "update concerts set artist=?, title=?, content=?, cdate=?, location=? where no=?";
 			getPreparedStatement(sql);
@@ -285,13 +284,12 @@ public class ConcertDAO extends DAO {
 			pstmt.setString(5, concert.getLocation());
 			pstmt.setString(6, no);
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
-							
-			int value= pstmt.executeUpdate();
-				
-			if(value!=0) {
-				result= true;
+
+			int value = pstmt.executeUpdate();
+
+			if (value != 0) {
+				result = true;
 			}
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -300,5 +298,5 @@ public class ConcertDAO extends DAO {
 		close();
 		return result;
 	}
-	
+
 }

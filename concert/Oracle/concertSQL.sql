@@ -327,7 +327,7 @@ SELECT *
 FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION
            FROM (SELECT * 
                      FROM CONCERTS 
-                     WHERE ARTIST LIKE('%범준%')
+                     WHERE LOWER(ARTIST) LIKE(LOWER('%u%'))
                      ORDER BY NO DESC) C)
 WHERE RNO > 10 * (2 - 1) AND RNO <= 10 * 2;
 
