@@ -351,6 +351,58 @@ public class MemberDAO extends DAO {
 		close();
 		return list;
 	}
+	
+	public ArrayList<MemberVO> getList(int start, int end) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		String sql = "select id, nickname, first_name, last_name, phone, email "
+				+ " from (select rownum rno, id, nickname, first_name, last_name, phone, email "
+				+ " from (select id, nickname, first_name, last_name, phone, email from members " 
+				+ " order by last_name)) "
+				+ " where rno between ? and ?";
+
+		getPreparedStatement(sql);
+
+		try {
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString(1));
+				vo.setNickname(rs.getString(2));
+				vo.setFirst_name(rs.getString(3));
+				vo.setLast_name(rs.getString(4));
+				vo.setPhone(rs.getString(5));
+				vo.setEmail(rs.getString(6));
+
+				list.add(vo);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		
+		return list;
+	}
+	
+	/* 전체 카운트 가져오기*/
+	//execTotalCount()
+	public int execTotalCount(){
+		int count = 0;
+		String sql = " select count(*) from members";
+		getPreparedStatement(sql);
+		
+		try {
+			rs = pstmt.executeQuery();
+			if(rs.next()) count = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 
 	// 회원 검색-id
 	public ArrayList<MemberVO> getSearchId() {
