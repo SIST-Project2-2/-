@@ -89,6 +89,22 @@ nav#top_nav {
 	margin-bottom: 0px !important;
 }
 </style>
+<script>
+	function clickFunction(name){
+	
+		if(name=='jang'){
+		document.getElementById("alert1").style.display="none";	
+		}else if(name=='iu'){
+		document.getElementById("alert2").style.display = "none";
+		}else if(name=='jan'){
+		document.getElementById("alert3").style.display = "none";
+		}else if(name=='cm'){
+		document.getElementById("alert4").style.display = "none";
+		}else if(name=='hyun'){
+		document.getElementById("alert5").style.display = "none";
+		}
+	}
+</script>
 </head>
 <body>
 
@@ -96,33 +112,38 @@ nav#top_nav {
 	<div class="main">
 		<!-- 장범준 모달 -->
 		<a class="btn btn-default" data-target="#modal_jang"
-			data-toggle="modal" id="jang_island"> <img src="images/장범준섬.png"
+			data-toggle="modal" id="jang_island" onclick="clickFunction('jang')"> <img src="images/장범준섬.png"
 			onmouseover="this.src='images/호버장범준섬.png'"
 			onmouseout="this.src='images/장범준섬.png'">
+			<img src="images/큰느낌표.png" id="alert1">
 		</a>
 		<!-- 아이유 모달 -->
 		<a class="btn btn-default" data-target="#modal_iu" data-toggle="modal"
-			id="iu_island"> <img src="images/아이유섬.png"
+			id="iu_island" onclick="clickFunction('iu')"> <img src="images/아이유섬.png"
 			onmouseover="this.src='images/호버아이유섬.png'"
 			onmouseout="this.src='images/아이유섬.png'">
+			<img src="images/큰느낌표.png" id="alert2">
 		</a>
 		<!-- 잔나비 모달 -->
 		 <a class="btn btn-default" data-target="#modal_jan"
-			data-toggle="modal" id="jan_island"> <img src="images/잔나비섬.png"
+			data-toggle="modal" id="jan_island" onclick="clickFunction('jan')"> <img src="images/잔나비섬.png"
 			onmouseover="this.src='images/호버잔나비섬.png'"
-			onmouseout="this.src='images/잔나비섬.png'"> <!-- 십센치 모달 -->
+			onmouseout="this.src='images/잔나비섬.png'">
+			<img src="images/큰느낌표.png" id="alert3"> 
 		</a> 
 		<!-- 십센치 모달 -->
 		<a class="btn btn-default" data-target="#modal_cm"
-			data-toggle="modal" id="cm_island"> <img src="images/십센치섬.png"
+			data-toggle="modal" id="cm_island" onclick="clickFunction('cm')"> <img src="images/십센치섬.png"
 			onmouseover="this.src='images/호버십센치섬.png'"
 			onmouseout="this.src='images/십센치섬.png'">
+			<img src="images/큰느낌표.png" id="alert4">
 		</a>
 		<!-- 현아 모달 -->
 		 <a class="btn btn-default" data-target="#modal_hyun"
-			data-toggle="modal" id="hyun_island"> <img src="images/현아섬.png"
+			data-toggle="modal" id="hyun_island" onclick="clickFunction('hyun')"> <img src="images/현아섬.png"
 			onmouseover="this.src='images/호버현아섬.png'"
 			onmouseout="this.src='images/현아섬.png'">
+			<img src="images/큰느낌표.png" id="alert5">
 		</a>
 		<div class="container">
 
