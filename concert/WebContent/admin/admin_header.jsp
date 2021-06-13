@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- import -->
-<jsp:include page="../import.jsp"></jsp:include>
 <%
 	//
 // 로그인했으면 id에 값이 저장되고 로그인 되어있지 않으면 null이 저장된 id 변수 설정
@@ -15,7 +13,8 @@ if (id == null && authority != "1") { // 관리자가 아니면 메인으로 이
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- import -->
+<jsp:include page="../import.jsp"></jsp:include>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top mb-3">

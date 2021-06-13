@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- header -->
-<jsp:include page="/import.jsp"></jsp:include>
 <%
 	//
 // 로그인했으면 id에 값이 저장되고 로그인 되어있지 않으면 null이 저장된 id 변수 설정
@@ -16,6 +14,8 @@ if (id != null) {
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- import -->
+<jsp:include page="/import.jsp"></jsp:include>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/header.css">
 </head>
 <body>
