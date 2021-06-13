@@ -1,8 +1,8 @@
 package vo;
 
-public class MemberVO {
-
+public class MemberVO extends VO {
 	// Field
+	private static final long serialVersionUID = 1L;
 	private int no; // 회원번호
 	private String id; // 아이디
 	private String pw; // 비밀번호
@@ -16,7 +16,7 @@ public class MemberVO {
 	private String authority; // 권한
 	private String withdrawal; // 탈퇴 요청 여부
 	private String email; // 이메일 주소
-	private String emailHash; //이메일 인증 데이터
+	private String emailHash; // 이메일 인증 데이터
 	private int emailCheck; // 이메일 인증 여부
 
 	public String getEmailHash() {
@@ -26,8 +26,6 @@ public class MemberVO {
 	public void setEmailHash(String emailHash) {
 		this.emailHash = emailHash;
 	}
-
-	
 
 	// Constructor
 	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex, String address, String phone, String authority, String withdrawal, String email) {
@@ -178,11 +176,9 @@ public class MemberVO {
 		this.emailCheck = emailCheck;
 	}
 
-	public MemberVO(String id, String pw, String nickname, String first_name, String last_name,
-			String birth_date, String sex, String address, String phone, 
-			String email, String emailHash, int emailCheck) {
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email, String emailHash, int emailCheck) {
 		super();
-		
+
 		this.id = id;
 		this.pw = pw;
 		this.nickname = nickname;
@@ -192,16 +188,10 @@ public class MemberVO {
 		this.sex = sex;
 		this.address = address;
 		this.phone = phone;
-		
+
 		this.email = email;
 		this.emailHash = emailHash;
 		this.emailCheck = emailCheck;
 	}
 
-	
-
-	
-	
-	
-	
 }

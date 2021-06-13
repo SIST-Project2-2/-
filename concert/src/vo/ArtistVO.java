@@ -1,6 +1,7 @@
 package vo;
 
-public class ArtistVO {
+public class ArtistVO extends VO {
+	private static final long serialVersionUID = 1L;
 	private int no;
 	private String name;
 	private String content;

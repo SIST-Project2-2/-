@@ -1,6 +1,7 @@
 package vo;
 
-public class SeatVO {
+public class SeatVO extends VO{
+	private static final long serialVersionUID = 1L;
 	private int concert_no, order_no;
 	private String id, seat_no;
 
