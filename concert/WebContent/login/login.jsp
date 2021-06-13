@@ -1,28 +1,15 @@
+<%@page import="util.Cookies"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	//
+Cookies cookies = new Cookies(request);
 
-String storedId = ""; // 마지막으로 로그인 성공한 아이디
-String auto_login = null;
+String storedId = cookies.getValue("storedId"); // 마지막으로 로그인 성공한 아이디
+String auto_login = cookies.getValue("auto_login");
 
-int count = 0;
-Cookie[] cookies = request.getCookies();
-for (Cookie cookie : cookies) {
-	if (cookie.getName().equals("storedId")) {
-		storedId = cookie.getValue();
-		count++;
-	}
-	if (cookie.getName().equals("auto_login")) {
-		auto_login = cookie.getValue();
-		count++;
-	}
-	if (count >= 2) {
-		break;
-	}
-}
-
-if (storedId != null && auto_login != null) {
-	response.sendRedirect("login_action.jsp?id=" + storedId + "&pw="+auto_login+"&id_store=on&auto_login=on");
+// 아이디 저장 + 자동 로그인 쿠키가 존재하면 로그인 실행"
+if (cookies.exists("storeId") && cookies.exists("auto_login")) {
+	response.sendRedirect("login_action.jsp?id=" + storedId + "&pw=" + auto_login + "&inametore=on&auto_login=on");
 }
 %>
 <!-- header -->
@@ -40,7 +27,7 @@ if (storedId != null && auto_login != null) {
 				<div class="form-group">
 					<label class="font-weight-bold" style="font-size: 40px;">로그인</label>
 					<p class="border border-dark bg-dark text-dark" style="padding: 3px;"></p>
-					<input type="text" class="form-control" placeholder="아이디" id="id" name="id" required="required" value="<%=storedId%>">
+					<input type="text" class="form-control" placeholder="아이디" id="id" name="id" required="required" value="<%=storedId == null ? "" : storedId%>">
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" placeholder="비밀번호" id="pw" name="pw" required="required">
@@ -54,7 +41,7 @@ if (storedId != null && auto_login != null) {
 			</div>
 			<div class="d-flex text-muted">
 				<label>
-					<input type="checkbox" name="id_store" id="id_store" <%=(storedId.equals("")) ? "" : "checked"%>>
+					<input type="checkbox" name="id_store" id="id_store" <%="".equals(storedId) ? "" : "checked"%>>
 					<small> 아이디 저장 </small>
 				</label>
 				<label class="ml-2">
