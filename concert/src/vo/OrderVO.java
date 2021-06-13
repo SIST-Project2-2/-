@@ -1,6 +1,7 @@
 package vo;
 
-public class OrderVO {
+public class OrderVO  extends VO{
+	private static final long serialVersionUID = 1L;
 	private int no;
 	private String id;
 	private int concert_no;

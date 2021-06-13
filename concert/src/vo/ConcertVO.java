@@ -1,8 +1,9 @@
 package vo;
 
-public class ConcertVO {
+public class ConcertVO extends VO {
 
 	// Field
+	private static final long serialVersionUID = 1L;
 	private int no = -1, price = -1;
 	private String artist;
 	private String title;
@@ -16,7 +17,7 @@ public class ConcertVO {
 		if (no != -1) {
 			json += "no: " + this.no + ", ";
 		}
-		
+
 		if (artist != null) {
 			json += "artist: " + this.artist + ", ";
 		}

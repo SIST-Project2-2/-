@@ -1,6 +1,7 @@
 package vo;
 
-public class NoticeVO {
+public class NoticeVO  extends VO{
+	private static final long serialVersionUID = 1L;
 	private int no; // 공지사항 번호
 	private String title; // 공지사항 제목
 	private String content; // 공지사항 내용
