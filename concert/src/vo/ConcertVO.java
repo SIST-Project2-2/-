@@ -3,7 +3,6 @@ package vo;
 public class ConcertVO extends VO {
 
 	// Field
-	private static final long serialVersionUID = 1L;
 	private int no = -1, price = -1;
 	private String artist;
 	private String title;

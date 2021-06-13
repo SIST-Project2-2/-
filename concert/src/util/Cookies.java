@@ -46,11 +46,18 @@ public class Cookies {
 		return new Cookie(name, value);
 	}
 
-	// 쿠키의 유효시간까지 설정하는 메소드 
+	// 쿠키의 유효시간까지 설정하는 메소드
 	public static Cookie createCookie(String name, String value, int maxAge) {
 		Cookie cookie = new Cookie(name, value);
 		cookie.setMaxAge(maxAge);
 		return cookie;
+	}
 
+	// 쿠키의 유효시간까지 설정하는 메소드
+	public static Cookie createCookie(String name, String value, int maxAge, String path) {
+		Cookie cookie = new Cookie(name, value);
+		cookie.setMaxAge(maxAge);
+		cookie.setPath(path);
+		return cookie;
 	}
 }
