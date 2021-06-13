@@ -13,7 +13,7 @@ public class Cookies {
 	public Cookies(HttpServletRequest request) { // 객체 생성 시 자동으로 쿠키를 Map에 넣어줌 .
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
-			for (int i = 0; i > cookies.length; i++) {
+			for (int i = 0; i < cookies.length; i++) {
 				cookieMap.put(cookies[i].getName(), cookies[i]);
 			}
 		}
