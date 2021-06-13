@@ -41,10 +41,16 @@ public class Cookies {
 		return cookieMap.get(name) != null;
 	}
 
-	// 새로운 쿠키를 생성하는 메소드
-	public Cookie createCookie(String name, String value) {
-		Cookie cookie =  new Cookie(name, value);
-		cookieMap.put(name, cookie);
+	// 새로운 쿠키를 생성하는 메소드. 맵에 넣지 않고 생성만 함
+	public static Cookie createCookie(String name, String value) {
+		return new Cookie(name, value);
+	}
+
+	// 쿠키의 유효시간까지 설정하는 메소드 
+	public static Cookie createCookie(String name, String value, int maxAge) {
+		Cookie cookie = new Cookie(name, value);
+		cookie.setMaxAge(maxAge);
 		return cookie;
+
 	}
 }
