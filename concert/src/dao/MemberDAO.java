@@ -373,6 +373,7 @@ public class MemberDAO extends DAO {
 				vo.setLast_name(rs.getString(4));
 				vo.setPhone(rs.getString(5));
 				vo.setEmail(rs.getString(6));
+				vo.setWithdrawal(rs.getString(7));
 
 				list.add(vo);
 			}
@@ -435,6 +436,7 @@ public class MemberDAO extends DAO {
 	// 회원 삭제
 	public boolean getDeleteResult(String id) {
 		boolean result = false;
+		MemberVO vo = new MemberVO();
 		String sql = "delete from members where id=?";
 
 		getPreparedStatement(sql);
@@ -452,6 +454,7 @@ public class MemberDAO extends DAO {
 		}
 		close();
 		return result;
+
 	}
 
 	// 해당 유저의 권한(일반유저, 관리자, 테스터 등) 확인
@@ -483,7 +486,7 @@ public class MemberDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 }
