@@ -150,7 +150,7 @@ div#member_delete {
 				<td><%=vo.getLast_name()%><%=vo.getFirst_name()%></td>
 				<td><%=vo.getPhone()%></td>
 				<td><%=vo.getEmail()%></td>
-					<% if(vo.getWithdrawal().equals("1")) { %>
+					<% if("1".equals(vo.getWithdrawal())) { %>
 						<td><a href="admin_member_list_delete_process.jsp?id=<%=vo.getId()%>"><button type="button" class="btn-sm btn-danger">삭제</button></a>
 					<% }else{ %>
 						<td><a href="#" onClick="alert('해당 회원이 취소신청을 하지 않았습니다')"><button type="button" class="btn btn-secondary">삭제</button></td>
