@@ -141,26 +141,27 @@ div#member_delete {
 				</tr>
 			</thead>
 			<tbody id="table_body">
-				<%
-					for (MemberVO vo : list) {
-				%>
-				<tr>
-					<th scope="row"><%=vo.getId()%></th>
-					<td class="text-left"><%=vo.getNickname()%></td>
-					<td><%=vo.getLast_name()%><%=vo.getFirst_name()%></td>
-					<td><%=vo.getPhone()%></td>
-					<td><%=vo.getEmail()%></td>
-					<td><a href="admin_member_list_delete_process.jsp?id=<%=vo.getId()%>"><button type="button" class="btn-sm btn-danger">삭제</button></a>
-					
+			<%
+				for (MemberVO vo : list) {
+			%>
+			<tr>
+				<th scope="row"><%=vo.getId()%></th>
+				<td class="text-left"><%=vo.getNickname()%></td>
+				<td><%=vo.getLast_name()%><%=vo.getFirst_name()%></td>
+				<td><%=vo.getPhone()%></td>
+				<td><%=vo.getEmail()%></td>
+					<% if(vo.getWithdrawal().equals("1")) { %>
+						<td><a href="admin_member_list_delete_process.jsp?id=<%=vo.getId()%>"><button type="button" class="btn-sm btn-danger">삭제</button></a>
+					<% }else{ %>
+						<td><a href="#" onClick="alert('해당 회원이 취소신청을 하지 않았습니다')"><button type="button" class="btn btn-secondary">삭제</button></td>
+					<% } %>
+				<% } %>
 					<!-- 
 					<td><a href="admin_member_list_delete_process.jsp?id=<%=id%>" type="button" class="btn-sm btn-danger"
 						data-toggle="modal" data-target="#exampleModal"
 						data-whatever="'+i+'">삭제</a></td>
 						 -->
 				</tr>
-				<%
-					}
-				%>
 			</tbody>
 		</table>
 		<td colspan=4><div id="ampaginationsm"></div></td>
