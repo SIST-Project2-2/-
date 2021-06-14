@@ -1,14 +1,17 @@
+<%@page import="vo.MemberVO"%>
 <%@page import="util.Cookies"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	//
 Cookies cookies = new Cookies(request);
-
 String storedId = cookies.getValue("storedId"); // 마지막으로 로그인 성공한 아이디
 String auto_login = cookies.getValue("auto_login");
 
 // 아이디 저장 + 자동 로그인 쿠키가 존재하면 로그인 실행"
-if (cookies.exists("storeId") && cookies.exists("auto_login")) {
+if (session.getAttribute("id") != null) {
+	// 이미 로그인이 되어 있으면 메인 페이지로 이동
+	out.println("<script>alert('이미 로그인 되어 있습니다.');history.back();</script>");
+} else if (cookies.exists("storeId") && cookies.exists("auto_login")) {
 	response.sendRedirect("login_action.jsp?id=" + storedId + "&pw=" + auto_login + "&inametore=on&auto_login=on");
 }
 %>
@@ -41,7 +44,7 @@ if (cookies.exists("storeId") && cookies.exists("auto_login")) {
 			</div>
 			<div class="d-flex text-muted">
 				<label>
-					<input type="checkbox" name="id_store" id="id_store" <%="".equals(storedId) ? "" : "checked"%>>
+					<input type="checkbox" name="id_store" id="id_store" <%=storedId == null ? "" : "checked"%>>
 					<small> 아이디 저장 </small>
 				</label>
 				<label class="ml-2">
