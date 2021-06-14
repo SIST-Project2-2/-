@@ -36,7 +36,7 @@ public class ConcertDAO extends DAO {
 	public ConcertVO getConcertInfo(String no) {
 		ConcertVO vo = new ConcertVO();
 		try {
-			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM CONCERTS WHERE NO = ?";
+			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM CONCERTS WHERE NO = ?";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, no);
@@ -49,10 +49,12 @@ public class ConcertDAO extends DAO {
 				vo.setContent(rs.getString(4));
 				vo.setCdate(rs.getString(5));
 				vo.setLocation(rs.getString(6));
+				vo.setPrice(rs.getInt(7));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 		return vo;
 	}
 
@@ -69,6 +71,7 @@ public class ConcertDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 		return result;
 	}
 

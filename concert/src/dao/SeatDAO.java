@@ -29,6 +29,7 @@ public class SeatDAO extends DAO {
 			list = null;
 			e.printStackTrace();
 		}
+		close();
 		return list;
 	}
 
@@ -45,7 +46,7 @@ public class SeatDAO extends DAO {
 					sql += " UNION ALL ";
 				}
 			}
-			System.out.println(sql);
+//			System.out.println(sql);
 			getPreparedStatement(sql);
 
 			result = pstmt.executeUpdate();
