@@ -87,7 +87,7 @@
 																	$(
 																			"#idCheckResult")
 																			.text(
-																					"사용가능한 아이디 입니다.");
+																					"사용 가능한 아이디 입니다.");
 																	$(
 																			"#idCheckResult")
 																			.focus();
@@ -101,6 +101,26 @@
 										})
 
 					});
+</script>
+<!-- 주소검색 API -->
+<script>
+	function goPopup() {
+		// 주소검색을 수행할 팝업 페이지를 호출
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출
+		var pop = window.open("/concert/join/jusoPopup.jsp", "pop",
+				"width=570,height=420, scrollbars=yes, resizable=yes");
+	}
+
+	function jusoCallBack(roadAddrPart1, addrDetail) {
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록
+		
+		let addr = document.querySelector("#addr");
+		let daddr = document.querySelector("#daddr");
+		
+		//주소,상새주소 input칸에 주소검색API에서 찾은 데이터 value 값 넣기
+		addr.value = roadAddrPart1;
+		daddr.value = addrDetail;
+	}
 </script>
 <link rel="stylesheet" href="join.css">
 </head>
@@ -121,8 +141,7 @@
 					style="width: 60%; float: left; height: 40px;">
 				<button type="button" class="btn btn-secondary" id="idCheck"
 					style="width: 30%; display: inline; float: left; position: relative; top: -30px;">중복체크</button>
-
-				<div id="idCheckResult"></div>
+				<div id="idCheckResult" style="position: relative; top: -20px;float:left"></div>
 				<button type="submit" id="idBtn">다음</button>
 			</div>
 		</div>
@@ -154,6 +173,7 @@
 			</div>
 		</div>
 
+	<!-- 주소검색 API UI juso.go.kr API 사용 -->
 		<div class="nameHide" style="display: none;">
 			<div class="joinID">
 				<h1>가입하기</h1>
@@ -164,10 +184,10 @@
 					<input type="text" name="lastName" id="lastName" required
 						placeholder="성 입력"> <input type="text" name="firstName"
 						id="firstName" required placeholder="이름입력"> <input
-						type="text" name="addr" id="addr" required placeholder="주소입력">
+						type="text" name="addr" id="addr" required placeholder="주소입력" readonly>
 					<input type="text" name="daddr" id="daddr" required
-						placeholder="상세주소입력">
-					<button type="button" class="btn btn-secondary" style="width: 30%; display: inline;">주소검색</button>
+						placeholder="상세주소입력" readonly>
+					<button type="button" class="btn btn-secondary" style="width: 30%; display: inline;" onClick="goPopup();">주소검색</button>
 				</div>
 				<button type="submit" id="nameBtn">다음</button>
 			</div>
