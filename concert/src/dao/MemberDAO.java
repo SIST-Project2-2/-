@@ -36,22 +36,20 @@ public class MemberDAO extends DAO {
 		String result = null;
 
 		try {
-			String sql = "SELECT ID FROM MEMBERS WHERE FIRST_NAME=? AND LAST_NAME=? AND EMAIL=LOWER(?)";
+			String sql = "SELECT ID FROM MEMBERS WHERE LOWER(FIRST_NAME) = LOWER(?) AND LOWER(LAST_NAME) = LOWER(?) AND LOWER(EMAIL) = LOWER(?)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, member.getFirst_name());
 			pstmt.setString(2, member.getLast_name());
 			pstmt.setString(3, member.getEmail());
-			System.out.println(member.getFirst_name() + ", " + member.getLast_name() + ", " + member.getEmail());
 			rs = pstmt.executeQuery();
-			if (rs.next()) { // 입력 정보 맞음
+			if (rs.next()) {
 				result = rs.getString(1);
-			} else { // 입력 정보 틀림
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 		return result;
 	}
 
