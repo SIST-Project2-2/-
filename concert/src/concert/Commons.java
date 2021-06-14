@@ -4,6 +4,10 @@ import java.util.HashMap;
 
 public class Commons {
 	
+	public static String getNeedLoginMsg() {
+		return "<script>alert('로그인이 필요합니다');location.href='/concert/login/login.jsp';</script>";
+	}
+	
 	// db에 검색할 텍스트에 사용
 	public static String s_string(String str) {
 		return "%" + str + "%";

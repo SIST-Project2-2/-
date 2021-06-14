@@ -5,32 +5,29 @@ import java.util.ArrayList;
 import vo.MemberVO;
 
 public class MemberDAO extends DAO {
-	
-	//아이디 중복 체크
+
+	// 아이디 중복 체크
 	public int idCheck(String id) {
 		int result = 0;
 		String sql = "SELECT COUNT(*) FROM MEMBERS WHERE ID = ? ";
 		getPreparedStatement(sql);
-		
+
 		try {
-			
+
 			pstmt.setString(1, id);
-			
+
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				result=rs.getInt(1);
+			while (rs.next()) {
+				result = rs.getInt(1);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		close();
 		return result;
 	}
-	
-	
 
 	// 로그인
 	public int login(String id, String pw) {
@@ -62,22 +59,20 @@ public class MemberDAO extends DAO {
 		String result = null;
 
 		try {
-			String sql = "SELECT ID FROM MEMBERS WHERE FIRST_NAME=? AND LAST_NAME=? AND EMAIL=LOWER(?)";
+			String sql = "SELECT ID FROM MEMBERS WHERE LOWER(FIRST_NAME) = LOWER(?) AND LOWER(LAST_NAME) = LOWER(?) AND LOWER(EMAIL) = LOWER(?)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, member.getFirst_name());
 			pstmt.setString(2, member.getLast_name());
 			pstmt.setString(3, member.getEmail());
-			System.out.println(member.getFirst_name() + ", " + member.getLast_name() + ", " + member.getEmail());
 			rs = pstmt.executeQuery();
-			if (rs.next()) { // 입력 정보 맞음
+			if (rs.next()) {
 				result = rs.getString(1);
-			} else { // 입력 정보 틀림
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 		return result;
 	}
 
@@ -256,6 +251,7 @@ public class MemberDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 		return result;
 	}
 
@@ -377,21 +373,21 @@ public class MemberDAO extends DAO {
 		close();
 		return list;
 	}
-	
+
 	public ArrayList<MemberVO> getList(int start, int end) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email "
-				+ " from (select rownum rno, id, nickname, first_name, last_name, phone, email "
-				+ " from (select id, nickname, first_name, last_name, phone, email from members " 
-				+ " order by last_name)) "
-				+ " where rno between ? and ?";
+		String sql = "select id, nickname, first_name, last_name, phone, email ";
+		sql += " from (select rownum rno, id, nickname, first_name, last_name, phone, email ";
+		sql += " from (select id, nickname, first_name, last_name, phone, email from members ";
+		sql += " order by last_name)) ";
+		sql += " where rno between ? and ?";
 
 		getPreparedStatement(sql);
 
 		try {
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
-			
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MemberVO vo = new MemberVO();
@@ -409,31 +405,33 @@ public class MemberDAO extends DAO {
 			e.printStackTrace();
 		}
 		close();
-		
+
 		return list;
 	}
-	
-	/* 전체 카운트 가져오기*/
-	//execTotalCount()
-	public int execTotalCount(){
+
+	/* 전체 카운트 가져오기 */
+	// execTotalCount()
+	public int execTotalCount() {
 		int count = 0;
 		String sql = " select count(*) from members";
 		getPreparedStatement(sql);
-		
+
 		try {
 			rs = pstmt.executeQuery();
-			if(rs.next()) count = rs.getInt(1);
+			if (rs.next())
+				count = rs.getInt(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return count;
 	}
 
 	// 회원 검색-id
 	public ArrayList<MemberVO> getSearchId() {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email " + " from members ";
+		String sql = "select id, nickname, first_name, last_name, phone, email ";
+		sql += " from members ";
 
 		getPreparedStatement(sql);
 
@@ -479,37 +477,37 @@ public class MemberDAO extends DAO {
 		close();
 		return result;
 	}
-	
+
 	// 해당 유저의 권한(일반유저, 관리자, 테스터 등) 확인
 	public int getAuthority(String id) {
 		int result = 0;
-		
+
 		try {
 			String sql = " select authority from members where id = ? ";
-			
+
 			getPreparedStatement(sql);
-			
+
 			pstmt.setString(1, id);
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				String type = rs.getString(1);
-				if(type.equals("USER")) {
+				if (type.equals("USER")) {
 					result = 0;
-				}else if(type.equals("admin")) {
+				} else if (type.equals("admin")) {
 					result = 1;
-				}else if(type.equals("tester")) {
+				} else if (type.equals("tester")) {
 					result = 2;
-				}else {
+				} else {
 					result = -1; // 확인되지 않은 권한
 				}
-			}else { // 회원 정보가 없음
+			} else { // 회원 정보가 없음
 				result = -1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 }
