@@ -1,24 +1,19 @@
+<%@page import="concert.Commons"%>
 <%@page import="vo.MemberVO"%>
-<%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	//
 String id = (String) session.getAttribute("id");
 
-if (id == null) {
-	// PrintWriter는 버퍼에 담아서 한번에 보내지 않고, 실행시마다 바로 돌려주므로 에러페이지를 보여주기 전에 메인 화면으로 돌려보냄
-	PrintWriter script = response.getWriter();
-	script.write("<script>alert('로그인이 필요합니다');location.href='../index.jsp';</script>");
-}
+if (id != null) {
+	MemberVO member = new MemberVO();
+	member.setId(id);
 
-MemberVO member = new MemberVO();
-member.setId(id);
+	MemberDAO memberDAO = new MemberDAO();
+	member = memberDAO.get_profile(member.getId());
 
-MemberDAO memberDAO = new MemberDAO();
-member = memberDAO.get_profile(member.getId());
-
-boolean hasWithdrawn = memberDAO.hasWithdrawn(id);
+	boolean hasWithdrawn = memberDAO.hasWithdrawn(id);
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -183,3 +178,9 @@ boolean hasWithdrawn = memberDAO.hasWithdrawn(id);
 	</div>
 </body>
 </html>
+<%
+	//
+} else {
+	out.write(Commons.getNeedLoginMsg());
+}
+%>

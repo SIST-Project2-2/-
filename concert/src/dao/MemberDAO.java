@@ -228,6 +228,7 @@ public class MemberDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 		return result;
 	}
 
