@@ -56,38 +56,49 @@
 									;
 								});
 
-						$("#idCheck").click(
-								function() {
-									if ($("#id").val() == "") {
-										alert("아이디를 입력해주세요");
-										$("#id").focus();
-										return false;
-									} else {
-										$.ajax({
-											
-											url : "./joinIdCheckAction.jsp?id="
-													+ $("#id").val(),
-											success : function(result) {
-												if (result == 1) {
+						//아이디 중복체크
+						$("#idCheck")
+								.click(
+										function() {
+											if ($("#id").val() == "") {
+												alert("아이디를 입력해주세요");
+												$("#id").focus();
+												return false;
+											} else {
+												$
+														.ajax({
 
-													$("#idCheckResult").text(
-															"중복된 아이디가 존재합니다.");
-													$("#idCheckResult")
-															.focus();
-													return false;
-												} else {
-													$("#idCheckResult").text(
-															"사용가능한 아이디 입니다.");
-													$("#idCheckResult")
-															.focus();
-													return true;
-												}
-											}
+															url : "./joinIdCheckAction.jsp?id="
+																	+ $("#id")
+																			.val(),
+															success : function(
+																	result) {
+																if (result == 1) {
 
-										})//ajax
+																	$(
+																			"#idCheckResult")
+																			.text(
+																					"중복된 아이디가 존재합니다.");
+																	$(
+																			"#idCheckResult")
+																			.focus();
+																	return false;
+																} else {
+																	$(
+																			"#idCheckResult")
+																			.text(
+																					"사용가능한 아이디 입니다.");
+																	$(
+																			"#idCheckResult")
+																			.focus();
+																	return true;
+																}
+															}
 
-									}//else
-								})
+														})//ajax
+
+											}//else
+										})
 
 					});
 </script>
@@ -104,10 +115,13 @@
 				<label for="file"></label>
 				<progress id="file" value="15" max="100"> </progress>
 				<div>로그인에 사용할 아이디를 입력해주세요</div>
+
 				<input type="text" name="id" id="id" class="form-control"
-					placeholder="아이디 입력" required>
+					placeholder="아이디 입력" required
+					style="width: 60%; float: left; height: 40px;">
 				<button type="button" class="btn btn-secondary" id="idCheck"
-					style="width: 30%; margin-left: 180px;">중복체크</button>
+					style="width: 30%; display: inline; float: left; position: relative; top: -30px;">중복체크</button>
+
 				<div id="idCheckResult"></div>
 				<button type="submit" id="idBtn">다음</button>
 			</div>
@@ -153,6 +167,7 @@
 						type="text" name="addr" id="addr" required placeholder="주소입력">
 					<input type="text" name="daddr" id="daddr" required
 						placeholder="상세주소입력">
+					<button type="button" class="btn btn-secondary" style="width: 30%; display: inline;">주소검색</button>
 				</div>
 				<button type="submit" id="nameBtn">다음</button>
 			</div>
