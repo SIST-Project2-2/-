@@ -349,21 +349,21 @@ public class MemberDAO extends DAO {
 		close();
 		return list;
 	}
-	
+
 	public ArrayList<MemberVO> getList(int start, int end) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email "
-				+ " from (select rownum rno, id, nickname, first_name, last_name, phone, email "
-				+ " from (select id, nickname, first_name, last_name, phone, email from members " 
-				+ " order by last_name)) "
-				+ " where rno between ? and ?";
+		String sql = "select id, nickname, first_name, last_name, phone, email ";
+		sql += " from (select rownum rno, id, nickname, first_name, last_name, phone, email ";
+		sql += " from (select id, nickname, first_name, last_name, phone, email from members ";
+		sql += " order by last_name)) ";
+		sql += " where rno between ? and ?";
 
 		getPreparedStatement(sql);
 
 		try {
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
-			
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MemberVO vo = new MemberVO();
@@ -381,31 +381,33 @@ public class MemberDAO extends DAO {
 			e.printStackTrace();
 		}
 		close();
-		
+
 		return list;
 	}
-	
-	/* 전체 카운트 가져오기*/
-	//execTotalCount()
-	public int execTotalCount(){
+
+	/* 전체 카운트 가져오기 */
+	// execTotalCount()
+	public int execTotalCount() {
 		int count = 0;
 		String sql = " select count(*) from members";
 		getPreparedStatement(sql);
-		
+
 		try {
 			rs = pstmt.executeQuery();
-			if(rs.next()) count = rs.getInt(1);
+			if (rs.next())
+				count = rs.getInt(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return count;
 	}
 
 	// 회원 검색-id
 	public ArrayList<MemberVO> getSearchId() {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email " + " from members ";
+		String sql = "select id, nickname, first_name, last_name, phone, email ";
+		sql += " from members ";
 
 		getPreparedStatement(sql);
 
@@ -451,31 +453,31 @@ public class MemberDAO extends DAO {
 		close();
 		return result;
 	}
-	
+
 	// 해당 유저의 권한(일반유저, 관리자, 테스터 등) 확인
 	public int getAuthority(String id) {
 		int result = 0;
-		
+
 		try {
 			String sql = " select authority from members where id = ? ";
-			
+
 			getPreparedStatement(sql);
-			
+
 			pstmt.setString(1, id);
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				String type = rs.getString(1);
-				if(type.equals("USER")) {
+				if (type.equals("USER")) {
 					result = 0;
-				}else if(type.equals("admin")) {
+				} else if (type.equals("admin")) {
 					result = 1;
-				}else if(type.equals("tester")) {
+				} else if (type.equals("tester")) {
 					result = 2;
-				}else {
+				} else {
 					result = -1; // 확인되지 않은 권한
 				}
-			}else { // 회원 정보가 없음
+			} else { // 회원 정보가 없음
 				result = -1;
 			}
 		} catch (Exception e) {
