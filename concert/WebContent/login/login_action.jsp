@@ -28,13 +28,13 @@ if (result == 1) {
 
 	Cookie[] cookies = request.getCookies(); // 연결된 클라이언트의 쿠키들을 모두 불러옴
 	if (id_store != null) { // 아이디 저장을 체크 했으면 쿠키에 아이디 저장
-		response.addCookie(Cookies.createCookie("storedId", id, 60 * 60 * 24 * 30, "/")); // 만든 쿠키를 브라우저에 전달함			
+		response.addCookie(Cookies.createCookie("storedId", id, 60 * 60 * 24 * 30, "/concert")); // 만든 쿠키를 브라우저에 전달함			
 	} else { // 아이디 저장을 체크하지 않았으면 쿠키에 저장된 아이디 삭제
 		response.addCookie(Cookies.createCookie("storedId", id, 0, "/concert")); // 만든 쿠키를 브라우저에 전달함			
 	}
 
 	if (auto_login != null) { // 자동로그인 설정했으면 적용
-		response.addCookie(Cookies.createCookie("auto_login", pw, 60 * 60 * 24 * 30, "/")); // 만든 쿠키를 브라우저에 전달함			
+		response.addCookie(Cookies.createCookie("auto_login", pw, 60 * 60 * 24 * 30, "/concert")); // 만든 쿠키를 브라우저에 전달함			
 	} else { // 자동 로그인을 해제했으면 해당 쿠키 삭제
 		response.addCookie(Cookies.createCookie("auto_login", pw, 0, "/concert")); // 만든 쿠키를 브라우저에 전달함			
 	}
