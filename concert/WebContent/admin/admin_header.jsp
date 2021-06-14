@@ -52,7 +52,7 @@ if (id == null && authority != "1") { // 관리자가 아니면 메인으로 이
 		</div>
 
 
-		<a class="text-info text-nowrap font-weight-bold" href="http://localhost:9000/concert/login/login.jsp">LOGOUT</a>
+		<a class="text-info text-nowrap font-weight-bold" href="http://localhost:9000/concert/login/logout.jsp">LOGOUT</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
