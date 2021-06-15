@@ -41,7 +41,7 @@ if(id==null){
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('로그인 해주세요 ');");
-	script.println("location.href='login.jsp'");
+	script.println("location.href='/concert/login/login.jsp'");
 	script.println("</script>");
 	script.close();
 	return;
@@ -57,7 +57,7 @@ if(emailChecked == 1){
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('이메일 인증이 완료된 회원입니다.');");
-	script.println("location.href = 'index.jsp'");
+	script.println("location.href = '/concert/index.jsp'");
 	script.println("</script>");
 	script.close();
 	return;

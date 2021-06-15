@@ -4,6 +4,13 @@ import java.util.HashMap;
 
 public class Commons {
 	
+	public static String getErrorRedirect() {
+		return "<script>location.href='/concert/error.jsp';</script>";
+	}
+	public static String getWrongAccessMsg() {
+		return "<script>alert('잘못된 접근입니다.');location.href='/concert/index.jsp';</script>";
+	}
+
 	public static String getNeedLoginMsg() {
 		return "<script>alert('로그인이 필요합니다');location.href='/concert/login/login.jsp';</script>";
 	}
