@@ -6,14 +6,6 @@
 Cookies cookies = new Cookies(request);
 String storedId = cookies.getValue("storedId"); // 마지막으로 로그인 성공한 아이디
 String auto_login = cookies.getValue("auto_login");
-
-// 아이디 저장 + 자동 로그인 쿠키가 존재하면 로그인 실행"
-if (session.getAttribute("id") != null) {
-	// 이미 로그인이 되어 있으면 메인 페이지로 이동
-	out.println("<script>alert('이미 로그인 되어 있습니다.');location.href='/concert/index.jsp';</script>");
-} else if (cookies.exists("storeId") && cookies.exists("auto_login")) {
-	response.sendRedirect("login_action.jsp?id=" + storedId + "&pw=" + auto_login + "&inametore=on&auto_login=on");
-}
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -24,25 +16,17 @@ if (session.getAttribute("id") != null) {
 <title>로그인</title>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// '로그인하기' 버튼 클릭 시 로그인 진행
 		$("#form").on("submit", function() {
-			$.ajax({
-				url : "login_ajax.jsp",
-				method : "POST",
-				data : {
-					id : $("#id").val(),
-					pw : $("#pw").val(),
-					id_store : $("#id_store").is(":checked") ? "on" : "off",
-					auto_login : $("#auto_login").is(":checked") ? "on" : "off"
-				},
-				success : function(result) {
-					if (result == 1) {
-						alert("로그인 성공");
-						location.href = "/concert/index.jsp";
-					} else {
-						alert("아이디 또는 비밀번호가 맞지 않습니다.");
-					}
-				}
-			});
+			var id = $("#id").val();
+			var pw = $("#pw").val();
+
+			if (login(id, pw) == 1) {
+				alert("로그인 성공");
+				location.href = "/concert/index.jsp";
+			} else {
+				alert("아이디 또는 비밀번호가 맞지 않습니다.");
+			}
 			return false;
 		});
 	});

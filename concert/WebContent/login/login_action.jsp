@@ -2,7 +2,7 @@
 <%@page import="vo.MemberVO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%
 	//
 
@@ -11,8 +11,6 @@ String pw = request.getParameter("pw");
 String id_store = request.getParameter("id_store");
 String auto_login = request.getParameter("auto_login");
 
-// out.write는 버퍼에 담아서 한번에 보내지만 PrintWriter는 print할 때마다 보냄(?) -> 확인 필요
-PrintWriter script = response.getWriter();
 MemberDAO memberDAO = new MemberDAO();
 
 MemberVO member = new MemberVO();
@@ -40,21 +38,8 @@ if (result == 1) {
 	}
 
 	// 한줄로 주려면 세미콜론을 줘야함.
-	script.println("<script>alert('로그인 성공');location.href='../index.jsp';</script>");
-} else if (result == 0) {
-	script.println("<script>");
-	script.println("alert('비밀번호가 틀립니다')");
-	script.println("history.back()");
-	script.println("</script>");
-} else if (result == -1) {
-	script.println("<script>");
-	script.println("alert('존재하지 않는 아이디입니다')");
-	script.println("history.back()");
-	script.println("</script>");
-} else if (result == -2) {
-	script.println("<script>");
-	script.println("alert('데이터베이스 오류입니다')");
-	script.println("history.back()");
-	script.println("</script>");
+	out.println("<script>alert('로그인 성공');location.href='/concert/index.jsp';</script>");
+} else {
+	out.println("<script>alert('아이디 또는 비밀번호가 맞지 않습니다.'');history.back();</script>");
 }
 %>

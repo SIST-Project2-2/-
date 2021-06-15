@@ -8,8 +8,6 @@ String pw = request.getParameter("pw");
 String id_store = request.getParameter("id_store");
 String auto_login = request.getParameter("auto_login");
 
-System.out.printf("id: %s, pw: %s, id_store: %s, auto_login: %s\n", id, pw, id_store, auto_login);
-
 MemberDAO memberDAO = new MemberDAO();
 int result = memberDAO.login(id, pw);
 
