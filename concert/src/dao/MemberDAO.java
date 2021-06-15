@@ -462,7 +462,7 @@ public class MemberDAO extends DAO {
 	public boolean getDeleteResult(String id) {
 		boolean result = false;
 		MemberVO vo = new MemberVO();
-		String sql = "delete from members where id=?";
+		String sql = "delete from members where id=? and withdrawal = 1";
 
 		getPreparedStatement(sql);
 
