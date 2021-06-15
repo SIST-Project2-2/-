@@ -1,21 +1,14 @@
+<%@page import="concert.Commons"%>
 <%@page import="vo.MemberVO"%>
-<%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	//
 String id = (String) session.getAttribute("id");
 
-if (id == null) {
-	// PrintWriter는 버퍼에 담아서 한번에 보내지 않고, 실행시마다 바로 돌려주므로 에러페이지를 보여주기 전에 메인 화면으로 돌려보냄
-	PrintWriter script = response.getWriter();
-	script.write("<script>alert('로그인이 필요합니다');location.href='../index.jsp';</script>");
-}
-
-MemberDAO memberDAO = new MemberDAO();
-MemberVO member = memberDAO.get_profile(id);
-
-
+if (id != null) {
+	MemberDAO memberDAO = new MemberDAO();
+	MemberVO member = memberDAO.get_profile(id);
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -63,10 +56,10 @@ MemberVO member = memberDAO.get_profile(id);
 							var nickname = $("#nickname").val();
 							$.get("check_nickname.jsp?nickname=" + nickname,
 									function(data, status) {
-										if(data==1){
+										if (data == 1) {
 											alert("이미 존재하는 닉네임입니다.");
-										}else if(data==0){
-											alert("변경할 수 있는 닉네임입니다.");											
+										} else if (data == 0) {
+											alert("변경할 수 있는 닉네임입니다.");
 										}
 									});
 						}
@@ -198,3 +191,9 @@ MemberVO member = memberDAO.get_profile(id);
 	</form>
 </body>
 </html>
+<%
+	//
+} else {
+	out.write(Commons.getNeedLoginMsg());
+}
+%>

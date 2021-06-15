@@ -8,7 +8,7 @@
 session.invalidate();
 
 // 자동 로그인 쿠키 삭제
-response.addCookie(Cookies.createCookie("auto_login", null, 0, "/"));
+response.addCookie(Cookies.createCookie("auto_login", null, 0, "/concert"));
 
 // 메인화면으로 이동
 response.sendRedirect("http://localhost:9000/concert/index.jsp");

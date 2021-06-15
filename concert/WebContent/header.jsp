@@ -1,11 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="concert.Commons"%>
+<%@page import="util.Cookies"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%
 	//
-// 로그인했으면 id에 값이 저장되고 로그인 되어있지 않으면 null이 저장된 id 변수 설정
-String id = (String) session.getAttribute("id");
-
+Cookies cookies = new Cookies(request);
+String storedId = cookies.getValue("storedId"); // 마지막으로 로그인 성공한 아이디
+String auto_login = cookies.getValue("auto_login");
+String id = (String) session.getAttribute("id");// 로그인했으면 id에 값이 저장되고 로그인 되어있지 않으면 null이 저장된 id 변수 설정 
 String authority = null;
 
+// 자동 로그인: 아이디 저장 + 자동 로그인 쿠키가 존재하면 로그인 실행"
+if (id == null && cookies.exists("storedId") && cookies.exists("auto_login")) {
+%>
+<jsp:include page="login/login_ajax.jsp">
+	<jsp:param value="<%=storedId%>" name="id" />
+	<jsp:param value="<%=auto_login%>" name="pw" />
+	<jsp:param value="on" name="id_store" />
+	<jsp:param value="on" name="auto_login" />
+</jsp:include>
+<%
+	//
+	if (session.getAttribute("id") != null) {
+		out.print("<script>location.reload();</script>");
+	}else{
+		out.print("<script>location.href='/concert/login/logout.jsp';</script>");		
+	}
+}
+
+// 계정 권한 가져오기
 if (id != null) {
 	authority = (String) session.getAttribute("authority");
 }

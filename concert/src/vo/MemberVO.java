@@ -18,6 +18,7 @@ public class MemberVO extends VO {
 	private String email; // 이메일 주소
 	private String emailHash; // 이메일 인증 데이터
 	private int emailCheck; // 이메일 인증 여부
+	private String salt; // 비밀번호 암호화용 소금
 
 	public String getEmailHash() {
 		return emailHash;
@@ -192,6 +193,18 @@ public class MemberVO extends VO {
 		this.email = email;
 		this.emailHash = emailHash;
 		this.emailCheck = emailCheck;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

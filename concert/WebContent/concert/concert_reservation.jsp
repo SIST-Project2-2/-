@@ -1,18 +1,12 @@
-<%@page import="vo.SeatVO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="dao.SeatDAO"%>
 <%@page import="vo.ConcertVO"%>
 <%@page import="dao.ConcertDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	//
-int concert_no = Integer.parseInt(request.getParameter("concert_no"));
+String concert_no = request.getParameter("concert_no");
 
 ConcertDAO concertDAO = new ConcertDAO();
 ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
-
-SeatDAO seatDAO = new SeatDAO();
-ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -32,10 +26,20 @@ ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(function() {
+	var concertNo =
+<%=concert_no%>
+	;
+	var price =
+<%=concertVO.getPrice()%>
+	;
 
-		// checkSeat();
-		disableReservedSeats();
+	$(document).ready(function() {
+		
+		$("#price").text(price);
+		
+		checkSeat();
+		getSeatList(concertNo);
+		makeTbody();
 
 		$("input[name='seat']").on("click", function() {
 			checkSeat();
@@ -51,11 +55,38 @@ ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 
 	});
 
-	function disableReservedSeats() {
-		<%for (SeatVO vo : seatList) {
-			out.write("$('input#" + vo.getSeat_no() + "').removeAttr('name');");
-			out.write("$('input#" + vo.getSeat_no() + "').attr('disabled', 'disabled');");
-		}%>
+	function makeTbody() {
+		var tbody = $("#tbody");
+
+		var html = "";
+		for (var j = 'A'; j.charCodeAt(0) < 'H'.charCodeAt(0); j = String.fromCharCode(j.charCodeAt(0) + 1)) {
+			html += "<tr>";
+			html += "	<th >" + j + "</th>";
+			for (var i = 1; i <= 12; i++) {
+				var id = j + "_" + i;
+				html += "<td>";
+				html += "	<input type='checkbox' name='seat' class='btn btn-secondary seat' value='" + id + "' id='" + id + "'>";
+				html += "</td>";
+			}
+			html += "</tr>";
+
+		}
+		tbody.html(html);
+	}
+
+	function getSeatList(concert_no) {
+		$.ajax({ url : "concert_reservation_ajax.jsp", method : "POST", data : { "concert_no" : concert_no }, success : function(result) {
+			var seatList = JSON.parse(result);
+			disableReservedSeats(seatList);
+			return seatList;
+		} });
+	}
+
+	function disableReservedSeats(seatList) {
+		for ( var i in seatList) {
+			$('input#' + seatList[i].seat_no).removeAttr('name');
+			$('input#' + seatList[i].seat_no).attr('disabled', 'disabled');
+		}
 	}
 
 	function checkSeat() {
@@ -74,7 +105,8 @@ ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 		} else {
 			$("input[name='seat']:disabled").removeAttr("disabled");
 		}
-
+		
+		$("#price").text(checked.length * price);
 	}
 
 	function submit() {
@@ -95,7 +127,7 @@ ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 	<div class="container">
 		<h1 class="font-weight-bold text-left m-3">좌석 선택</h1>
 		<form name="form" action="concert_reservation_action.jsp" method="get">
-			<input type="hidden" value="<%=concert_no%>" name="concert_no" id="concert_no">
+			<input type="hidden" value="${param.concert_no}" name="concert_no" id="concert_no">
 			<div class="row">
 				<div class="col-md border rounded p-2 m-2">
 					<table class="table table-borderless text-center">
@@ -116,23 +148,8 @@ ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 								<th>12</th>
 							</tr>
 						</thead>
-						<tbody>
-							<%
-								// 좌석 배치를 테이블로 구현
-							String tbody = "";
-							for (int j = (int) 'A'; j <= (int) 'H'; j++) {
-								tbody += "<tr>";
-								tbody += "	<th >" + (char) j + "</th>";
-								for (int i = 1; i <= 12; i++) {
-									String id = Character.toString((char) j) + "_" + i;
-									tbody += "<td>";
-									tbody += "	<input type='checkbox' name='seat' class='btn btn-secondary seat' value='" + id + "' id='" + id + "'>";
-									tbody += "</td>";
-								}
-								tbody += "</tr>";
-							}
-							out.write(tbody);
-							%>
+
+						<tbody id="tbody">
 						</tbody>
 					</table>
 				</div>
@@ -148,7 +165,8 @@ ArrayList<SeatVO> seatList = seatDAO.getReservedSeatList(concert_no);
 					</select>
 					<br>
 					<small class="text-danger m-2">코로나로 인해 5인 이상 예매 불가능 합니다.</small>
-					<h6 class="font-weight-bold text-right"><%=concertVO.getPrice()%><small>원</small>
+					<h6 class="font-weight-bold text-right"><span id="price">59000</span>
+						<small>원</small>
 					</h6>
 					<button id="btn_submit" type="button" class="btn d-block btn-light m-2 p-2" style="width: -webkit-fill-available;">예매하기</button>
 				</div>
