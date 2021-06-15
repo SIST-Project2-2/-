@@ -465,7 +465,7 @@ public class NoticeDAO extends DAO {
 
 		try {
 
-			String sql = "INSERT INTO NOTICES VALUES(NOTICES_NO_SEQ.NEXTVAL, ?, ?, sysdate, 'admin', 0,?)";
+			String sql = "INSERT INTO NOTICES VALUES(NOTICES_NO_SEQ.NEXTVAL, ?, ?, sysdate, 'admin', 0,?, null, null)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, vo.getTitle());

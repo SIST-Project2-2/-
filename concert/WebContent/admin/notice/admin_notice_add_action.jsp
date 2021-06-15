@@ -2,21 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO, vo.NoticeVO"%>
 <%@ page import="java.io.PrintWriter"%>
-
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%> 
 
 <%
 	request.setCharacterEncoding("UTF-8");
 
-String title = request.getParameter("title");
-String content = request.getParameter("content");
-String tag = request.getParameter("tag");
+String savePath = request.getServletContext().getRealPath("../../images");
+int sizeLimit = 1024 * 1024 * 15;
 
-System.out.println(title);
-System.out.println(content);
-System.out.println(tag);
+MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
+
+String title = multi.getParameter("title");
+String content = multi.getParameter("content");
+String tag = multi.getParameter("tag");
+String img = multi.getOriginalFileName("img");
+String simg = multi.getFilesystemName("img");
 
 NoticeDAO dao = new NoticeDAO();
-int result = dao.updateNoticeList(new NoticeVO(title, content, tag));
+int result = dao.updateNoticeList(new NoticeVO(title, content, tag, img, simg));
 
 if (result == 1) {
 	PrintWriter script = response.getWriter();
