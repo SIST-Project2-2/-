@@ -37,7 +37,7 @@ if (session.getAttribute("id") != null) {
 				success : function(result) {
 					if (result == 1) {
 						alert("로그인 성공");
-//						location.href = "/concert/index.jsp";
+						location.href = "/concert/index.jsp";
 					} else {
 						alert("아이디 또는 비밀번호가 맞지 않습니다.");
 					}
