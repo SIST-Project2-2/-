@@ -20,9 +20,12 @@ if (id == null && cookies.exists("storedId") && cookies.exists("auto_login")) {
 </jsp:include>
 <%
 	//
-out.print("<script>location.reload();</script>");
+	if (session.getAttribute("id") != null) {
+		out.print("<script>location.reload();</script>");
+	}else{
+		out.print("<script>location.href='/concert/login/logout.jsp';</script>");		
+	}
 }
-
 
 // 계정 권한 가져오기
 if (id != null) {
