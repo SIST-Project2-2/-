@@ -75,7 +75,7 @@ public class PayInfoDAO extends DAO {
 	
 	// 해당 주문 번호의 결제 정보를 반환하는 함수
 	public PayInfoVO getPayInfo(int no) { // no: 주문 번호
-		PayInfoVO payInfo = new PayInfoVO();
+		PayInfoVO payInfo = null;
 		
 		try {
 			String sql = " select o.no, m.first_name, m.last_name, m.phone, to_char(c.cdate, 'YYYY/MM/DD'), c.price "
@@ -88,6 +88,7 @@ public class PayInfoDAO extends DAO {
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
+				payInfo = new PayInfoVO();
 				payInfo.setOrderNo(rs.getInt(1));
 				payInfo.setFirstName(rs.getString(2));
 				payInfo.setLastName(rs.getString(3));
