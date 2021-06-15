@@ -6,14 +6,6 @@
 Cookies cookies = new Cookies(request);
 String storedId = cookies.getValue("storedId"); // 마지막으로 로그인 성공한 아이디
 String auto_login = cookies.getValue("auto_login");
-
-// 아이디 저장 + 자동 로그인 쿠키가 존재하면 로그인 실행"
-if (session.getAttribute("id") != null) {
-	// 이미 로그인이 되어 있으면 메인 페이지로 이동
-	out.println("<script>alert('이미 로그인 되어 있습니다.');location.href='/concert/index.jsp';</script>");
-} else if (cookies.exists("storeId") && cookies.exists("auto_login")) {
-	response.sendRedirect("login_action.jsp?id=" + storedId + "&pw=" + auto_login + "&inametore=on&auto_login=on");
-}
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>

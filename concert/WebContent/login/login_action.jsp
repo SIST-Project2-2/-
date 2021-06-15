@@ -2,7 +2,7 @@
 <%@page import="vo.MemberVO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%
 	//
 
@@ -38,7 +38,7 @@ if (result == 1) {
 	}
 
 	// 한줄로 주려면 세미콜론을 줘야함.
-	out.println("<script>alert('로그인 성공');location.href='../index.jsp';</script>");
+	out.println("<script>alert('로그인 성공');location.href='/concert/index.jsp';</script>");
 } else {
 	out.println("<script>alert('아이디 또는 비밀번호가 맞지 않습니다.'');history.back();</script>");
 }
