@@ -153,7 +153,7 @@ div#member_delete {
 					<% if("1".equals(vo.getWithdrawal())) { %>
 						<td><a href="admin_member_list_delete_process.jsp?id=<%=vo.getId()%>"><button type="button" class="btn-sm btn-danger">삭제</button></a>
 					<% }else{ %>
-						<td><a href="#" onClick="alert('해당 회원이 취소신청을 하지 않았습니다')"><button type="button" class="btn btn-secondary">삭제</button></td>
+						<td><a href="#" onClick="alert('해당 회원이 취소신청을 하지 않았습니다')"><button type="button" class="btn-sm btn-secondary">삭제</button></td>
 					<% } %>
 				<% } %>
 					<!-- 
@@ -175,7 +175,7 @@ div#member_delete {
 		</ul>
 		 -->
 	</section>
-
+<!-- 
 	<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -193,8 +193,10 @@ div#member_delete {
 			</div>
 		</div>
 	</div>
+	 -->
 </body>
 <script>
+/**
 	$('#exampleModal').on('show.bs.modal', function(event) {
 		var button = $(event.relatedTarget) // Button that triggered the modal
 		var recipient = button.data('whatever') // Extract info from data-* attributes
@@ -203,5 +205,6 @@ div#member_delete {
 		var modal = $(this)
 		modal.find('.modal-title').text(+recipient + '번 게시글을 삭제하시겟습니까?')
 	})
+	*/
 </script>
 </html>
