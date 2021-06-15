@@ -376,11 +376,12 @@ public class MemberDAO extends DAO {
 
 	public ArrayList<MemberVO> getList(int start, int end) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email ";
-		sql += " from (select rownum rno, id, nickname, first_name, last_name, phone, email ";
-		sql += " from (select id, nickname, first_name, last_name, phone, email from members ";
-		sql += " order by last_name)) ";
-		sql += " where rno between ? and ?";
+		String sql = "select id, nickname, first_name, last_name, phone, email, withdrawal "
+				+ " from (select rownum rno, id, nickname, first_name, last_name, phone, email, withdrawal "
+				+ " from (select id, nickname, first_name, last_name, phone, email, withdrawal from members "
+				+ " order by withdrawal desc)) "
+				+ " where rno between ? and ?";
+
 
 		getPreparedStatement(sql);
 
@@ -397,6 +398,7 @@ public class MemberDAO extends DAO {
 				vo.setLast_name(rs.getString(4));
 				vo.setPhone(rs.getString(5));
 				vo.setEmail(rs.getString(6));
+				vo.setWithdrawal(rs.getString(7));
 
 				list.add(vo);
 			}
@@ -459,6 +461,7 @@ public class MemberDAO extends DAO {
 	// 회원 삭제
 	public boolean getDeleteResult(String id) {
 		boolean result = false;
+		MemberVO vo = new MemberVO();
 		String sql = "delete from members where id=?";
 
 		getPreparedStatement(sql);
