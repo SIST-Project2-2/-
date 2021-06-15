@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 
+import util.Security;
 import vo.MemberVO;
 
 public class MemberDAO extends DAO {
@@ -33,14 +34,15 @@ public class MemberDAO extends DAO {
 	public int login(String id, String pw) {
 		int result = -2;
 		try {
-			String sql = "SELECT PW FROM MEMBERS WHERE id=?";
+			String sql = "SELECT PW, SALT FROM MEMBERS WHERE id=?";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, id);
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				if (rs.getString(1).equals(pw)) {
+				String salt = rs.getString(2);
+				if (rs.getString(1).equals(Security.pwHashing(pw, salt))) {
 					result = 1; // 로그인 성공
 				} else {
 					result = 0; // 비밀번호 틀림
@@ -105,13 +107,15 @@ public class MemberDAO extends DAO {
 
 	// 회원가입
 	public int join(MemberVO member) {
-
+		int result = -2;
 		try {
-			String sql = "INSERT INTO MEMBERS VALUES(MEMBERS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, TO_DATE(?,'YYYY-MM-DD'), ?, ?, ?, 'tester', 0, ?,?,0)";
+			String sql = "INSERT INTO MEMBERS(NO, ID, PW, NICKNAME, FIRST_NAME, LAST_NAME, BIRTHDATE, SEX, ADDRESS, PHONE, EMAIL, EMAILHASH, SALT) VALUES(MEMBERS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?, ?)";
 			getPreparedStatement(sql);
 
+			member.setSalt(Security.getSalt());
+
 			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPw());
+			pstmt.setString(2, Security.pwHashing(member.getPw(), member.getSalt()));
 			pstmt.setString(3, member.getNickname());
 			pstmt.setString(4, member.getFirst_name());
 			pstmt.setString(5, member.getLast_name());
@@ -121,16 +125,15 @@ public class MemberDAO extends DAO {
 			pstmt.setString(9, member.getPhone());
 			pstmt.setString(10, member.getEmail());
 			pstmt.setString(11, member.getEmailHash());
+			pstmt.setString(12, member.getSalt());
 
-			int value = pstmt.executeUpdate();
-
-			return value;
+			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		close();
-		return -1;
+		return result;
 	}
 
 	// 사용자가 이메일 인증이 되었는지 확인해 주는 함수
@@ -376,12 +379,7 @@ public class MemberDAO extends DAO {
 
 	public ArrayList<MemberVO> getList(int start, int end) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email, withdrawal "
-				+ " from (select rownum rno, id, nickname, first_name, last_name, phone, email, withdrawal "
-				+ " from (select id, nickname, first_name, last_name, phone, email, withdrawal from members "
-				+ " order by withdrawal desc)) "
-				+ " where rno between ? and ?";
-
+		String sql = "select id, nickname, first_name, last_name, phone, email, withdrawal " + " from (select rownum rno, id, nickname, first_name, last_name, phone, email, withdrawal " + " from (select id, nickname, first_name, last_name, phone, email, withdrawal from members " + " order by withdrawal desc)) " + " where rno between ? and ?";
 
 		getPreparedStatement(sql);
 
