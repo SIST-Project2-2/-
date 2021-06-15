@@ -15,8 +15,11 @@ if (id == null && authority != "1") { // 관리자가 아니면 메인으로 이
 <meta charset="UTF-8">
 <!-- import -->
 <jsp:include page="../import.jsp"></jsp:include>
+<style type="text/css">
+#admin_header .navbar .nav-item:hover .dropdown-menu{ display: block; }
+</style>
 </head>
-<body>
+<body id="admin_header">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top mb-3">
 		<!-- Brand -->
 		<a class="navbar-brand mr-auto" href="http://localhost:9000/concert/index.jsp">
