@@ -24,25 +24,17 @@ if (session.getAttribute("id") != null) {
 <title>로그인</title>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// '로그인하기' 버튼 클릭 시 로그인 진행
 		$("#form").on("submit", function() {
-			$.ajax({
-				url : "login_ajax.jsp",
-				method : "POST",
-				data : {
-					id : $("#id").val(),
-					pw : $("#pw").val(),
-					id_store : $("#id_store").is(":checked") ? "on" : "off",
-					auto_login : $("#auto_login").is(":checked") ? "on" : "off"
-				},
-				success : function(result) {
-					if (result == 1) {
-						alert("로그인 성공");
-						location.href = "/concert/index.jsp";
-					} else {
-						alert("아이디 또는 비밀번호가 맞지 않습니다.");
-					}
-				}
-			});
+			var id = $("#id").val();
+			var pw = $("#pw").val();
+
+			if (login(id, pw) == 1) {
+				alert("로그인 성공");
+				location.href = "/concert/index.jsp";
+			} else {
+				alert("아이디 또는 비밀번호가 맞지 않습니다.");
+			}
 			return false;
 		});
 	});
