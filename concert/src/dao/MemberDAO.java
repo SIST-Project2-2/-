@@ -78,6 +78,35 @@ public class MemberDAO extends DAO {
 		return result;
 	}
 
+	// 특정 유저의 비밀번호 초기화. 비밀번호와 SALT 생성 후 비밀번호 반환
+	public String resetPassword(MemberVO member) {
+		String result = null;
+		String pw = Security.getRandomString(); // 랜덤 비밀번호 생성
+		String salt = Security.getSalt(); // 랜덤 SALT 생성
+		String hashedPw = Security.pwHashing(pw, salt); // 비밀번호 암호화
+		try {
+			String sql = "UPDATE MEMBERS SET PW = ?, SALT = ? WHERE ID = ? AND LOWER(FIRST_NAME) = LOWER(?) AND LOWER(LAST_NAME) = LOWER(?) AND TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') = ? AND PHONE = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, hashedPw);
+			pstmt.setString(2, salt);
+			pstmt.setString(3, member.getId());
+			pstmt.setString(4, member.getFirst_name());
+			pstmt.setString(5, member.getLast_name());
+			pstmt.setString(6, member.getBirth_date());
+			pstmt.setString(7, member.getPhone());
+
+			int val = pstmt.executeUpdate();
+			if (val == 1) { // 비밀번호가 정상적으로 업로드되면 비밀번호 반환
+				result = pw;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return result;
+	}
+
 	// 비밀번호 찾기
 	public String find_password(MemberVO member) {
 		String result = null;
