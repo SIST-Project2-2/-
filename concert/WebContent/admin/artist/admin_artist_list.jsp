@@ -5,7 +5,7 @@
 	request.setCharacterEncoding("utf-8");
 	ArtistDAO dao = new ArtistDAO();
 	ArrayList<ArtistVO> list = dao.getList();
-	String name = request.getParameter("name");
+	//String name = request.getParameter("name");
 %>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
@@ -86,6 +86,35 @@ body {
 				</div>
 			</div>
 
+			<%
+				for(ArtistVO vo : list) {
+			%>
+			<div class="post-list">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="picture">
+							<img alt=<%=vo.getName() %> src="../../images/<%=vo.getSimg() %>">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<h4>
+							<label class="label label-info"><%=vo.getName() %></label>
+						</h4>
+
+						<p class="description"><%=vo.getContent() %></p>
+					</div>
+					<div class="col-sm-4">
+						<a class="btn btn btn-secondary"
+							href="http://localhost:9000/concert/admin/artist/admin_artist_edit.jsp">
+							<i class="fa fa-share"></i> 수정
+						</a> 
+					</div>
+				</div>
+			</div>
+			
+			<%
+				}
+			%>
 			<!--  장범준  -->
 			<div class="post-list">
 				<div class="row">

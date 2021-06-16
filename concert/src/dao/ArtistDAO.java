@@ -10,7 +10,7 @@ public class ArtistDAO extends DAO{
 	//아티스트 전체 리스트
 	public ArrayList<ArtistVO> getList(){
 		ArrayList<ArtistVO> list = new ArrayList<ArtistVO>();
-		String sql = "select name, content from artists ";
+		String sql = "select name, content, simg, no from artists order by no";
 				
 		getPreparedStatement(sql);
 		
@@ -20,6 +20,7 @@ public class ArtistDAO extends DAO{
 				ArtistVO vo = new ArtistVO();
 				vo.setName(rs.getString(1));
 				vo.setContent(rs.getString(2));
+				vo.setSimg(rs.getString(3));
 				
 				list.add(vo);
 			}
