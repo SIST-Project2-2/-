@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자-콘서트 등록</title>
+<script src="../../js/jquery.cookies.js"></script>
 <script>
 	document.execCommand("styleWithCSS", false, true); // 작성 중 style 변경 가능
 	
@@ -16,9 +17,20 @@
 		var align = "left";
 		
 		// 임시저장 버튼 클릭
-		$("#btn_temp").click(function() {
-			// ~~~
-			alert("임시저장");
+		$("#btn_set_temp").click(function() { // 30일간 저장되는 쿠키 생성
+			$.cookie("notice_tag_temp", $("#tag").val(), { expires: 30 });
+			$.cookie("notice_title_temp", $("#title").val(), { expires: 30 });
+			$.cookie("notice_content_temp", $("#content").html(), { expires: 30 });
+			alert("임시 저장이 완료되었습니다.");
+		});
+		
+		// 임시저장 불러오기 버튼 클릭
+		$("#btn_get_temp").click(function() { // 쿠키에 저장된 임시저장 데이터를 불러옴
+			if(confirm("정말로 불러오시겠습니까?")) {
+				$("#tag").val($.cookie("notice_tag_temp"));
+				$("#title").val($.cookie("notice_title_temp"));
+				$("#content").html($.cookie("notice_content_temp"));
+			}
 		});
 		
 		// 등록하기 버튼 클릭
@@ -38,12 +50,6 @@
 			});
 		});
 		
-		// text 버튼 클릭
-		$("#btn_text").click(function() {
-			alert("text button");
-			
-		});
-		
 		// 이미지 삽입 버튼 클릭
 		$("#btn_image").click(function() {
 			
@@ -51,40 +57,61 @@
 		
 		// bold 버튼 클릭
 		$("#btn_bold").click(function() {
-			onBold = !onBold;
-			document.execCommand("bold", false, true);
-			if(onBold) {
-				$("#btn_bold").attr("class", "btn px-1 py-0 btn-secondary");
-			}else {
-				$("#btn_bold").attr("class", "btn px-1 py-0");
-			}
 			$("#content").focus();
+			if(document.execCommand("bold", false, true)){
+				onBold = !onBold;
+				if(onBold) {
+					$("#btn_bold").attr("class", "btn px-1 py-0 btn-secondary");
+				}else {
+					$("#btn_bold").attr("class", "btn px-1 py-0");
+				}
+			}
 		});
 		
 		// italic 버튼 클릭
 		$("#btn_italic").click(function() {
+			$("#content").focus();
 			onItalic = !onItalic;
 			document.execCommand("italic", false, true);
-			if(onBold) {
+			if(onItalic) {
 				$("#btn_italic").attr("class", "btn px-1 py-0 btn-secondary");
 			}else {
 				$("#btn_italic").attr("class", "btn px-1 py-0");
 			}
-			$("#content").focus();
 		});
 		
 		// 밑줄 버튼 클릭
 		$("#btn_underline").click(function() {
+			$("#content").focus();
 			onUnderline = !onUnderline;
 			document.execCommand("underline", false, true);
-			if(onBold) {
+			if(onUnderline) {
 				$("#btn_underline").attr("class", "btn px-1 py-0 btn-secondary");
 			}else {
 				$("#btn_underline").attr("class", "btn px-1 py-0");
 			}
-			$("#content").focus();
+		});
+		
+		$("#content").click(function() {
+			checkCss($(this));
+		});
+		
+		$("#content span").click(function() {
+			checkCss($(this));
+		});
+		
+		$("#content div").click(function() {
+			checkCss($(this));
 		});
 	});
+	
+	function checkCss(element) {
+		if(element.css("font-weight") == "700") { // 700 = bold
+			$("#btn_bold").attr("class", "btn px-1 py-0 btn-secondary");
+		}else {
+			$("#btn_bold").attr("class", "btn px-1 py-0");
+		}
+	}
 </script>
 <style>
 #content {
@@ -105,7 +132,7 @@
 			<%--top 영역--%>
 			<div class="clearfix pt-3">
 				<h3 class="d-inline-block float-lfet ">공지사항 등록</h3>
-				<button type="button" class="btn btn-light float-right" id="btn_temp">임시저장</button>
+				<button type="button" class="btn btn-light float-right" id="btn_set_temp">임시저장</button>
 				<button type="button" class="btn btn-light float-right" id="btn_add">등록하기</button>
 			</div>
 			
@@ -124,11 +151,19 @@
 					<!-- <textarea class="w-100" placeholder="내용을 입력하세요"
 						style="height: 500px;" name="content" id="content"></textarea>
 					 -->
-					<div class="container px-0 border border-secondary">
+					 
+					<div class="container-md">
+						<div class="row mb-2 justify-content-end">
+							<label class="my-auto pr-1" style="font-size:15px">이미지 선택:</label>
+							<input type="file" class="w-80 border border-secondary rounded" style="padding:2px; font-size:12px;">
+						</div>
+					</div>
+					<div class="container-md px-0 border border-secondary">
 						<div class="row m-0 p-0 bg-light border-bottom border-secondary">
-							<button type="button" id="btn_bold" style="font-weight:bold">가</button>
+							<button type="button" class="btn px-1 py-0" id="btn_bold" style="font-weight:bold">가</button>
 							<button type="button" class="btn px-1 py-0" id="btn_italic" style="font-style:italic">가</button>
 							<button type="button" class="btn px-1 py-0" id="btn_underline" style="text-decoration:underline">가</button>
+							<button type="button" class="btn btn-primary px-1 py-0" id="btn_get_temp" style="font-size:11px">임시저장 불러오기</button>
 						</div>
 						<div class="m-0 p-2" id="content" contenteditable="true" style="height:400px"></div>
 					</div>
