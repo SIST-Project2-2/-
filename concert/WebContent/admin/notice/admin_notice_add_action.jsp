@@ -8,7 +8,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-String savePath = request.getServletContext().getRealPath("../../images");
+String savePath = request.getServletContext().getRealPath("/images/notice_uploads");
 int sizeLimit = 1024 * 1024 * 15;
 
 MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
@@ -31,4 +31,5 @@ if (result == 1) {
 	script.close();
 	return;
 }
+
 %>

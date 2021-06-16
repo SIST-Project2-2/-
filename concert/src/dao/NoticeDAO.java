@@ -465,12 +465,14 @@ public class NoticeDAO extends DAO {
 
 		try {
 
-			String sql = "INSERT INTO NOTICES VALUES(NOTICES_NO_SEQ.NEXTVAL, ?, ?, sysdate, 'admin', 0,?, null, null)";
+			String sql = "INSERT INTO NOTICES VALUES(NOTICES_NO_SEQ.NEXTVAL, ?, ?, sysdate, 'admin', 0, ?, ?, ?)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getTag());
+			pstmt.setString(4, vo.getImg());
+			pstmt.setString(5, vo.getSimg());
 
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 			result = pstmt.executeUpdate();
