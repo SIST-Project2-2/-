@@ -6,6 +6,12 @@ import java.util.Base64;
 
 public class Security {
 
+	// 10 바이트 의 랜덤 데이터를 생성하는 메소드
+	public static String getRandomString() {
+		return getSalt(10);
+	}
+
+	// 32바이트의 랜덤 데이터를 생성하는 메소드
 	public static String getSalt() {
 		String result = null;
 		try {
@@ -19,6 +25,21 @@ public class Security {
 		return result;
 	}
 
+	// 특정 바이트 크기의 랜덤 데이터를 생성하는 메소드
+	public static String getSalt(int size) {
+		String result = null;
+		try {
+			byte[] bytes = new byte[size];
+			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+			random.nextBytes(bytes);
+			result = new String(Base64.getEncoder().encode(bytes));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 비밀번호를 SALT와 결합시킨 후 해싱한 값을 반환하는 메소드
 	public static String pwHashing(String pw, String salt) {
 		String result = null;
 		pw = pw + salt;
@@ -33,10 +54,12 @@ public class Security {
 	}
 
 	public static void main(String[] args) {
+		String tmp = getRandomString();
 		String salt = getSalt();
-		String pw = pwHashing("1234", salt);
+		String pw = pwHashing(tmp, salt);
 
-		System.out.println(pw);
-		System.out.print(salt);
+		System.out.println("pw: " + tmp);
+		System.out.print("salt: " + salt);
+		System.out.println("hashed pw: " + pw);
 	}
 }
