@@ -29,6 +29,28 @@ public class MemberDAO extends DAO {
 		close();
 		return result;
 	}
+	// 닉네임 중복 체크
+	public int nickCheck(String nick) {
+		int result = 0;
+		String sql = "SELECT COUNT(*) FROM MEMBERS WHERE NICKNAME = ? ";
+		getPreparedStatement(sql);
+		
+		try {
+			
+			pstmt.setString(1, nick);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		close();
+		return result;
+	}
 
 	// 로그인
 	public int login(String id, String pw) {
