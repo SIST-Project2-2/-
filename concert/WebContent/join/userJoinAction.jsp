@@ -76,7 +76,7 @@ if (id == null || pw == null) {
 	script.close();
 	return;
 }
-
+ 
 
 
 MemberDAO memberDAO = new MemberDAO();
