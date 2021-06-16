@@ -16,38 +16,62 @@
 			.ready(
 					function() {
 
+						$("#id").removeClass("is-invalid");
+
 						$("#idBtn").click(function() {
 							var id = $("#id");
 							if (id.val() == "") {
 								$("#id").addClass("is-invalid");
-								id.focus();
+
 								return false;
 							} else {
 								$(".idHide").hide();
 								$(".passHide").css("display", "block");
 							}
 						});
+
+						$("#id").change(function() {
+							var id = $("#id");
+							if (id.val().length > 1)
+								$("#id").removeClass("is-invalid");
+						});
+
 						$("#passBtn").click(function() {
 							var pass = $("#pw");
-							if (pass.val() == "") {
+							var cpass = $("#cpass");
+
+							if (pass.val() == "" || cpass.val() == "") {
 								$("#pw").addClass("is-invalid");
-								pass.focus();
+
 								return false;
 							} else {
 								$(".passHide").hide();
 								$(".nickNameHide").css("display", "block");
 							}
 						});
+
+						$("#pw").change(function() {
+							var pw = $("#pw");
+							if (pw.val().length > 1)
+								$("#pw").removeClass("is-invalid");
+						});
+
 						$("#nickBtn").click(function() {
 							var nickName = $("#nickName");
 							if (nickName.val() == "") {
 								$("#nickName").addClass("is-invalid");
-								nickName.focus();
+
 								return false;
 							} else {
 								$(".nickNameHide").hide();
 								$(".nameHide").css("display", "block");
 							}
+						});
+
+						$("#nickName").change(function() {
+							var nickName = $("#nickName");
+							if (nickName.val().length > 1)
+								$("#nickName").removeClass("is-invalid");
 						});
 
 						$("#nameBtn").click(function() {
@@ -57,11 +81,11 @@
 
 							if (lastName.val() == "" || firstName.val() == "") {
 								$("#lastName").addClass("is-invalid");
-								lastName.focus();
+
 								return false;
 							} else if (addr.val() == "") {
 								$("#addr").addClass("is-invalid");
-								lastName.focus();
+
 								return false;
 							} else {
 								$(".nameHide").hide();
@@ -82,7 +106,7 @@
 													|| hp3.val() == "") {
 												$("#hp1")
 														.addClass("is-invalid");
-												hp1.focus();
+											
 												return false;
 											} else {
 												$(".hpHide").hide();
@@ -93,16 +117,15 @@
 										});
 
 						$("#birthBtn").click(function() {
-							var birth_date = $("#birth_date");
-							var gender = document.getElementsByName("gender");
+							var date = $("#birth_date");
+							var gender = $("#gender");
 
-							if (birth_date.val() == "") {
+							if (date.val() == null) {
 								$("#birth_date").addClass("is-invalid");
-								birth_date.focus();
 								return false;
 							} else if (check_count("gender") == 0) {
 								$("#birth_date").addClass("is-invalid");
-								gender.focus();
+
 								return false;
 							} else {
 								$(".birthHide").hide();
@@ -111,13 +134,19 @@
 							}
 
 						});
+						
+						$("#birth_date").change(function() {
+							var date = $("#birth_date");
+							if (date.val().length != null)
+								$("#birth_date").removeClass("is-invalid");
+						});
 
 						$("#emailBtn").click(function() {
 
 							var email = $("#email");
 							if (email.val() == "") {
 								$("#email").addClass("is-invalid");
-								email.focus();
+
 								return false;
 							} else {
 								$(".emailHide").hide();
@@ -137,80 +166,175 @@
 
 						//아이디 중복체크
 						$("#id")
-						    .change(
-						        function() {
-						            if ($("#id").val() == "") {
-						                alert("아이디를 입력해주세요");
-						                $("#id").focus();
-						                return false;
-						            } else {
-						                $
-						                    .ajax({
+								.change(
+										function() {
+											if ($("#id").val() == "") {
 
-						                        url: "./joinIdCheckAction.jsp?id=" +
-						                            $("#id")
-						                            .val(),
-						                        success: function(
-						                            result) {
-						                            if (result == 1) {
+												return false;
+											} else {
+												$
+														.ajax({
 
-						                                $(
-						                                        "#idCheckResult")
-						                                    .text(
-						                                        "중복된 아이디가 존재합니다.")
-						                                    .css({
-						                                        "color": "red",
-						                                        "font-size": "12px"
-						                                    });;
-						                                $(
-						                                        "#idCheckResult")
-						                                    .focus();
-						                                $("#idBtn").attr("disabled", true);
-						                                return false;
-						                            } else {
-						                                $(
-						                                        "#idCheckResult")
-						                                    .text(
-						                                        "사용 가능한 아이디 입니다.")
-						                                    .css({
-						                                        "color": "green",
-						                                        "font-size": "12px"
-						                                    });;
-						                                $("#idCheckResult").focus();
-						                                $("#idBtn").attr("disabled", false);
-						                                return true;
-						                            }
-						                        }
+															url : "./joinIdCheckAction.jsp?id="
+																	+ $("#id")
+																			.val(),
+															success : function(
+																	result) {
+																if (result == 1) {
 
-						                    }) //ajax
-						            } //else
-						        }) //
-						        
-										// 회원가입 이름 입력시 숫자, 특수문자 사용 못하게 막기
-									    var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi; 
-									    var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
-									    
-									    $(document).ready(function(){
-									        
-									        $("#lastName,#firstName").on("focusout", function() {
-									            var x = $(this).val();
-									            if (x.length > 0) {
-									                if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
-									                    x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
-									                }
-									                $(this).val(x);
-									            }
-									            }).on("keyup", function() {
-									                $(this).val($(this).val().replace(replaceChar, ""));
+																	$(
+																			"#idCheckResult")
+																			.text(
+																					"중복된 아이디가 존재합니다.")
+																			.css(
+																					{
+																						"color" : "red",
+																						"font-size" : "12px"
+																					});
+																	;
 
-									       });
+																	$("#idBtn")
+																			.attr(
+																					"disabled",
+																					true);
+																	return false;
+																} else {
+																	$(
+																			"#idCheckResult")
+																			.text(
+																					"사용 가능한 아이디 입니다.")
+																			.css(
+																					{
+																						"color" : "green",
+																						"font-size" : "12px"
+																					});
+																	;
 
-									    });    
-									    
-									    
-								
+																	$("#idBtn")
+																			.attr(
+																					"disabled",
+																					false);
+																	return true;
+																}
+															}
+
+														}) //ajax
+											} //else
+										}) //
+
+						//닉네임 중복체크
+						$("#nickName")
+								.change(
+										function() {
+											if ($("#nickName").val() == "") {
+												
+												return false;
+											} else {
+												$
+														.ajax({
+
+															url : "./nickNameCheckAction.jsp?nickName="
+																	+ $(
+																			"#nickName")
+																			.val(),
+															success : function(
+																	result) {
+																if (result == 1) {
+
+																	$(
+																			"#nickNameCheckResult")
+																			.text(
+																					"중복된 닉네임이 존재합니다.")
+																			.css(
+																					{
+																						"color" : "red",
+																						"font-size" : "12px"
+																					});
+																	;
+
+																	$(
+																			"#nickBtn")
+																			.attr(
+																					"disabled",
+																					true);
+																	return false;
+																} else {
+																	$(
+																			"#nickNameCheckResult")
+																			.text(
+																					"사용 가능한 닉네임 입니다.")
+																			.css(
+																					{
+																						"color" : "green",
+																						"font-size" : "12px"
+																					});
+																	;
+
+																	$(
+																			"#nickBtn")
+																			.attr(
+																					"disabled",
+																					false);
+																	return true;
+																}
+															}
+
+														}) //ajax
+											} //else
+										}) //
+
+						// 회원가입 이름 입력시 숫자, 특수문자 사용 못하게 막기
+						var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi;
+						var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+
+						$(document)
+								.ready(
+										function() {
+
+											$("#lastName,#firstName")
+													.on(
+															"focusout",
+															function() {
+																var x = $(this)
+																		.val();
+																if (x.length > 0) {
+																	if (x
+																			.match(replaceChar)
+																			|| x
+																					.match(replaceNotFullKorean)) {
+																		x = x
+																				.replace(
+																						replaceChar,
+																						"")
+																				.replace(
+																						replaceNotFullKorean,
+																						"");
+																	}
+																	$(this)
+																			.val(
+																					x);
+																}
+															})
+													.on(
+															"keyup",
+															function() {
+																$(this)
+																		.val(
+																				$(
+																						this)
+																						.val()
+																						.replace(
+																								replaceChar,
+																								""));
+
+															});
+
+										});
+
 					});
 </script>
+
+
 
 
 <link rel="stylesheet" href="join.css">
@@ -231,11 +355,12 @@
 					placeholder="아이디 입력" required>
 				<div id="idCheckResult"></div>
 				<div class="invalid-feedback">아이디를 입력해주세요</div>
+				<div class="valid-feedback">아이디가 정상적으로 입력되었습니다.</div>
 				<button type="submit" id="idBtn">다음</button>
 			</div>
 		</div>
 
-
+ 
 		<div class="passHide" style="display: none;">
 			<div class="joinID">
 				<h1>가입하기</h1>
@@ -243,13 +368,15 @@
 				<progress id="file" value="30" max="100"></progress>
 				<div>로그인에 사용할 비밀번호를 입력해주세요</div>
 				<input type="password" name="pw" id="pw" placeholder="비밀번호 입력"
-					required> <input type="password" name="cpass" id="cpass"
-					onblur="passCheck()" placeholder="비밀번호 확인" required>
+					required onblur="passCheck()"> <input type="password"
+					name="cpass" id="cpass" onblur="passCheck()" placeholder="비밀번호 확인"
+					required>
 				<div id="msg"></div>
 				<div class="invalid-feedback">비밀번호를 입력해주세요</div>
 				<button type="submit" id="passBtn">다음</button>
 			</div>
 		</div>
+
 
 		<div class="nickNameHide" style="display: none;">
 			<div class="joinID">
@@ -259,12 +386,14 @@
 				<div>사용할 닉네임 입력해주세요</div>
 				<input type="text" name="nickName" id="nickName"
 					class="form-control" placeholder="닉네임 입력" required>
+				<div id="nickNameCheckResult"></div>
 				<div class="invalid-feedback">닉네임을 입력해주세요</div>
 				<button type="submit" id="nickBtn">다음</button>
 			</div>
 		</div>
 
-		<!-- 주소검색 API UI juso.go.kr API 사용 -->
+
+		
 		<div class="nameHide" style="display: none;">
 			<div class="joinID">
 				<h1>가입하기</h1>
@@ -307,29 +436,26 @@
 			</div>
 		</div>
 
-		<!-- https://thingsthis.tistory.com/62 : 자바스크립트 정규표현식 -->
+		
 		<div class="birthHide" style="display: none;">
 			<div class="joinID">
 				<h1>가입하기</h1>
 				<label for="file"></label>
 				<progress id="file" value="90" max="100"> 90% </progress>
 				<div>생년월일과 성별을 선택해주세요</div>
-				<input type="text" name="birth_date" placeholder="생년월일 입력(YYYYMMDD)"
-					maxlength="8"
-					oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-					required id="birth_date">
-					
-					 <label
+				<input type="date" name="birth_date" required id="birth_date"
+					min="1900-01-01" max="2021-12-31" value="1994-09-09"> <label
 					style="margin-left: 16rem;">남자</label><input type="radio"
 					name="gender" value="M" id="gender"> <label
 					style="margin-left: 16rem;">여자</label><input type="radio"
 					name="gender" value="F" id="gender">
-					
-					
-				<div class="invalid-feedback" style="margin-top:60px;">생년월일과 성별을 입력해주세요</div>
+				<div class="invalid-feedback" style="margin-top: 60px;">정확한
+					생년월일을 기입하거나 성별을 체크해주세요</div>
 				<button type="submit" id="birthBtn">다음</button>
 			</div>
 		</div>
+
+
 
 		<div class="emailHide" style="display: none;">
 			<div class="joinID">
@@ -344,7 +470,7 @@
 				<button type="submit" id="emailBtn">다음</button>
 			</div>
 		</div>
-
+ 
 
 
 
