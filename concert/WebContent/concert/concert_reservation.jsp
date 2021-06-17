@@ -10,13 +10,13 @@ String concert_no = request.getParameter("concert_no");
 ConcertDAO concertDAO = new ConcertDAO();
 ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
 
-/* //이메일 인증
+ //이메일 인증
 String id = (String) session.getAttribute("id");
 MemberDAO dao = new MemberDAO();
 
 
 int result = dao.emailCheck(id);
-if(result!=0){ */
+if(result!=0){ 
 
 %>
 <!-- header -->
@@ -25,7 +25,7 @@ if(result!=0){ */
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>콘서트 예매</title>
 <style type="text/css">
 .seat {
 	width: 35px;
@@ -188,8 +188,8 @@ if(result!=0){ */
 </html>
 
 
-<%-- <%
-	//
+ <%
+	
 } else {
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
@@ -199,4 +199,4 @@ if(result!=0){ */
 	script.close();
 	return;
 }
-%> --%>
+%> 
