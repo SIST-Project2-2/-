@@ -1,5 +1,7 @@
 <%@page import="vo.ConcertVO"%>
 <%@page import="dao.ConcertDAO"%>
+<%@page import="dao.MemberDAO"%>
+<%@ page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/error.jsp"%>
 <%
 	//
@@ -7,6 +9,15 @@ String concert_no = request.getParameter("concert_no");
 
 ConcertDAO concertDAO = new ConcertDAO();
 ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
+
+/* //이메일 인증
+String id = (String) session.getAttribute("id");
+MemberDAO dao = new MemberDAO();
+
+
+int result = dao.emailCheck(id);
+if(result!=0){ */
+
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -175,3 +186,17 @@ ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
 	</div>
 </body>
 </html>
+
+
+<%-- <%
+	//
+} else {
+	PrintWriter script = response.getWriter();
+	script.println("<script>");
+	script.println("alert('이메일 인증한 회원만 사용 가능한 페이지 입니다.');");
+	script.println("location.href = '../index.jsp'");
+	script.println("</script>");
+	script.close();
+	return;
+}
+%> --%>
