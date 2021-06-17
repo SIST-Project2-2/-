@@ -161,10 +161,8 @@ if (id != null) {
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-right mt-4">
-				<form class="d-inline-block" action="myprofile_edit.jsp" method="post">
-					<input type="hidden" class="form-control" value="test" id="id" name="id">
-					<button type="submit" class="btn btn-primary">수정하기</button>
-				</form>
+				<a href="change_password.jsp" class="btn btn-secondary">비밀번호 변경</a>
+				<a href="myprofile_edit.jsp" class="btn btn-secondary">수정하기</a>
 				<%
 					//
 				if (hasWithdrawn) {
