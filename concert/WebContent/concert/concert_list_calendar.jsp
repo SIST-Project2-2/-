@@ -1,4 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="concert.Commons"%>
+<%@page import="vo.MemberVO"%>
+<%@page import="dao.MemberDAO"%>
+<%@ page import="java.io.PrintWriter"%>
+<%
+
+String id = (String) session.getAttribute("id");
+MemberDAO dao = new MemberDAO();
+
+int result = dao.emailCheck(id);
+
+if(result==1){
+
+
+%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -183,3 +198,16 @@
 	</section>
 </body>
 </html>
+
+<%
+	//
+} else {
+	PrintWriter script = response.getWriter();
+	script.println("<script>");
+	script.println("alert('이메일 인증한 회원만 사용 가능한 페이지 입니다.');");
+	script.println("location.href = '../index.jsp'");
+	script.println("</script>");
+	script.close();
+	return;
+}
+%>
