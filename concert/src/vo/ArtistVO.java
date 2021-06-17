@@ -5,9 +5,31 @@ public class ArtistVO extends VO {
 	private int no;
 	private String name;
 	private String content;
+	private String img;
+	private String simg;
 
 	public int getNo() {
 		return no;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getSimg() {
+		return simg;
+	}
+
+	public void setSimg(String simg) {
+		this.simg = simg;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public void setNo(int no) {
