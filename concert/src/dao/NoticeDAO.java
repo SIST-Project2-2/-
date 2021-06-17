@@ -161,7 +161,7 @@ public class NoticeDAO extends DAO {
 		NoticeVO info = new NoticeVO();
 
 		try {
-			String sql = "SELECT NO, TITLE, CONTENT, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), VIEWS , TAG"
+			String sql = "SELECT NO, TITLE, CONTENT, TO_CHAR(WDATE, 'YYYY-MM-DD HH24:MI'), VIEWS , TAG, SIMG"
 					+ " FROM NOTICES WHERE NO = ? ";
 			getPreparedStatement(sql);
 
@@ -175,6 +175,7 @@ public class NoticeDAO extends DAO {
 				info.setDate(rs.getString(4));
 				info.setViews(rs.getInt(5));
 				info.setTag(rs.getString(6));
+				info.setSimg(rs.getString(7));
 			} else {
 				return null; // 해당하는 공지사항이 없을 경우 null 반환
 			}
@@ -465,12 +466,14 @@ public class NoticeDAO extends DAO {
 
 		try {
 
-			String sql = "INSERT INTO NOTICES VALUES(NOTICES_NO_SEQ.NEXTVAL, ?, ?, sysdate, 'admin', 0,?)";
+			String sql = "INSERT INTO NOTICES VALUES(NOTICES_NO_SEQ.NEXTVAL, ?, ?, sysdate, 'admin', 0, ?, ?, ?)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContent());
 			pstmt.setString(3, vo.getTag());
+			pstmt.setString(4, vo.getImg());
+			pstmt.setString(5, vo.getSimg());
 
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 			result = pstmt.executeUpdate();

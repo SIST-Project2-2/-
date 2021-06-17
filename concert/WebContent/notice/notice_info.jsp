@@ -58,6 +58,10 @@ dao.close();
 				<tr>
 					<td colspan="4" class="text-left">
 						<div class="text-center">
+							<% if(vo.getSimg() != null) { %>
+							<img src="../upload/<%= vo.getSimg() %>">
+							<% } %>
+							<br>
 							<%=vo.getContent()%>
 							<br>
 						</div>

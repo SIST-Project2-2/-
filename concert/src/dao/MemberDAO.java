@@ -264,8 +264,10 @@ public class MemberDAO extends DAO {
 	// 사용자가 이메일 인증이 되었는지 확인해 주는 함수
 	public int emailCheck(String id) {
 
+		int result = -2;  
+		
 		try {
-			String sql = "select emailchecked from members where id = ? ";
+			String sql = "select emailchecked from members where id=? ";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, id);
@@ -273,15 +275,17 @@ public class MemberDAO extends DAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				// 사용자가 이메일 인증 성공일 경우 1값 반환
-				return rs.getInt(1);
+				result =  rs.getInt(1);
+			}else {
+				result = 0;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		close();
 		// 사용자가 이메일 인증 실패일 경우 0값 반환
-		return 0;
+		return result;
 	}
+	
 
 	// 사용자의 이메일 인증이 완료되었을 경우 정보 update(이메일 인증 수행)
 	public int updateEmailCheck(String id) {
