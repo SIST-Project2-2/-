@@ -2,16 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO, vo.NoticeVO"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="concert.Commons"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%> 
 
 <%
 	request.setCharacterEncoding("UTF-8");
 
-String savePath = request.getServletContext().getRealPath("/images/notice_uploads");
-int sizeLimit = 1024 * 1024 * 15;
-
-MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "UTF-8", new DefaultFileRenamePolicy());
+MultipartRequest multi = Commons.getMultipartRequest(request);
 
 String title = multi.getParameter("title");
 String content = multi.getParameter("content");
