@@ -143,7 +143,11 @@
 					for(NoticeVO notice : list) {
 			%>
 			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= notice.getNo() %>"><div class="card d-inline-block">
-				<img class="card-img-top" src="../images/장범준.jpg">
+				<% if(notice.getSimg() != null) { %>
+				<img class="card-img-top" src="../upload/<%= notice.getSimg() %>" style="width:248px;height:248px">
+				<% }else { %>
+				<img class="card-img-top" src="../images/logo.png" style="width:248px;height:248px">
+				<% } %>
 				<div class="card-body font-weight-bold">
 					<%
 						String tag = notice.getTag();

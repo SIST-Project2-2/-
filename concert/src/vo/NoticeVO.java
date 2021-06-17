@@ -98,6 +98,15 @@ public class NoticeVO  extends VO{
 		this.tag = tag;
 	}
 	
+	public NoticeVO(String title, String content, String tag, String img, String simg) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.tag = tag;
+		this.img = img;
+		this.simg = simg;
+	}
+	
 	public NoticeVO() {
 		
 	}
