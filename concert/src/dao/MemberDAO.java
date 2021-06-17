@@ -29,25 +29,26 @@ public class MemberDAO extends DAO {
 		close();
 		return result;
 	}
+
 	// 닉네임 중복 체크
 	public int nickCheck(String nick) {
 		int result = 0;
 		String sql = "SELECT COUNT(*) FROM MEMBERS WHERE NICKNAME = ? ";
 		getPreparedStatement(sql);
-		
+
 		try {
-			
+
 			pstmt.setString(1, nick);
-			
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				result = rs.getInt(1);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		close();
 		return result;
 	}
@@ -75,6 +76,7 @@ public class MemberDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// 권한을 추가로 받아와야해서 close를 실행하지 않음
 		return result; // 오류
 	}
 
@@ -98,6 +100,78 @@ public class MemberDAO extends DAO {
 		}
 		close();
 		return result;
+	}
+
+	// SALT 가져오기
+	public String getSalt(MemberVO member) {
+		String result = null;
+		try {
+			String sql = "SELECT SALT FROM MEMBERS WHERE ID = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, member.getId());
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getString(1);
+				System.out.println("getSalt(): 성공");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 비밀번호가 일치하는지 확인
+	public boolean checkPassword(MemberVO member) {
+		boolean result = false;
+		String salt = getSalt(member);
+		String hashedPw = Security.pwHashing(member.getPw(), salt);
+		member.setPw(hashedPw);
+		try {
+			String sql = "SELECT COUNT(*) FROM MEMBERS WHERE ID = ? AND PW = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPw());
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if (rs.getInt(1) == 1) {
+					result = true;
+				}
+				System.out.println("checkPassword(): " + result);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 비밀번호 변경
+	public int changePassword(MemberVO member, String newPw) {
+		int result = -2;
+		if (checkPassword(member)) { // 기존에 입력한 패스워드가 맞는지 확인. 맞으면 SALT 재생성하고 비밀번호 변경
+			try {
+				String salt =Security.getSalt(); // 랜덤 SALT 생성
+				String hashedPw = Security.pwHashing(newPw, salt); // 비밀번호 암호화
+				String sql = "UPDATE MEMBERS SET PW = ?, SALT = ? WHERE ID = ? AND PW = ?";
+				getPreparedStatement(sql);
+
+				pstmt.setString(1, hashedPw);
+				pstmt.setString(2, salt);
+				pstmt.setString(3, member.getId());
+				pstmt.setString(4, member.getPw());
+
+				result = pstmt.executeUpdate();
+				System.out.println("changePassword(): " + result);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		close();
+		return result;
+
 	}
 
 	// 특정 유저의 비밀번호 초기화. 비밀번호와 SALT 생성 후 비밀번호 반환
@@ -559,7 +633,7 @@ public class MemberDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		close();
 		return result;
 	}
 }
