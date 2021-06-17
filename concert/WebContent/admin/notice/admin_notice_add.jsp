@@ -56,6 +56,15 @@
 			}
 		});
 		
+		// 이미지 파일을 선택했을 때
+		$("#img").change(function() {
+			var exts = ["jpg", "png"]; // 허용되는 확장자
+			if(!exts.includes($(this).val().split(".").pop())) {
+				alert("이미지 파일을 선택해주세요.");
+				$(this).val("");
+			}
+		})
+		
 		// bold 버튼 클릭
 		$("#btn_bold").click(function() {
 			// selection.collapse: 커서를 해당 위치로 이동시켜주는 함수
