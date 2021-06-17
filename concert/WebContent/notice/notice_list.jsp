@@ -144,7 +144,7 @@
 			%>
 			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= notice.getNo() %>"><div class="card d-inline-block">
 				<% if(notice.getSimg() != null) { %>
-				<img class="card-img-top" src="../images/notice_uploads/<%= notice.getSimg() %>" style="width:248px;height:248px">
+				<img class="card-img-top" src="../upload/<%= notice.getSimg() %>" style="width:248px;height:248px">
 				<% }else { %>
 				<img class="card-img-top" src="../images/logo.png" style="width:248px;height:248px">
 				<% } %>
