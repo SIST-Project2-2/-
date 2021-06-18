@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ page import = "dao.ReplyDAO,vo.ReplyVO" %>
+	<%@page import="java.util.ArrayList"%>
+
+<%
+ReplyDAO dao = new ReplyDAO();
+String id = (String) session.getAttribute("id");
+ArrayList<ReplyVO> list = dao.getList();
+%>
+
 <!DOCTYPE html>
 <html>
 <!-- ctrl + shift  + F 자동정렬-->
@@ -42,7 +51,7 @@
 						</div>
 						<hr>
 						<div class="third">
-							<audio controls="controls" class="audio" autoplay controls>
+							<audio controls="controls" class="audio" >
 								<source src="../song/아이유노래1.mp3" type="audio/mpeg" />
 							</audio>
 						</div>
@@ -187,78 +196,43 @@
 	<!--댓글-->
 
 	<div class="comment">
-		<form method="get" action="#" class="form-inline mt-3">
+		<form method="get" action="./sendReplyAction.jsp?id=<%=id %>" class="form-inline mt-3">
+		<input type="hidden" name="id" value=<%= id %>>
 			<section class="container">
 				<select name="artistDivide" class="form-control mx-1 mt-2">
 					<option value="공통">공통</option>
-					<option value="공통">아이유</option>
-					<option value="공통">장범준</option>
-					<option value="공통">현아</option>
-					<option value="공통">잔나비</option>
-					<option value="공통">10cm</option>
-				</select> <input type="text" name="content" maxlength="20"
+					<option value="아이유">아이유</option>
+					<option value="장범준">장범준</option>
+					<option value="현아">현아</option>
+					<option value="잔나비">잔나비</option>
+					<option value="10cm">10cm</option>
+				</select> 
+				<input type="text" name="content" maxlength="20"
 					class="form-control mx-4 mt-2 w-50"
-					placeholder="댓글 내용을 입력해주세요(20글자 이내)"> <a
-					class="btn btn-primary mx-1 mt-2" type="submit" href="#">등록</a>
+					placeholder="댓글 내용을 입력해주세요(20글자 이내)">  <button type="submit" class="btn btn-primary">등록</button>
 		</form>
+		<% for(ReplyVO vo : list){ %>
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
 					<div class="col-8 text-left">
-						<small style="border-right: 5px solid black;">아이유팬</small>&nbsp;userID
+						<small style="border-right: 5px solid black;"><%=vo.getArtist() %></small>&nbsp;<%=vo.getId() %>
 					</div>
 					<div class="col-4 text-right">
 						<span style="color: green;">(추천:100)</span>
+						<span style="color: gray;"><%=vo.getDate() %></span>
 					</div>
 				</div>
 			</div>
 			<div class="card-body">
-				<p class="card-content">안녕하세요 반갑습니다 아이유 팬입니다</p>
+				<p class="card-content"><%=vo.getContent() %></p>
 				<div class="col-12 text-right">
 					<a onclick="return confirm('추천하시겠습니까?')" href="#">추천</a> <a
 						onclick="return confirm('삭제하시겠습니까?')" href="#">삭제</a>
 				</div>
 			</div>
 		</div>
-		<div class="card bg-light mt-3">
-			<div class="card-header bg-light">
-				<div class="row">
-					<div class="col-8 text-left">
-						<small style="border-right: 5px solid black;">장범준팬</small>&nbsp;userID
-					</div>
-					<div class="col-4 text-right">
-						<span style="color: green;">(추천:150)</span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<p class="card-content">장범준 팬 화이팅!</p>
-				<div class="col-12 text-right">
-					<a onclick="return confirm('추천하시겠습니까?')" href="#">추천</a> <a
-						onclick="return confirm('삭제하시겠습니까?')" href="#">삭제</a>
-				</div>
-			</div>
-		</div>
-		<div class="card bg-light mt-3">
-			<div class="card-header bg-light">
-				<div class="row">
-					<div class="col-8 text-left">
-						<small style="border-right: 5px solid black;">잔나비팬</small>&nbsp;userID
-					</div>
-					<div class="col-4 text-right">
-						<span style="color: green;">(추천:30)</span>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				<p class="card-content">잔나비 신곡 나왔습니다.</p>
-				<div class="col-12 text-right">
-					<a onclick="return confirm('추천하시겠습니까?')" href="#">추천</a> <a
-						onclick="return confirm('삭제하시겠습니까?')" href="#">삭제</a>
-				</div>
-			</div>
-		</div>
-
+	<%} %>
 		</section>
 	</div>
 
