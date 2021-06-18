@@ -107,7 +107,11 @@ body {
 						<a class="btn btn btn-secondary"
 							href="http://localhost:9000/concert/admin/artist/admin_artist_edit.jsp">
 							<i class="fa fa-share"></i> 수정
-						</a> 
+						</a>
+						<a class="btn btn btn-danger"
+							href="admin_artist_list_delete_process.jsp?name=<%=vo.getName()%>">
+							<i class="fa fa-share"></i> 삭제
+						</a>
 					</div>
 				</div>
 			</div>
