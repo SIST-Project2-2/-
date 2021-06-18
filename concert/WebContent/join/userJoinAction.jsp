@@ -51,7 +51,7 @@ if (request.getParameter("addr") != null) {
 }
 
 if (request.getParameter("hp1") != null && request.getParameter("hp2") != null && request.getParameter("hp3") !=null) {
-	phone = (String)request.getParameter("hp1") + (String)request.getParameter("hp2") + (String)request.getParameter("hp3");
+	phone = (String)request.getParameter("hp1")+("-") + (String)request.getParameter("hp2")+("-") + (String)request.getParameter("hp3");
 }
 
 if (request.getParameter("birth_date") != null) {

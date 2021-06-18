@@ -124,7 +124,7 @@ div.page-404 .outer .inner a#btn {
 			<div class="middle">
 				<div class="inner">
 
-					<a href="./index.jsp">
+					<a href="http://localhost:9000/concert/index.jsp">
 						<div class="inner-circle">
 							<i class="fa fa-home"></i><span class="error">Error</span>
 						</div>
