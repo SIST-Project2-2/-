@@ -18,6 +18,7 @@ public class MemberVO extends VO {
 	private String emailHash; // 이메일 인증 데이터
 	private int emailChecked = -1; // 이메일 인증 여부. 인증되면 1, 안되면 0
 	private String salt; // 비밀번호 암호화용 소금
+	private String issueDate; // 마지막 예매 날짜
 
 	// Constructor
 	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex,
@@ -202,6 +203,14 @@ public class MemberVO extends VO {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public String getIssueDate() {
+		return issueDate;
+	}
+
+	public void setIssueDate(String issueDate) {
+		this.issueDate = issueDate;
 	}
 
 }

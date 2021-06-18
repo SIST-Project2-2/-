@@ -265,8 +265,8 @@ public class MemberDAO extends DAO {
 	// 사용자가 이메일 인증이 되었는지 확인해 주는 함수
 	public int emailCheck(String id) {
 
-		int result = -2;  
-		
+		int result = -2;
+
 		try {
 			String sql = "select emailchecked from members where id=? ";
 			getPreparedStatement(sql);
@@ -276,8 +276,8 @@ public class MemberDAO extends DAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				// 사용자가 이메일 인증 성공일 경우 1값 반환
-				result =  rs.getInt(1);
-			}else {
+				result = rs.getInt(1);
+			} else {
 				result = 0;
 			}
 		} catch (Exception e) {
@@ -286,7 +286,6 @@ public class MemberDAO extends DAO {
 		// 사용자가 이메일 인증 실패일 경우 0값 반환
 		return result;
 	}
-	
 
 	// 사용자의 이메일 인증이 완료되었을 경우 정보 update(이메일 인증 수행)
 	public int updateEmailCheck(String id) {
@@ -334,13 +333,25 @@ public class MemberDAO extends DAO {
 		MemberVO member = null;
 
 		try {
-			String sql = "SELECT NO,ID,NICKNAME,FIRST_NAME, LAST_NAME,TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE,SEX,ADDRESS,PHONE,EMAIL FROM MEMBERS WHERE ID=?";
+			String sql = "SELECT NO, ID, NICKNAME, FIRST_NAME, LAST_NAME, BIRTHDATE, SEX, ADDRESS, PHONE, EMAIL, CDATE ";
+			sql += " FROM (SELECT NO,ID,NICKNAME,FIRST_NAME, LAST_NAME,TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE,SEX,ADDRESS,PHONE,EMAIL ";
+			sql += " FROM MEMBERS  ";
+			sql += " WHERE ID = ?) A ";
+			sql += " LEFT OUTER JOIN ";
+			sql += " (SELECT ID, TO_CHAR(MAX(CDATE), 'YYYY-MM-DD') CDATE ";
+			sql += " FROM ORDERS O JOIN CONCERTS C ON O.CONCERTS_NO = C.NO ";
+			sql += " WHERE O.ID = ? ";
+			sql += " GROUP BY O.ID) B ";
+			sql += " USING(ID)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, id);
+			pstmt.setString(2, id);
 
 			rs = pstmt.executeQuery();
+			System.out.println(1);
 			if (rs.next()) { // 입력 정보 맞음
+				System.out.println(2);
 				member = new MemberVO();
 				member.setNo(rs.getInt(1));
 				member.setId(rs.getString(2));
@@ -352,8 +363,9 @@ public class MemberDAO extends DAO {
 				member.setAddress(rs.getString(8));
 				member.setPhone(rs.getString(9));
 				member.setEmail(rs.getString(10));
+				member.setIssueDate(rs.getString(11));
 			} else { // 입력 정보 틀림
-
+				System.out.println(3);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -509,10 +521,7 @@ public class MemberDAO extends DAO {
 
 	public ArrayList<MemberVO> getList(int start, int end) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email, withdrawal "
-				+ " from (select rownum rno, id, nickname, first_name, last_name, phone, email, withdrawal "
-				+ " from (select id, nickname, first_name, last_name, phone, email, withdrawal from members "
-				+ " order by withdrawal desc)) " + " where rno between ? and ?";
+		String sql = "select id, nickname, first_name, last_name, phone, email, withdrawal " + " from (select rownum rno, id, nickname, first_name, last_name, phone, email, withdrawal " + " from (select id, nickname, first_name, last_name, phone, email, withdrawal from members " + " order by withdrawal desc)) " + " where rno between ? and ?";
 
 		getPreparedStatement(sql);
 
@@ -561,16 +570,11 @@ public class MemberDAO extends DAO {
 
 	// 회원 검색-id
 	/**
-	 * public ArrayList<MemberVO> getSearchId() { ArrayList<MemberVO> list = new
-	 * ArrayList<MemberVO>(); String sql = "select id, nickname, first_name,
-	 * last_name, phone, email "; sql += " from members ";
+	 * public ArrayList<MemberVO> getSearchId() { ArrayList<MemberVO> list = new ArrayList<MemberVO>(); String sql = "select id, nickname, first_name, last_name, phone, email "; sql += " from members ";
 	 * 
 	 * getPreparedStatement(sql);
 	 * 
-	 * try { rs = pstmt.executeQuery(); while (rs.next()) { MemberVO vo = new
-	 * MemberVO(); vo.setId(rs.getString(1)); vo.setNickname(rs.getString(2));
-	 * vo.setFirst_name(rs.getString(3)); vo.setLast_name(rs.getString(4));
-	 * vo.setPhone(rs.getString(5)); vo.setEmail(rs.getString(6));
+	 * try { rs = pstmt.executeQuery(); while (rs.next()) { MemberVO vo = new MemberVO(); vo.setId(rs.getString(1)); vo.setNickname(rs.getString(2)); vo.setFirst_name(rs.getString(3)); vo.setLast_name(rs.getString(4)); vo.setPhone(rs.getString(5)); vo.setEmail(rs.getString(6));
 	 * 
 	 * list.add(vo); }
 	 * 
@@ -623,7 +627,7 @@ public class MemberDAO extends DAO {
 				vo.setPhone(rs.getString(11));
 				vo.setWithdrawal(rs.getString(13));
 				vo.setEmail(rs.getString(14));
-				
+
 				list.add(vo);
 			}
 
@@ -646,8 +650,7 @@ public class MemberDAO extends DAO {
 				for (Field field : fields) {
 					field.setAccessible(true); // private 설정된 필드도 접근 가능하도록 설정
 					if (field.get(search_target) != null) { // 해당 필드가 null이 아니면 실행
-						if ((field.getName().equals("no") || field.getName().equals("emailChecked"))
-								&& (int) field.get(search_target) == -1) { // no 필드는 int 타입이므로 없으면 null이 아닌 -1을 저장
+						if ((field.getName().equals("no") || field.getName().equals("emailChecked")) && (int) field.get(search_target) == -1) { // no 필드는 int 타입이므로 없으면 null이 아닌 -1을 저장
 							continue;
 						}
 						if (sql_where.equals("")) { // 해당 필드에 값이 존재하고 where 구문이 존재하지 않으면 where 생성
@@ -657,8 +660,7 @@ public class MemberDAO extends DAO {
 							sql_where += " or ";
 						}
 						// 해당 필드가 존재하면 where 구문에 "속성명 like('%속성값%')" 을 추가함
-						sql_where += "LOWER(" + field.getName() + ") LIKE(LOWER('%" + field.get(search_target)
-								+ "%')) ";
+						sql_where += "LOWER(" + field.getName() + ") LIKE(LOWER('%" + field.get(search_target) + "%')) ";
 						sql_whereHasCreated = true;
 
 					}
@@ -669,8 +671,7 @@ public class MemberDAO extends DAO {
 			e.printStackTrace();
 		}
 
-		sql = "select * from (select rownum as rno, no, id, pw, nickname, first_name, last_name, birthdate, sex, address, phone, authority, withdrawal, email, emailHash, emailChecked, salt from (select * from members "
-				+ sql_where + " order by withdrawal desc, no desc) c)";
+		sql = "select * from (select rownum as rno, no, id, pw, nickname, first_name, last_name, birthdate, sex, address, phone, authority, withdrawal, email, emailHash, emailChecked, salt from (select * from members " + sql_where + " order by withdrawal desc, no desc) c)";
 		if (rpage != 0) {
 			sql += " where rno > ? * (? - 1) and rno <= ? * ?";
 		}
