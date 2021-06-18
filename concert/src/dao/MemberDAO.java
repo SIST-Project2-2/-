@@ -1,5 +1,6 @@
 package dao;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import util.Security;
@@ -153,7 +154,7 @@ public class MemberDAO extends DAO {
 		int result = -2;
 		if (checkPassword(member)) { // 기존에 입력한 패스워드가 맞는지 확인. 맞으면 SALT 재생성하고 비밀번호 변경
 			try {
-				String salt =Security.getSalt(); // 랜덤 SALT 생성
+				String salt = Security.getSalt(); // 랜덤 SALT 생성
 				String hashedPw = Security.pwHashing(newPw, salt); // 비밀번호 암호화
 				String sql = "UPDATE MEMBERS SET PW = ?, SALT = ? WHERE ID = ? AND PW = ?";
 				getPreparedStatement(sql);
@@ -508,7 +509,10 @@ public class MemberDAO extends DAO {
 
 	public ArrayList<MemberVO> getList(int start, int end) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email, withdrawal " + " from (select rownum rno, id, nickname, first_name, last_name, phone, email, withdrawal " + " from (select id, nickname, first_name, last_name, phone, email, withdrawal from members " + " order by withdrawal desc)) " + " where rno between ? and ?";
+		String sql = "select id, nickname, first_name, last_name, phone, email, withdrawal "
+				+ " from (select rownum rno, id, nickname, first_name, last_name, phone, email, withdrawal "
+				+ " from (select id, nickname, first_name, last_name, phone, email, withdrawal from members "
+				+ " order by withdrawal desc)) " + " where rno between ? and ?";
 
 		getPreparedStatement(sql);
 
@@ -533,7 +537,6 @@ public class MemberDAO extends DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		close();
 
 		return list;
 	}
@@ -557,33 +560,22 @@ public class MemberDAO extends DAO {
 	}
 
 	// 회원 검색-id
-	public ArrayList<MemberVO> getSearchId() {
-		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, nickname, first_name, last_name, phone, email ";
-		sql += " from members ";
-
-		getPreparedStatement(sql);
-
-		try {
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				MemberVO vo = new MemberVO();
-				vo.setId(rs.getString(1));
-				vo.setNickname(rs.getString(2));
-				vo.setFirst_name(rs.getString(3));
-				vo.setLast_name(rs.getString(4));
-				vo.setPhone(rs.getString(5));
-				vo.setEmail(rs.getString(6));
-
-				list.add(vo);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		close();
-		return list;
-	}
+	/**
+	 * public ArrayList<MemberVO> getSearchId() { ArrayList<MemberVO> list = new
+	 * ArrayList<MemberVO>(); String sql = "select id, nickname, first_name,
+	 * last_name, phone, email "; sql += " from members ";
+	 * 
+	 * getPreparedStatement(sql);
+	 * 
+	 * try { rs = pstmt.executeQuery(); while (rs.next()) { MemberVO vo = new
+	 * MemberVO(); vo.setId(rs.getString(1)); vo.setNickname(rs.getString(2));
+	 * vo.setFirst_name(rs.getString(3)); vo.setLast_name(rs.getString(4));
+	 * vo.setPhone(rs.getString(5)); vo.setEmail(rs.getString(6));
+	 * 
+	 * list.add(vo); }
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); } close(); return list; }
+	 */
 
 	// 회원 삭제
 	public boolean getDeleteResult(String id) {
@@ -606,6 +598,84 @@ public class MemberDAO extends DAO {
 		}
 		close();
 		return result;
+	}
+
+	// 멤버 검색 결과 중 특정 페이지 조회
+	public ArrayList<MemberVO> get_member_search_list(int rpage, int page_size, MemberVO search_target) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+
+		try {
+			String sql = getSql(rpage, page_size, search_target);
+			getPreparedStatement(sql);
+
+			pstmt.setInt(1, page_size);
+			pstmt.setInt(2, rpage);
+			pstmt.setInt(3, page_size);
+			pstmt.setInt(4, rpage);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString(3));
+				vo.setNickname(rs.getString(5));
+				vo.setFirst_name(rs.getString(6));
+				vo.setLast_name(rs.getString(7));
+				vo.setPhone(rs.getString(11));
+				vo.setWithdrawal(rs.getString(13));
+				vo.setEmail(rs.getString(14));
+				
+				list.add(vo);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	// 조건에 해당하는 sql 구문 생성 메소드
+	public String getSql(int rpage, int page_size, MemberVO search_target) {
+		String sql = null;
+		String sql_where = "";// 검색 조건 설정하는 where 구문
+		boolean sql_whereHasCreated = false;
+
+		try {
+			if (search_target != null) { // 검색 조건이 존재하면 실행, 존재하지 않으면 null
+				Field[] fields = search_target.getClass().getDeclaredFields();
+				for (Field field : fields) {
+					field.setAccessible(true); // private 설정된 필드도 접근 가능하도록 설정
+					if (field.get(search_target) != null) { // 해당 필드가 null이 아니면 실행
+						if ((field.getName().equals("no") || field.getName().equals("emailChecked"))
+								&& (int) field.get(search_target) == -1) { // no 필드는 int 타입이므로 없으면 null이 아닌 -1을 저장
+							continue;
+						}
+						if (sql_where.equals("")) { // 해당 필드에 값이 존재하고 where 구문이 존재하지 않으면 where 생성
+							sql_where += " where ";
+						}
+						if (sql_whereHasCreated) { // where 구문에 조건을 추가하는게 첫번째가 아니면 or 추가
+							sql_where += " or ";
+						}
+						// 해당 필드가 존재하면 where 구문에 "속성명 like('%속성값%')" 을 추가함
+						sql_where += "LOWER(" + field.getName() + ") LIKE(LOWER('%" + field.get(search_target)
+								+ "%')) ";
+						sql_whereHasCreated = true;
+
+					}
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		sql = "select * from (select rownum as rno, no, id, pw, nickname, first_name, last_name, birthdate, sex, address, phone, authority, withdrawal, email, emailHash, emailChecked, salt from (select * from members "
+				+ sql_where + " order by withdrawal desc, no desc) c)";
+		if (rpage != 0) {
+			sql += " where rno > ? * (? - 1) and rno <= ? * ?";
+		}
+		System.out.println("생성된 sql 구문: " + sql);
+		return sql;
 	}
 
 	// 해당 유저의 권한(일반유저, 관리자, 테스터 등) 확인

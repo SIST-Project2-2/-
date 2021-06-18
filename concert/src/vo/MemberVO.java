@@ -2,8 +2,7 @@ package vo;
 
 public class MemberVO extends VO {
 	// Field
-	private static final long serialVersionUID = 1L;
-	private int no; // 회원번호
+	private int no = -1; // 회원번호
 	private String id; // 아이디
 	private String pw; // 비밀번호
 	private String nickname; // 닉네임
@@ -17,19 +16,12 @@ public class MemberVO extends VO {
 	private String withdrawal; // 탈퇴 요청 여부
 	private String email; // 이메일 주소
 	private String emailHash; // 이메일 인증 데이터
-	private int emailCheck; // 이메일 인증 여부
+	private int emailChecked = -1; // 이메일 인증 여부. 인증되면 1, 안되면 0
 	private String salt; // 비밀번호 암호화용 소금
 
-	public String getEmailHash() {
-		return emailHash;
-	}
-
-	public void setEmailHash(String emailHash) {
-		this.emailHash = emailHash;
-	}
-
 	// Constructor
-	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex, String address, String phone, String authority, String withdrawal, String email) {
+	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex,
+			String address, String phone, String authority, String withdrawal, String email) {
 		super();
 		this.no = no;
 		this.id = id;
@@ -44,9 +36,60 @@ public class MemberVO extends VO {
 		this.email = email;
 	}
 
-	// Method
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date,
+			String sex, String address, String phone, String email) {
+		super();
+
+		this.id = id;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.birth_date = birth_date;
+		this.sex = sex;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+	}
+
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date,
+			String sex, String address, String phone, String email, String emailHash, int emailChecked) {
+		super();
+
+		this.id = id;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.birth_date = birth_date;
+		this.sex = sex;
+		this.address = address;
+		this.phone = phone;
+
+		this.email = email;
+		this.emailHash = emailHash;
+		this.emailChecked = emailChecked;
+	}
+
 	public MemberVO() {
 
+	}
+
+	// Method
+	public String getEmailHash() {
+		return emailHash;
+	}
+
+	public int getEmailChecked() {
+		return emailChecked;
+	}
+
+	public void setEmailChecked(int emailChecked) {
+		this.emailChecked = emailChecked;
+	}
+
+	public void setEmailHash(String emailHash) {
+		this.emailHash = emailHash;
 	}
 
 	public String getEmail() {
@@ -137,22 +180,6 @@ public class MemberVO extends VO {
 		this.no = no;
 	}
 
-	// Constructor
-	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email) {
-		super();
-
-		this.id = id;
-		this.pw = pw;
-		this.nickname = nickname;
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.birth_date = birth_date;
-		this.sex = sex;
-		this.address = address;
-		this.phone = phone;
-		this.email = email;
-	}
-
 	public String getFirst_name() {
 		return first_name;
 	}
@@ -169,42 +196,12 @@ public class MemberVO extends VO {
 		this.last_name = last_name;
 	}
 
-	public int getEmailCheck() {
-		return emailCheck;
-	}
-
-	public void setEmailCheck(int emailCheck) {
-		this.emailCheck = emailCheck;
-	}
-
-	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email, String emailHash, int emailCheck) {
-		super();
-
-		this.id = id;
-		this.pw = pw;
-		this.nickname = nickname;
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.birth_date = birth_date;
-		this.sex = sex;
-		this.address = address;
-		this.phone = phone;
-
-		this.email = email;
-		this.emailHash = emailHash;
-		this.emailCheck = emailCheck;
-	}
-
 	public String getSalt() {
 		return salt;
 	}
 
 	public void setSalt(String salt) {
 		this.salt = salt;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }
