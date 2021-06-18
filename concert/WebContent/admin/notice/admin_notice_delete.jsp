@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.io.File" %>
 <%
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO();
@@ -14,6 +15,17 @@
 	}
 	
 	no = Integer.parseInt(request.getParameter("no")); // 삭제할 게시글 번호
+	
+	// 이미지가 존재할 경우 삭제
+	String simg = dao.getSimg(no);
+	if(!"".equals(simg)) {
+		String path = request.getRealPath("upload");
+		File img = new File(path + "/" + simg);
+		
+		if(img.exists()) {
+			img.delete();
+		}
+	}
 	
 	// 성공하면 true 리턴, 실패하면 false 리턴
 	out.println(dao.deleteNotice(no));

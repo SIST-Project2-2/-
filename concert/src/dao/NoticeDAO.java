@@ -529,4 +529,26 @@ public class NoticeDAO extends DAO {
 		return result;
 		
 	}
+	
+	// 게시글 삭제 시, 이미지도 같이 삭제하기 위해 저장된 이미지명을 반환한다.
+	public String getSimg(int no) {
+		String simg = "";
+		
+		try {
+			String sql = " select simg from notices where no = ? ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				simg = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return simg;
+	}
 }
