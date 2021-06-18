@@ -5,7 +5,7 @@
 String id = (String) session.getAttribute("id");
 String authority = (String) session.getAttribute("authority");
 
-if (id == null && authority != "1") { // 관리자가 아니면 메인으로 이동 
+if (id == null || authority != "1") { // 관리자가 아니면 메인으로 이동 
 	out.write("<script>alert('관리자가 아닙니다. 메인화면으로 이동합니다.');location.href='http://localhost:9000/concert/index.jsp'</script>");
 }
 %>
