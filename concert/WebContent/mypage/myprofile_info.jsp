@@ -5,13 +5,10 @@
 <%
 	//
 String id = (String) session.getAttribute("id");
-
 if (id != null) {
-	MemberVO member = new MemberVO();
-	member.setId(id);
-
 	MemberDAO memberDAO = new MemberDAO();
-	member = memberDAO.get_profile(member.getId());
+	MemberVO member = memberDAO.get_profile(id);
+	member.setId(id);
 
 	boolean hasWithdrawn = memberDAO.hasWithdrawn(id);
 %>
@@ -107,10 +104,16 @@ if (id != null) {
 								<small>생년월일/Date of birth</small>
 								<p class="font-weight-bold" id="birth_date"><%=member.getBirth_date()%></p>
 							</div>
+							<%
+								if (member.getIssueDate() != null) {
+							%>
 							<div class="col-md-6">
 								<small>예매날짜/Date of issue</small>
-								<p class="font-weight-bold" id="issue_date">04 MAY 2022</p>
+								<p class="font-weight-bold" id="issue_date"><%=member.getIssueDate()%></p>
 							</div>
+							<%
+								}
+							%>
 						</div>
 						<div class="row">
 							<div class="col-md-6">

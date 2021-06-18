@@ -503,15 +503,26 @@ public class NoticeDAO extends DAO {
 	public int getUpdateNotice(String no, NoticeVO vo) {
 		
 		int result = -2;
-		String sql = "update notices set tag=?,title=?,content=? where no=?";
+		String sql = " update notices set tag = ?, title = ?, content = ? ";
+		
+		if(!"".equals(vo.getImg())) {
+			sql += ", img = ?, simg = ? ";
+		}
+		
+		sql += " where no = ? ";
 		getPreparedStatement(sql);
 		
 		try {
 			
-			pstmt.setString(1, vo.getTag());
-			pstmt.setString(2,vo.getTitle());
-			pstmt.setString(3,vo.getContent());
-			pstmt.setString(4,no);
+			int i = 1;
+			pstmt.setString(i++, vo.getTag());
+			pstmt.setString(i++,vo.getTitle());
+			pstmt.setString(i++,vo.getContent());
+			if(!"".equals(vo.getImg())) {
+				pstmt.setString(i++,vo.getImg());
+				pstmt.setString(i++,vo.getSimg());
+			}
+			pstmt.setString(i++,no);
 			
 			result = pstmt.executeUpdate();
 			
@@ -528,5 +539,27 @@ public class NoticeDAO extends DAO {
 		close();
 		return result;
 		
+	}
+	
+	// 게시글 삭제 시, 이미지도 같이 삭제하기 위해 저장된 이미지명을 반환한다.
+	public String getSimg(int no) {
+		String simg = "";
+		
+		try {
+			String sql = " select simg from notices where no = ? ";
+			
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				simg = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return simg;
 	}
 }
