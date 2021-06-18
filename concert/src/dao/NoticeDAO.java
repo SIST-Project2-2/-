@@ -503,15 +503,26 @@ public class NoticeDAO extends DAO {
 	public int getUpdateNotice(String no, NoticeVO vo) {
 		
 		int result = -2;
-		String sql = "update notices set tag=?,title=?,content=? where no=?";
+		String sql = " update notices set tag = ?, title = ?, content = ? ";
+		
+		if(!"".equals(vo.getImg())) {
+			sql += ", img = ?, simg = ? ";
+		}
+		
+		sql += " where no = ? ";
 		getPreparedStatement(sql);
 		
 		try {
 			
-			pstmt.setString(1, vo.getTag());
-			pstmt.setString(2,vo.getTitle());
-			pstmt.setString(3,vo.getContent());
-			pstmt.setString(4,no);
+			int i = 1;
+			pstmt.setString(i++, vo.getTag());
+			pstmt.setString(i++,vo.getTitle());
+			pstmt.setString(i++,vo.getContent());
+			if(!"".equals(vo.getImg())) {
+				pstmt.setString(i++,vo.getImg());
+				pstmt.setString(i++,vo.getSimg());
+			}
+			pstmt.setString(i++,no);
 			
 			result = pstmt.executeUpdate();
 			

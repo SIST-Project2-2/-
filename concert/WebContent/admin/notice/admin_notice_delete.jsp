@@ -3,6 +3,7 @@
 <%@ page import="dao.NoticeDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.File" %>
+<%@ page import="concert.Commons" %>
 <%
 	PrintWriter script = response.getWriter();
 	NoticeDAO dao = new NoticeDAO();
@@ -19,12 +20,9 @@
 	// 이미지가 존재할 경우 삭제
 	String simg = dao.getSimg(no);
 	if(!"".equals(simg)) {
-		String path = request.getRealPath("upload");
-		File img = new File(path + "/" + simg);
-		
-		if(img.exists()) {
-			img.delete();
-		}
+		String path = request.getRealPath("upload"); // 현 서버의 해당 디렉토리의 물리주소를 반환함
+
+		Commons.deleteFile(path, simg);
 	}
 	
 	// 성공하면 true 리턴, 실패하면 false 리턴
