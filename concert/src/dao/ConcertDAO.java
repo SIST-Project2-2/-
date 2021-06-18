@@ -66,8 +66,10 @@ public class ConcertDAO extends DAO {
 		try {
 			String sql = "DELETE FROM CONCERTS WHERE NO = ?";
 			getPreparedStatement(sql);
+
 			pstmt.setInt(1, concert.getNo());
-			System.out.println("삭제대상: " + concert.getNo());
+
+//			System.out.println("삭제대상: " + concert.getNo());
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {

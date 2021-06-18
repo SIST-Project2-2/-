@@ -55,4 +55,30 @@ public class ArtistDAO extends DAO{
 		
 		return result;
 	}
+	
+	//insert -> 아티스트 추가
+	public boolean getInsertResult(ArtistVO vo) {
+		boolean result = false;
+		try {
+			String sql = "insert into artists values('b_'||artists_no_seq.nextval, ?, ?, ?, ?)";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setString(3, vo.getImg());
+			pstmt.setString(4, vo.getSimg());
+			
+			int val = pstmt.executeUpdate();
+			
+			if(val == 1) {
+				result = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		close();
+		return result;
+	}
 }

@@ -1,3 +1,4 @@
+<%@page import="com.google.gson.Gson"%>
 <%@page import="java.lang.reflect.Field"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="vo.ConcertVO"%>
@@ -5,7 +6,8 @@
 <%@page import="dao.ConcertDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	int page_no = 1; // 현재 페이지 번호
+	//
+int page_no = 1; // 현재 페이지 번호
 int list_size = 0; // 페이지 당 보여줄 게시글 수
 int page_count = 0; // 총 페이지 수
 ConcertDAO concert_dao = new ConcertDAO(); // 콘서트 DAO 객체
@@ -54,10 +56,9 @@ page_count = concert_dao.count_concert_pages(10, concert);
 concert_list = concert_dao.get_concert_search_list(page_no, 10, concert);
 list_size = concert_list.size();
 //System.out.println("콘서트 목록 사이즈: "+list_size);
-
 concert_dao.close();
 
-
-
-
+Gson gson = new Gson();
+String result = gson.toJson(concert_list);
+out.print(result);
 %>
