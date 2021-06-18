@@ -1,5 +1,6 @@
 package concert;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -22,6 +23,12 @@ public class Commons {
 		return new MultipartRequest(request, saveDirectory, maxPostSize, "UTF-8", new DefaultFileRenamePolicy());
 	}
 
+	// 해당 디렉토리의 해당 파일을 삭제한다(공지사항 삭제/수정에서 이미지 삭제시 쓰임)
+	public static boolean deleteFile(String dir, String fileName) {
+		File file = new File(dir, fileName);
+		return file.delete();
+	}
+	
 	public static String getErrorRedirect() {
 		return "<script>location.href='/concert/error.jsp';</script>";
 	}
