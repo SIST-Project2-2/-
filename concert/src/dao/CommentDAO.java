@@ -15,6 +15,7 @@ public class CommentDAO extends DAO{
 	String countCommon = " select count(*) from comments "; // 댓글 수 출력 sql문 공통
 	
 	
+	
 	public int saveReply(CommentVO vo) {
 		int result = -2;
 		try {
@@ -61,6 +62,43 @@ public class CommentDAO extends DAO{
 		close();
 		return list;
 	}
+	
+	//댓글 페이징
+	public ArrayList<CommentVO> getListPage(int first, int last) {
+		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
+
+		try {
+			String sql = " SELECT*FROM(SELECT ROWNUM NUM, A.* FROM (SELECT ARTIST,ID,CONTENT,TO_CHAR(WDATE, 'YYYY/MM/DD'),REPORT,RECOMMEND " + 
+					" FROM (SELECT * FROM COMMENTS ORDER BY WDATE DESC)) A)WHERE NUM BETWEEN ? AND ?";
+			getPreparedStatement(sql);
+
+			pstmt.setInt(1, first);
+			pstmt.setInt(2, last);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentVO vo = new CommentVO();
+				vo.setNo(rs.getInt(1));
+				vo.setArtist(rs.getString(2));
+				vo.setId(rs.getString(3));
+				vo.setContent(rs.getString(4));
+				vo.setDate(rs.getString(5));
+				vo.setReport(rs.getInt(6));
+				vo.setRecommend(rs.getInt(7));
+
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return list;
+	}
+	
+	
+	
+	
 	
 	
 	// 댓글 삭제
@@ -313,6 +351,15 @@ public class CommentDAO extends DAO{
 	
 	// 페이지 정보 출력 - 기본
 	public int getCount(int nowPage) {
+		String sql = countCommon;
+		
+		int count = executeCount(sql);
+		
+		return count;
+	}
+	
+	// 페이지 정보 출력 - 기본
+	public int getCount() {
 		String sql = countCommon;
 		
 		int count = executeCount(sql);

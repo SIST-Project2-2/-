@@ -7,6 +7,6 @@
 <%
 	String nickName = request.getParameter("nickName");
 MemberDAO dao = new MemberDAO();
-int result = dao.idCheck(nickName);
+int result = dao.nickCheck(nickName);
 out.write(String.valueOf(result));
 %>
