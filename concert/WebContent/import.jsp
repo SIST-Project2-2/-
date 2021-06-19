@@ -5,3 +5,4 @@
 <script src="http://localhost:9000/concert/js/commons.js"></script>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
+<script src="/concert/js/bs-custom-file-input.min.js"></script>

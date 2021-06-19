@@ -235,7 +235,7 @@ public class MemberDAO extends DAO {
 	public int join(MemberVO member) {
 		int result = -2;
 		try {
-			String sql = "INSERT INTO MEMBERS(NO, ID, PW, NICKNAME, FIRST_NAME, LAST_NAME, BIRTHDATE, SEX, ADDRESS, PHONE, EMAIL, EMAILHASH, SALT) VALUES(MEMBERS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO MEMBERS(NO, ID, PW, NICKNAME, FIRST_NAME, LAST_NAME, BIRTHDATE, SEX, ADDRESS, PHONE, EMAIL, EMAILHASH, SALT, IMG, SIMG) " + "VALUES(MEMBERS_NO_SEQ.NEXTVAL, ?, ?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?, ?, ?, ?)";
 			getPreparedStatement(sql);
 
 			member.setSalt(Security.getSalt());
@@ -252,6 +252,8 @@ public class MemberDAO extends DAO {
 			pstmt.setString(10, member.getEmail());
 			pstmt.setString(11, member.getEmailHash());
 			pstmt.setString(12, member.getSalt());
+			pstmt.setString(13, member.getImg());
+			pstmt.setString(14, member.getSimg());
 
 			result = pstmt.executeUpdate();
 
@@ -331,27 +333,24 @@ public class MemberDAO extends DAO {
 	// 프로필 정보 가져오기
 	public MemberVO get_profile(String id) {
 		MemberVO member = null;
-
 		try {
-			String sql = "SELECT NO, ID, NICKNAME, FIRST_NAME, LAST_NAME, BIRTHDATE, SEX, ADDRESS, PHONE, EMAIL, CDATE ";
-			sql += " FROM (SELECT NO,ID,NICKNAME,FIRST_NAME, LAST_NAME,TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE,SEX,ADDRESS,PHONE,EMAIL ";
-			sql += " FROM MEMBERS  ";
-			sql += " WHERE ID = ?) A ";
-			sql += " LEFT OUTER JOIN ";
-			sql += " (SELECT ID, TO_CHAR(MAX(CDATE), 'YYYY-MM-DD') CDATE ";
-			sql += " FROM ORDERS O JOIN CONCERTS C ON O.CONCERTS_NO = C.NO ";
-			sql += " WHERE O.ID = ? ";
-			sql += " GROUP BY O.ID) B ";
-			sql += " USING(ID)";
+			String sql = "SELECT NO, ID, NICKNAME, FIRST_NAME, LAST_NAME, BIRTHDATE, SEX, ADDRESS, PHONE, EMAIL, CDATE, IMG, SIMG ";
+			sql += " FROM (SELECT NO,ID,NICKNAME,FIRST_NAME, LAST_NAME, TO_CHAR(BIRTHDATE, 'YYYY-MM-DD') AS BIRTHDATE, SEX, ADDRESS, PHONE, EMAIL, IMG, SIMG ";
+			sql += " 	   FROM MEMBERS  ";
+			sql += " 	   WHERE ID = ?) A ";
+			sql += " 	   LEFT OUTER JOIN ";
+			sql += " 	  (SELECT ID, TO_CHAR(MAX(CDATE), 'YYYY-MM-DD') CDATE ";
+			sql += " 	   FROM ORDERS O JOIN CONCERTS C ON O.CONCERTS_NO = C.NO ";
+			sql += " 	   WHERE O.ID = ? ";
+			sql += " 	   GROUP BY O.ID) B ";
+			sql += " 	   USING(ID)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, id);
 			pstmt.setString(2, id);
 
 			rs = pstmt.executeQuery();
-			System.out.println(1);
 			if (rs.next()) { // 입력 정보 맞음
-				System.out.println(2);
 				member = new MemberVO();
 				member.setNo(rs.getInt(1));
 				member.setId(rs.getString(2));
@@ -364,8 +363,8 @@ public class MemberDAO extends DAO {
 				member.setPhone(rs.getString(9));
 				member.setEmail(rs.getString(10));
 				member.setIssueDate(rs.getString(11));
-			} else { // 입력 정보 틀림
-				System.out.println(3);
+				member.setImg(rs.getString(12));
+				member.setSimg(rs.getString(13));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
