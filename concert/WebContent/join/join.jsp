@@ -327,7 +327,7 @@
 				<progress id="file" value="90" max="100"> 90% </progress>
 				<div>생년월일과 성별을 선택해주세요</div>
 				<input type="date" name="birth_date" required id="birth_date"
-					min="1900-01-01" max="2021-12-31" value="1994-09-09"> <label
+					min="1900-01-01" max="2021-12-31" > <label
 					style="margin-left: 16rem;">남자</label><input type="radio"
 					name="gender" value="M" id="gender"> <label
 					style="margin-left: 16rem;">여자</label><input type="radio"
