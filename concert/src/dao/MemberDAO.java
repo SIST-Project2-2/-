@@ -376,22 +376,32 @@ public class MemberDAO extends DAO {
 	public int edit_profile(MemberVO member) {
 		int result = -2;
 		try {
-			String sql = "UPDATE MEMBERS SET NICKNAME=?, ADDRESS=?, BIRTHDATE=TO_DATE(?, 'YYYY-MM-DD'), PHONE=? WHERE ID=?";
+			String sql = " UPDATE MEMBERS SET NICKNAME = ?, ADDRESS = ?, BIRTHDATE = TO_DATE(?, 'YYYY-MM-DD'), PHONE = ? ";
+			if (member.getImg() != null) {
+				sql += ", IMG = ?, SIMG = ? ";
+			}
+			sql += " WHERE ID = ? ";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, member.getNickname());
 			pstmt.setString(2, member.getAddress());
 			pstmt.setString(3, member.getBirth_date());
 			pstmt.setString(4, member.getPhone());
-			pstmt.setString(5, member.getId());
-
+			if (member.getImg() != null) {
+				pstmt.setString(5, member.getImg());
+				pstmt.setString(6, member.getSimg());
+				pstmt.setString(7, member.getId());
+			}else {
+				pstmt.setString(5, member.getId());				
+			}
+//			System.out.println("sql: " + sql);
+//			System.out.printf("nickname: %s, add: %s, bd: %s, hp: %s, id: %s, img: %s, simg: %s\n", member.getNickname(), member.getAddress(), member.getBirth_date(), member.getPhone(), member.getId(), member.getImg(), member.getSimg());
 			int val = pstmt.executeUpdate();
 			if (val == 1) { // 입력 정보 맞음
 				result = 1;
 			} else { // 입력 정보 틀림
 				result = 0;
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
