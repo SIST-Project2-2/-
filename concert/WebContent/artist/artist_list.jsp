@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ page import = "dao.ReplyDAO,vo.ReplyVO" %>
+	<%@ page import = "dao.CommentDAO,vo.CommentVO" %>
 	<%@page import="java.util.ArrayList"%>
 
 <%
-ReplyDAO dao = new ReplyDAO();
+CommentDAO dao = new CommentDAO();
 String id = (String) session.getAttribute("id");
-ArrayList<ReplyVO> list = dao.getList();
+ArrayList<CommentVO> list = dao.getList();
 %>
 
 <!DOCTYPE html>
@@ -201,7 +201,7 @@ ArrayList<ReplyVO> list = dao.getList();
 			<section class="container">
 				<select name="artistDivide" class="form-control mx-1 mt-2">
 					<option value="공통">공통</option>
-					<option value="아이유">아이유</option>
+					<option value="IU">IU</option>
 					<option value="장범준">장범준</option>
 					<option value="현아">현아</option>
 					<option value="잔나비">잔나비</option>
@@ -211,7 +211,7 @@ ArrayList<ReplyVO> list = dao.getList();
 					class="form-control mx-4 mt-2 w-50"
 					placeholder="댓글 내용을 입력해주세요(20글자 이내)">  <button type="submit" class="btn btn-primary">등록</button>
 		</form>
-		<% for(ReplyVO vo : list){ %>
+		<% for(CommentVO vo : list){ %>
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
