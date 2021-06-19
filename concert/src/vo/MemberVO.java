@@ -19,10 +19,11 @@ public class MemberVO extends VO {
 	private int emailChecked = -1; // 이메일 인증 여부. 인증되면 1, 안되면 0
 	private String salt; // 비밀번호 암호화용 소금
 	private String issueDate; // 마지막 예매 날짜
+	private String img; // 사용자가 등록한 프로필 사진 명
+	private String simg; // 실제로 저장된 프로필 사진 명
 
 	// Constructor
-	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex,
-			String address, String phone, String authority, String withdrawal, String email) {
+	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex, String address, String phone, String authority, String withdrawal, String email) {
 		super();
 		this.no = no;
 		this.id = id;
@@ -37,8 +38,7 @@ public class MemberVO extends VO {
 		this.email = email;
 	}
 
-	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date,
-			String sex, String address, String phone, String email) {
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email) {
 		super();
 
 		this.id = id;
@@ -53,8 +53,7 @@ public class MemberVO extends VO {
 		this.email = email;
 	}
 
-	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date,
-			String sex, String address, String phone, String email, String emailHash, int emailChecked) {
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email, String emailHash, int emailChecked) {
 		super();
 
 		this.id = id;
@@ -211,6 +210,22 @@ public class MemberVO extends VO {
 
 	public void setIssueDate(String issueDate) {
 		this.issueDate = issueDate;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getSimg() {
+		return simg;
+	}
+
+	public void setSimg(String simg) {
+		this.simg = simg;
 	}
 
 }

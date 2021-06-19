@@ -68,7 +68,7 @@ if (id != null) {
 				</div>
 				<div class="row">
 					<div class="col-md-4">
-						<img class="w-100" alt="" src="../images/장범준.jpg">
+						<img class="w-100" alt="" src="<%=member.getSimg() == null ? "../images/장범준.jpg" : "/concert/upload/" + member.getSimg()%>">
 					</div>
 					<div class="col-md-8">
 						<div class="row">
