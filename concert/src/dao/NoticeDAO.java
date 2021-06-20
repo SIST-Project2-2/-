@@ -206,7 +206,7 @@ public class NoticeDAO extends DAO {
 				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setContent(rs.getString(3));
+				notice.setContent(rs.getString(3).split("<div>")[0]);
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
 				notice.setTag(rs.getString(6));
@@ -256,7 +256,7 @@ public class NoticeDAO extends DAO {
 				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setContent(rs.getString(3));
+				notice.setContent(rs.getString(3).split("<div>")[0]);
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
 				notice.setTag(rs.getString(6));
@@ -291,7 +291,7 @@ public class NoticeDAO extends DAO {
 				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setContent(rs.getString(3));
+				notice.setContent(rs.getString(3).split("<div>")[0]);
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
 				notice.setTag(rs.getString(6));
@@ -341,7 +341,7 @@ public class NoticeDAO extends DAO {
 				notice = new NoticeVO();
 				notice.setNo(rs.getInt(1));
 				notice.setTitle(rs.getString(2));
-				notice.setContent(rs.getString(3));
+				notice.setContent(rs.getString(3).split("<div>")[0]);
 				notice.setDate(rs.getString(4));
 				notice.setViews(rs.getInt(5));
 				notice.setTag(rs.getString(6));
