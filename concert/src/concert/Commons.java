@@ -96,9 +96,9 @@ public class Commons {
 		}
 
 		// 보여지는 페이지 중 시작 페이지와 끝 페이지
-		if (nowPage <= 5) { // 현 페이지가 5페이지 이내일 경우
+		if (nowPage <= 3) { // 현 페이지가 5페이지 이내일 경우
 			info.put("start", 1);
-			info.put("end", totalPage);
+			info.put("end", 5);
 			// vo.setStart(1);
 			// vo.setEnd(total_page);
 		} else if (totalPage - nowPage <= 2) { // 현 페이지가 뒤에서 2번째 이내일 경우
