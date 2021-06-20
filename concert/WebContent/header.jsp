@@ -20,11 +20,11 @@ if (id == null && cookies.exists("storedId") && cookies.exists("auto_login")) {
 </jsp:include>
 <%
 	//
-	if (session.getAttribute("id") != null) {
-		out.print("<script>location.reload();</script>");
-	}else{
-		out.print("<script>location.href='/concert/login/logout.jsp';</script>");		
-	}
+if (session.getAttribute("id") != null) {
+	out.print("<script>location.reload();</script>");
+} else {
+	out.print("<script>location.href='/concert/login/logout.jsp';</script>");
+}
 }
 
 // 계정 권한 가져오기
@@ -39,6 +39,8 @@ if (id != null) {
 <!-- import -->
 <jsp:include page="/import.jsp"></jsp:include>
 <link rel="stylesheet" href="http://localhost:9000/concert/css/header.css">
+<link rel="shortcut icon" href="http://localhost:9000/concert/images/favicon-32x32.png">
+<link rel="icon" href="http://localhost:9000/concert/images/favicon-32x32.png">
 </head>
 <body>
 	<div id="header_div" class="mb-3">

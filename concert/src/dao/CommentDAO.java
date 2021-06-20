@@ -1,9 +1,9 @@
 package dao;
 
 import java.util.ArrayList;
-
 import concert.Commons;
 import vo.CommentVO;
+
 
 public class CommentDAO extends DAO{
 	int commentPerPage = 10; // 댓글 목록 한 페이지 당 보이는 댓글 수
@@ -13,6 +13,93 @@ public class CommentDAO extends DAO{
 			+ "			from comments "; // 댓글 리스트 출력 sql문 앞부분 공통
 	String listCommonEnd = " no desc) where rownum <= ? * ? ) where rno > ? * (? - 1) "; // 댓글 리스트 출력 sql문 뒷부분 공통
 	String countCommon = " select count(*) from comments "; // 댓글 수 출력 sql문 공통
+	
+	
+	
+	public int saveReply(CommentVO vo) {
+		int result = -2;
+		try {
+			String sql = "INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL,?,?,?,SYSDATE,0,0)";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, vo.getArtist());
+			pstmt.setString(2, vo.getId());
+			pstmt.setString(3, vo.getContent());
+			
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		close();
+		return result;
+	}
+
+	//댓글 전체리스트 출력
+	public ArrayList<CommentVO> getList() {
+		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
+
+		try {
+			String sql = "SELECT ARTIST,ID,CONTENT,TO_CHAR(WDATE, 'YYYY/MM/DD'),REPORT,RECOMMEND FROM (SELECT * FROM COMMENTS ORDER BY WDATE DESC)";
+			getPreparedStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentVO vo = new CommentVO();
+				vo.setArtist(rs.getString(1));
+				vo.setId(rs.getString(2));
+				vo.setContent(rs.getString(3));
+				vo.setDate(rs.getString(4));
+
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return list;
+	}
+	
+	//댓글 페이징
+	public ArrayList<CommentVO> getListPage(int first, int last) {
+		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
+
+		try {
+			String sql = " SELECT*FROM(SELECT ROWNUM NUM, A.* FROM (SELECT ARTIST,ID,CONTENT,TO_CHAR(WDATE, 'YYYY/MM/DD'),REPORT,RECOMMEND " + 
+					" FROM (SELECT * FROM COMMENTS ORDER BY WDATE DESC)) A)WHERE NUM BETWEEN ? AND ?";
+			getPreparedStatement(sql);
+
+			pstmt.setInt(1, first);
+			pstmt.setInt(2, last);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				CommentVO vo = new CommentVO();
+				vo.setNo(rs.getInt(1));
+				vo.setArtist(rs.getString(2));
+				vo.setId(rs.getString(3));
+				vo.setContent(rs.getString(4));
+				vo.setDate(rs.getString(5));
+				vo.setReport(rs.getInt(6));
+				vo.setRecommend(rs.getInt(7));
+
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return list;
+	}
+	
+	
+	
+	
+	
 	
 	// 댓글 삭제
 	public boolean deleteComment(int no) {
@@ -264,6 +351,15 @@ public class CommentDAO extends DAO{
 	
 	// 페이지 정보 출력 - 기본
 	public int getCount(int nowPage) {
+		String sql = countCommon;
+		
+		int count = executeCount(sql);
+		
+		return count;
+	}
+	
+	// 페이지 정보 출력 - 기본
+	public int getCount() {
 		String sql = countCommon;
 		
 		int count = executeCount(sql);
