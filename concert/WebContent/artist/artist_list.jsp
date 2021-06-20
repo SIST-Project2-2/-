@@ -231,12 +231,12 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 				<input type="text" name="content" maxlength="20"
 					class="form-control mx-4 mt-2 w-50"
 					placeholder="댓글 내용을 입력해주세요(20글자 이내)">
+				<button type="submit" class="btn btn-primary">등록</button>
 					<% }else{%>
 					<input type="text" name="content" maxlength="20"
 					class="form-control mx-4 mt-2 w-50"
 					placeholder="댓글을 입력하기 위해서는 로그인을 해주세요" disabled>
 					<%} %>
-				<button type="submit" class="btn btn-primary">등록</button>
 		</form>
 		<%
 			for (CommentVO vo : plist) {
