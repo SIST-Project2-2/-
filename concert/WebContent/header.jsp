@@ -45,8 +45,8 @@ if (id != null) {
 <body>
 	<div id="header_div" class="mb-3">
 		<div class="lT">
-			<a class=logo href="http://localhost:9000/concert/index.jsp">
-				<img alt="" src="http://localhost:9000/concert/images/logo.png">
+			<a class=logo href="/concert/index.jsp">
+				<img alt="" src="/concert/images/logo.png">
 			</a>
 			<ul class="nav justify-content-end">
 				<%
