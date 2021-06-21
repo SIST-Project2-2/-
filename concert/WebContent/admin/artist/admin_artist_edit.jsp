@@ -5,11 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/admin_artist_edit.css">
+<title>아티스트 수정</title>
 </head>
-<body>
-	<!-- header -->
+<body class="admin_artist_edit">
 	<div class="body">
 		<div class="top">
 			<label id="add">아티스트 수정</label>

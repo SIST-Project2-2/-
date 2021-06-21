@@ -38,11 +38,8 @@ if (id != null) {
 <meta charset="UTF-8">
 <!-- import -->
 <jsp:include page="/import.jsp"></jsp:include>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/header.css">
-<link rel="shortcut icon" href="http://localhost:9000/concert/images/favicon-32x32.png">
-<link rel="icon" href="http://localhost:9000/concert/images/favicon-32x32.png">
 </head>
-<body>
+<body class="header">
 	<div id="header_div" class="mb-3">
 		<div class="lT">
 			<a class=logo href="/concert/index.jsp">
@@ -57,20 +54,20 @@ if (id != null) {
 					out.write("</li>");
 				}
 				if (id != null && authority.equals("1")) { // 관리자가 아니면 메인으로 이동 
-					out.write("<li class='nav-item'><a class='auser' href='http://localhost:9000/concert/admin/member/admin_member_list.jsp'> ADMIN</a></li>");
+					out.write("<li class='nav-item'><a class='auser' href='/concert/admin/member/admin_member_list.jsp'> ADMIN</a></li>");
 				}
 				%>
 				<li class="nav-item">
 					<%
 						if (id == null) {
-						out.write("<a class='auser' href='http://localhost:9000/concert/login/login.jsp'>LOGIN</a>");
+						out.write("<a class='auser' href='/concert/login/login.jsp'>LOGIN</a>");
 					} else {
-						out.write("<a class='auser' href='http://localhost:9000/concert/login/logout.jsp'>LOGOUT</a>");
+						out.write("<a class='auser' href='/concert/login/logout.jsp'>LOGOUT</a>");
 					}
 					%>
 				</li>
 				<li class="nav-item">
-					<a class="auser" href="http://localhost:9000/concert/join/join.jsp"> JOIN</a>
+					<a class="auser" href="/concert/join/join.jsp"> JOIN</a>
 				</li>
 			</ul>
 		</div>
@@ -79,10 +76,10 @@ if (id != null) {
 			<nav id="top_nav">
 				<ul>
 					<li>
-						<a href="http://localhost:9000/concert/concert/concert_list_calendar.jsp"> 스케쥴</a>
+						<a href="/concert/concert/concert_list_calendar.jsp"> 스케쥴</a>
 					</li>
 					<li class="art">
-						<a href="http://localhost:9000/concert/artist/artist_list.jsp"> 아티스트</a>
+						<a href="/concert/artist/artist_list.jsp"> 아티스트</a>
 						<ul class="d">
 							<li>
 								<a href="#">잔나비</a>
@@ -102,14 +99,14 @@ if (id != null) {
 						</ul>
 					</li>
 					<li>
-						<a href="http://localhost:9000/concert/notice/notice_list.jsp"> 공지사항</a>
+						<a href="/concert/notice/notice_list.jsp"> 공지사항</a>
 					</li>
 					<li>
-						<a href="http://localhost:9000/concert/mypage/myprofile_info.jsp"> 마이페이지</a>
+						<a href="/concert/mypage/myprofile_info.jsp"> 마이페이지</a>
 					</li>
 				</ul>
 				<a href="#">
-					<img class="sIcon" alt="" src="http://localhost:9000/concert/images/searchIcon.png">
+					<img class="sIcon" alt="" src="/concert/images/searchIcon.png">
 				</a>
 			</nav>
 		</div>

@@ -15,9 +15,6 @@ if (id == null && authority != "1") { // 관리자가 아니면 메인으로 이
 <meta charset="UTF-8">
 <!-- import -->
 <jsp:include page="../import.jsp"></jsp:include>
-<style type="text/css">
-#admin_header .navbar .nav-item:hover .dropdown-menu{ display: block; }
-</style>
 </head>
 <body id="admin_header">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top mb-3">
@@ -53,8 +50,6 @@ if (id == null && authority != "1") { // 관리자가 아니면 메인으로 이
 				</li>
 			</ul>
 		</div>
-
-
 		<a class="text-info text-nowrap font-weight-bold" href="http://localhost:9000/concert/login/logout.jsp">LOGOUT</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
