@@ -1,17 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아티스트 등록</title>
+<title>Insert title here</title>
+<link rel="stylesheet" href="http://localhost:9000/concert/css/admin_artist_add.css">
+<script type="text/javascript">
+	/*게시판 - 글쓰기 폼체크*/
+	function artistFormCheck() {
+		var name = document.getElementById("artist_name");
+
+		if (name.value == "") {
+			alert("이름을 입력해주세요");
+			name.focus();
+			return false;
+		} else {
+			admin_artist_add.submit();
+		}
+
+	}
+</script>
 </head>
-<body class="admin_artist_add">
+<body>
 	<div class="body">
 		<form name="admin_artist_add" action="admin_artist_add_process.jsp" method="post" enctype="multipart/form-data">
 			<div class="top">
-				<label id="add">아티스트 등록</label>
-				<span id="button">
+				<label id="add">아티스트 등록</label> <span id="button">
 					<button type="button" class="btn btn-secondary">임시저장</button>
 					<button id="btn_submit" type="button" class="btn btn-secondary" onclick="artistFormCheck()">등록하기</button>
 				</span>
