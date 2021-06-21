@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.CommentDAO,vo.CommentVO"%>
-<%@ page import="dao.RecommendDAO"%>
-<%@ page import="vo.RecommendVO"%>
 <%@page import="java.util.ArrayList"%>
 
 <%
@@ -24,7 +22,6 @@ int endNumber = indexNumber + 10;
 
 
 ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
-
 
 %>
 
@@ -236,8 +233,10 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 					placeholder="댓글을 입력하기 위해서는 로그인을 해주세요" disabled>
 					<%} %>
 		</form>
+		
+		
 		<%
-			for (CommentVO vo : plist) {
+		if(id!=null){	for (CommentVO vo : plist) {
 		%>
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
@@ -265,8 +264,32 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 			</div>
 		</div>
 		<%
-			}
+			}}
 		%>
+		<%
+		if(id==null){	for (CommentVO vo : plist) {
+		%>
+		<div class="card bg-light mt-3">
+			<div class="card-header bg-light">
+				<div class="row">
+					<div class="col-8 text-left">
+				
+						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
+					</div>
+					<div class="col-4 text-right">
+						<span style="color: green;"><%=vo.getRecommend() %></span> <span
+							style="color: gray;"><%=vo.getDate()%></span>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p class="card-content"><%=vo.getContent()%></p>
+			</div>
+		</div>
+		<%
+			}}
+		%>
+		
 		<div class="card bg-light mt-3">
 			<div class="card-footer bg-light">
 				<div class="row">
