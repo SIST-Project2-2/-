@@ -31,7 +31,7 @@ dao.close();
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리저 공지사항 상세정보</title>
+<title>공지사항 상세정보</title>
 <script src=""></script>
 <!-- js 파일 경로 넣기! -->
 </head>

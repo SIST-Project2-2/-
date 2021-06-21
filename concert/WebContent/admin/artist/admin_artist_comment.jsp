@@ -22,7 +22,7 @@
 	int commentPerPage = 10;
 	int pageNumber = 1;
 	int order = 0;
-	String category = "ID";
+	String category = "id";
 	String search = "";
 	String artist = "";
 	
