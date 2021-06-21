@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.CommentDAO,vo.CommentVO"%>
+<%@ page import="dao.RecommendDAO"%>
+<%@ page import="vo.RecommendVO"%>
 <%@page import="java.util.ArrayList"%>
 
 <%
@@ -21,11 +23,8 @@ int lastPage = (int)Math.ceil((double)dao.getCount()/10.0);
 int endNumber = indexNumber + 10;
 
 
-//사용자 1페이지 요청 -> 0번째 댓글  // 2페이지 요청-> 10번째 댓글 ...
-
-
 ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
-//ArrayList<CommentVO> plist = dao.getList();
+
 
 %>
 
@@ -131,8 +130,7 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 						<hr>
 						<div class="third">
 							<audio controls="controls">
-
-								<source src="../song/잔나비노래1.mp3" type="audio/mpeg" />
+								<source src="../song/잔나비노래1.mp3" type="audio/mpeg"/>
 							</audio>
 						</div>
 					</div>
@@ -245,6 +243,7 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 			<div class="card-header bg-light">
 				<div class="row">
 					<div class="col-8 text-left">
+				
 						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
@@ -256,8 +255,12 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 			<div class="card-body">
 				<p class="card-content"><%=vo.getContent()%></p>
 				<div class="col-12 text-right">
-					<a onclick="return confirm('추천하시겠습니까?')" href="#">추천</a> <a
-						onclick="return confirm('삭제하시겠습니까?')" href="#">삭제</a>
+					<a onclick="return confirm('추천하시겠습니까?')" href="#">추천</a> 
+				 	<% if(id.equals(vo.getId())){ %>
+					<a onclick="return confirm('삭제하시겠습니까?')" href="deleteAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">삭제</a>
+					<%}else{%>
+				 	
+					<%} %>
 				</div>
 			</div>
 		</div>
