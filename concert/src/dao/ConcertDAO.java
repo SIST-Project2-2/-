@@ -8,6 +8,42 @@ import vo.ConcertVO;
 // 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 public class ConcertDAO extends DAO {
 
+	// 월별 목록 조회
+	public ArrayList<ConcertVO> getConcertListByDate(int year, int month) { // year: 년도, month: 월
+		ArrayList<ConcertVO> list = new ArrayList<ConcertVO>();
+		ConcertVO vo = null;
+		int next_year = month != 12? year : year + 1;
+		int next_month = month != 12? month + 1 : 1;
+		
+		try {
+			String sql = " select no, title, to_char(cdate, 'MM/DD'), location, artist "
+					+ " from concerts "
+					+ " where cdate >= to_date(?, 'YYYYMM') and cdate < to_date(?, 'YYYYMM') "
+					+ " order by cdate asc ";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, String.valueOf(year) + String.valueOf(month));
+			pstmt.setString(2, String.valueOf(next_year) + String.valueOf(next_month));
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new ConcertVO();
+				
+				vo.setNo(rs.getInt(1));
+				vo.setTitle(rs.getString(2));
+				vo.setCdate(rs.getString(3));
+				vo.setLocation(rs.getString(4));
+				vo.setArtist(rs.getString(5));
+				
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	// 콘서트 조회 메소드
 	public ConcertVO getConcertInfo(int no) {
 		ConcertVO vo = null;
