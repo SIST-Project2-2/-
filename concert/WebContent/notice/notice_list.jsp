@@ -145,7 +145,7 @@
 			%>
 			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= notice.getNo() %>"><div class="card d-inline-block">
 				<% 
-				String src = "../images/logo.jpg"; // 썸네일 이미지 주소. 기본값은 로고
+				String src = "../images/logo.png"; // 썸네일 이미지 주소. 기본값은 로고
 				
 				if(notice.getSimg() != null) { // 등록된 이미지가 있을 경우 썸네일에 해당 이미지를 넣는다
 					src = "../upload/" + notice.getSimg();
