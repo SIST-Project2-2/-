@@ -30,8 +30,7 @@ ArtistDAO artistDAO = new ArtistDAO();
 ArrayList<ArtistVO> list = artistDAO.getList();
 
 //관리자가 등록한 아티스트 수 
-int artistNumber= list.size();
-
+int artistNumber = list.size();
 %>
 
 <!DOCTYPE html>
@@ -44,6 +43,21 @@ int artistNumber= list.size();
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
 	rel="stylesheet">
 <title>아티스트 목록</title>
+
+<script>
+function recommendClick(){
+	var btn = document.getElementById();
+	var count = 0 ;
+	
+	if(count==0){
+		return confirm('추천하시겠습니까?');
+		count++;
+		
+	}else if(count!=0){
+		btn.disabled = 'disabled';
+	}
+}
+</script>
 </head>
 
 <body>
@@ -54,33 +68,36 @@ int artistNumber= list.size();
 
 		<ol class="carousel-indicators">
 			<li data-target="#carouselSlider" data-slide-to="0" class="active"></li>
-			<% for(int i=1;i<=artistNumber;i++){%>
-			<li data-target="#carouselSlider" data-slide-to="<%= i %>"></li> 
-			<%} %>
+			<%
+				for (int i = 1; i <= artistNumber; i++) {
+			%>
+			<li data-target="#carouselSlider" data-slide-to="<%=i%>"></li>
+			<%
+				}
+			%>
 		</ol>
 		<div class="carousel-inner">
 			<!--아티스트 목록 소개 캐러셀(관리자 소개 프론트엔드쪽 관리) ***관리자와 연동되지 않은 고정캐러셀 입니다*** -->
-			
+
 			<div class="carousel-item active">
 				<div class="carousel-caption">
 					<div class="article">
-						<img src="../images/콘서트소개.jpg" class="h-20" style="width: 100%; height:50%">
+						<img src="../images/콘서트소개.jpg" class="h-20"
+							style="width: 100%; height: 50%">
 
 						<hr>
 						<div class="third">
-							<audio controls="controls" class="audio">
-								<source src="../song/아이유노래1.mp3" type="audio/mpeg" />
-							</audio>
+
 							<hr>
-							<div class="ui-bg-cover ui-bg-overlay-container text-white">
-								<div class="ui-bg-overlay bg-dark opacity-50"></div>
+							<div class="ui-bg-cover ui-bg-overlay-container text-black">
+								<div class="ui-bg-overlay bg-white opacity-50"></div>
 								<div class="container">
 									<div
 										class="d-flex justify-content-between align-items-center pt-4">
 									</div>
 								</div>
 
-								<div class="container">
+								<div class="container" id="artistContainer">
 									<div class="text-center py-5">
 
 										<img src="../images/관리자이미지.png" alt=""
@@ -89,7 +106,8 @@ int artistNumber= list.size();
 										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
 											<h2 class="font-weight-bold my-4">콘서트 커뮤니티 공간</h2>
 
-											<div class="opacity-75 mb-4" id="artistText">콘서트 커뮤니티 공간입니다. 아티스트들의 노래와 프로필을 보며 자유롭게 댓글활동을 할 수 있는 공간입니다.</div>
+											<div class="opacity-75 mb-4" id="artistText">콘서트 커뮤니티
+												공간입니다. 아티스트들의 노래와 프로필을 보며 자유롭게 댓글활동을 할 수 있는 공간입니다.</div>
 										</div>
 
 									</div>
@@ -100,26 +118,24 @@ int artistNumber= list.size();
 					</div>
 				</div>
 			</div>
-		
-	<!-- 관리자와 연동된 아티스트 캐러셀 -->
-			 <%
-				for(ArtistVO vo : list) {
-			%> 
-		
-		
+
+			<!-- 관리자와 연동된 아티스트 캐러셀 -->
+			<%
+				for (ArtistVO vo : list) {
+			%>
+
+
 			<div class="carousel-item ">
 				<div class="carousel-caption">
 					<div class="article">
-						<img src="../images/<%=vo.getSimg() %>" class="h-20">
+						<img src="../images/<%=vo.getSimg()%>" class="h-20">
 
-						<hr>
+
 						<div class="third">
-							<audio controls="controls" class="audio">
-								<source src="../song/아이유노래1.mp3" type="audio/mpeg" />
-							</audio>
 							<hr>
-							<div class="ui-bg-cover ui-bg-overlay-container text-white">
-								<div class="ui-bg-overlay bg-dark opacity-50"></div>
+							<div class="ui-bg-cover ui-bg-overlay-container text-black"
+								id="artistPage">
+								<div class="ui-bg-overlay bg-white opacity-50"></div>
 								<div class="container">
 									<div
 										class="d-flex justify-content-between align-items-center pt-4">
@@ -128,16 +144,16 @@ int artistNumber= list.size();
 									</div>
 								</div>
 
-								<div class="container">
+								<div class="container" id="artistContainer">
 									<div class="text-center py-5">
 
-										<img src="../images/<%=vo.getSimg() %>" alt=""
+										<img src="../images/<%=vo.getSimg()%>" alt=""
 											class="ui-w-100 rounded-circle">
 
-										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
-											<h2 class="font-weight-bold my-4"><%=vo.getName() %></h2>
+										<div class="col-md-11 col-lg-6 col-xl-12 p-0 mx-auto">
+											<h2 class="font-weight-bold my-4"><%=vo.getName()%></h2>
 
-											<div class="opacity-75 mb-4" id="artistText"><%=vo.getContent() %></div>
+											<div class="opacity-75 mb-4" id="artistText"><%=vo.getContent()%></div>
 										</div>
 
 									</div>
@@ -151,15 +167,15 @@ int artistNumber= list.size();
 			<%
 				}
 			%>
-			
+
 		</div>
 		<!--캐러셀 prev/ next 버튼 -->
 		<a class="carousel-control-prev" href="#carouselSlider" role="button"
 			data-slide="prev"> <span class="carousel-control-prev-icon"></span>
-			<span>Previous</span>
+			<span class="pageControl">Previous</span>
 		</a> <a class="carousel-control-next " href="#carouselSlider"
 			role="button" data-slide="next"> <span
-			class="carousel-control-next-icon"></span> <span>Next</span>
+			class="carousel-control-next-icon"></span> <span class="pageControl">Next</span>
 		</a>
 	</div>
 
@@ -167,11 +183,10 @@ int artistNumber= list.size();
 
 	<div class="comment">
 		<form method="get" action="./sendReplyAction.jsp?id=<%=id%>"
-			class="form-inline mt-3">
+			class="form-inline mt-3" style="margin-top:0px;">
 			<input type="hidden" name="id" value=<%=id%>>
 			<section class="container">
 				<select name="artistDivide" class="form-control mx-1 mt-2">
-					<option value="공통">공통</option>
 					<option value="IU">IU</option>
 					<option value="장범준">장범준</option>
 					<option value="현아">현아</option>
@@ -210,7 +225,8 @@ int artistNumber= list.size();
 						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: green;"><%=vo.getRecommend()%></span> <span
+						<span style="color: green;">추천 수: <%=vo.getRecommend()%></span> 
+						<span
 							style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>
@@ -221,12 +237,15 @@ int artistNumber= list.size();
 					<%
 						if (id.equals(vo.getId())) {
 					%>
-					<a onclick="return confirm('삭제하시겠습니까?')"
+					<a class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')"
 						href="deleteAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">삭제</a>
 					<%
 						} else {
 					%>
-					<a onclick="return confirm('추천하시겠습니까?')" href="recommendAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">추천</a>
+					<a class="btn btn-primary" onclick="return confirm('추천하시겠습니까?')"
+						href="recommendAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">추천 </a>
+					<a class="btn btn-danger" onclick="return confirm('신고하시겠습니까?')"
+						href="reportAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">신고 </a>
 					<%
 						}
 					%>
@@ -249,7 +268,8 @@ int artistNumber= list.size();
 						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: green;"><%=vo.getRecommend()%></span> <span
+						<span style="color: green;">추천 수 : <%=vo.getRecommend()%></span>
+						 <span
 							style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>
@@ -270,7 +290,7 @@ int artistNumber= list.size();
 						<%
 							for (int i = 1; i <= lastPage; i++) {
 						%>
-						<a href="artist_list.jsp?pageNumber=<%=i%>"><%=i%></a>
+						<a href="artist_list.jsp?pageNumber=<%=i%>" class="pageNumber"><%=i%></a>
 						<%
 							}
 						%>

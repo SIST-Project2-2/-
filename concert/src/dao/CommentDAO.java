@@ -28,6 +28,20 @@ public class CommentDAO extends DAO{
 		return -1;
 	}
 	
+	//댓글 신고하기
+	public int report(int no) {
+		String sql = "UPDATE COMMENTS SET REPORT = REPORT + 1 WHERE NO=?";
+		getPreparedStatement(sql);
+		try {
+			pstmt.setInt(1, no);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
 	//해당 댓글 삭제
 	public int delete(int no) {
 		String sql = "DELETE FROM COMMENTS WHERE NO=?";
