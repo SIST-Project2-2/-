@@ -87,6 +87,7 @@ if (id != null) {
 			}
 			if (id == null) {
 				out.write("<a class='auser m-2' href='/concert/login/login.jsp'>LOGIN</a>");
+				out.write("<a class='auser m-2' href='/concert/join/join.jsp'>JOIN</a>");
 			} else {
 				out.write("<a class='auser m-2' href='/concert/login/logout.jsp'>LOGOUT</a>");
 			}
