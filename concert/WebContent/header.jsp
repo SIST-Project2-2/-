@@ -38,13 +38,8 @@ if (id != null) {
 <meta charset="UTF-8">
 <!-- import -->
 <jsp:include page="/import.jsp"></jsp:include>
-<style type="text/css">
-#admin_header .navbar .nav-item:hover .dropdown-menu {
-	display: block;
-}
-</style>
 </head>
-<body id="admin_header">
+<body id="header">
 	<nav class="navbar navbar-expand-sm navbar-light text-dark sticky-top" style="background: tomato;">
 		<!-- Brand -->
 		<div style="width: 250px;">

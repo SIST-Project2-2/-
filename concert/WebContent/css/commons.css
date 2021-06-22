@@ -1,1 +1,6 @@
 @charset "UTF-8";
+
+/* 헤더 */
+#header .navbar .nav-item:hover .dropdown-menu {
+	display: block;
+}
