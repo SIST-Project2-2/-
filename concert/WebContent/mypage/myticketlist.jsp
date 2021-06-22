@@ -49,7 +49,13 @@
 <body>
 	<h3>콘서트 예매내역</h3>
 	<section class="container-md text-center" id="content_myticketlist">
-		<% for(PayInfoVO info : list) { %>
+		<% 
+		if(list.isEmpty()) {
+		%>
+		<h5>예매내역이 없습니다.</h5>
+		<%
+		}else {
+			for(PayInfoVO info : list) { %>
 		<a href="../concert/concert_payinfo.jsp?no=<%= info.getOrderNo() %>" class="text-decoration-none text-dark"><div class="row justify-content-center font-weight-bold mt-3">
 			<div class="d1 col-md-9">
 				<div class="top row bg-primary pl-3">
@@ -124,7 +130,8 @@
 				</div>
 			</div>
 		</div></a>
-		<% } %>
+		<% }
+		} %>
 	</section>
 </body>
 </html>
