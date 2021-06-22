@@ -3,6 +3,13 @@ div#carouselSlider {
 	height: 140rem;
 }
 
+h2,#artistText{
+	font-family: 'Jua', sans-serif;
+}
+
+#artistText{
+	font-size:20px;
+}
 .carousel-item {
 	height: 120rem;
 	background: #000;
@@ -32,7 +39,7 @@ div.comment {
 }
 
 div.article{
-	height:1600px;
+	height:1800px;
 }
 
 

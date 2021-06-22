@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.CommentDAO,vo.CommentVO"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page import="dao.ArtistDAO, vo.ArtistVO, java.util.*"%>
+
 
 <%
 	CommentDAO dao = new CommentDAO();
@@ -20,7 +22,16 @@ int indexNumber = (viewPage - 1) * 10;
 int lastPage = (int) Math.ceil((double) dao.getCount() / 10.0);
 int endNumber = indexNumber + 10;
 
+//댓글 데이터 출력
 ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
+
+//아티스트 데이터 출력
+ArtistDAO artistDAO = new ArtistDAO();
+ArrayList<ArtistVO> list = artistDAO.getList();
+
+//관리자가 등록한 아티스트 수 
+int artistNumber= list.size();
+
 %>
 
 <!DOCTYPE html>
@@ -30,7 +41,8 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="artist_list.css" type="text/css">
-
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet">
 <title>아티스트 목록</title>
 </head>
 
@@ -42,17 +54,63 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 
 		<ol class="carousel-indicators">
 			<li data-target="#carouselSlider" data-slide-to="0" class="active"></li>
-			<li data-target="#carouselSlider" data-slide-to="1"></li>
-			<li data-target="#carouselSlider" data-slide-to="2"></li>
-			<li data-target="#carouselSlider" data-slide-to="3"></li>
-			<li data-target="#carouselSlider" data-slide-to="4"></li>
+			<% for(int i=1;i<=artistNumber;i++){%>
+			<li data-target="#carouselSlider" data-slide-to="<%= i %>"></li> 
+			<%} %>
 		</ol>
 		<div class="carousel-inner">
-			<!--아이유 캐러셀-->
+			<!--아티스트 목록 소개 캐러셀(관리자 소개 프론트엔드쪽 관리) ***관리자와 연동되지 않은 고정캐러셀 입니다*** -->
+			
 			<div class="carousel-item active">
 				<div class="carousel-caption">
 					<div class="article">
-						<img src="../images/아이유.jpg" class="h-20">
+						<img src="../images/콘서트소개.jpg" class="h-20" style="width: 100%; height:50%">
+
+						<hr>
+						<div class="third">
+							<audio controls="controls" class="audio">
+								<source src="../song/아이유노래1.mp3" type="audio/mpeg" />
+							</audio>
+							<hr>
+							<div class="ui-bg-cover ui-bg-overlay-container text-white">
+								<div class="ui-bg-overlay bg-dark opacity-50"></div>
+								<div class="container">
+									<div
+										class="d-flex justify-content-between align-items-center pt-4">
+									</div>
+								</div>
+
+								<div class="container">
+									<div class="text-center py-5">
+
+										<img src="../images/관리자이미지.png" alt=""
+											class="ui-w-100 rounded-circle">
+
+										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
+											<h2 class="font-weight-bold my-4">콘서트 커뮤니티 공간</h2>
+
+											<div class="opacity-75 mb-4" id="artistText">콘서트 커뮤니티 공간입니다. 아티스트들의 노래와 프로필을 보며 자유롭게 댓글활동을 할 수 있는 공간입니다.</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+	<!-- 관리자와 연동된 아티스트 캐러셀 -->
+			 <%
+				for(ArtistVO vo : list) {
+			%> 
+		
+		
+			<div class="carousel-item ">
+				<div class="carousel-caption">
+					<div class="article">
+						<img src="../images/<%=vo.getSimg() %>" class="h-20">
 
 						<hr>
 						<div class="third">
@@ -73,15 +131,13 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 								<div class="container">
 									<div class="text-center py-5">
 
-										<img src="../images/장범준.jpg" alt=""
+										<img src="../images/<%=vo.getSimg() %>" alt=""
 											class="ui-w-100 rounded-circle">
 
 										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
-											<h4 class="font-weight-bold my-4">John Doe</h4>
+											<h2 class="font-weight-bold my-4"><%=vo.getName() %></h2>
 
-											<div class="opacity-75 mb-4">Lorem ipsum dolor sit
-												amet, nibh suavitate qualisque ut nam. Ad harum primis
-												electram duo, porro principes ei has.</div>
+											<div class="opacity-75 mb-4" id="artistText"><%=vo.getContent() %></div>
 										</div>
 
 									</div>
@@ -92,198 +148,10 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 					</div>
 				</div>
 			</div>
-			<!--장범준 캐러셀-->
-			<div class="carousel-item">
-
-				<div class="carousel-caption">
-
-					<div class="article">
-
-						<img src="../images/장범준.jpg" class="h-80">
-
-						<hr>
-						<div class="third">
-							<audio controls="controls">
-								<source src="../song/장범준노래1.mp3" type="audio/mpeg" />
-							</audio>
-							<hr>
-							<div class="ui-bg-cover ui-bg-overlay-container text-white">
-								<div class="ui-bg-overlay bg-dark opacity-50"></div>
-								<div class="container">
-									<div
-										class="d-flex justify-content-between align-items-center pt-4">
-
-
-									</div>
-								</div>
-
-								<div class="container">
-									<div class="text-center py-5">
-
-										<img src="../images/장범준.jpg" alt=""
-											class="ui-w-100 rounded-circle">
-
-										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
-											<h4 class="font-weight-bold my-4">John Doe</h4>
-
-											<div class="opacity-75 mb-4">Lorem ipsum dolor sit
-												amet, nibh suavitate qualisque ut nam. Ad harum primis
-												electram duo, porro principes ei has.</div>
-										</div>
-
-									</div>
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!--잔나비 캐러셀-->
-			<div class="carousel-item">
-
-				<div class="carousel-caption">
-
-					<div class="article">
-						<img src="../images/잔나비.jpg" class="h-80">
-
-						<hr>
-						<div class="third">
-							<audio controls="controls">
-								<source src="../song/잔나비노래1.mp3" type="audio/mpeg" />
-							</audio>
-							<hr>
-							<div class="ui-bg-cover ui-bg-overlay-container text-white">
-								<div class="ui-bg-overlay bg-dark opacity-50"></div>
-								<div class="container">
-									<div
-										class="d-flex justify-content-between align-items-center pt-4">
-
-
-									</div>
-								</div>
-
-								<div class="container">
-									<div class="text-center py-5">
-
-										<img src="../images/장범준.jpg" alt=""
-											class="ui-w-100 rounded-circle">
-
-										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
-											<h4 class="font-weight-bold my-4">John Doe</h4>
-
-											<div class="opacity-75 mb-4">Lorem ipsum dolor sit
-												amet, nibh suavitate qualisque ut nam. Ad harum primis
-												electram duo, porro principes ei has.</div>
-										</div>
-
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!--현아 캐러셀-->
-			<div class="carousel-item">
-				<div class="carousel-caption">
-
-					<div class="article">
-						<img src="../images/현아.jpg" class="h-80">
-
-						<hr>
-						<div class="third">
-							<audio controls="controls">
-
-								<source src="../song/현아노래1.mp3" type="audio/mpeg" />
-							</audio>
-							<hr>
-							<div class="ui-bg-cover ui-bg-overlay-container text-white">
-								<div class="ui-bg-overlay bg-dark opacity-50"></div>
-								<div class="container">
-									<div
-										class="d-flex justify-content-between align-items-center pt-4">
-
-
-									</div>
-								</div>
-
-								<div class="container">
-									<div class="text-center py-5">
-
-										<img src="../images/장범준.jpg" alt=""
-											class="ui-w-100 rounded-circle">
-
-										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
-											<h4 class="font-weight-bold my-4">John Doe</h4>
-
-											<div class="opacity-75 mb-4">Lorem ipsum dolor sit
-												amet, nibh suavitate qualisque ut nam. Ad harum primis
-												electram duo, porro principes ei has.</div>
-										</div>
-
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-
-				</div>
-			</div>
-			<!--십센치 캐러셀-->
-			<div class="carousel-item">
-				<div class="carousel-caption">
-
-					<div class="article">
-						<img src="../images/십센치.png" class="h-50" id="cm">
-
-						<hr>
-						<div class="third">
-							<audio controls="controls">
-
-								<source src="../song/십센치노래1.mp3" type="audio/mpeg" />
-							</audio>
-							<hr>
-								<div class="ui-bg-cover ui-bg-overlay-container text-white">
-								<div class="ui-bg-overlay bg-dark opacity-50"></div>
-								<div class="container">
-									<div
-										class="d-flex justify-content-between align-items-center pt-4">
-
-
-									</div>
-								</div>
-
-								<div class="container">
-									<div class="text-center py-5">
-
-										<img src="../images/장범준.jpg" alt=""
-											class="ui-w-100 rounded-circle">
-
-										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
-											<h4 class="font-weight-bold my-4">John Doe</h4>
-
-											<div class="opacity-75 mb-4">Lorem ipsum dolor sit
-												amet, nibh suavitate qualisque ut nam. Ad harum primis
-												electram duo, porro principes ei has.</div>
-										</div>
-
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-
-				</div>
-			</div>
+			<%
+				}
+			%>
+			
 		</div>
 		<!--캐러셀 prev/ next 버튼 -->
 		<a class="carousel-control-prev" href="#carouselSlider" role="button"
