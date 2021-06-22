@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.CommentDAO,vo.CommentVO"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page import="dao.ArtistDAO, vo.ArtistVO, java.util.*"%>
+
 
 <%
 	CommentDAO dao = new CommentDAO();
@@ -10,22 +12,25 @@ String id = (String) session.getAttribute("id");
 //사용자가 누른 댓글 페이지
 String pageNumber = request.getParameter("pageNumber");
 //사용자가 누른 댓글 페이지가 없을때는 1페이지가 보이게 함
-if(pageNumber==null){
+if (pageNumber == null) {
 	pageNumber = "1";
 }
 int viewPage = Integer.parseInt(pageNumber);
-int indexNumber = (viewPage-1)*10;
+int indexNumber = (viewPage - 1) * 10;
 
 //댓글 수에 비례해서 보여지는 댓글 페이지 수 
-int lastPage = (int)Math.ceil((double)dao.getCount()/10.0);
+int lastPage = (int) Math.ceil((double) dao.getCount() / 10.0);
 int endNumber = indexNumber + 10;
 
-
-//사용자 1페이지 요청 -> 0번째 댓글  // 2페이지 요청-> 10번째 댓글 ...
-
-
+//댓글 데이터 출력
 ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
-//ArrayList<CommentVO> plist = dao.getList();
+
+//아티스트 데이터 출력
+ArtistDAO artistDAO = new ArtistDAO();
+ArrayList<ArtistVO> list = artistDAO.getList();
+
+//관리자가 등록한 아티스트 수 
+int artistNumber= list.size();
 
 %>
 
@@ -36,7 +41,8 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="artist_list.css" type="text/css">
-
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet">
 <title>아티스트 목록</title>
 </head>
 
@@ -48,159 +54,104 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 
 		<ol class="carousel-indicators">
 			<li data-target="#carouselSlider" data-slide-to="0" class="active"></li>
-			<li data-target="#carouselSlider" data-slide-to="1"></li>
-			<li data-target="#carouselSlider" data-slide-to="2"></li>
-			<li data-target="#carouselSlider" data-slide-to="3"></li>
-			<li data-target="#carouselSlider" data-slide-to="4"></li>
+			<% for(int i=1;i<=artistNumber;i++){%>
+			<li data-target="#carouselSlider" data-slide-to="<%= i %>"></li> 
+			<%} %>
 		</ol>
 		<div class="carousel-inner">
-			<!--아이유 캐러셀-->
+			<!--아티스트 목록 소개 캐러셀(관리자 소개 프론트엔드쪽 관리) ***관리자와 연동되지 않은 고정캐러셀 입니다*** -->
+			
 			<div class="carousel-item active">
 				<div class="carousel-caption">
 					<div class="article">
-						<img src="../images/아이유.jpg" class="h-100">
-						<div class="firstSong">
-							<img src="../images/아이유음원1.jpg" class="song1" id="iu_img1">
-							<img src="../images/아이유음원2.png" class="song2" id="iu_img2">
-							<img src="../images/아이유음원3.jpg" class="song3" id="iu_img3">
-						</div>
-						<div class="SecondSong">
-							<img src="../images/아이유음원4.jpg" class="song4"> <img
-								src="../images/아이유음원5.jpg" class="song5">
-						</div>
+						<img src="../images/콘서트소개.jpg" class="h-20" style="width: 100%; height:50%">
+
 						<hr>
 						<div class="third">
 							<audio controls="controls" class="audio">
 								<source src="../song/아이유노래1.mp3" type="audio/mpeg" />
 							</audio>
+							<hr>
+							<div class="ui-bg-cover ui-bg-overlay-container text-white">
+								<div class="ui-bg-overlay bg-dark opacity-50"></div>
+								<div class="container">
+									<div
+										class="d-flex justify-content-between align-items-center pt-4">
+									</div>
+								</div>
+
+								<div class="container">
+									<div class="text-center py-5">
+
+										<img src="../images/관리자이미지.png" alt=""
+											class="ui-w-100 rounded-circle">
+
+										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
+											<h2 class="font-weight-bold my-4">콘서트 커뮤니티 공간</h2>
+
+											<div class="opacity-75 mb-4" id="artistText">콘서트 커뮤니티 공간입니다. 아티스트들의 노래와 프로필을 보며 자유롭게 댓글활동을 할 수 있는 공간입니다.</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!--장범준 캐러셀-->
-			<div class="carousel-item">
-
+		
+	<!-- 관리자와 연동된 아티스트 캐러셀 -->
+			 <%
+				for(ArtistVO vo : list) {
+			%> 
+		
+		
+			<div class="carousel-item ">
 				<div class="carousel-caption">
-					<h5>장범준</h5>
 					<div class="article">
-						<img src="../images/장범준.jpg" class="h-80">
-						<div class="firstSong">
+						<img src="../images/<%=vo.getSimg() %>" class="h-20">
 
-							<img src="../images/장범준앨범1.jpg" class="song1"> <img
-								src="../images/장범준앨범2.png" class="song2"> <img
-								src="../images/장범준앨범3.jpg" class="song3">
-
-						</div>
-
-						<div class="SecondSong">
-							<img src="../images/장범준앨범4.jpg" class="song4"> <img
-								src="../images/장범준앨범5.jpg" class="song5">
-
-						</div>
 						<hr>
 						<div class="third">
-							<audio controls="controls">
-
-								<source src="../song/장범준노래1.mp3" type="audio/mpeg" />
+							<audio controls="controls" class="audio">
+								<source src="../song/아이유노래1.mp3" type="audio/mpeg" />
 							</audio>
+							<hr>
+							<div class="ui-bg-cover ui-bg-overlay-container text-white">
+								<div class="ui-bg-overlay bg-dark opacity-50"></div>
+								<div class="container">
+									<div
+										class="d-flex justify-content-between align-items-center pt-4">
+
+
+									</div>
+								</div>
+
+								<div class="container">
+									<div class="text-center py-5">
+
+										<img src="../images/<%=vo.getSimg() %>" alt=""
+											class="ui-w-100 rounded-circle">
+
+										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
+											<h2 class="font-weight-bold my-4"><%=vo.getName() %></h2>
+
+											<div class="opacity-75 mb-4" id="artistText"><%=vo.getContent() %></div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
-			<!--잔나비 캐러셀-->
-			<div class="carousel-item">
-
-				<div class="carousel-caption">
-					<h5>잔나비</h5>
-					<div class="article">
-						<img src="../images/잔나비.jpg" class="h-80">
-						<div class="firstSong">
-
-							<img src="../images/잔나비앨범1.jpg" class="song1"> <img
-								src="../images/잔나비앨범2.png" class="song2"> <img
-								src="../images/잔나비앨범3.jpg" class="song3">
-
-						</div>
-
-						<div class="SecondSong">
-							<img src="../images/잔나비앨범4.jpg" class="song4"> <img
-								src="../images/잔나비앨범5.jpg" class="song5">
-
-						</div>
-						<hr>
-						<div class="third">
-							<audio controls="controls">
-
-								<source src="../song/잔나비노래1.mp3" type="audio/mpeg" />
-							</audio>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!--현아 캐러셀-->
-			<div class="carousel-item">
-				<div class="carousel-caption">
-					<h5>현아</h5>
-					<div class="article">
-						<img src="../images/현아.jpg" class="h-80">
-						<div class="firstSong">
-
-							<img src="../images/현아앨범1.jpg" class="song1"> <img
-								src="../images/현아앨범2.jpg" class="song2"> <img
-								src="../images/현아앨범3.jpg" class="song3">
-
-						</div>
-
-						<div class="SecondSong">
-							<img src="../images/현아앨범4.jpg" class="song4"> <img
-								src="../images/현아앨범5.jpg" class="song5">
-
-						</div>
-						<hr>
-						<div class="third">
-							<audio controls="controls">
-
-								<source src="../song/현아노래1.mp3" type="audio/mpeg" />
-							</audio>
-						</div>
-					</div>
-
-
-				</div>
-			</div>
-			<!--십센치 캐러셀-->
-			<div class="carousel-item">
-				<div class="carousel-caption">
-					<h5>십센치</h5>
-					<div class="article">
-						<img src="../images/십센치.png" class="h-100" id="cm">
-						<div class="firstSong">
-
-							<img src="../images/십센치앨범1.jpg" class="song1"> <img
-								src="../images/십센치앨범2.jpg" class="song2"> <img
-								src="../images/십센치앨범3.jpg" class="song3">
-
-						</div>
-
-						<div class="SecondSong">
-							<img src="../images/십센치앨범4.jpg" class="song4"> <img
-								src="../images/십센치앨범5.jpg" class="song5">
-
-						</div>
-						<hr>
-						<div class="third">
-							<audio controls="controls">
-
-								<source src="../song/십센치노래1.mp3" type="audio/mpeg" />
-							</audio>
-						</div>
-					</div>
-
-
-				</div>
-			</div>
+			<%
+				}
+			%>
+			
 		</div>
 		<!--캐러셀 prev/ next 버튼 -->
 		<a class="carousel-control-prev" href="#carouselSlider" role="button"
@@ -226,29 +177,40 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 					<option value="현아">현아</option>
 					<option value="잔나비">잔나비</option>
 					<option value="10cm">10cm</option>
-				</select> 
-				<%if(id!=null){ %>
+				</select>
+				<%
+					if (id != null) {
+				%>
 				<input type="text" name="content" maxlength="20"
 					class="form-control mx-4 mt-2 w-50"
 					placeholder="댓글 내용을 입력해주세요(20글자 이내)">
-					<% }else{%>
-					<input type="text" name="content" maxlength="20"
+				<button type="submit" class="btn btn-primary">등록</button>
+				<%
+					} else {
+				%>
+				<input type="text" name="content" maxlength="20"
 					class="form-control mx-4 mt-2 w-50"
 					placeholder="댓글을 입력하기 위해서는 로그인을 해주세요" disabled>
-					<%} %>
-				<button type="submit" class="btn btn-primary">등록</button>
+				<%
+					}
+				%>
+			
 		</form>
+
+
 		<%
+			if (id != null) {
 			for (CommentVO vo : plist) {
 		%>
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
 					<div class="col-8 text-left">
+
 						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: green;"><%=vo.getRecommend() %></span> <span
+						<span style="color: green;"><%=vo.getRecommend()%></span> <span
 							style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>
@@ -256,32 +218,69 @@ ArrayList<CommentVO> plist = dao.getListPage(indexNumber, endNumber);
 			<div class="card-body">
 				<p class="card-content"><%=vo.getContent()%></p>
 				<div class="col-12 text-right">
-					<a onclick="return confirm('추천하시겠습니까?')" href="#">추천</a> <a
-						onclick="return confirm('삭제하시겠습니까?')" href="#">삭제</a>
+					<%
+						if (id.equals(vo.getId())) {
+					%>
+					<a onclick="return confirm('삭제하시겠습니까?')"
+						href="deleteAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">삭제</a>
+					<%
+						} else {
+					%>
+					<a onclick="return confirm('추천하시겠습니까?')" href="recommendAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">추천</a>
+					<%
+						}
+					%>
 				</div>
 			</div>
 		</div>
 		<%
 			}
+		}
 		%>
+		<%
+			if (id == null) {
+			for (CommentVO vo : plist) {
+		%>
+		<div class="card bg-light mt-3">
+			<div class="card-header bg-light">
+				<div class="row">
+					<div class="col-8 text-left">
+
+						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
+					</div>
+					<div class="col-4 text-right">
+						<span style="color: green;"><%=vo.getRecommend()%></span> <span
+							style="color: gray;"><%=vo.getDate()%></span>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<p class="card-content"><%=vo.getContent()%></p>
+			</div>
+		</div>
+		<%
+			}
+		}
+		%>
+
 		<div class="card bg-light mt-3">
 			<div class="card-footer bg-light">
 				<div class="row">
-				<div class="col-12 text-center">
-					<%
-					for(int i=1;i<=lastPage;i++){
-					%>
-					<a href="artist_list.jsp?pageNumber=<%=i%>"><%=i %></a> 
-					<%
-					}
-					%>
+					<div class="col-12 text-center">
+						<%
+							for (int i = 1; i <= lastPage; i++) {
+						%>
+						<a href="artist_list.jsp?pageNumber=<%=i%>"><%=i%></a>
+						<%
+							}
+						%>
 					</div>
 				</div>
 			</div>
 		</div>
 		</section>
 	</div>
-	
+
 
 
 </body>

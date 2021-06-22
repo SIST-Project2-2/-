@@ -14,8 +14,56 @@ public class CommentDAO extends DAO{
 	String listCommonEnd = " no desc) where rownum <= ? * ? ) where rno > ? * (? - 1) "; // 댓글 리스트 출력 sql문 뒷부분 공통
 	String countCommon = " select count(*) from comments "; // 댓글 수 출력 sql문 공통
 	
+	//추천 수 1증가
+	public int like(int no) {
+		String sql = "UPDATE COMMENTS SET RECOMMEND = RECOMMEND + 1 WHERE NO=?";
+		getPreparedStatement(sql);
+		try {
+			pstmt.setInt(1, no);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
+	//해당 댓글 삭제
+	public int delete(int no) {
+		String sql = "DELETE FROM COMMENTS WHERE NO=?";
+		getPreparedStatement(sql);
+		try {
+			pstmt.setInt(1, no);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
 	
 	
+	//댓글쓴 사람 id 값 가져오기 오버로딩
+	public String getUserId(int no) {
+		String sql = "SELECT ID FROM COMMENTS WHERE NO = ? ";
+		getPreparedStatement(sql);
+		
+		try {
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+
+	
+	//댓글 저장
 	public int saveReply(CommentVO vo) {
 		int result = -2;
 		try {
@@ -68,8 +116,8 @@ public class CommentDAO extends DAO{
 		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
 
 		try {
-			String sql = " SELECT*FROM(SELECT ROWNUM NUM, A.* FROM (SELECT ARTIST,ID,CONTENT,TO_CHAR(WDATE, 'YYYY/MM/DD'),REPORT,RECOMMEND " + 
-					" FROM (SELECT * FROM COMMENTS ORDER BY WDATE DESC)) A)WHERE NUM BETWEEN ? AND ?";
+			String sql = "SELECT*FROM(SELECT ROWNUM NUM, A.* FROM (SELECT NO,ARTIST,ID,CONTENT,TO_CHAR(WDATE, 'YYYY/MM/DD'),REPORT,RECOMMEND " + 
+						" FROM (SELECT * FROM COMMENTS ORDER BY WDATE DESC)) A)WHERE NUM BETWEEN ? AND ?";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, first);
@@ -79,13 +127,15 @@ public class CommentDAO extends DAO{
 
 			while (rs.next()) {
 				CommentVO vo = new CommentVO();
-				vo.setNo(rs.getInt(1));
-				vo.setArtist(rs.getString(2));
-				vo.setId(rs.getString(3));
-				vo.setContent(rs.getString(4));
-				vo.setDate(rs.getString(5));
-				vo.setReport(rs.getInt(6));
-				vo.setRecommend(rs.getInt(7));
+				
+				rs.getInt(1);
+				vo.setNo(rs.getInt(2));
+				vo.setArtist(rs.getString(3));
+				vo.setId(rs.getString(4));
+				vo.setContent(rs.getString(5));
+				vo.setDate(rs.getString(6));
+				vo.setReport(rs.getInt(7));
+				vo.setRecommend(rs.getInt(8));
 
 				list.add(vo);
 			}
