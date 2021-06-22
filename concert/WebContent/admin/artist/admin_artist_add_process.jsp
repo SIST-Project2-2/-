@@ -35,6 +35,6 @@
 	boolean result = dao.getInsertResult(vo);
 	
 	if(result) {
-		response.sendRedirect("admin_artist_add.jsp");
+		response.sendRedirect("admin_artist_list.jsp");
 	}
 %>
