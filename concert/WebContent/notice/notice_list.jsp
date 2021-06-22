@@ -13,6 +13,7 @@
 	ArrayList<NoticeVO> list = null; // 공지사항 목록
 	HashMap<String, Integer> pageInfo = null;
 	HashMap<String, String[]> inputs = new HashMap<String, String[]>(request.getParameterMap()); // request 파라미터들을 저장
+	String[] artists = {"장범준", "잔나비", "10cm", "현아", "IU"};
 	String[] options = {"전체", "장범준", "잔나비", "10cm", "현아", "IU"}; // 아티스트별 목록 보기 목록
 	String url = request.getRequestURL().toString(); // 현 페이지 주소
 	
@@ -143,16 +144,18 @@
 					for(NoticeVO notice : list) {
 			%>
 			<a class="d-inline-block mt-3 mr-3" href="notice_info.jsp?no=<%= notice.getNo() %>"><div class="card d-inline-block">
-				<% if(notice.getSimg() != null) { %>
-				<img class="card-img-top" src="../upload/<%= notice.getSimg() %>" style="width:248px;height:248px">
-				<% }else { %>
-				<img class="card-img-top" src="../images/logo.png" style="width:248px;height:248px">
-				<% } %>
+				<% 
+				String src = "../images/logo.png"; // 썸네일 이미지 주소. 기본값은 로고
+				
+				if(notice.getSimg() != null) { // 등록된 이미지가 있을 경우 썸네일에 해당 이미지를 넣는다
+					src = "../upload/" + notice.getSimg();
+				}else if(Commons.isInList(artists, notice.getTag())) { // 등록된 이미지가 없을 경우 썸네일에 태그된 아티스트 이미지를 넣는다. 태그된 아티스트가 없으면 로고를 넣는다.
+					src = "../images/" + notice.getTag() + ".jpg";
+				}
+				%>
+				<img class="card-img-top" src="<%= src %>" style="width:248px;height:248px">
 				<div class="card-body font-weight-bold">
-					<%
-						String tag = notice.getTag();
-					%>
-					<kbd><%= tag %></kbd>
+					<kbd><%= notice.getTag() %></kbd>
 					<h4 class="card-title text-left text-black text-truncate"><%= notice.getTitle() %></h4>
 					<p class="card-text text-left text-dark text-truncate"><%= notice.getContent() %></p>
 					<p class="card-text text-left text-dark d-inline-block"><%= notice.getDate() %></p>

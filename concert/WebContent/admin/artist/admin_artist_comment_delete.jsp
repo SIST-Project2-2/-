@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dao.CommentDAO" %>
+<%@ page import="dao.MemberDAO" %>
+<%@ page import="concert.Commons" %>
 <%@ page import="java.io.PrintWriter" %>
 <%
 	PrintWriter script = response.getWriter();
+
+	String id = (String)session.getAttribute("id");
+	MemberDAO mdao = new MemberDAO();
+	
+	if(mdao.getAuthority(id) != 0) { // 관리자 권한이 없을 경우 에러 페이지 이동
+		script.println(Commons.getErrorRedirect());
+		return;
+	}
+	mdao.close();
+
 	CommentDAO dao = new CommentDAO();
 	int no = 0;
 	
-	// 잘못된 접근 감지 / if문 안에 관리자 계정으로 로그인되어 있는지 확인하는 코드 넣기
+	// 삭제할 댓글 번호가 입력되지 않은 경우 에러 페이지 이동
 	if(request.getParameter("no") == null) {
 		out.println("false");
 		return;

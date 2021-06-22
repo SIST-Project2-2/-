@@ -241,6 +241,7 @@ div.d2 {
 		
 		<ul class="pagination justify-content-center mt-3">
 		    <!-- 현 페이지가 1페이지일 경우, 이전 페이지 비활성화 -->
+		    <li class="page-item <% if(pageNumber == 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, 1) %>">&laquo;</a></li>
 			<li class="page-item <% if(pageInfo.get("prev") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber - 1) %>">&lt;</a></li>
 			<% 
 		    int start = pageInfo.get("start");
@@ -252,6 +253,7 @@ div.d2 {
 			<% } %>
 		    <!-- 현 페이지가 마지막 페이지일 경우 다음 페이지 비홯성화 -->
 			<li class="page-item <% if(pageInfo.get("next") != 1) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageNumber + 1) %>">&gt;</a></li>
+			<li class="page-item <% if(pageNumber == end) { %> disabled <% } %>"><a class="page-link" href="<%= Commons.get_page(url, inputs, pageInfo.get("totalPage")) %>">&raquo;</a></li>
 	  </ul>
 	</section>
 	<!-- 삭제 메시지 팝업 -->

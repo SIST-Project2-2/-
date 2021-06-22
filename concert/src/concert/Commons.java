@@ -23,6 +23,14 @@ public class Commons {
 		return new MultipartRequest(request, saveDirectory, maxPostSize, "UTF-8", new DefaultFileRenamePolicy());
 	}
 
+	// 주어진 문자열 리스트에 주어진 문자열이 있는지 확인한다. 
+	public static boolean isInList(String[] list, String str) {
+		for(String el : list) {
+			if(str.equals(el)) return true;
+		}
+		return false;
+	}
+	
 	// 해당 디렉토리의 해당 파일을 삭제한다(공지사항 삭제/수정에서 이미지 삭제시 쓰임)
 	public static boolean deleteFile(String dir, String fileName) {
 		File file = new File(dir, fileName);
@@ -98,7 +106,11 @@ public class Commons {
 		// 보여지는 페이지 중 시작 페이지와 끝 페이지
 		if (nowPage <= 3) { // 현 페이지가 5페이지 이내일 경우
 			info.put("start", 1);
-			info.put("end", 5);
+			if(totalPage < 5) {
+				info.put("end", totalPage);
+			}else {
+				info.put("end", 5);
+			}
 			// vo.setStart(1);
 			// vo.setEnd(total_page);
 		} else if (totalPage - nowPage <= 2) { // 현 페이지가 뒤에서 2번째 이내일 경우
