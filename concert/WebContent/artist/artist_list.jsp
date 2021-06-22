@@ -31,6 +31,10 @@ ArrayList<ArtistVO> list = artistDAO.getList();
 
 //관리자가 등록한 아티스트 수 
 int artistNumber = list.size();
+
+
+
+
 %>
 
 <!DOCTYPE html>
@@ -44,20 +48,7 @@ int artistNumber = list.size();
 	rel="stylesheet">
 <title>아티스트 목록</title>
 
-<script>
-function recommendClick(){
-	var btn = document.getElementById();
-	var count = 0 ;
-	
-	if(count==0){
-		return confirm('추천하시겠습니까?');
-		count++;
-		
-	}else if(count!=0){
-		btn.disabled = 'disabled';
-	}
-}
-</script>
+
 </head>
 
 <body>
@@ -183,7 +174,7 @@ function recommendClick(){
 
 	<div class="comment">
 		<form method="get" action="./sendReplyAction.jsp?id=<%=id%>"
-			class="form-inline mt-3" style="margin-top:0px;">
+			class="form-inline mt-3" style="margin-top: 0px;">
 			<input type="hidden" name="id" value=<%=id%>>
 			<section class="container">
 				<select name="artistDivide" class="form-control mx-1 mt-2">
@@ -225,9 +216,9 @@ function recommendClick(){
 						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
+						<span style="color: red;">신고 수: <%=vo.getReport()%></span> 
 						<span style="color: green;">추천 수: <%=vo.getRecommend()%></span> 
-						<span
-							style="color: gray;"><%=vo.getDate()%></span>
+						<span style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>
 			</div>
@@ -237,18 +228,20 @@ function recommendClick(){
 					<%
 						if (id.equals(vo.getId())) {
 					%>
-					<a class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')"
+					<a class="btn btn-warning" onclick="return confirm('삭제하시겠습니까?')"
 						href="deleteAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">삭제</a>
 					<%
 						} else {
 					%>
-					<a class="btn btn-primary" onclick="return confirm('추천하시겠습니까?')"
-						href="recommendAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">추천 </a>
-					<a class="btn btn-danger" onclick="return confirm('신고하시겠습니까?')"
+					<a class="btn btn-primary"  id="savebtn" onclick="return confirm('추천하시겠습니까?')"
+						href="recommendAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">추천 </a> <a
+						class="btn btn-danger" id="savebtn" onclick="return confirm('신고하시겠습니까?')"
 						href="reportAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">신고 </a>
-					<%
-						}
-					%>
+						
+					<% }%>
+					
+					
+					
 				</div>
 			</div>
 		</div>
@@ -268,8 +261,7 @@ function recommendClick(){
 						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: green;">추천 수 : <%=vo.getRecommend()%></span>
-						 <span
+						<span style="color: green;">추천 수 : <%=vo.getRecommend()%></span> <span
 							style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>

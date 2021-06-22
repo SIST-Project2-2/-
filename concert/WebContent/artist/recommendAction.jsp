@@ -4,9 +4,13 @@
 <%@ page import="dao.RecommendDAO"%>
 <%@ page import="dao.CommentDAO"%>
 <%@ page import="vo.RecommendVO"%>
-<%@ page import="java.io.PrintWriter.*"%>
-<%-- 
-<%!
+<%@ page import="java.io.PrintWriter"%>
+
+
+
+
+ <%!
+ //사용자 ip값 구하기
 public static String getClientIP(HttpServletRequest request) {
 	
 String ip = request.getHeader("X-FORWARDED-FOR");
@@ -22,11 +26,10 @@ if(ip==null || ip.length()==0){
 
 return ip;
 }
-%>
- --%>
+%> 
+ 
 
 <%
-
 
 
 String userId = null;
@@ -42,23 +45,41 @@ if(userId==null){
 	out.close();	
 }
 
-
-
+// 추천 누른 no값 가져오기
  int no = 0;
 if(request.getParameter("no")!=null){
 	no = Integer.parseInt(request.getParameter("no"));
 } 
 
-CommentDAO dao = new CommentDAO();
+//추천 누른 id값 가져오기
+String id = null;
+if(request.getParameter("id")!=null){
+	id = request.getParameter("id");
+}
 
-if(userId.equals(dao.getUserId(no))){
-//내가 작성한 댓글일시
-	out.println("alert('내가 작성한 댓글은 추천 할 수 없습니다 .');");
-	response.sendRedirect("../error.jsp");
-}else{
-	//내가 작성한 댓글이 아닐 시
-	int result = dao.like(no);
+CommentDAO dao = new CommentDAO();
+RecommendDAO rdao = new RecommendDAO();
+
+int result = rdao.recommend(no, id, getClientIP(request));
+
+if(result==1){
+int	countResult = dao.like(no);
+	if(countResult==1){
 	response.sendRedirect("artist_list.jsp");
-} 
+	return;		
+	}else{
+		//db오류
+		out.println("alert('잘못된 값이 입력 되었습니다 .');");
+		response.sendRedirect("../error.jsp");
+		return;
+	}
+}else{
+	PrintWriter script = response.getWriter();
+	out.println("<script>");
+	out.println("alert('이미 추천한 댓글입니다.');");
+	out.println("history.back()");
+	out.println("</script>");
+	return;
+}
 
 %>

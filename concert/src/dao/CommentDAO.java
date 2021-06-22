@@ -14,6 +14,10 @@ public class CommentDAO extends DAO{
 	String listCommonEnd = " no desc) where rownum <= ? * ? ) where rno > ? * (? - 1) "; // 댓글 리스트 출력 sql문 뒷부분 공통
 	String countCommon = " select count(*) from comments "; // 댓글 수 출력 sql문 공통
 	
+	
+	
+	
+	
 	//추천 수 1증가
 	public int like(int no) {
 		String sql = "UPDATE COMMENTS SET RECOMMEND = RECOMMEND + 1 WHERE NO=?";
@@ -73,6 +77,42 @@ public class CommentDAO extends DAO{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	//댓글쓴 사람 신고 값 가져오기
+	public int getReport(int no) {
+		String sql = "SELECT REPORT FROM COMMENTS WHERE NO = ? ";
+		getPreparedStatement(sql);
+		
+		try {
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	//댓글쓴 사람 추천수 값 가져오기
+	public int getRecommend(int no) {
+		String sql = "SELECT RECOMMEND FROM COMMENTS WHERE NO = ? ";
+		getPreparedStatement(sql);
+		
+		try {
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 
