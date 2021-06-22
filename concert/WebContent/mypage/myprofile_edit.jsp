@@ -78,8 +78,6 @@ if (id != null) {
 					</div>
 					<div class="row">
 						<div class="col-md-4 font-weight-bold">여권 PASSPORT</div>
-						<div class="col-md-4"></div>
-						<div class="col-md-4">여권번호/Passport number</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4">
@@ -141,7 +139,7 @@ if (id != null) {
 									<div class="input-group mb-3">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="img" name="img">
-											<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02"><%=member.getImg()%></label>
+											<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02"><%=member.getImg() == null ? "이미지를 업로드하세요" : member.getImg()%></label>
 										</div>
 									</div>
 								</div>

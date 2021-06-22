@@ -63,8 +63,6 @@ if (id != null) {
 				</div>
 				<div class="row">
 					<div class="col-md-4 font-weight-bold">여권 PASSPORT</div>
-					<div class="col-md-4"></div>
-					<div class="col-md-4">여권번호/Passport number</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4">
