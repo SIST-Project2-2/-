@@ -3,8 +3,15 @@ div#carouselSlider {
 	height: 140rem;
 }
 
+h2,#artistText{
+	font-family: 'Jua', sans-serif;
+}
+
+#artistText{
+	font-size:20px;
+}
 .carousel-item {
-	height: 130rem;
+	height: 120rem;
 	background: #000;
 }
 
@@ -17,26 +24,9 @@ div.article {
 	background-color: black;
 }
 
-div.firstSong {
-	height: 400px;
-	text-align: center;
-	margin-top: 40px;
-}
-
-div.SecondSong {
-	height: 400px;
-	text-align: center;
-	margin-top: 40px;
-}
-
-.song1, .song2, .song3, .song4, .song5 {
-	width: 400px;
-	height: 400px;
-	padding: 0px 10px;
-}
 
 #cm {
-	width: 50%;
+	width: 40%;
 }
 
 section.container {
@@ -47,3 +37,75 @@ div.comment {
 	background-color: black;
 	border-top: 3px solid black;
 }
+
+div.article{
+	height:1800px;
+}
+
+
+
+.text-white {
+    color: #white !important;
+}
+.ui-bg-overlay-container, .ui-bg-video-container {
+    position: relative;
+}
+.ui-bg-cover {
+    background-color:black;
+    background-position: center center;
+    background-size: cover;
+    height:800px;
+}
+.ui-bg-overlay-container .ui-bg-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+}
+
+.bg-dark {
+    background-color: rgba(24,28,33,0.9) !important;
+}
+.opacity-50 {
+    opacity: .5 !important;
+}
+.bg-dark {
+    background-color: rgba(24,28,33,0.9) !important;
+}
+.ui-bg-overlay-container>*, .ui-bg-video-container>* {
+    position: relative;
+}
+@media (min-width: 992px){
+    .container, .container-fluid {
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+}
+.media, .media>:not(.media-body), .jumbotron, .card {
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+}
+.d-flex, .d-inline-flex, .media, .media>:not(.media-body), .jumbotron, .card {
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+}
+.ui-w-100 {
+    width: 100px !important;
+    height: auto;
+}
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+.opacity-75 {
+    opacity: .75 !important;
+}
+
+
+
+
+
+
+
+
