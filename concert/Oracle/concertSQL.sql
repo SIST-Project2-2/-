@@ -12,8 +12,9 @@ DROP SEQUENCE CONCERTS_NO_SEQ;
 DROP SEQUENCE NOTICES_NO_SEQ;
 DROP SEQUENCE ORDERS_NO_SEQ;
 
+
 CREATE TABLE MEMBERS
-(
+( 
     NO NUMBER(30) CONSTRAINT NN_MEMBERS_NO NOT NULL CONSTRAINT U_MEMBERS_NO UNIQUE, -- 회원 번호
     ID VARCHAR2(30) CONSTRAINT PK_MEMBERS_ID PRIMARY KEY, -- 아이디
     PW VARCHAR2(100) CONSTRAINT NN_MEMBERS_PW NOT NULL, -- 패스워드. 최소 32 바이트
@@ -45,7 +46,7 @@ CREATE TABLE ARTISTS(
 CREATE TABLE COMMENTS(
     NO NUMBER(10) CONSTRAINT PK_COMMENTS_NO PRIMARY KEY, -- 댓글 번호
     ARTIST VARCHAR2(30) CONSTRAINT NN_COMMENTS_ARTIST NOT NULL, -- 작성된 아티스트 이름  
-    ID VARCHAR2(10) CONSTRAINT NN_COMMENTS_ID NOT NULL, -- 작성자 ID
+    ID VARCHAR2(30) CONSTRAINT NN_COMMENTS_ID NOT NULL, -- 작성자 ID
     CONTENT VARCHAR2(1000) CONSTRAINT NN_COMMENTS_CONTENT NOT NULL, -- 작성 내용
     WDATE DATE CONSTRAINT NN_COMMENTS_DATE NOT NULL, -- 작성일자
 	REPORT NUMBER(4), -- 신고 수
@@ -400,16 +401,96 @@ INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'hwisaek', '�
 INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'test', '안녕안녕안녕', SYSDATE, 1, 10);
 INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'hwisaek', '안녕안녕안녕', SYSDATE, 5, 10);
 
+-- 장범준
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'test', '안녕안녕안녕', SYSDATE, 10, 1);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'java', '장범준 신곡 들어보셨나요?', SYSDATE, 0, 0);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'book', '아니요', SYSDATE, 5, 0);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'elderscroll', '근데 왜 여기 계세요?', SYSDATE, 3, 10);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'book', '제 맘이죠', SYSDATE, 59, 1);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'skyrim', '님 신고 ㅅㄱ', SYSDATE, 1, 15);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'fusroda', '저도 신고할게요 ㅅㄱ', SYSDATE, 1, 10);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'nicebeef', '싸우지마세요ㅠㅠ', SYSDATE, 0, 23);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'goodrice', '밥이나 드시고 싸우세요들', SYSDATE, 0, 3);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'register', 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ', SYSDATE, 0, 0);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'authentic', '팝콘각ㅋㅋㅋ', SYSDATE, 1, 6);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'wkrurwmd', '정처기 따신 분~?', SYSDATE, 5, 0);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'sprhksrl', '아 싸우지들 마세요ㅡㅡ', SYSDATE, 0, 7);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '장범준', 'wjdqhrl', '정처기 전 이미 땄음 ㅋ', SYSDATE, 2, 0);
+
+-- 잔나비
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'wjdcjrl', '앗싸 1빠~', SYSDATE, 15, 2);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'mysql', '그럼 난 2빠~~~', SYSDATE, 15, 1);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'plsql', '---------------------------제 밑으로 빠놀이 금지 -------------------------', SYSDATE, 3, 23);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'oracle', 'ㄹㅇ 빠놀이 개노잼', SYSDATE, 1, 5);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'myname', '안녕하세요 다들 잔나비 사랑해주세요', SYSDATE, 0, 67);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'adminis', '잔나비 이번에 컴백합니다 많관부.', SYSDATE, 0, 52);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'jangchen', '많관부~~~', SYSDATE, 0, 25);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'eocpdjswpdi', '잔나비 앨범중에 ㄱㅏ장 좋은거 추천 부탁드립니다.', SYSDATE, 0, 7);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'dPqlrns', '잔나비 사랑하긴 했었나요 스쳐가는 인연이었나요 짧지않은 우리 함께했던 시간들이 자꾸 내 마음을 가둬두네. 추천드려요', SYSDATE, 1, 77);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'k2a1', '라노벨인가요? 제목 엄청 기네요 ㅎㅎ', SYSDATE, 50, 6);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'm16', '라노벨이라뇨... 이건 art입니다만.', SYSDATE, 13, 7);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'army', '라노벨 무시하시나요?', SYSDATE, 6, 7);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'k2a1', '아닙니다. 죄송합니다...ㅠㅠ', SYSDATE, 3, 15);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '잔나비', 'roka', '잔나비 사랑해~~~', SYSDATE, 0, 23);
+
+-- 현아
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'rok', '현아 컴백 많관부~~~!', SYSDATE, 0, 99);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'ofkorea', '언니 사랑해요ㅠㅠ', SYSDATE, 0, 25);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'republic', '언니 나랑 살자! 내가 집안일 다 할게!!!', SYSDATE, 3, 5);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'seoul', '현아 무대천재ㅠㅠㅠ', SYSDATE, 0, 87);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'bomb', '저번에 워터밤에서 봤는데 무대매너 너무 좋았어요 ㅠㅠ', SYSDATE, 0, 60);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'threecusion', '퀸현아!', SYSDATE, 0, 21);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'mutal', '현아 검은머리파면 추천 눌러주세요!', SYSDATE, 7, 62);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'yamatocanon', '현아는 탈색이죠 탈색파 추천이요', SYSDATE, 3, 65);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'battlecrusier', '이런들 어떠하고 저런들 어떠하리 둘 다 좋소', SYSDATE, 0, 33);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'marincontrol', '다들 암것도 모르네 현아는 단발이 짱이에요', SYSDATE, 0, 43);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'tmzjwlEp', 'ㅇㅈ 내일은 없어 미만잡', SYSDATE, 15, 105);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'qjdzj', '내일은 없어 근본이죠.', SYSDATE, 0, 56);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'drpajswkru', '내일은 없어 이전에 아이러니 단발이 있습니다.', SYSDATE, 0, 17);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '현아', 'rlarPfksdlek', '저 이번에 콘서트 드디어 갑니다~!!!', SYSDATE, 0, 5);
+
+-- IU
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'hwisaek', '아이유 사랑해요ㅠㅠ', SYSDATE, 0, 22);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'hwisaek', '아이유 콘서트 안 가보셨으면 말x', SYSDATE, 0, 46);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'TEST1', '아이유 아이유 너무 이뻐 아이유!', SYSDATE, 0, 66);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'TEST2', '아이유... 모든걸 다 가진 여자... 하지만 강릉함씨 32대손인 나 함필규는 가지지 못했지', SYSDATE, 15, 88);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'TEST3', 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ함필규ㅋㅋㅋㅋㅋ', SYSDATE, 0, 3);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'TEST4', '아이유가 최고야 늘 새로워 짜릿해', SYSDATE, 0, 32);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'TEST5', '국힙원탑은? 아이유죠', SYSDATE, 3, 99);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'qqqqq', '아이유 여신', SYSDATE, 0, 17);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'asdasd', '노래 좋아요...', SYSDATE, 0, 2);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'zxc', '아이유님 저 메로나 하나만 사주세요', SYSDATE, 10, 2);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'aaa', '뭐가 살쪄어어!!!!!!!', SYSDATE, 2, 13);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'abc123', '아직도 아이유가 첫 라이브로 3단고음 했을 때를 잊지 못해요ㅠㅠ', SYSDATE, 0, 58);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'dlckdals', '지은누나 저랑 결혼하쉴?', SYSDATE, 88, 2);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, 'IU', 'rkdwlstmf', 'dlckdals 미쳣냐?', SYSDATE, 1, 76);
+
+-- 10cm
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'ghdwnstn', '스토커... 명곡입니다.', SYSDATE, 0, 55);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'wnehdtjd', '스토커만 들으면 마치 제 과거 같아서 항상 눈물이 나와요...', SYSDATE, 0, 2);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'rnwldnjs', '아 스토커 들으면 고백으로 혼났던 기억 나서 기분 나쁨 ㄱ-', SYSDATE, 0, 4);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'wnehdtjd', '그러면 님은 무슨 곡 좋아하세요?', SYSDATE, 0, 0);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'rnwldnjs', '저는 봄이좋냐? 진짜 좋아해요오ㅠㅠ', SYSDATE, 0, 15);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'nic', '헐 님들 뭘 모르네 ㅋㅋㅋ 십센치 노래 중 최고는 쓰레기보이죠ㅎㅎㅎ', SYSDATE, 2, 25);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'rnwldnjs', '쓰레기보이? 그게 뭐에요? 검색하고 옴', SYSDATE, 0, 16);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'rnwldnjs', '헐 ㅋㅋㅋㅋ 보고 왔는데 개웃김ㅋㅋㅋㅋ 이게뭐임 ㅠ 심지어 광곸ㅋㅋㅋㅋ', SYSDATE, 0, 2);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'kazix', 'https://youtu.be/jZF8thUuJZ8 님들 보고 오세요 진짜 웃김ㅋㅋㅋㅋ 권정열 개 웃긴 사람임ㅋㅋㅋㅋㅋㅋ', SYSDATE, 0, 34);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'zed', '정열이형 왜 유부남이에요ㅠㅠㅠㅠ', SYSDATE, 0, 0);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'rkddnjsehcorh', '정열오빠 저랑 결혼해줘요. 진심임.', SYSDATE, 0, 0);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'fuzsefin', '권정열님은 임자가 있으십니다. 콘서트 많관부~~~!', SYSDATE, 0, 78);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'maboro', '진슬이 예뻐요~!!!', SYSDATE, 13, 1);
+INSERT INTO COMMENTS VALUES(COMMENTS_NO_SEQ.NEXTVAL, '10cm', 'sona', '아티스트와 관련 없는 댓글 자제 부탁', SYSDATE, 1, 13);
+
 -- 콘서트 등록하기
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2011-01-01', '서울', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2011-02-02', '부산', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2011-03-03', '인천', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2011-04-04', '대전', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2011-05-05', '대구', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2012-01-02', '서울', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2012-02-03', '부산', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2012-03-04', '인천', 100000);
-INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2012-04-05', '대구', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-06-01', '서울', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-07-02', '부산', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-06-03', '인천', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-06-04', '대전', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-08-05', '대구', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-08-02', '서울', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-07-03', '부산', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-06-03', '인천', 100000);
+INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-08-05', '대구', 100000);
 INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2012-05-06', '대전', 100000);
 INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2013-01-03', '서울', 100000);
 INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2013-02-04', '부산', 100000);
@@ -432,6 +513,13 @@ INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(
 INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2016-04-08', '대구', 100000);
 INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2016-05-09', '인천', 100000);
 INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2017-01-01', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2017-02-02', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2017-03-03', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2017-04-04', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2017-05-05', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2018-01-02', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2018-02-03', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2018-03-04', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2018-04-05', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2018-05-06', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2019-01-03', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2019-02-04', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2019-03-05', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2019-04-06', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2019-05-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준','제목',  '장범준의 월드에 오신걸 환영합니다', '2020-01-04', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2020-02-05', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2020-03-06', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2020-04-07', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2020-05-08', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2021-01-04', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2021-02-05', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2021-03-06', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2021-04-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2021-05-08', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2022-01-05', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2022-02-06', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2022-03-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2022-04-08', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2022-05-09', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2023-01-01', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2023-02-02', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2023-03-03', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2023-04-04', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2023-05-05', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2024-01-02', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2024-02-03', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2024-03-04', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2024-04-05', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2024-05-06', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2025-01-03', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2025-02-04', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2025-03-05', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2025-04-06', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2025-05-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준','제목',  '장범준의 월드에 오신걸 환영합니다', '2026-01-04', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2026-02-05', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2026-03-06', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2026-04-07', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2026-05-08', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2027-01-04', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2027-02-05', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2027-03-06', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2027-04-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2027-05-08', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2028-01-05', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2028-02-06', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2028-03-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2028-04-08', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2028-05-09', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2029-01-01', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2029-02-02', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2029-03-03', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2029-04-04', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2029-05-05', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2030-01-02', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2030-02-03', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2030-03-04', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2030-04-05', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2030-05-06', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2031-01-03', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2031-02-04', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2031-03-05', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2031-04-06', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2031-05-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준','제목',  '장범준의 월드에 오신걸 환영합니다', '2032-01-04', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2032-02-05', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2032-03-06', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2032-04-07', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2032-05-08', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2033-01-04', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2033-02-05', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2033-03-06', '인천', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2033-04-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2033-05-08', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '장범준', '제목', '장범준의 월드에 오신걸 환영합니다', '2034-01-05', '서울', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '잔나비', '제목', '잔나비의 월드에 오신걸 환영합니다', '2034-02-06', '부산', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, 'IU', '제목', 'IU의 월드에 오신걸 환영합니다', '2034-03-07', '대전', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '현아', '제목', '현아의 월드에 오신걸 환영합니다', '2034-04-08', '대구', 100000);INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(CONCERTS_NO_SEQ.NEXTVAL, '10cm', '제목', '10cm의 월드에 오신걸 환영합니다', '2034-05-09', '인천', 100000);
+
+
+
+-- 월별 콘서트 조회하기
+select no, title, to_char(cdate, 'MM/DD'), location
+  from concerts
+  where cdate >= to_date('20215', 'YYYYMM') and cdate < to_date('20216', 'YYYYMM') order by cdate asc;
 
 -- 전체 콘서트 조회하기
 SELECT * FROM CONCERTS ORDER BY NO DESC;
@@ -507,6 +595,85 @@ INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'test', 118);
 INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'test', 119);
 INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'test', 120);
 
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'qqq', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'qqq', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'qqq', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'qqq', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'qqq', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'asd', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'asd', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'asd', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'asd', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'asd', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'zxc', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'zxc', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'zxc', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'zxc', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'zxc', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'aaa', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'aaa', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'aaa', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'aaa', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'aaa', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'abc123', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'abc123', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'abc123', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'abc123', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'abc123', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'dlckdals', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'dlckdals', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'dlckdals', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'dlckdals', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'dlckdals', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkdwlstmf', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkdwlstmf', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkdwlstmf', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkdwlstmf', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkdwlstmf', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'ghdwnstn', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'ghdwnstn', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'ghdwnstn', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'ghdwnstn', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'ghdwnstn', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wnehdtjd', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wnehdtjd', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wnehdtjd', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wnehdtjd', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wnehdtjd', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rnwldnjs', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rnwldnjs', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rnwldnjs', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rnwldnjs', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rnwldnjs', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wkawkfl32', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wkawkfl32', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wkawkfl32', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wkawkfl32', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'wkawkfl32', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkddnjsehcorh', 116);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkddnjsehcorh', 117);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkddnjsehcorh', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkddnjsehcorh', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'rkddnjsehcorh', 120);
+
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'nic', 118);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'nic', 119);
+INSERT INTO ORDERS VALUES(ORDERS_NO_SEQ.NEXTVAL, 'nic', 120);
+
+
+
+
 -- 전체 좌석 보기
 SELECT * FROM SEATS;
 
@@ -520,6 +687,83 @@ INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'A_7', 'test', 
 INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'A_7', 'test', 5);
 INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'A_7', 'test', 6);
 INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'A_7', 'test', 7);
+
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'A_8', 'qqq', 8);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'A_8', 'qqq', 9);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'A_8', 'qqq', 10);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'A_8', 'qqq', 11);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'A_8', 'qqq', 12);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'A_9', 'asd', 13);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'A_9', 'asd', 14);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'A_9', 'asd', 15);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'A_9', 'asd', 16);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'A_9', 'asd', 17);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'A_10', 'zxc', 18);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'A_10', 'zxc', 19);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'A_10', 'zxc', 20);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'A_10', 'zxc', 21);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'A_10', 'zxc', 22);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'A_11', 'aaa', 23);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'A_11', 'aaa', 24);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'A_11', 'aaa', 25);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'A_11', 'aaa', 26);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'A_11', 'aaa', 27);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'A_12', 'abc123', 28);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'A_12', 'abc123', 29);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'A_12', 'abc123', 30);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'A_12', 'abc123', 31);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'A_12', 'abc123', 32);
+
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'B_8', 'dlckdals', 33);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'B_8', 'dlckdals', 34);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'B_8', 'dlckdals', 35);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'B_8', 'dlckdals', 36);
+INSERT INTO SEATS(CONCERT_NO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'B_8', 'dlckdals', 37);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'B_9', 'rkdwlstmf', 38);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'B_9', 'rkdwlstmf', 39);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'B_9', 'rkdwlstmf', 40);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'B_9', 'rkdwlstmf', 41);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'B_9', 'rkdwlstmf', 42);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'B_10', 'ghdwnstn', 43);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'B_10', 'ghdwnstn', 44);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'B_10', 'ghdwnstn', 45);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'B_10', 'ghdwnstn', 46);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'B_10', 'ghdwnstn', 47);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'B_11', 'wnehdtjd', 48);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'B_11', 'wnehdtjd', 49);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'B_11', 'wnehdtjd', 50);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'B_11', 'wnehdtjd', 51);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'B_11', 'wnehdtjd', 52);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'B_12', 'rnwldnjs', 53);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'B_12', 'rnwldnjs', 54);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'B_12', 'rnwldnjs', 55);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'B_12', 'rnwldnjs', 56);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'B_12', 'rnwldnjs', 57);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'C_11', 'wkawkfl32', 58);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'C_11', 'wkawkfl32', 59);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'C_11', 'wkawkfl32', 60);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'C_11', 'wkawkfl32', 61);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'C_11', 'wkawkfl32', 62);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(116, 'C_12', 'rkddnjsehcorh', 63);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(117, 'C_12', 'rkddnjsehcorh', 64);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'C_12', 'rkddnjsehcorh', 65);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'C_12', 'rkddnjsehcorh', 66);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'C_12', 'rkddnjsehcorh', 67);
+
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(118, 'C_13', 'nic', 68);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(119, 'C_14', 'nic', 69);
+INSERT INTO SEATS(CONCERT_BO, SEAT_NO, ID, ORDER_NO) VALUES(120, 'C_15', 'nic', 70);
+
 
 -- 한번에 여러 좌석 예매하기 
 INSERT INTO SEATS

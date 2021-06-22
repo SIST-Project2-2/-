@@ -19,7 +19,16 @@
 		} else {
 			admin_artist_add.submit();
 		}
-
+	}
+	function fileUpload(fis) {
+		var str = fis.value;
+		$('#span').text(fis.value.substring(str.lastIndexOf("\\") + 1));
+		// 이미지를 변경한다.
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#loadImg').attr('src',e.target.result);
+		}
+		reader.readAsDataURL(fis.files[0]);
 	}
 </script>
 </head>
@@ -40,10 +49,10 @@
 			</div>
 			<div id="content">
 				<div>
-					<div id="pofile_picture">프로필사진 등록</div>
+					<img src="" class="mt-4" id="loadImg" style="width: 20%;height:350px;"/>
 					<textarea id="content_text" name="content_text" placeholder="내용을 입력하세요"></textarea>
 				</div>
-				<input type="file" name="file">
+				<input type="file" name="file" onchange="fileUpload(this)"><span id="span"></span>
 			</div>
 		</form>
 	</div>

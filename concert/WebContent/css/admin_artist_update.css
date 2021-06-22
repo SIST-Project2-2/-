@@ -42,8 +42,8 @@
 		font-weight: bold;
 	}
 	#artist_name {
-		border: 3px solid black;
-		color: lightgray;
+		border: 1px solid lightgray;
+		color: white;
 		width: 15%;
 	}
 	.artist_name {
