@@ -1,4 +1,8 @@
+<%@page import="concert.Commons"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	if (session.getAttribute("id") != null) {
+%>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -30,3 +34,9 @@
 	</div>
 </body>
 </html>
+<%
+	//
+} else {
+	out.write(Commons.getNeedLoginMsg());
+}
+%>

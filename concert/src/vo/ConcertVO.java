@@ -1,9 +1,9 @@
 package vo;
 
-public class ConcertVO {
+public class ConcertVO extends VO {
 
 	// Field
-	private int no = -1, price;
+	private int no = -1, price = -1;
 	private String artist;
 	private String title;
 	private String content;
@@ -16,7 +16,7 @@ public class ConcertVO {
 		if (no != -1) {
 			json += "no: " + this.no + ", ";
 		}
-		
+
 		if (artist != null) {
 			json += "artist: " + this.artist + ", ";
 		}

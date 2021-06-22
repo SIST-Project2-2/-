@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- import -->
-<jsp:include page="../import.jsp"></jsp:include>
+<%
+	//
+// 로그인했으면 id에 값이 저장되고 로그인 되어있지 않으면 null이 저장된 id 변수 설정
+String id = (String) session.getAttribute("id");
+String authority = (String) session.getAttribute("authority");
+
+if (id == null && authority != "1") { // 관리자가 아니면 메인으로 이동 
+	out.write("<script>alert('관리자가 아닙니다. 메인화면으로 이동합니다.');location.href='http://localhost:9000/concert/index.jsp'</script>");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- import -->
+<jsp:include page="../import.jsp"></jsp:include>
+<style type="text/css">
+#admin_header .navbar .nav-item:hover .dropdown-menu{ display: block; }
+</style>
 </head>
-<body>
+<body id="admin_header">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top mb-3">
 		<!-- Brand -->
 		<a class="navbar-brand mr-auto" href="http://localhost:9000/concert/index.jsp">
@@ -30,8 +42,7 @@
 				</li>
 
 				<li class="nav-item dropdown mx-3" id="artist">
-					<a class="nav-link dropdown-toggle text-nowrap" href="http://localhost:9000/concert/admin/statistics/admin_statistics.jsp" id="navbardrop"
-						data-toggle="dropdown"> 아티스트 관리</a>
+					<a class="nav-link dropdown-toggle text-nowrap" href="http://localhost:9000/concert/admin/statistics/admin_statistics.jsp" id="navbardrop" data-toggle="dropdown"> 아티스트 관리</a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="http://localhost:9000/concert/admin/artist/admin_artist_list.jsp">아티스트 목록</a>
 						<a class="dropdown-item" href="http://localhost:9000/concert/admin/artist/admin_artist_comment.jsp">댓글 관리</a>
@@ -44,9 +55,8 @@
 		</div>
 
 
-		<a class="text-info text-nowrap font-weight-bold" href="http://localhost:9000/concert/login/login.jsp">LOGOUT</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-			aria-expanded="false" aria-label="Toggle navigation">
+		<a class="text-info text-nowrap font-weight-bold" href="http://localhost:9000/concert/login/logout.jsp">LOGOUT</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 	</nav>

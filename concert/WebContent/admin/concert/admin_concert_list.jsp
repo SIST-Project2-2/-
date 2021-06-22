@@ -74,8 +74,8 @@
 		
 		// 검색 카테고리를 설정하는 함수
 		function set_category() {
-			var artist = $("#artist");
-			var title = $("#title");
+			var artist = $("#chkbox_artist");
+			var title = $("#chkbox_title");
 			var search_text = $("#notice_list_search");
 			<% 
 			if(searchCategories == null){%> // 검색을 하지 않았으면 둘 다 설정
@@ -84,10 +84,9 @@
 			}else{%>
 				search_text.val("<%=searchTarget%>");<%
 				for(String str: searchCategories){
-				out.write(str + ".attr(\"checked\", \"checked\");");
+					out.write(str + ".attr(\"checked\", \"checked\");");
 				}
-			}
-			%>			
+			}%>			
 		}
 		
 		// 페이지네이션 부분을 생성하는 함수
@@ -124,7 +123,7 @@
 				html += "<td>" + concert_list.get(i).getCdate() + "</td>";
 				html += "<td>" + concert_list.get(i).getLocation() + "</td>";
 				html += "<td>";
-				html += "	<a class=\"btn-sm btn-secondary\" href=\"admin_concert_edit.jsp?concert_no=" + concert_list.get(i).getNo() + "\">수정</a>";
+				html += "	<a class=\"btn-sm btn-secondary\" href=\"./admin_concert_edit.jsp?concert_no=" + concert_list.get(i).getNo() + "\">수정</a>";
 				html += "</td>";
 				html += "<td>";
 				html += "	<a class=\"btn-sm btn-danger\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\""
@@ -149,12 +148,12 @@
 							<button class="btn btn-outline-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">카테고리</button>
 							<div class="dropdown-menu">
 								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="title" name="category" id="title">
-									<label class="form-check-label" for="title"> 콘서트 명 </label>
+									<input class="form-check-input" type="checkbox" value="title" name="category" id="chkbox_title">
+									<label class="form-check-label" for="chkbox_title"> 콘서트 명 </label>
 								</div>
 								<div class="form-check dropdown-item">
-									<input class="form-check-input" type="checkbox" value="artist" name="category" id="artist">
-									<label class="form-check-label" for="artist"> 아티스트 </label>
+									<input class="form-check-input" type="checkbox" value="artist" name="category" id="chkbox_artist">
+									<label class="form-check-label" for="chkbox_artist"> 아티스트 </label>
 								</div>
 							</div>
 						</div>

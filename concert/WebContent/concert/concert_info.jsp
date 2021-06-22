@@ -1,6 +1,7 @@
+<%@page import="concert.Commons"%>
 <%@page import="dao.ConcertDAO"%>
 <%@page import="vo.ConcertVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/error.jsp"%>
 <%
 	//
 int concert_no = Integer.parseInt(request.getParameter("concert_no"));
@@ -37,10 +38,6 @@ ConcertVO vo = dao.getConcertInfo(concert_no);
 								<select class="form-control-sm" disabled>
 									<optgroup label="가수">
 										<option selected><%=vo.getArtist()%></option>
-										<option>잔나비</option>
-										<option>10cm</option>
-										<option>현아</option>
-										<option>아이유</option>
 									</optgroup>
 								</select>
 							</div>
@@ -61,4 +58,3 @@ ConcertVO vo = dao.getConcertInfo(concert_no);
 	</div>
 </body>
 </html>
-

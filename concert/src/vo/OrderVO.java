@@ -1,10 +1,10 @@
 package vo;
 
-public class OrderVO {
+public class OrderVO  extends VO{
+	private static final long serialVersionUID = 1L;
 	private int no;
 	private String id;
 	private int concert_no;
-	private String seat_no;
 
 	public int getNo() {
 		return no;
@@ -28,13 +28,5 @@ public class OrderVO {
 
 	public void setConcert_no(int concert_no) {
 		this.concert_no = concert_no;
-	}
-
-	public String getSeat_no() {
-		return seat_no;
-	}
-
-	public void setSeat_no(String seat_no) {
-		this.seat_no = seat_no;
 	}
 }

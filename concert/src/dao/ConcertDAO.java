@@ -5,22 +5,48 @@ import java.util.ArrayList;
 
 import vo.ConcertVO;
 
+// 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 public class ConcertDAO extends DAO {
 
-	// Field
-
-	// Constructor
-	public ConcertDAO() {
-		super();
+	// 월별 목록 조회
+	public ArrayList<ConcertVO> getConcertListByDate(int year, int month) { // year: 년도, month: 월
+		ArrayList<ConcertVO> list = new ArrayList<ConcertVO>();
+		ConcertVO vo = null;
+		int next_year = month != 12? year : year + 1;
+		int next_month = month != 12? month + 1 : 1;
+		
+		try {
+			String sql = " select no, title, to_char(cdate, 'MM/DD'), location, artist "
+					+ " from concerts "
+					+ " where cdate >= to_date(?, 'YYYYMM') and cdate < to_date(?, 'YYYYMM') "
+					+ " order by cdate asc ";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, String.valueOf(year) + String.valueOf(month));
+			pstmt.setString(2, String.valueOf(next_year) + String.valueOf(next_month));
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new ConcertVO();
+				
+				vo.setNo(rs.getInt(1));
+				vo.setTitle(rs.getString(2));
+				vo.setCdate(rs.getString(3));
+				vo.setLocation(rs.getString(4));
+				vo.setArtist(rs.getString(5));
+				
+				list.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
-
-	// Method
-
-	// 반환형이 int인 경우 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
-
+	
 	// 콘서트 조회 메소드
 	public ConcertVO getConcertInfo(int no) {
-		ConcertVO vo = new ConcertVO();
+		ConcertVO vo = null;
 		try {
 			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM CONCERTS WHERE NO = ?";
 			getPreparedStatement(sql);
@@ -29,6 +55,7 @@ public class ConcertDAO extends DAO {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
+				vo = new ConcertVO();
 				vo.setNo(rs.getInt(1));
 				vo.setArtist(rs.getString(2));
 				vo.setTitle(rs.getString(3));
@@ -43,19 +70,48 @@ public class ConcertDAO extends DAO {
 		return vo;
 	}
 
+	public ConcertVO getConcertInfo(String no) {
+		ConcertVO vo = null;
+		try {
+			String sql = "SELECT NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM CONCERTS WHERE NO = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, no);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo = new ConcertVO();
+				vo.setNo(rs.getInt(1));
+				vo.setArtist(rs.getString(2));
+				vo.setTitle(rs.getString(3));
+				vo.setContent(rs.getString(4));
+				vo.setCdate(rs.getString(5));
+				vo.setLocation(rs.getString(6));
+				vo.setPrice(rs.getInt(7));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		close();
+		return vo;
+	}
+
 	// 콘서트 삭제 메소드
 	public int deleteConcert(ConcertVO concert) {
 		int result = -2;
 		try {
 			String sql = "DELETE FROM CONCERTS WHERE NO = ?";
 			getPreparedStatement(sql);
+
 			pstmt.setInt(1, concert.getNo());
-			System.out.println("삭제대상: " + concert.getNo());
+
+//			System.out.println("삭제대상: " + concert.getNo());
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		close();
 		return result;
 	}
 
@@ -72,7 +128,7 @@ public class ConcertDAO extends DAO {
 					field.setAccessible(true); // private 설정된 필드도 접근 가능하도록 설정
 					if (field.get(search_target) != null) { // 해당 필드가 null 이 아니면 실행
 //						System.out.println(field.getName() + ": " + field.get(search_target));
-						if (field.getName().equals("no") && (int) field.get(search_target) == -1) { // no 필드는 int 타입이므로 없으면 null이 아닌 -1을 저장
+						if ((field.getName().equals("no") || field.getName().equals("price")) && (int) field.get(search_target) == -1) { // no 필드는 int 타입이므로 없으면 null이 아닌 -1을 저장
 							continue;
 						}
 						if (sql_where.equals("")) { // 해당 필드에 값이 존재하고 WHERE 구문이 존재하지 않으면 WHERE 생성
@@ -82,7 +138,7 @@ public class ConcertDAO extends DAO {
 							sql_where += "OR ";
 						}
 						// 해당 필드가 존재하면 WHERE 구문에 "속성명 LIKE('%속성값%')" 을 추가함
-						sql_where += field.getName() + " LIKE('%" + field.get(search_target) + "%') ";
+						sql_where += "LOWER(" + field.getName() + ") LIKE(LOWER('%" + field.get(search_target) + "%')) ";
 						sql_whereHasCreated = true;
 					}
 				}
@@ -91,7 +147,7 @@ public class ConcertDAO extends DAO {
 			e.printStackTrace();
 		}
 
-		sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM (SELECT * FROM CONCERTS " + sql_where + " ORDER BY NO DESC) C)";
+		sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION, PRICE FROM (SELECT * FROM CONCERTS " + sql_where + " ORDER BY CDATE DESC) C)";
 		if (page_no != 0) {
 			sql += " WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 		}
@@ -150,7 +206,7 @@ public class ConcertDAO extends DAO {
 		ArrayList<ConcertVO> concert_list = new ArrayList<ConcertVO>();
 
 		try {
-			String sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM (SELECT * FROM CONCERTS ORDER BY NO DESC) C) WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
+			String sql = "SELECT * FROM (SELECT ROWNUM AS RNO, NO, ARTIST, TITLE, CONTENT, TO_CHAR(CDATE, 'YYYY-MM-DD'), LOCATION FROM (SELECT * FROM CONCERTS ORDER BY CDATE DESC) C) WHERE RNO > ? * (? - 1) AND RNO <= ? * ?";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, page_size);
@@ -233,7 +289,7 @@ public class ConcertDAO extends DAO {
 		int no = getNextConcertNo();
 
 		try {
-			String sql = "INSERT INTO CONCERTS VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO CONCERTS(NO, ARTIST, TITLE, CONTENT, CDATE, LOCATION, PRICE) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			getPreparedStatement(sql);
 
 			pstmt.setInt(1, no);
@@ -256,20 +312,34 @@ public class ConcertDAO extends DAO {
 	}
 
 	// 콘서트 수정
-	public int edit_concert(String no, ConcertVO concert) {
-		int result = -2;
+	public boolean edit_concert(String no, ConcertVO concert) {
+
+		boolean result = false;
 
 		try {
-			String sql = "";
+			String sql = "update concerts set artist=?, title=?, content=?, cdate=?, location=? where no=?";
 			getPreparedStatement(sql);
 
+			pstmt.setString(1, concert.getArtist());
+			pstmt.setString(2, concert.getTitle());
+			pstmt.setString(3, concert.getContent());
+			pstmt.setString(4, concert.getCdate());
+			pstmt.setString(5, concert.getLocation());
+			pstmt.setString(6, no);
 			// 성공하면 1, 성공 못하면 0, SQL 에러나면 -1, 자바에서 에러나면 -2
-			result = pstmt.executeUpdate();
+
+			int value = pstmt.executeUpdate();
+
+			if (value != 0) {
+				result = true;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		close();
 		return result;
 	}
+
 }

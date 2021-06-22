@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/error.jsp"%>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dao.PayInfoDAO" %>
@@ -7,26 +7,25 @@
 	PrintWriter script = response.getWriter();
 	PayInfoDAO dao = new PayInfoDAO();
 	ArrayList<PayInfoVO> list;
-	String id = "";
+	String id = (String)session.getAttribute("id");
 	
-	// 입력받은 id가 없을 경우 에러 페이지 이동
-	if(request.getParameter("id") == null || "".equals(request.getParameter("id"))) {
+	// 로그인되어 있지 않을 경우 에러 페이지 이동
+	if(id.equals("")) {
 		response.sendRedirect("../error.jsp");
 	}
 	
-	id = request.getParameter("id");
 	list = dao.getTicketlist(id);
 	
 	// 데이터를 모두 불러온 뒤, dao 객체 닫음
 	dao.close();
 %>
-<!-- header -->
-<jsp:include page="../header.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>콘서트 예매내역</title>
+<!-- header -->
+<jsp:include page="../header.jsp"></jsp:include>
 <style>
 	.d1, .d2 {
 		height:300px;
@@ -51,7 +50,7 @@
 	<h3>콘서트 예매내역</h3>
 	<section class="container-md text-center" id="content_myticketlist">
 		<% for(PayInfoVO info : list) { %>
-		<div class="row justify-content-center font-weight-bold mt-3">
+		<a href="../concert/concert_payinfo.jsp?no=<%= info.getOrderNo() %>" class="text-decoration-none text-dark"><div class="row justify-content-center font-weight-bold mt-3">
 			<div class="d1 col-md-9">
 				<div class="top row bg-primary pl-3">
 					<img src="http://localhost:9000/concert/images/logo.png" class="img-fluid align-self-center" style="height:40px">
@@ -124,7 +123,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div></a>
 		<% } %>
 	</section>
 </body>

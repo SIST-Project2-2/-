@@ -2,7 +2,8 @@ package vo;
 
 import java.util.ArrayList;
 
-public class PayInfoVO {
+public class PayInfoVO  extends VO{
+	private static final long serialVersionUID = 1L;
 	private int orderNo; // 주문 번호
 	private int ConcertNo; // 콘서트 번호
 	private String firstName; // 이름

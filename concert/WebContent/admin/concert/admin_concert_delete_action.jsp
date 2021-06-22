@@ -1,6 +1,6 @@
 <%@page import="vo.ConcertVO"%>
 <%@page import="dao.ConcertDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="/error.jsp"%>
 <%
 	String no = request.getParameter("no");
 	ConcertDAO dao = new ConcertDAO();

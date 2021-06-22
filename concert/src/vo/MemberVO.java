@@ -1,9 +1,8 @@
 package vo;
 
-public class MemberVO {
-
+public class MemberVO extends VO {
 	// Field
-	private int no; // 회원번호
+	private int no = -1; // 회원번호
 	private String id; // 아이디
 	private String pw; // 비밀번호
 	private String nickname; // 닉네임
@@ -16,6 +15,12 @@ public class MemberVO {
 	private String authority; // 권한
 	private String withdrawal; // 탈퇴 요청 여부
 	private String email; // 이메일 주소
+	private String emailHash; // 이메일 인증 데이터
+	private int emailChecked = -1; // 이메일 인증 여부. 인증되면 1, 안되면 0
+	private String salt; // 비밀번호 암호화용 소금
+	private String issueDate; // 마지막 예매 날짜
+	private String img; // 사용자가 등록한 프로필 사진 명
+	private String simg; // 실제로 저장된 프로필 사진 명
 
 	// Constructor
 	public MemberVO(int no, String id, String pw, String nickname, String name, String birth_date, String sex, String address, String phone, String authority, String withdrawal, String email) {
@@ -33,9 +38,58 @@ public class MemberVO {
 		this.email = email;
 	}
 
-	// Method
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email) {
+		super();
+
+		this.id = id;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.birth_date = birth_date;
+		this.sex = sex;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+	}
+
+	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email, String emailHash, int emailChecked) {
+		super();
+
+		this.id = id;
+		this.pw = pw;
+		this.nickname = nickname;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.birth_date = birth_date;
+		this.sex = sex;
+		this.address = address;
+		this.phone = phone;
+
+		this.email = email;
+		this.emailHash = emailHash;
+		this.emailChecked = emailChecked;
+	}
+
 	public MemberVO() {
 
+	}
+
+	// Method
+	public String getEmailHash() {
+		return emailHash;
+	}
+
+	public int getEmailChecked() {
+		return emailChecked;
+	}
+
+	public void setEmailChecked(int emailChecked) {
+		this.emailChecked = emailChecked;
+	}
+
+	public void setEmailHash(String emailHash) {
+		this.emailHash = emailHash;
 	}
 
 	public String getEmail() {
@@ -126,22 +180,6 @@ public class MemberVO {
 		this.no = no;
 	}
 
-	// Constructor
-	public MemberVO(String id, String pw, String nickname, String first_name, String last_name, String birth_date, String sex, String address, String phone, String email) {
-		super();
-
-		this.id = id;
-		this.pw = pw;
-		this.nickname = nickname;
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.birth_date = birth_date;
-		this.sex = sex;
-		this.address = address;
-		this.phone = phone;
-		this.email = email;
-	}
-
 	public String getFirst_name() {
 		return first_name;
 	}
@@ -156,6 +194,38 @@ public class MemberVO {
 
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getIssueDate() {
+		return issueDate;
+	}
+
+	public void setIssueDate(String issueDate) {
+		this.issueDate = issueDate;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getSimg() {
+		return simg;
+	}
+
+	public void setSimg(String simg) {
+		this.simg = simg;
 	}
 
 }

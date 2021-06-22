@@ -1,39 +1,11 @@
 <%@page import="vo.MemberVO"%>
-<%@page import="java.io.PrintWriter"%>
 <%@page import="dao.MemberDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<jsp:useBean id="member" class="vo.MemberVO"></jsp:useBean>
+<jsp:setProperty property="*" name="member" />
 <%
-	request.setCharacterEncoding("utf-8");
+	// 비밀번호를 되돌려주는 메소드
+MemberDAO memberDAO = new MemberDAO();
+String result = memberDAO.find_password(member);
+//out.write(result);
 %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<%
-		MemberVO member = new MemberVO();
-	member.setId(request.getParameter("id"));
-	member.setFirst_name(request.getParameter("first_name"));
-	member.setLast_name(request.getParameter("last_name"));
-	member.setBirth_date(request.getParameter("birth_date"));
-	member.setPhone(request.getParameter("phone"));
-
-	MemberDAO memberDAO = new MemberDAO();
-	String result = memberDAO.find_password(member);
-	PrintWriter script = response.getWriter();
-	if (result == null) {
-		script.println("<script>");
-		script.println("alert('입력한 정보가 틀립니다.');");
-		script.println("history.back();");
-		script.println("</script>");
-	} else {
-		script.println("<script>");
-		script.println("alert('비밀번호:" + result + "');");
-		script.println("history.back();");
-		script.println("</script>");
-	}
-	%>
-</body>
-</html>
