@@ -1,5 +1,29 @@
 @charset "UTF-8";
 
+/* 관리자 - 댓글 관리 */
+.admin_artist_comment .comment_content {
+	width: 75%;
+}
+
+.admin_artist_comment .comment_button {
+	margin: 0 auto;
+}
+
+.admin_artist_comment .box {
+	display: inline-block;
+	width: 150px;
+}
+
+.admin_artist_comment table span.s1 {
+	border: 1px solid black;
+	padding: 5px;
+	margin-right: 5px;
+}
+
+.admin_artist_comment div.d2 {
+	margin-bottom: 10px;
+}
+
 /* 관리자 아티스트 등록 */
 .admin_artist_add div.body {
 	width: 90%;
