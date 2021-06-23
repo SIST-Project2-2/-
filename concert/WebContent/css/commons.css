@@ -1,1 +1,84 @@
 @charset "UTF-8";
+
+/* 메인 페이지 */
+body#index {
+	background-image: url('/concert/images/main_img2.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100vh;
+}
+
+#index .container {
+	/* 	height: 100vh; */
+	width: 100vw;
+}
+
+#index .container h1 {
+	font-family: 'Jua', sans-serif;
+	text-shadow: black 0.2em 0.2em 0.2em;
+	color: white;
+	padding-top: 100px;
+}
+
+#index div.modal {
+	font-family: 'Jua', sans-serif;
+}
+
+#index #jang_island {
+	position: absolute;
+	top: 510px;
+	left: 100px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+	background-color: transparent !important;
+}
+
+#index #iu_island {
+	position: absolute;
+	top: 520px;
+	left: 1200px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index #jan_island {
+	position: absolute;
+	top: 620px;
+	left: 600px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index #cm_island {
+	position: absolute;
+	top: 630px;
+	left: 1700px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index #hyun_island {
+	position: absolute;
+	top: 610px;
+	left: 920px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index nav#top_nav {
+	margin-bottom: 0px;
+}
+
+#index #header_div {
+	margin-bottom: 0px !important;
+}
+
+/* 헤더 */
+#header .navbar .nav-item:hover .dropdown-menu {
+	display: block;
+}
