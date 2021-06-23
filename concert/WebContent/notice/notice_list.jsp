@@ -66,7 +66,7 @@
 <jsp:include page="../header.jsp"></jsp:include>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#artist").change(function() {
+		$("#artist_select").change(function() {
 			location.href = "notice_list.jsp?artist=" + $(this).val();
 		})
 		
@@ -127,7 +127,7 @@
 			</div>
 			<div class="col-md-3">
 				<small class="text-dark">가수</small>
-				<select class="form-control-sm d-inline-block" name="artist" id="artist">
+				<select class="form-control-sm d-inline-block" name="artist" id="artist_select">
 					<% for(String option : options) { // request로 요청받은 가수를 select한다. %>
 					<option value="<%= option %>" <% if(option.equals(artist)) { %>selected <% } %>><%= option %></option>
 					<% } %>
