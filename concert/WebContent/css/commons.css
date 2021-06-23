@@ -1,4 +1,58 @@
 @charset "UTF-8";
+/* 관리자 - 아티스트 목록 */
+.admin_artist_list {
+	margin-top: 20px;
+}
+
+.admin_artist_list .post-list {
+	position: relative;
+	padding: 5px 0;
+}
+
+.admin_artist_list .post-list .picture {
+	max-width: 400px;
+	overflow: hidden;
+	height: auto;
+	border-radius: 6px;
+}
+
+.admin_artist_list .post-list .label {
+	font-weight: normal;
+}
+
+.admin_artist_list .post-list .picture {
+	max-width: 210px;
+}
+
+.admin_artist_list .post-list .picture img {
+	width: 100%;
+}
+
+.admin_artist_list .post-list h4 {
+	font-size: 20px;
+}
+
+.admin_artist_list .post-list h5 {
+	color: #888;
+}
+
+.admin_artist_list .post-list p {
+	float: left;
+}
+
+.admin_artist_list .post-list:after {
+	height: 1px;
+	width: 83%;
+	bottom: 0;
+	right: 0;
+	content: "";
+	display: block;
+	position: absolute;
+}
+
+.admin_artist_list .btn {
+	margin-top: 65px;
+}
 
 /* 관리자 - 댓글 관리 */
 .admin_artist_comment .comment_content {
