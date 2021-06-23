@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
 	rel="stylesheet">
 <style type="text/css">
-.main {
+body {
 	background-image: url('images/main_img2.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -21,7 +21,7 @@
 }
 
 .container {
-	height: 100vh;
+/* 	height: 100vh; */
 	width: 100vw;
 }
 
