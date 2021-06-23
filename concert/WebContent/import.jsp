@@ -6,3 +6,5 @@
 <link rel="stylesheet" href="http://localhost:9000/concert/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://localhost:9000/concert/css/commons.css">
 <script src="/concert/js/bs-custom-file-input.min.js"></script>
+<link rel="shortcut icon" href="/concert/images/favicon-32x32.png">
+<link rel="icon" href="/concert/images/favicon-32x32.png">

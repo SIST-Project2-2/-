@@ -38,81 +38,65 @@ if (id != null) {
 <meta charset="UTF-8">
 <!-- import -->
 <jsp:include page="/import.jsp"></jsp:include>
-<link rel="stylesheet" href="http://localhost:9000/concert/css/header.css">
-<link rel="shortcut icon" href="http://localhost:9000/concert/images/favicon-32x32.png">
-<link rel="icon" href="http://localhost:9000/concert/images/favicon-32x32.png">
 </head>
-<body>
-	<div id="header_div" class="mb-3">
-		<div class="lT">
-			<a class=logo href="http://localhost:9000/concert/index.jsp">
-				<img alt="" src="http://localhost:9000/concert/images/logo.png">
+<body id="header">
+	<nav class="navbar navbar-expand-sm navbar-light text-dark sticky-top" style="background: tomato;">
+		<!-- Brand -->
+		<div style="width: 250px;">
+			<a class="navbar-brand mr-auto" href="/concert/index.jsp">
+				<img src="/concert/images/logo.png" height="30">
 			</a>
-			<ul class="nav justify-content-end">
-				<%
-					//
-				if (id != null) {
-					out.write("<li class='nav-item'>");
-					out.write("<span class='font-weight-bold'>" + id + "</span>");
-					out.write("</li>");
-				}
-				if (id != null && authority.equals("1")) { // 관리자가 아니면 메인으로 이동 
-					out.write("<li class='nav-item'><a class='auser' href='http://localhost:9000/concert/admin/member/admin_member_list.jsp'> ADMIN</a></li>");
-				}
-				%>
-				<li class="nav-item">
-					<%
-						if (id == null) {
-						out.write("<a class='auser' href='http://localhost:9000/concert/login/login.jsp'>LOGIN</a>");
-					} else {
-						out.write("<a class='auser' href='http://localhost:9000/concert/login/logout.jsp'>LOGOUT</a>");
-					}
-					%>
-				</li>
-				<li class="nav-item">
-					<a class="auser" href="http://localhost:9000/concert/join/join.jsp"> JOIN</a>
-				</li>
-			</ul>
 		</div>
 
-		<div>
-			<nav id="top_nav">
-				<ul>
-					<li>
-						<a href="http://localhost:9000/concert/concert/concert_list_calendar.jsp"> 스케쥴</a>
-					</li>
-					<li class="art">
-						<a href="http://localhost:9000/concert/artist/artist_list.jsp"> 아티스트</a>
-						<ul class="d">
-							<li>
-								<a href="#">잔나비</a>
-							</li>
-							<li>
-								<a href="#">장범준</a>
-							</li>
-							<li>
-								<a href="#">현아</a>
-							</li>
-							<li>
-								<a href="#">IU</a>
-							</li>
-							<li>
-								<a href="#">10CM</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="http://localhost:9000/concert/notice/notice_list.jsp"> 공지사항</a>
-					</li>
-					<li>
-						<a href="http://localhost:9000/concert/mypage/myprofile_info.jsp"> 마이페이지</a>
-					</li>
-				</ul>
-				<a href="#">
-					<img class="sIcon" alt="" src="http://localhost:9000/concert/images/searchIcon.png">
-				</a>
-			</nav>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<!-- Links -->
+			<ul class="navbar-nav mx-auto">
+				<li class="nav-item mx-3" id="concert">
+					<a class="nav-link text-nowrap" href="/concert/concert/concert_list_calendar.jsp">스케쥴</a>
+				</li>
+
+				<li class="nav-item dropdown mx-3" id="artist">
+					<a class="nav-link dropdown-toggle text-nowrap" href="/concert/artist/artist_list.jsp" id="navbardrop" data-toggle="dropdown"> 아티스트 </a>
+					<div class="dropdown-menu" style="top: 80%;">
+						<a class="dropdown-item" href="/concert/artist/artist_list.jsp">잔나비</a>
+						<a class="dropdown-item" href="/concert/artist/artist_list.jsp">장범준</a>
+						<a class="dropdown-item" href="/concert/artist/artist_list.jsp">현아</a>
+						<a class="dropdown-item" href="/concert/artist/artist_list.jsp">IU</a>
+						<a class="dropdown-item" href="/concert/artist/artist_list.jsp">10cm</a>
+					</div>
+				</li>
+
+				<li class="nav-item mx-3" id="notice">
+					<a class="nav-link text-nowrap" href="/concert/notice/notice_list.jsp">공지사항</a>
+				</li>
+
+				<li class="nav-item mx-3" id="mypage">
+					<a class="nav-link text-nowrap" href="/concert/mypage/myprofile_info.jsp">마이페이지</a>
+				</li>
+
+			</ul>
 		</div>
-	</div>
+		<div class="text-right" style="width: 250px;">
+			<%
+				//
+			if (id != null) {
+				out.write("<span class='font-weight-bold m-2'>" + id + "</span>");
+			}
+			if (id != null && authority.equals("1")) { // 관리자가 아니면 메인으로 이동 
+				out.write("<a class='auser m-2' href='/concert/admin/member/admin_member_list.jsp'> ADMIN</a>");
+			}
+			if (id == null) {
+				out.write("<a class='auser m-2' href='/concert/login/login.jsp'>LOGIN</a>");
+				out.write("<a class='auser m-2' href='/concert/join/join.jsp'>JOIN</a>");
+			} else {
+				out.write("<a class='auser m-2' href='/concert/login/logout.jsp'>LOGOUT</a>");
+			}
+			%>
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</nav>
 </body>
 </html>
