@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.ConcertDAO"%>
 <%@ page import="vo.ConcertVO"%>
+<%@ page import="java.io.PrintWriter"%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -25,5 +26,11 @@ boolean result = dao.edit_concert(no, vo);
 
 if (result) {
 	response.sendRedirect("admin_concert_list.jsp");
+}else{
+	PrintWriter script = response.getWriter();
+	out.println("<script>");
+	out.println("alert('콘서트 데이터 수정 오류입니다. 다시 시도해주세요');");
+	out.println("history.back()");
+	out.println("</script>");
 }
 %>

@@ -12,8 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="./css/commons.css">
-<script src="./js/commons.js"></script>
 </head>
 <body id="index">
 	<div>
@@ -75,7 +73,7 @@
 				<div class="modal-dialog modal-lg modal-fullsize">
 					<div class="modal-content">
 						<div class="modal-header">
-							아티스트 소개 제목(장범준)
+							장범준
 							<!-- &times; == X표시 -->
 							<button class="close" data-dismiss="modal">&times;</button>
 						</div>
@@ -99,7 +97,7 @@
 				<div class="modal-dialog modal-lg modal-fullsize">
 					<div class="modal-content">
 						<div class="modal-header">
-							아티스트 소개 제목(아이유)
+							아이유
 							<!-- &times; == X표시 -->
 							<button class="close" data-dismiss="modal">&times;</button>
 						</div>
@@ -122,7 +120,7 @@
 				<div class="modal-dialog modal-lg modal-fullsize">
 					<div class="modal-content">
 						<div class="modal-header">
-							아티스트 소개 제목(잔나비)
+							잔나비
 							<!-- &times; == X표시 -->
 							<button class="close" data-dismiss="modal">&times;</button>
 						</div>
@@ -145,7 +143,7 @@
 				<div class="modal-dialog modal-lg modal-fullsize">
 					<div class="modal-content">
 						<div class="modal-header">
-							아티스트 소개 제목(십센치)
+							십센치
 							<!-- &times; == X표시 -->
 							<button class="close" data-dismiss="modal">&times;</button>
 						</div>
@@ -168,7 +166,7 @@
 				<div class="modal-dialog modal-lg modal-fullsize">
 					<div class="modal-content">
 						<div class="modal-header">
-							아티스트 소개 제목(현아)
+							현아
 							<!-- &times; == X표시 -->
 							<button class="close" data-dismiss="modal">&times;</button>
 						</div>
