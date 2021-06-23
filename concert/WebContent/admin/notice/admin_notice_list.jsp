@@ -113,7 +113,7 @@
 			<div class="col-md-6 d-block mb-3">
 				<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="category_dropdown">카테고리</button>
+						<button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" id="category_dropdown">카테고리</button>
 						<div class="dropdown-menu col-md-2">
 							<div class="form-check dropdown-item">
 								<input type="checkbox" class="form-check-input" id="check_title" <% if(category % 2 != 0) { %> checked <% } %>>
@@ -127,7 +127,7 @@
 					</div>
 					<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search" value="<%= search %>">
 					<div class="input-group-append">
-						<button class="btn btn-light" type="button" id="btn_search">검색</button>
+						<button class="btn btn-primary" type="button" id="btn_search">검색</button>
 					</div>
 				</div>
 			</div>
