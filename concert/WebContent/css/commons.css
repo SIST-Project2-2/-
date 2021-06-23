@@ -1,5 +1,67 @@
 @charset "UTF-8";
 
+/* 회원가입 */
+.join div.joinID {
+	width: 30%;
+	margin: auto;
+	margin-top: 10%;
+}
+
+.join div.joinID>h1 {
+	text-align: center;
+}
+
+.join div.joinID>progress {
+	width: 80%;
+	height: 20px;
+	margin-left: 30px;
+}
+
+.join div.joinID>div {
+	font-size: 14px;
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+.join div.joinID input {
+	width: 94%;
+	height: 30px;
+}
+
+.join div.joinID button {
+	display: inline-block;
+	text-align: center;
+	background-color: black;
+	border: 1px solid black;
+	color: white;
+	text-align: bold;
+	width: 97%;
+	height: 40px;
+	margin-top: 30px;
+}
+
+.join div.joinID input[type="password"] {
+	margin-top: 20px;
+}
+
+.join div.joinID div input[type="text"] {
+	margin-top: 20px;;
+}
+
+.join div.joinID div.hp input {
+	display: inline;
+	width: 20%;
+}
+
+.join div.joinID div {
+	text-align: center;
+}
+
+.join input[type="radio"] {
+	float: left;
+	border: 1px solid red;
+}
+
 /* 사용자 - 콘서트 예매 */
 .concert_reservation .seat {
 	width: 35px;
