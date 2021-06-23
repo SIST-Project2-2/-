@@ -1,3 +1,26 @@
+/*관리자 - 아티스트 등록: 글쓰기 폼체크*/
+function artistFormCheck() {
+	var name = document.getElementById("artist_name");
+
+	if (name.value == "") {
+		alert("이름을 입력해주세요");
+		name.focus();
+		return false;
+	} else {
+		admin_artist_add.submit();
+	}
+}
+function fileUpload(fis) {
+	var str = fis.value;
+	$('#span').text(fis.value.substring(str.lastIndexOf("\\") + 1));
+	// 이미지를 변경한다.
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		$('#loadImg').attr('src', e.target.result);
+	}
+	reader.readAsDataURL(fis.files[0]);
+}
+
 /*메인 페이지 섬 클릭 */
 function clickFunction(name) {
 	if (name == 'jang') {
