@@ -39,8 +39,8 @@ if (id != null) {
 <!-- import -->
 <jsp:include page="/import.jsp"></jsp:include>
 </head>
-<body id="header">
-	<nav class="navbar navbar-expand-sm navbar-light text-dark sticky-top" style="background: tomato; font-family: 'Jua', sans-serif;">
+<body>
+	<nav id="header" class="navbar navbar-expand-sm navbar-light text-dark sticky-top" style="background: tomato; font-family: 'Jua', sans-serif;">
 		<!-- Brand -->
 		<div style="width: 250px;">
 			<a class="navbar-brand mr-auto" href="/concert/index.jsp">
