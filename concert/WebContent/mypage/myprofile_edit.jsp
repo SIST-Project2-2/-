@@ -64,6 +64,21 @@ if (id != null) {
 			personal_code.innerHTML = text;
 		}
 	});
+	function goPopup() {
+		// 주소검색을 수행할 팝업 페이지를 호출
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출
+		var pop = window.open("/concert/join/jusoPopup.jsp", "pop", "width=570,height=420, scrollbars=yes, resizable=yes");
+	}
+
+	function jusoCallBack(roadAddrPart1, addrDetail) {
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록
+
+		let addr = document.querySelector("#address");
+
+		//주소,상새주소 input칸에 주소검색API에서 찾은 데이터 value 값 넣기
+		addr.value = roadAddrPart1;
+		addr.value += ", " + addrDetail;
+	}
 </script>
 <script src="/concert/js/bs-custom-file-input.min.js"></script>
 </head>
@@ -111,13 +126,16 @@ if (id != null) {
 								</div>
 								<div class="col-md-6">
 									<small>주소/Address</small>
-									<input type="text" class="form-control" value="<%=member.getAddress()%>" placeholder="주소/Address" name="address" id="address" required="required">
+									<input type="text" class="form-control" value="<%=member.getAddress()%>" placeholder="주소/Address" name="address" id="address" required="required" readonly="readonly">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<small>이름/Given name</small>
 									<input type="text" class="form-control" value="<%=member.getFirst_name()%>" placeholder="이름/Given name" name="name" id="given_name" required="required">
+								</div>
+								<div class="col-md-6 text-center">
+									<button class="btn btn-secondary mt-4" type="button" id="btn_address" onClick="goPopup();">주소 검색</button>
 								</div>
 							</div>
 							<div class="row">
