@@ -76,11 +76,13 @@
 		function set_category() {
 			var artist = $("#chkbox_artist");
 			var title = $("#chkbox_title");
+			var content = $("#chkbox_content");
 			var search_text = $("#notice_list_search");
 			<% 
 			if(searchCategories == null){%> // 검색을 하지 않았으면 둘 다 설정
 				artist.attr("checked", "checked");
-				title.attr("checked", "checked");<%
+				title.attr("checked", "checked");
+				content.attr("checked", "checked");<%
 			}else{%>
 				search_text.val("<%=searchTarget%>");<%
 				for(String str: searchCategories){
@@ -150,6 +152,10 @@
 								<div class="form-check dropdown-item">
 									<input class="form-check-input" type="checkbox" value="title" name="category" id="chkbox_title">
 									<label class="form-check-label" for="chkbox_title"> 콘서트 명 </label>
+								</div>
+								<div class="form-check dropdown-item">
+									<input class="form-check-input" type="checkbox" value="content" name="category" id="chkbox_content">
+									<label class="form-check-label" for="chkbox_content"> 콘서트 내용 </label>
 								</div>
 								<div class="form-check dropdown-item">
 									<input class="form-check-input" type="checkbox" value="artist" name="category" id="chkbox_artist">
