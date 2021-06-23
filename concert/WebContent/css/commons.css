@@ -570,7 +570,7 @@ body#index {
 
 #index #jang_island {
 	position: absolute;
-	top: 510px;
+	top: 400px;
 	left: 100px;
 	background-color: transparent !important;
 	border: none;
@@ -580,7 +580,7 @@ body#index {
 
 #index #iu_island {
 	position: absolute;
-	top: 520px;
+	top: 410px;
 	left: 1200px;
 	background-color: transparent !important;
 	border: none;
@@ -589,7 +589,7 @@ body#index {
 
 #index #jan_island {
 	position: absolute;
-	top: 620px;
+	top: 520px;
 	left: 600px;
 	background-color: transparent !important;
 	border: none;
@@ -598,7 +598,7 @@ body#index {
 
 #index #cm_island {
 	position: absolute;
-	top: 630px;
+	top: 540px;
 	left: 1700px;
 	background-color: transparent !important;
 	border: none;
@@ -607,7 +607,7 @@ body#index {
 
 #index #hyun_island {
 	position: absolute;
-	top: 610px;
+	top: 500px;
 	left: 920px;
 	background-color: transparent !important;
 	border: none;
@@ -626,3 +626,12 @@ body#index {
 #header.navbar .nav-item:hover .dropdown-menu {
 	display: block;
 }
+
+
+
+.modal-body {
+    max-height: calc(100vh - 500px);
+    min-height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+

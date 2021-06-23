@@ -187,7 +187,7 @@ int artistNumber = list.size();
 						&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: red;">신고 수: <%=vo.getReport()%></span> <span style="color: green;">추천 수: <%=vo.getRecommend()%></span> <span style="color: gray;"><%=vo.getDate()%></span>
+						<span style="color: green;">추천 수: <%=vo.getRecommend()%></span> <span style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>
 			</div>
