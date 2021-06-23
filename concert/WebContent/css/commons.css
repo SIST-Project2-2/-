@@ -1,4 +1,75 @@
 @charset "UTF-8";
+/* 관리자 - 아티스트 수정 */
+.admin_artist_update div#profile_picture img {
+	width: 200px;
+}
+
+.admin_artist_update div.body {
+	width: 90%;
+	height: 1000px;
+	border: 1px solid black;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: auto;
+}
+
+.admin_artist_update span#button {
+	float: right;
+}
+
+.admin_artist_update div#pofile_picture {
+	border: 3px solid black;
+	width: 20%;
+	height: 350px;
+	display: inline-block;
+	margin: 30px 30px 0 0;
+	padding: 0;
+	color: lightgray;
+	text-align: center;
+	padding-top: 160px;
+}
+
+.admin_artist_update textarea#content_text {
+	vertical-align: top;
+	width: 75%;
+	height: 350px;
+	display: inline-block;
+	margin: 30px 0 10px 0;
+	padding: 0;
+}
+
+.admin_artist_update div#content {
+	margin-top: 20px;
+	border: 1px solid black;
+	padding: 0 0 30px 30px;
+}
+
+.admin_artist_update div.top {
+	margin-top: 10px;
+	margin-bottom: 100px;
+}
+
+.admin_artist_update label#add {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.admin_artist_update #artist_name {
+	border: 1px solid lightgray;
+	color: white;
+	width: 15%;
+}
+
+.admin_artist_update .artist_name {
+	width: 15%;
+	border: 1px solid lightgray;
+	color: white;
+	font-weight: bold;
+	background-color: lightgray;
+	text-align: center;
+	font-size: 20px;
+}
+
 /* 관리자 - 헤더 */
 #admin_header .navbar .nav-item:hover .dropdown-menu {
 	display: block;

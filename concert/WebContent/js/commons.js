@@ -1,3 +1,38 @@
+/*관리자 - 아티스트 수정*/
+function artistUpdateFormCheck() {
+	var name = document.getElementById("artist_name");
+	var content = document.getElementById("content_text");
+
+	if (name.value == "") {
+		alert("이름을 입력해주세요");
+		name.focus();
+		return false;
+	} else if (content.value == "") {
+		alert("내용을 입력해주세요");
+		name.focus();
+		return false;
+	} else if (img.value == "") {
+		alert("이름을 입력해주세요");
+		name.focus();
+		return false;
+	} else if (simg.value == "") {
+		alert("이름을 입력해주세요");
+		name.focus();
+		return false;
+	} else {
+		admin_artist_edit.submit();
+	}
+
+	$(document).ready(function() {
+		$("input[type='file']").on("change", function() {
+			if (window.FileReader) {
+				var filename = $(this)[0].files[0].name;
+				$("#fname").text("").text(filename);
+			}
+		});
+	});
+}
+
 /*관리자 - 댓글 관리*/
 $(document).ready(function() {
 	// 검색 카테고리 클릭시 카테고리 바뀜
