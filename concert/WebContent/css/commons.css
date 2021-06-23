@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+/* 사용자 - 콘서트 예매 */
+.concert_reservation .seat {
+	width: 35px;
+	height: 35px;
+}
+
+.concert_reservation .btn {
+	padding: 0;
+}
+
 /* 사용자 - 아티스트 목록 */
 .artist_list div#carouselSlider {
 	background-color: white;
