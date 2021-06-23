@@ -77,7 +77,6 @@ if (request.getParameter("no") == null) { // 입력받은 주문 번호가 없�
 						<!-- 총 가격 = 좌석 가격 * 좌석 갯수 -->
 						<h3 class="mr-5">&#8361;<%=vo.getPrice() * vo.getSeats().size()%></h3>
 					</div>
-					<div>바코드 영역~</div>
 				</div>
 			</div>
 		</div>
