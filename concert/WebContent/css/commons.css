@@ -1,6 +1,26 @@
 @charset "UTF-8";
+/* 사용자 - 예매내역 */
+.myticketlist .d1, .myticketlist  .d2 {
+	height: 300px;
+	border: 1px solid lightgray;
+	border-radius: 15px;
+}
 
-/* 회원가입 */
+.myticketlist .d1 {
+	border-right-style: dashed;
+}
+
+.myticketlist .d2 {
+	border-left-style: dashed;
+}
+
+.myticketlist .top {
+	height: 50px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+/*사용자 - 회원가입 */
 .join div.joinID {
 	width: 30%;
 	margin: auto;
