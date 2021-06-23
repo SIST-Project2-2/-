@@ -1,4 +1,9 @@
 @charset "UTF-8";
+/* 관리자 - 헤더 */
+#admin_header .navbar .nav-item:hover .dropdown-menu {
+	display: block;
+}
+
 /* 관리자 - 아티스트 목록 */
 .admin_artist_list {
 	margin-top: 20px;
