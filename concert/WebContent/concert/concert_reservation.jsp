@@ -14,10 +14,8 @@ ConcertVO concertVO = concertDAO.getConcertInfo(concert_no);
 String id = (String) session.getAttribute("id");
 MemberDAO dao = new MemberDAO();
 
-
 int result = dao.emailCheck(id);
 if(result!=0){ 
-
 %>
 <!-- header -->
 <jsp:include page="../header.jsp"></jsp:include>
@@ -26,23 +24,9 @@ if(result!=0){
 <head>
 <meta charset="UTF-8">
 <title>콘서트 예매</title>
-<style type="text/css">
-.seat {
-	width: 35px;
-	height: 35px;
-}
-
-.btn {
-	padding: 0;
-}
-</style>
 <script type="text/javascript">
-	var concertNo =
-<%=concert_no%>
-	;
-	var price =
-<%=concertVO.getPrice()%>
-	;
+	var concertNo = <%=concert_no%>;
+	var price = <%=concertVO.getPrice()%>;
 
 	$(document).ready(function() {
 		
@@ -134,7 +118,7 @@ if(result!=0){
 	}
 </script>
 </head>
-<body>
+<body class="concert_reservation">
 	<div class="container">
 		<h1 class="font-weight-bold text-left m-3">좌석 선택</h1>
 		<form name="form" action="concert_reservation_action.jsp" method="get">
@@ -186,17 +170,13 @@ if(result!=0){
 	</div>
 </body>
 </html>
-
-
  <%
-	
 } else {
-	PrintWriter script = response.getWriter();
-	script.println("<script>");
-	script.println("alert('이메일 인증한 회원만 사용 가능한 페이지 입니다.');");
-	script.println("location.href = '../index.jsp'");
-	script.println("</script>");
-	script.close();
+	out.println("<script>");
+	out.println("alert('이메일 인증한 회원만 사용 가능한 페이지 입니다.');");
+	out.println("location.href = '../index.jsp'");
+	out.println("</script>");
+	out.close();
 	return;
 }
 %> 

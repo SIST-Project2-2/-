@@ -52,7 +52,7 @@ if (id != null) {
 			<!-- Links -->
 			<ul class="navbar-nav mx-auto">
 				<li class="nav-item mx-3" id="concert">
-					<a class="nav-link text-nowrap" href="/concert/concert/concert_list_calendar.jsp">스케쥴</a>
+					<a class="nav-link text-nowrap" href="/concert/concert/concert_list_date.jsp">스케쥴</a>
 				</li>
 
 				<li class="nav-item dropdown mx-3" id="artist">

@@ -1,10 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.CommentDAO,vo.CommentVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="dao.ArtistDAO, vo.ArtistVO, java.util.*"%>
-
-
 <%
 	CommentDAO dao = new CommentDAO();
 String id = (String) session.getAttribute("id");
@@ -31,27 +28,17 @@ ArrayList<ArtistVO> list = artistDAO.getList();
 
 //관리자가 등록한 아티스트 수 
 int artistNumber = list.size();
-
-
-
-
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="artist_list.css" type="text/css">
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
-	rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>아티스트 목록</title>
-
-
 </head>
 
-<body>
+<body class="artist_list">
 	<!-- header -->
 	<jsp:include page="../header.jsp"></jsp:include>
 
@@ -73,8 +60,7 @@ int artistNumber = list.size();
 			<div class="carousel-item active">
 				<div class="carousel-caption">
 					<div class="article">
-						<img src="../images/콘서트소개.jpg" class="h-20"
-							style="width: 100%; height: 50%">
+						<img src="../images/콘서트소개.jpg" class="h-20" style="width: 100%; height: 50%">
 
 						<hr>
 						<div class="third">
@@ -83,22 +69,18 @@ int artistNumber = list.size();
 							<div class="ui-bg-cover ui-bg-overlay-container text-black">
 								<div class="ui-bg-overlay bg-white opacity-50"></div>
 								<div class="container">
-									<div
-										class="d-flex justify-content-between align-items-center pt-4">
-									</div>
+									<div class="d-flex justify-content-between align-items-center pt-4"></div>
 								</div>
 
 								<div class="container" id="artistContainer">
 									<div class="text-center py-5">
 
-										<img src="../images/관리자이미지.png" alt=""
-											class="ui-w-100 rounded-circle">
+										<img src="../images/관리자이미지.png" alt="" class="ui-w-100 rounded-circle">
 
 										<div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
 											<h2 class="font-weight-bold my-4">콘서트 커뮤니티 공간</h2>
 
-											<div class="opacity-75 mb-4" id="artistText">콘서트 커뮤니티
-												공간입니다. 아티스트들의 노래와 프로필을 보며 자유롭게 댓글활동을 할 수 있는 공간입니다.</div>
+											<div class="opacity-75 mb-4" id="artistText">콘서트 커뮤니티 공간입니다. 아티스트들의 노래와 프로필을 보며 자유롭게 댓글활동을 할 수 있는 공간입니다.</div>
 										</div>
 
 									</div>
@@ -124,22 +106,16 @@ int artistNumber = list.size();
 
 						<div class="third">
 							<hr>
-							<div class="ui-bg-cover ui-bg-overlay-container text-black"
-								id="artistPage">
+							<div class="ui-bg-cover ui-bg-overlay-container text-black" id="artistPage">
 								<div class="ui-bg-overlay bg-white opacity-50"></div>
 								<div class="container">
-									<div
-										class="d-flex justify-content-between align-items-center pt-4">
-
-
-									</div>
+									<div class="d-flex justify-content-between align-items-center pt-4"></div>
 								</div>
 
 								<div class="container" id="artistContainer">
 									<div class="text-center py-5">
 
-										<img src="../images/<%=vo.getSimg()%>" alt=""
-											class="ui-w-100 rounded-circle">
+										<img src="../images/<%=vo.getSimg()%>" alt="" class="ui-w-100 rounded-circle">
 
 										<div class="col-md-11 col-lg-6 col-xl-12 p-0 mx-auto">
 											<h2 class="font-weight-bold my-4"><%=vo.getName()%></h2>
@@ -161,20 +137,18 @@ int artistNumber = list.size();
 
 		</div>
 		<!--캐러셀 prev/ next 버튼 -->
-		<a class="carousel-control-prev" href="#carouselSlider" role="button"
-			data-slide="prev"> <span class="carousel-control-prev-icon"></span>
-			<span class="pageControl">Previous</span>
-		</a> <a class="carousel-control-next " href="#carouselSlider"
-			role="button" data-slide="next"> <span
-			class="carousel-control-next-icon"></span> <span class="pageControl">Next</span>
+		<a class="carousel-control-prev" href="#carouselSlider" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon"></span> <span class="pageControl">Previous</span>
+		</a>
+		<a class="carousel-control-next " href="#carouselSlider" role="button" data-slide="next">
+			<span class="carousel-control-next-icon"></span> <span class="pageControl">Next</span>
 		</a>
 	</div>
 
 	<!--댓글-->
 
 	<div class="comment">
-		<form method="get" action="./sendReplyAction.jsp?id=<%=id%>"
-			class="form-inline mt-3" style="margin-top: 0px;">
+		<form method="get" action="./sendReplyAction.jsp?id=<%=id%>" class="form-inline mt-3" style="margin-top: 0px;">
 			<input type="hidden" name="id" value=<%=id%>>
 			<section class="container">
 				<select name="artistDivide" class="form-control mx-1 mt-2">
@@ -187,16 +161,12 @@ int artistNumber = list.size();
 				<%
 					if (id != null) {
 				%>
-				<input type="text" name="content" maxlength="20"
-					class="form-control mx-4 mt-2 w-50"
-					placeholder="댓글 내용을 입력해주세요(20글자 이내)">
+				<input type="text" name="content" maxlength="20" class="form-control mx-4 mt-2 w-50" placeholder="댓글 내용을 입력해주세요(20글자 이내)">
 				<button type="submit" class="btn btn-primary">등록</button>
 				<%
 					} else {
 				%>
-				<input type="text" name="content" maxlength="20"
-					class="form-control mx-4 mt-2 w-50"
-					placeholder="댓글을 입력하기 위해서는 로그인을 해주세요" disabled>
+				<input type="text" name="content" maxlength="20" class="form-control mx-4 mt-2 w-50" placeholder="댓글을 입력하기 위해서는 로그인을 해주세요" disabled>
 				<%
 					}
 				%>
@@ -213,11 +183,11 @@ int artistNumber = list.size();
 				<div class="row">
 					<div class="col-8 text-left">
 
-						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
+						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>
+						&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: green;">추천 수: <%=vo.getRecommend()%></span> 
-						<span style="color: gray;"><%=vo.getDate()%></span>
+						<span style="color: green;">추천 수: <%=vo.getRecommend()%></span> <span style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>
 			</div>
@@ -227,20 +197,19 @@ int artistNumber = list.size();
 					<%
 						if (id.equals(vo.getId())) {
 					%>
-					<a class="btn btn-warning" onclick="return confirm('삭제하시겠습니까?')"
-						href="deleteAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">삭제</a>
+					<a class="btn btn-warning" onclick="return confirm('삭제하시겠습니까?')" href="deleteAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">삭제</a>
 					<%
 						} else {
 					%>
-					<a class="btn btn-primary"  id="savebtn" onclick="return confirm('추천하시겠습니까?')"
-						href="recommendAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">추천 </a> <a
-						class="btn btn-danger" id="savebtn" onclick="return confirm('신고하시겠습니까?')"
-						href="reportAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">신고 </a>
-						
-					<% }%>
-					
-					
-					
+					<a class="btn btn-primary" id="savebtn" onclick="return confirm('추천하시겠습니까?')" href="recommendAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">추천 </a>
+					<a class="btn btn-danger" id="savebtn" onclick="return confirm('신고하시겠습니까?')" href="reportAction.jsp?id=<%=id%>&no=<%=vo.getNo()%>">신고 </a>
+
+					<%
+						}
+					%>
+
+
+
 				</div>
 			</div>
 		</div>
@@ -257,11 +226,11 @@ int artistNumber = list.size();
 				<div class="row">
 					<div class="col-8 text-left">
 
-						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
+						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>
+						&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: green;">추천 수 : <%=vo.getRecommend()%></span> <span
-							style="color: gray;"><%=vo.getDate()%></span>
+						<span style="color: green;">추천 수 : <%=vo.getRecommend()%></span> <span style="color: gray;"><%=vo.getDate()%></span>
 					</div>
 				</div>
 			</div>
@@ -279,7 +248,6 @@ int artistNumber = list.size();
 				<div class="row">
 					<div class="col-12 text-center">
 						<%
-						
 							for (int i = 1; i <= lastPage; i++) {
 						%>
 						<a href="artist_list.jsp?pageNumber=<%=i%>" class="pageNumber"><%=i%></a>

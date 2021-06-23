@@ -15,7 +15,7 @@ ConcertVO vo = dao.getConcertInfo(concert_no);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title><%=vo.getTitle()%></title>
 </head>
 <body>
 	<div class="container">
