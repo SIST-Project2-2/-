@@ -1,4 +1,124 @@
 @charset "UTF-8";
+
+/* 사용자 - 아티스트 목록 */
+.artist_list div#carouselSlider {
+	background-color: white;
+	height: 120rem;
+}
+
+.artist_list h2, #artistText {
+	font-family: 'Jua', sans-serif;
+}
+
+.artist_list #artistText {
+	font-size: 20px;
+	color: black;
+}
+
+.artist_list .carousel-item {
+	height: 120rem;
+	background: white;
+}
+
+.artist_list div.carousel-item {
+	text-align: center;
+}
+
+.artist_list div.article {
+	background-color: white;
+}
+
+.artist_list #cm {
+	width: 40%;
+}
+
+.artist_list section.container {
+	background-color: bisque;
+}
+
+.artist_list div.comment {
+	background-color: white;
+}
+
+.artist_list div.article {
+	height: 1800px;
+}
+
+.artist_list .pageControl {
+	color: black;
+	font-weight: bold;
+}
+
+.artist_list .text-white {
+	color: white !important;
+}
+
+.artist_list .ui-bg-overlay-container, .ui-bg-video-container {
+	position: relative;
+}
+
+.artist_list .ui-bg-cover {
+	background-color: white;
+	background-position: center center;
+	background-size: cover;
+	height: 800px;
+}
+
+.artist_list .ui-bg-overlay-container .ui-bg-overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+}
+
+.artist_list .bg-dark {
+	background-color: black !important;
+}
+
+.artist_list .opacity-50 {
+	opacity: .5 !important;
+}
+
+.artist_list .bg-dark {
+	background-color: black !important;
+}
+
+.artist_list .ui-bg-overlay-container>*, .ui-bg-video-container>* {
+	position: relative;
+}
+
+@media ( min-width : 992px) {
+	.artist_list .container, .container-fluid {
+		padding-right: 2rem;
+		padding-left: 2rem;
+	}
+}
+
+.artist_list .ui-w-100 {
+	width: 100px !important;
+	height: auto;
+}
+
+.artist_list .font-weight-bold {
+	font-weight: 700 !important;
+}
+
+.artist_list .opacity-75 {
+	opacity: .75 !important;
+}
+
+.artist_list .pageNumber {
+	border: 1px solid lightgray;
+	padding: 3px;
+	padding: 3px 6px;
+}
+
+.artist_list div #artistContainer {
+	border: 3px solid black;
+	padding: 50px 150px;
+}
 /* 관리자 - 공지 등록 */
 .admin_notice_add #content { /* 적용한 태그를 textarea처럼 바꿔줌 */
 	-moz-appearance: textfield-multiline;
