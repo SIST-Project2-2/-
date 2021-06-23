@@ -216,7 +216,6 @@ int artistNumber = list.size();
 						<small style="border-right: 5px solid black;"><%=vo.getArtist()%></small>&nbsp;<%=vo.getId()%>
 					</div>
 					<div class="col-4 text-right">
-						<span style="color: red;">신고 수: <%=vo.getReport()%></span> 
 						<span style="color: green;">추천 수: <%=vo.getRecommend()%></span> 
 						<span style="color: gray;"><%=vo.getDate()%></span>
 					</div>
@@ -280,6 +279,7 @@ int artistNumber = list.size();
 				<div class="row">
 					<div class="col-12 text-center">
 						<%
+						
 							for (int i = 1; i <= lastPage; i++) {
 						%>
 						<a href="artist_list.jsp?pageNumber=<%=i%>" class="pageNumber"><%=i%></a>
