@@ -10,7 +10,7 @@
 	String id = (String)session.getAttribute("id");
 	MemberDAO mdao = new MemberDAO();
 	
-	if(mdao.getAuthority(id) != 0) { // 관리자 권한이 없을 경우 에러 페이지 이동
+	if(mdao.getAuthority(id) != 1) { // 관리자 권한이 없을 경우 에러 페이지 이동
 		script.println(Commons.getErrorRedirect());
 		return;
 	}

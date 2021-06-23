@@ -46,7 +46,6 @@ dao.close();
 						<h1 class="text-white"><%=info.getArtist()%></h1>
 					</div>
 					<div class="row text-left">
-						<div class="col-md-2 bg-light">대충 바코드 영역~</div>
 						<div class="col-md-10 container p-3">
 							<div class="row pb-3">
 								<div class="col-md-4">

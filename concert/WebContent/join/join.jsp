@@ -231,13 +231,8 @@
 		});
 	});
 </script>
-
-
-
-
-<link rel="stylesheet" href="join.css">
 </head>
-<body>
+<body class="join">
 	<jsp:include page="../header.jsp"></jsp:include>
 
 	<form name="joinForm" action="userJoinAction.jsp" method="POST" enctype="multipart/form-data">
