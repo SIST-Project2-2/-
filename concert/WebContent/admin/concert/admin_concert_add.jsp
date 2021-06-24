@@ -1,4 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.ArtistDAO, vo.ArtistVO, java.util.*"%>
+<%
+	//
+request.setCharacterEncoding("utf-8");
+ArtistDAO dao = new ArtistDAO();
+ArrayList<ArtistVO> list = dao.getList();
+//String name = request.getParameter("name");
+%>
 <!-- header -->
 <jsp:include page="../admin_header.jsp"></jsp:include>
 <!DOCTYPE html>
@@ -26,11 +34,13 @@
 					<br>
 					<select class="custom-select" name="artist" id="artist" required="required">
 						<option selected="selected">가수 선택</option>
-						<option value="장범준">장범준</option>
-						<option value="잔나비">잔나비</option>
-						<option value="현아">현아</option>
-						<option value="아이유">아이유</option>
-						<option value="10cm">10cm</option>
+							<%
+							for (ArtistVO vo : list) {
+							%>
+						<option value="<%=vo.getName() %>"><%=vo.getName() %></option>
+							<%
+							}
+						%>
 					</select>
 				</div>
 				<div class="col-md-3">
