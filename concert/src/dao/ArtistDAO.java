@@ -131,20 +131,16 @@ public class ArtistDAO extends DAO {
 	}
 
 	public boolean getUpdateResultNofile(ArtistVO vo) {
-		System.out.println("dao 들어옴");
 		System.out.println(vo.getContent());
 		System.out.println(vo.getName());
 		boolean result = false;
 		try {
-			System.out.println(222);
 			String sql = " update artists set content = ? where name = ? ";
 			getPreparedStatement(sql);
-			System.out.println(333);
 
 			pstmt.setString(1, vo.getContent());
 			pstmt.setString(2, vo.getName());
 
-			System.out.println(444);
 			int val = pstmt.executeUpdate();
 			System.out.println("val:" + val);
 			if (val == 1) {
