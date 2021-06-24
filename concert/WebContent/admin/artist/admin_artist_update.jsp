@@ -43,7 +43,7 @@ $(document).ready(function() {
 				<span id="button">
 					<button type="button" class="btn btn-secondary" id="btn_set_temp">임시저장</button>
 					<button type="button" class="btn btn-secondary" id="btn_get_temp">불러오기</button>
-					<button type="submit" class="btn btn-secondary" id="btn_update">등록하기</button>
+					<button type="button" class="btn btn-secondary" id="btn_update" onclick="artistUpdateFormCheck()">등록하기</button>
 				</span>
 			</div>
 			<div>
