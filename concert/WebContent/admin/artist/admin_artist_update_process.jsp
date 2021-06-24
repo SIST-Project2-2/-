@@ -4,6 +4,7 @@
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="dao.ArtistDAO, vo.ArtistVO, java.util.*"%>
+<%@ page import="java.io.PrintWriter"%>
 <%
 	//파일이 저장될 서버의 경로. 되도록이면 getRealPath를 이용하자.
 	String savePath = request.getServletContext().getRealPath("/images");
@@ -69,5 +70,10 @@
 	
 	if (result) {
 		response.sendRedirect("admin_artist_list.jsp");
+	}else{
+		out.println("<script>");
+		out.println("alert('아티스트 정보를 정확히 입력해주세요');");
+		out.println("history.back()");
+		out.println("</script>");
 	}
 %>
