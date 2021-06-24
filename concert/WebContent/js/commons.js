@@ -1,28 +1,16 @@
 /*관리자 - 아티스트 수정*/
 function artistUpdateFormCheck() {
-	var name = document.getElementById("artist_name");
 	var content = document.getElementById("content_text");
 
-	if (name.value == "") {
-		alert("이름을 입력해주세요");
-		name.focus();
-		return false;
-	} else if (content.value == "") {
+	if (content.value == "") {
 		alert("내용을 입력해주세요");
 		name.focus();
 		return false;
-	} else if (img.value == "") {
-		alert("이름을 입력해주세요");
-		name.focus();
-		return false;
-	} else if (simg.value == "") {
-		alert("이름을 입력해주세요");
-		name.focus();
-		return false;
 	} else {
-		admin_artist_edit.submit();
+		admin_artist_update_form.submit();
 	}
 
+/**
 	$(document).ready(function() {
 		$("input[type='file']").on("change", function() {
 			if (window.FileReader) {
@@ -31,6 +19,7 @@ function artistUpdateFormCheck() {
 			}
 		});
 	});
+	 */
 }
 
 /*관리자 - 댓글 관리*/
@@ -102,10 +91,15 @@ function getUrl(url, inputs) {
 /*관리자 - 아티스트 등록: 글쓰기 폼체크*/
 function artistFormCheck() {
 	var name = document.getElementById("artist_name");
+	var content = document.getElementById("content_text");
 
 	if (name.value == "") {
 		alert("이름을 입력해주세요");
 		name.focus();
+		return false;
+	}else if(content.value == "") {
+		alert("내용을 입력해주세요");
+		content.focus();
 		return false;
 	} else {
 		admin_artist_add.submit();
