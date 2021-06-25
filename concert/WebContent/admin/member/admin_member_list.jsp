@@ -164,7 +164,7 @@ div#member_delete {
 						</div>
 						<input type="text" class="form-control" placeholder="검색..." name="search" id="notice_list_search">
 						<div class="input-group-append">
-							<button type="button" class="btn btn-primary" id="notice_list_search_button">검색</button>
+							<button type="submit" class="btn btn-primary" id="notice_list_search_button">검색</button>
 						</div>
 					</div>
 				</div>
