@@ -1,0 +1,637 @@
+@charset "UTF-8";
+/* 사용자 - 예매내역 */
+.myticketlist .d1, .myticketlist  .d2 {
+	height: 300px;
+	border: 1px solid lightgray;
+	border-radius: 15px;
+}
+
+.myticketlist .d1 {
+	border-right-style: dashed;
+}
+
+.myticketlist .d2 {
+	border-left-style: dashed;
+}
+
+.myticketlist .top {
+	height: 50px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+/*사용자 - 회원가입 */
+.join div.joinID {
+	width: 30%;
+	margin: auto;
+	margin-top: 10%;
+}
+
+.join div.joinID>h1 {
+	text-align: center;
+}
+
+.join div.joinID>progress {
+	width: 80%;
+	height: 20px;
+	margin-left: 30px;
+}
+
+.join div.joinID>div {
+	font-size: 14px;
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+.join div.joinID input {
+	width: 94%;
+	height: 30px;
+}
+
+.join div.joinID button {
+	display: inline-block;
+	text-align: center;
+	background-color: black;
+	border: 1px solid black;
+	color: white;
+	text-align: bold;
+	width: 97%;
+	height: 40px;
+	margin-top: 30px;
+}
+
+.join div.joinID input[type="password"] {
+	margin-top: 20px;
+}
+
+.join div.joinID div input[type="text"] {
+	margin-top: 20px;;
+}
+
+.join div.joinID div.hp input {
+	display: inline;
+	width: 20%;
+}
+
+.join div.joinID div {
+	text-align: center;
+}
+
+.join input[type="radio"] {
+	float: left;
+	border: 1px solid red;
+}
+
+/* 사용자 - 콘서트 예매 */
+.concert_reservation .seat {
+	width: 35px;
+	height: 35px;
+}
+
+.concert_reservation .btn {
+	padding: 0;
+}
+
+/* 사용자 - 아티스트 목록 */
+.artist_list div#carouselSlider {
+	background-color: white;
+	height: 120rem;
+}
+
+.artist_list h2, #artistText {
+	font-family: 'Jua', sans-serif;
+}
+
+.artist_list #artistText {
+	font-size: 20px;
+	color: black;
+}
+
+.artist_list .carousel-item {
+	height: 120rem;
+	background: white;
+}
+
+.artist_list div.carousel-item {
+	text-align: center;
+}
+
+.artist_list div.article {
+	background-color: white;
+}
+
+.artist_list #cm {
+	width: 40%;
+}
+
+.artist_list section.container {
+	background-color: bisque;
+}
+
+.artist_list div.comment {
+	background-color: white;
+}
+
+.artist_list div.article {
+	height: 1800px;
+}
+
+.artist_list .pageControl {
+	color: black;
+	font-weight: bold;
+}
+
+.artist_list .text-white {
+	color: white !important;
+}
+
+.artist_list .ui-bg-overlay-container, .ui-bg-video-container {
+	position: relative;
+}
+
+.artist_list .ui-bg-cover {
+	background-color: white;
+	background-position: center center;
+	background-size: cover;
+	height: 800px;
+}
+
+.artist_list .ui-bg-overlay-container .ui-bg-overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+}
+
+.artist_list .bg-dark {
+	background-color: black !important;
+}
+
+.artist_list .opacity-50 {
+	opacity: .5 !important;
+}
+
+.artist_list .bg-dark {
+	background-color: black !important;
+}
+
+.artist_list .ui-bg-overlay-container>*, .ui-bg-video-container>* {
+	position: relative;
+}
+
+@media ( min-width : 992px) {
+	.artist_list .container, .container-fluid {
+		padding-right: 2rem;
+		padding-left: 2rem;
+	}
+}
+
+.artist_list .ui-w-100 {
+	width: 100px !important;
+	height: auto;
+}
+
+.artist_list .font-weight-bold {
+	font-weight: 700 !important;
+}
+
+.artist_list .opacity-75 {
+	opacity: .75 !important;
+}
+
+.artist_list .pageNumber {
+	border: 1px solid lightgray;
+	padding: 3px;
+	padding: 3px 6px;
+}
+
+.artist_list div #artistContainer {
+	border: 3px solid black;
+	padding: 50px 150px;
+}
+/* 관리자 - 공지 등록 */
+.admin_notice_add #content { /* 적용한 태그를 textarea처럼 바꿔줌 */
+	-moz-appearance: textfield-multiline;
+	-webkit-appearance: textarea;
+	font: medium -moz-fixed;
+	font: -webkit-small-control;
+	overflow: auto;
+	padding: 2px;
+	resize: both;
+	outline: none;
+}
+
+/* 관리자 - 아티스트 수정 */
+.admin_artist_update div#profile_picture img {
+	width: 200px;
+}
+
+.admin_artist_update div.body {
+	width: 90%;
+	height: 1000px;
+	border: 1px solid black;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: auto;
+}
+
+.admin_artist_update span#button {
+	float: right;
+}
+
+.admin_artist_update div#pofile_picture {
+	border: 3px solid black;
+	width: 20%;
+	height: 350px;
+	display: inline-block;
+	margin: 30px 30px 0 0;
+	padding: 0;
+	color: lightgray;
+	text-align: center;
+	padding-top: 160px;
+}
+
+.admin_artist_update textarea#content_text {
+	vertical-align: top;
+	width: 75%;
+	height: 350px;
+	display: inline-block;
+	margin: 30px 0 10px 0;
+	padding: 0;
+}
+
+.admin_artist_update div#content {
+	margin-top: 20px;
+	border: 1px solid black;
+	padding: 0 0 30px 30px;
+}
+
+.admin_artist_update div.top {
+	margin-top: 10px;
+	margin-bottom: 100px;
+}
+
+.admin_artist_update label#add {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.admin_artist_update #artist_name {
+	border: 1px solid lightgray;
+	color: white;
+	width: 15%;
+}
+
+.admin_artist_update .artist_name {
+	width: 15%;
+	border: 1px solid lightgray;
+	color: white;
+	font-weight: bold;
+	background-color: lightgray;
+	text-align: center;
+	font-size: 20px;
+}
+
+/* 관리자 - 헤더 */
+#admin_header .navbar .nav-item:hover .dropdown-menu {
+	display: block;
+}
+
+/* 관리자 - 아티스트 목록 */
+.admin_artist_list {
+	margin-top: 20px;
+}
+
+.admin_artist_list .post-list {
+	position: relative;
+	padding: 5px 0;
+}
+
+.admin_artist_list .post-list .picture {
+	max-width: 400px;
+	overflow: hidden;
+	height: auto;
+	border-radius: 6px;
+}
+
+.admin_artist_list .post-list .label {
+	font-weight: normal;
+}
+
+.admin_artist_list .post-list .picture {
+	max-width: 210px;
+}
+
+.admin_artist_list .post-list .picture img {
+	width: 100%;
+}
+
+.admin_artist_list .post-list h4 {
+	font-size: 20px;
+}
+
+.admin_artist_list .post-list h5 {
+	color: #888;
+}
+
+.admin_artist_list .post-list p {
+	float: left;
+}
+
+.admin_artist_list .post-list:after {
+	height: 1px;
+	width: 83%;
+	bottom: 0;
+	right: 0;
+	content: "";
+	display: block;
+	position: absolute;
+}
+
+.admin_artist_list .btn {
+	margin-top: 65px;
+}
+
+/* 관리자 - 댓글 관리 */
+.admin_artist_comment .comment_content {
+	width: 75%;
+}
+
+.admin_artist_comment .comment_button {
+	margin: 0 auto;
+}
+
+.admin_artist_comment .box {
+	display: inline-block;
+	width: 150px;
+}
+
+.admin_artist_comment table span.s1 {
+	border: 1px solid black;
+	padding: 5px;
+	margin-right: 5px;
+}
+
+.admin_artist_comment div.d2 {
+	margin-bottom: 10px;
+}
+
+/* 관리자 아티스트 등록 */
+.admin_artist_add div.body {
+	width: 90%;
+	height: 1000px;
+	border: 1px solid black;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: auto;
+}
+
+.admin_artist_add span#button {
+	float: right;
+}
+
+.admin_artist_add div#pofile_picture {
+	border: 3px solid black;
+	width: 20%;
+	height: 350px;
+	display: inline-block;
+	margin: 30px 30px 0 0;
+	padding: 0;
+	color: lightgray;
+	text-align: center;
+	padding-top: 160px;
+}
+
+.admin_artist_add textarea#content_text {
+	vertical-align: top;
+	width: 75%;
+	height: 350px;
+	display: inline-block;
+	margin: 30px 0 10px 0;
+	padding: 0;
+}
+
+.admin_artist_add div#content {
+	margin-top: 20px;
+	border: 1px solid black;
+	padding: 0 0 30px 30px;
+}
+
+.admin_artist_add div.top {
+	margin-top: 10px;
+	margin-bottom: 100px;
+}
+
+.admin_artist_add label#add {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.admin_artist_add #artist_name {
+	border: 3px solid black;
+	color: lightgray;
+	width: 15%;
+}
+
+/* 에러 페이지 */
+.page-404 a:hover {
+	text-decoration: none;
+}
+
+.page-404 .clearfix:before, .clearfix:after {
+	display: table;
+	content: ' ';
+}
+
+.page-404 .clearfix:after {
+	clear: both;
+}
+
+.page-404 {
+	background: #f0f0f0 !important;
+}
+
+.page-404 .outer {
+	position: absolute;
+	top: 0;
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.page-404 .outer .middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.page-404 .outer .middle .inner {
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.page-404 .outer .middle .inner .inner-circle {
+	height: 300px;
+	border-radius: 100%;
+	background-color: white;
+	margin-top: 40px;
+}
+
+.page-404 .outer .middle .inner .inner-circle:hover i {
+	color: pink !important;
+	background-color: #f5f5f5;
+	box-shadow: 0 0 0 15px powderblue;
+}
+
+.page-404 .outer .middle .inner .inner-circle:hover span {
+	color: powderblue;
+}
+
+.page-404 .outer .middle .inner .inner-circle i {
+	font-size: 5em;
+	line-height: 1em;
+	float: right;
+	width: 1.6em;
+	height: 1.6em;
+	margin-top: -.7em;
+	margin-right: -.5em;
+	padding: 20px;
+	-webkit-transition: all .4s;
+	transition: all .4s;
+	text-align: center;
+	color: #f5f5f5 !important;
+	border-radius: 50%;
+	background-color: powderblue;
+	box-shadow: 0 0 0 15px #f0f0f0;
+}
+
+.page-404 .outer .middle .inner .inner-circle span {
+	font-size: 7em;
+	font-weight: 700;
+	line-height: 1.2em;
+	display: block;
+	-webkit-transition: all .4s;
+	transition: all .4s;
+	text-align: center;
+	color: gray;
+	margin-left: 10px;
+}
+
+.page-404 .outer .middle .inner .inner-status {
+	font-size: 20px;
+	display: block;
+	margin-top: 20px;
+	margin-bottom: 5px;
+	text-align: center;
+	color: #39bbdb;
+}
+
+.page-404 .outer .middle .inner .inner-detail {
+	line-height: 1.4em;
+	display: block;
+	margin-bottom: 10px;
+	text-align: center;
+	color: gray;
+}
+
+.page-404 .error {
+	margin-right: 20px;
+}
+
+.page-404 .outer .inner a#btn {
+	display: block;
+}
+
+/* 메인 페이지 */
+body#index {
+	background-image: url('/concert/images/main_img2.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100vh;
+}
+
+#index .container {
+	/* 	height: 100vh; */
+	width: 100vw;
+}
+
+#index .container h1 {
+	font-family: 'Jua', sans-serif;
+	text-shadow: black 0.2em 0.2em 0.2em;
+	color: white;
+	padding-top: 100px;
+}
+
+#index div.modal {
+	font-family: 'Jua', sans-serif;
+}
+
+#index #jang_island {
+	position: absolute;
+	top: 430px;
+	left: 100px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+	background-color: transparent !important;
+}
+
+#index #iu_island {
+	position: absolute;
+	top: 430px;
+	left: 1200px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index #jan_island {
+	position: absolute;
+	top: 540px;
+	left: 600px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index #cm_island {
+	position: absolute;
+	top: 565px;
+	left: 1570px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index #hyun_island {
+	position: absolute;
+	top: 535px;
+	left: 920px;
+	background-color: transparent !important;
+	border: none;
+	background-color: transparent !important;
+}
+
+#index nav#top_nav {
+	margin-bottom: 0px;
+}
+
+#index #header_div {
+	margin-bottom: 0px !important;
+}
+
+/* 헤더 */
+#header.navbar .nav-item:hover .dropdown-menu {
+	display: block;
+}
+
+
+
+.modal-body {
+    max-height: calc(100vh - 500px);
+    min-height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+
